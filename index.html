@@ -943,12 +943,14 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 /* --------------------------------------------------------------------------
    PROCESS — the rail fills as the seven steps scroll past
    -------------------------------------------------------------------------- */
+/* The rail is a spine the reader travels: it fills as the steps go past, a
+   node rides the head of the fill, and each step lights up as it is reached. */
 .steps {
   position: relative;
   width: 100%;
-  max-width: 840px;
+  max-width: 880px;
   margin-top: 12px;
-  --rail-x: 32px;
+  --rail-x: 36px;
   --fill: 0;
 }
 .steps::before,
@@ -956,49 +958,71 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   content: '';
   position: absolute;
   left: var(--rail-x);
-  top: 34px;
-  bottom: 34px;
-  inline-size: 2px;
+  top: 40px;
+  bottom: 40px;
+  inline-size: 3px;
+  border-radius: 2px;
   transform: translateX(-50%);
 }
 .steps::before { background: var(--border); }
 .steps::after {
   bottom: auto;
   background: linear-gradient(180deg, var(--green) 0%, var(--green-ink) 100%);
-  height: calc(100% - 68px);          /* no JS: the rail simply reads complete */
+  height: calc(100% - 80px);          /* no JS: the rail simply reads complete */
 }
 .steps[data-rail="live"]::after {
-  height: calc(var(--fill) * (100% - 68px));
+  height: calc(var(--fill) * (100% - 80px));
   transition: height .15s linear;
 }
 
+/* The node only exists once the script is driving the fill — parked at the
+   bottom of a static rail it would read as a stray dot. */
+.steps-node {
+  position: absolute;
+  left: var(--rail-x);
+  top: calc(40px + var(--fill) * (100% - 80px));
+  inline-size: 13px;
+  block-size: 13px;
+  margin: -6.5px 0 0 -6.5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 6px rgba(128, 195, 74, .22);
+  opacity: 0;
+  z-index: 3;
+  transition: top .15s linear, opacity .4s var(--ease);
+}
+.steps[data-rail="live"] .steps-node { opacity: 1; }
+
 .step {
   display: flex;
-  gap: clamp(18px, 3vw, 30px);
+  gap: clamp(18px, 3vw, 28px);
   align-items: flex-start;
-  padding-block: 22px;
+  padding-block: 14px;
 }
 .step-num {
   position: relative;
   z-index: 2;
-  inline-size: 64px;
-  block-size: 64px;
+  inline-size: 72px;
+  block-size: 72px;
   border-radius: 50%;
   flex: none;
   display: grid;
   place-items: center;
-  font-size: 26px;
+  font-size: 27px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   letter-spacing: -.04em;
-  color: #fff;
-  background: var(--navy);
-  border: 4px solid var(--band-tint);
-  box-shadow: 0 4px 14px rgba(20, 40, 80, .18);
-  transition: background-color .3s var(--ease), transform .3s var(--ease);
+  color: var(--faint);
+  background: #fff;
+  border: 5px solid var(--band-tint);
+  box-shadow: inset 0 0 0 2px var(--border);
+  transition: background-color .45s var(--ease), color .45s var(--ease),
+              box-shadow .45s var(--ease), transform .3s var(--ease);
 }
 .step[data-reached="true"] .step-num {
-  background: var(--green-ink);
+  background: var(--navy);
+  color: #fff;
+  box-shadow: inset 0 0 0 2px var(--navy), 0 6px 18px rgba(20, 40, 80, .22);
   animation: step-pop .5s var(--ease);
 }
 .step:hover .step-num { transform: scale(1.05); }
@@ -1006,8 +1030,33 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 @keyframes step-pop {
   40% { transform: scale(1.12); }
 }
-.step-body { padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
-.step-body h3 { font-size: var(--step-1); }
+
+/* Flat while the step is still ahead of you, a proper card once the rail has
+   reached it — the process assembles itself as you read. */
+.step-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 24px;
+  border-radius: var(--r);
+  box-shadow: inset 0 0 0 1px var(--border-soft);
+  transition: background .55s var(--ease), box-shadow .55s var(--ease),
+              transform .4s var(--ease);
+}
+.step[data-reached="true"] .step-body {
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+}
+.step:hover .step-body { transform: translateX(5px); }
+
+.step-body h3 {
+  font-size: var(--step-1);
+  color: var(--muted);
+  transition: color .45s var(--ease);
+}
+.step[data-reached="true"] .step-body h3 { color: var(--navy); }
 .step-body p { font-size: 15px; line-height: 1.66; color: var(--muted); }
 
 /* --------------------------------------------------------------------------
@@ -1874,7 +1923,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   .signature { width: 100%; }
   .steps { --rail-x: 26px; }
   .step-num { inline-size: 52px; block-size: 52px; font-size: 20px; border-width: 3px; }
-  .step-body { padding-top: 6px; }
+  .step-body { padding: 16px 18px; }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
   .hero-trust { gap: 12px 20px; }
@@ -1892,7 +1941,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
   .mockup--weak { filter: none; }
   .is-revealed .mockup--strong { transform: none; }
-  .steps[data-rail="live"]::after { height: calc(100% - 68px); }
+  .steps[data-rail="live"]::after { height: calc(100% - 80px); }
 
   /* The blanket rule above would snap the marquee to its end frame, so stop it
      outright and hand the row over to the reader as a scrollable strip. */
@@ -1913,6 +1962,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   /* the strokes stay, they just stop being drawn */
   .hl { background-size: 100% .34em; transition: none; }
   .step[data-reached="true"] .step-num { animation: none; }
+  .step:hover .step-body { transform: none; }
+  /* the rail is static, so a node parked at its end would read as a stray dot */
+  .steps-node { display: none; }
 }
 
 @media print {
@@ -2185,7 +2237,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
       <h2 class="sec-title sec-title--wide reveal" id="process-title">How We Build Amazing, Award-Winning Websites</h2>
       <p class="lead reveal">A proven process, refined over 28 years — human-led at every step, with AI used where it makes the work faster and smarter.</p>
 
-      <ol class="steps" id="steps">
+      <div class="steps" id="steps">
+        <span class="steps-node" aria-hidden="true"></span>
+        <ol class="steps-list">
         <li class="step reveal">
           <span class="step-num" aria-hidden="true">01</span>
           <div class="step-body">
@@ -2235,7 +2289,8 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
             <p>Tested across devices, then launched — clean, fast, and ready to perform.</p>
           </div>
         </li>
-      </ol>
+        </ol>
+      </div>
 
     </div>
   </section>

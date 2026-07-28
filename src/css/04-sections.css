@@ -729,7 +729,7 @@
   .signature { width: 100%; }
   .steps { --rail-x: 26px; }
   .step-num { inline-size: 52px; block-size: 52px; font-size: 20px; border-width: 3px; }
-  .step-body { padding-top: 6px; }
+  .step-body { padding: 16px 18px; }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
   .hero-trust { gap: 12px 20px; }
@@ -747,7 +747,7 @@
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
   .mockup--weak { filter: none; }
   .is-revealed .mockup--strong { transform: none; }
-  .steps[data-rail="live"]::after { height: calc(100% - 68px); }
+  .steps[data-rail="live"]::after { height: calc(100% - 80px); }
 
   /* The blanket rule above would snap the marquee to its end frame, so stop it
      outright and hand the row over to the reader as a scrollable strip. */
@@ -768,6 +768,9 @@
   /* the strokes stay, they just stop being drawn */
   .hl { background-size: 100% .34em; transition: none; }
   .step[data-reached="true"] .step-num { animation: none; }
+  .step:hover .step-body { transform: none; }
+  /* the rail is static, so a node parked at its end would read as a stray dot */
+  .steps-node { display: none; }
 }
 
 @media print {
