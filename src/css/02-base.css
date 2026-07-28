@@ -205,7 +205,8 @@ a { color: inherit; }
    wrap at their normal measures. */
 @media (min-width: 1024px) {
   .sec-title--one,
-  .lead--one {
+  .lead--one,
+  .note--one {
     max-width: none;
     white-space: nowrap;
   }
