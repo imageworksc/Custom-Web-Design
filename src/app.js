@@ -220,12 +220,57 @@
     });
   }
 
+  /* ------------------------------------------------------------------
+     The three figures count up once, the first time the row is reached.
+     Without JS — or with reduced motion — the markup already holds the
+     final value, so nothing is lost.
+     ------------------------------------------------------------------ */
+  function setupCounts() {
+    var nums = [].slice.call(document.querySelectorAll('[data-count]'));
+    if (!nums.length || reduced.matches || !('IntersectionObserver' in window)) return;
+
+    function render(el, value) {
+      el.textContent = value + (el.getAttribute('data-suffix') || '');
+    }
+
+    function run(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      if (isNaN(target)) return;
+      var duration = 1100;
+      var started = null;
+
+      function step(now) {
+        if (started === null) started = now;
+        var p = Math.min(1, (now - started) / duration);
+        var eased = 1 - Math.pow(1 - p, 3);
+        render(el, Math.round(target * eased));
+        if (p < 1) window.requestAnimationFrame(step);
+      }
+
+      window.requestAnimationFrame(step);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        run(entry.target);
+      });
+    }, { threshold: 0.6 });
+
+    nums.forEach(function (el) {
+      render(el, 0);
+      io.observe(el);
+    });
+  }
+
   function init() {
     setupReveals();
     setupRail();
     setupHeader();
     setupAnchors();
     setupFaq();
+    setupCounts();
   }
 
   if (document.readyState === 'loading') {

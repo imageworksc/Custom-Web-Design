@@ -1083,47 +1083,107 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    CREDIBILITY STATS
    -------------------------------------------------------------------------- */
+/* Three figures on one ruled row, the way the home sets its "Why ImageWorks"
+   band — boxes with an arbitrary coloured top edge made these read as four
+   equivalent things, and the fourth was never a number at all. */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 100%;
+  margin-top: 12px;
+  border-block: 1px solid var(--border);
 }
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  padding: 30px 26px;
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-  border-top: 3px solid var(--blue);
+  gap: 12px;
+  padding: clamp(28px, 3vw, 38px) clamp(20px, 2.4vw, 34px);
+  border-left: 1px solid var(--border);
 }
-.stat--green { border-top-color: var(--green); }
+.stat:first-child { border-left: 0; padding-left: 0; }
 .stat-num {
-  font-size: clamp(32px, 2.6vw, 40px);
+  font-size: clamp(38px, 4.4vw, 58px);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: -.04em;
+  line-height: .95;
+  letter-spacing: -.045em;
   font-variant-numeric: tabular-nums;
   color: var(--navy);
 }
-.stat--green .stat-num { color: var(--green-ink); }
-.stat-label { font-size: 13px; font-weight: 500; line-height: 1.5; color: var(--muted); }
-.stat--pair .stat-label { font-size: 14px; font-weight: 700; color: var(--navy); }
-.stat-icons { display: flex; align-items: center; gap: 7px; color: var(--navy); }
-.stat-icons .plus { font-size: 16px; font-weight: 700; opacity: .45; }
+.stat-label {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 26ch;
+}
+
+/* The human + AI line is a claim, not a metric, so it sits on its own. */
+.signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-flat);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.signature-icons { display: flex; align-items: center; gap: 7px; color: var(--green-ink); }
+.signature-icons .plus { font-size: 15px; font-weight: 700; opacity: .5; }
 
 /* --------------------------------------------------------------------------
    INVESTMENT
    -------------------------------------------------------------------------- */
-.invest-note {
+/* The copy names two distinct ways to engage, so they get two cards instead of
+   one tinted paragraph with an accent bar down the side. */
+.plans-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--navy);
+  /* pulled toward the cards it labels, away from the paragraph above */
+  margin-top: 16px;
+  margin-bottom: -6px;
+}
+.plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   width: 100%;
-  max-width: 800px;
-  padding: 28px 30px;
+}
+.plan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: clamp(26px, 3vw, 34px);
+  border-radius: var(--r);
+  border-top: 3px solid var(--blue);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+}
+.plan--monthly { border-top-color: var(--green); }
+.plan-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
   border-radius: var(--r);
   background: var(--tint-blue);
-  border-left: 3px solid var(--blue);
+  color: var(--blue);
+}
+.plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
+.plan h3 { font-size: var(--step-2); }
+.plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+
+.invest-note {
+  width: 100%;
+  max-width: 760px;
   font-size: 15px;
   line-height: 1.7;
   color: var(--muted);
@@ -1480,8 +1540,8 @@ a { color: inherit; }
   .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
-  .stats { grid-template-columns: 1fr 1fr; }
   .port-grid { grid-template-columns: 1fr 1fr; }
+  .plans { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 767px) {
@@ -1490,8 +1550,11 @@ a { color: inherit; }
 }
 
 @media (max-width: 640px) {
-  .stats,
   .port-grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
+  .stat:first-child { border-top: 0; }
+  .signature { width: 100%; }
   .steps { --rail-x: 26px; }
   .step-num { inline-size: 52px; block-size: 52px; font-size: 20px; border-width: 3px; }
   .step-body { padding-top: 6px; }
@@ -1918,28 +1981,29 @@ a { color: inherit; }
       <h2 class="sec-title sec-title--wide reveal" id="credibility-title">An Award-Winning Agency, Since 1997.</h2>
       <p class="lead reveal">We're not a template shop or an AI wrapper. We're a creative agency that has designed and built custom websites for B2B firms, government contractors, professional services, and local businesses for nearly three decades.</p>
 
-      <div class="stats">
-        <div class="stat reveal" style="--reveal-delay:0ms">
-          <span class="stat-num">700+</span>
+      <div class="stats reveal">
+        <div class="stat">
+          <span class="stat-num" data-count="700" data-suffix="+">700+</span>
           <span class="stat-label">Clients served across B2B, GovCon, and professional services</span>
         </div>
-        <div class="stat stat--green reveal" style="--reveal-delay:120ms">
-          <span class="stat-num">20+</span>
+        <div class="stat">
+          <span class="stat-num" data-count="20" data-suffix="+">20+</span>
           <span class="stat-label">Industry awards for design and digital excellence</span>
         </div>
-        <div class="stat stat--green reveal" style="--reveal-delay:240ms">
-          <span class="stat-num">28+</span>
+        <div class="stat">
+          <span class="stat-num" data-count="28" data-suffix="+">28+</span>
           <span class="stat-label">Years designing and building custom websites</span>
         </div>
-        <div class="stat stat--pair reveal" style="--reveal-delay:360ms">
-          <span class="stat-icons" aria-hidden="true">
-            <svg width="26" height="26"><use href="#i-person"/></svg>
-            <span class="plus">+</span>
-            <svg width="26" height="26"><use href="#i-sparkle"/></svg>
-          </span>
-          <span class="stat-label">Crafted by humans.<br>Enhanced by AI.</span>
-        </div>
       </div>
+
+      <p class="signature reveal">
+        <span class="signature-icons" aria-hidden="true">
+          <svg width="24" height="24"><use href="#i-person"/></svg>
+          <span class="plus">+</span>
+          <svg width="24" height="24"><use href="#i-sparkle"/></svg>
+        </span>
+        Crafted by humans. Enhanced by AI.
+      </p>
 
       <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
@@ -1951,9 +2015,20 @@ a { color: inherit; }
       <p class="eyebrow">Investment</p>
       <h2 class="sec-title" id="investment-title">What a Custom Website Costs</h2>
       <p class="lead">Custom work is scoped to your business — so every project is quoted individually rather than sold off a fixed price list. What you invest depends on the size of the site, the complexity of the build, and the systems it needs to connect to.</p>
-      <div class="invest-note">
-        <p><strong>Two ways to work with us:</strong> a one-time custom project scoped to your exact requirements, or an all-in-one monthly plan that bundles your website with content, SEO, hosting, and ongoing support. Tell us what you're building and we'll recommend the right fit — with a clear, detailed quote before any work begins.</p>
+      <p class="plans-label">Two ways to work with us</p>
+      <div class="plans">
+        <div class="plan">
+          <span class="plan-tag">One-time</span>
+          <h3>Custom project</h3>
+          <p>Scoped to your exact requirements.</p>
+        </div>
+        <div class="plan plan--monthly">
+          <span class="plan-tag">Monthly</span>
+          <h3>All-in-one plan</h3>
+          <p>Bundles your website with content, SEO, hosting, and ongoing support.</p>
+        </div>
       </div>
+      <p class="invest-note">Tell us what you're building and we'll recommend the right fit — with a clear, detailed quote before any work begins.</p>
       <a class="arrow-link arrow-link--green" href="#quote">Get a custom quote <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
@@ -2492,12 +2567,57 @@ a { color: inherit; }
     });
   }
 
+  /* ------------------------------------------------------------------
+     The three figures count up once, the first time the row is reached.
+     Without JS — or with reduced motion — the markup already holds the
+     final value, so nothing is lost.
+     ------------------------------------------------------------------ */
+  function setupCounts() {
+    var nums = [].slice.call(document.querySelectorAll('[data-count]'));
+    if (!nums.length || reduced.matches || !('IntersectionObserver' in window)) return;
+
+    function render(el, value) {
+      el.textContent = value + (el.getAttribute('data-suffix') || '');
+    }
+
+    function run(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      if (isNaN(target)) return;
+      var duration = 1100;
+      var started = null;
+
+      function step(now) {
+        if (started === null) started = now;
+        var p = Math.min(1, (now - started) / duration);
+        var eased = 1 - Math.pow(1 - p, 3);
+        render(el, Math.round(target * eased));
+        if (p < 1) window.requestAnimationFrame(step);
+      }
+
+      window.requestAnimationFrame(step);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        run(entry.target);
+      });
+    }, { threshold: 0.6 });
+
+    nums.forEach(function (el) {
+      render(el, 0);
+      io.observe(el);
+    });
+  }
+
   function init() {
     setupReveals();
     setupRail();
     setupHeader();
     setupAnchors();
     setupFaq();
+    setupCounts();
   }
 
   if (document.readyState === 'loading') {

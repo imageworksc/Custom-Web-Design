@@ -100,47 +100,107 @@
 /* --------------------------------------------------------------------------
    CREDIBILITY STATS
    -------------------------------------------------------------------------- */
+/* Three figures on one ruled row, the way the home sets its "Why ImageWorks"
+   band — boxes with an arbitrary coloured top edge made these read as four
+   equivalent things, and the fourth was never a number at all. */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 100%;
+  margin-top: 12px;
+  border-block: 1px solid var(--border);
 }
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  padding: 30px 26px;
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-  border-top: 3px solid var(--blue);
+  gap: 12px;
+  padding: clamp(28px, 3vw, 38px) clamp(20px, 2.4vw, 34px);
+  border-left: 1px solid var(--border);
 }
-.stat--green { border-top-color: var(--green); }
+.stat:first-child { border-left: 0; padding-left: 0; }
 .stat-num {
-  font-size: clamp(32px, 2.6vw, 40px);
+  font-size: clamp(38px, 4.4vw, 58px);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: -.04em;
+  line-height: .95;
+  letter-spacing: -.045em;
   font-variant-numeric: tabular-nums;
   color: var(--navy);
 }
-.stat--green .stat-num { color: var(--green-ink); }
-.stat-label { font-size: 13px; font-weight: 500; line-height: 1.5; color: var(--muted); }
-.stat--pair .stat-label { font-size: 14px; font-weight: 700; color: var(--navy); }
-.stat-icons { display: flex; align-items: center; gap: 7px; color: var(--navy); }
-.stat-icons .plus { font-size: 16px; font-weight: 700; opacity: .45; }
+.stat-label {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 26ch;
+}
+
+/* The human + AI line is a claim, not a metric, so it sits on its own. */
+.signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-flat);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.signature-icons { display: flex; align-items: center; gap: 7px; color: var(--green-ink); }
+.signature-icons .plus { font-size: 15px; font-weight: 700; opacity: .5; }
 
 /* --------------------------------------------------------------------------
    INVESTMENT
    -------------------------------------------------------------------------- */
-.invest-note {
+/* The copy names two distinct ways to engage, so they get two cards instead of
+   one tinted paragraph with an accent bar down the side. */
+.plans-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--navy);
+  /* pulled toward the cards it labels, away from the paragraph above */
+  margin-top: 16px;
+  margin-bottom: -6px;
+}
+.plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   width: 100%;
-  max-width: 800px;
-  padding: 28px 30px;
+}
+.plan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: clamp(26px, 3vw, 34px);
+  border-radius: var(--r);
+  border-top: 3px solid var(--blue);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+}
+.plan--monthly { border-top-color: var(--green); }
+.plan-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
   border-radius: var(--r);
   background: var(--tint-blue);
-  border-left: 3px solid var(--blue);
+  color: var(--blue);
+}
+.plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
+.plan h3 { font-size: var(--step-2); }
+.plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+
+.invest-note {
+  width: 100%;
+  max-width: 760px;
   font-size: 15px;
   line-height: 1.7;
   color: var(--muted);
@@ -497,8 +557,8 @@
   .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
-  .stats { grid-template-columns: 1fr 1fr; }
   .port-grid { grid-template-columns: 1fr 1fr; }
+  .plans { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 767px) {
@@ -507,8 +567,11 @@
 }
 
 @media (max-width: 640px) {
-  .stats,
   .port-grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
+  .stat:first-child { border-top: 0; }
+  .signature { width: 100%; }
   .steps { --rail-x: 26px; }
   .step-num { inline-size: 52px; block-size: 52px; font-size: 20px; border-width: 3px; }
   .step-body { padding-top: 6px; }
