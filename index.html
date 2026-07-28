@@ -1133,22 +1133,21 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    TESTIMONIALS
    -------------------------------------------------------------------------- */
-/* Centred header, full-bleed marquee — the home's testimonial band, run as a
-   single self-advancing row. */
-.testi-head {
+/* Centred section header — the home's testimonial band header, reused. */
+.sec-head {
   text-align: center;
   max-width: 720px;
   margin: 0 auto 50px;
   padding-inline: var(--gutter);
 }
-.testi-head h2 { max-width: none; }
-.testi-head p {
+.sec-head h2 { max-width: none; }
+.sec-head p {
   margin-top: 14px;
   font-size: clamp(17px, 1.4vw, 20px);
   font-weight: 500;
   color: var(--muted);
 }
-.testi-head strong { color: var(--green); font-weight: 800; }
+.sec-head strong { color: var(--green); font-weight: 800; }
 
 .marquee {
   width: 100%;
@@ -1200,9 +1199,31 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    FAQ
    -------------------------------------------------------------------------- */
-.faq { width: 100%; max-width: 840px; }
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq {
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+/* Closed rows are quiet hairlines; the open one lifts out of the list and
+   becomes a card, using the same recipe as every other card on the page. */
+.faq-item {
+  border-top: 1px solid var(--border);
+  border-radius: var(--r);
+  transition: background .3s var(--ease), box-shadow .3s var(--ease),
+              border-color .2s var(--ease);
+}
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item[open] {
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+  border-top-color: transparent;
+}
+/* Only the rules touching the open card are hidden — the shorthand would also
+   drop the list's closing edge when the last item is the open one. */
+.faq-item[open] + .faq-item { border-top-color: transparent; }
+.faq-item[open]:last-child { border-bottom-color: transparent; }
+
 .faq-item summary {
   display: flex;
   align-items: center;
@@ -1210,57 +1231,70 @@ a { color: inherit; }
   gap: 24px;
   list-style: none;
   cursor: pointer;
-  padding-block: 22px;
+  padding: 22px 8px;
   font-size: var(--step-1);
   font-weight: 700;
   color: var(--navy);
   line-height: 1.4;
-  transition: color .2s var(--ease);
+  transition: color .2s var(--ease), padding .3s var(--ease);
 }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary:hover { color: var(--blue); }
-.faq-sign {
-  position: relative;
-  inline-size: 26px;
-  block-size: 26px;
-  border-radius: 50%;
-  flex: none;
-  background: var(--chip-green);
-}
-.faq-sign::before,
-.faq-sign::after {
-  content: '';
-  position: absolute;
-  inset: 50% auto auto 50%;
-  background: var(--green-ink);
-  transform: translate(-50%, -50%);
-  transition: transform .25s var(--ease), opacity .25s var(--ease);
-}
-.faq-sign::before { inline-size: 11px; block-size: 2px; }
-.faq-sign::after { inline-size: 2px; block-size: 11px; }
-.faq-item[open] .faq-sign::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+.faq-item[open] summary { padding-inline: 26px; color: var(--blue); }
 
-.faq-item p {
+/* An outlined chevron that fills in and flips — the page already speaks in
+   arrows, so the marker uses that vocabulary instead of a plus in a circle. */
+.faq-mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  color: var(--green-ink);
+  transition: transform .35s var(--ease), background-color .25s var(--ease),
+              border-color .25s var(--ease), color .25s var(--ease);
+}
+.faq-item summary:hover .faq-mark {
+  border-color: var(--green);
+  background: var(--tint-green);
+}
+.faq-item[open] .faq-mark {
+  transform: rotate(180deg);
+  background: var(--green);
+  border-color: var(--green);
+  color: #143c1f;
+}
+
+.faq-answer {
+  padding: 0 26px 28px;
   font-size: var(--step-0);
   line-height: 1.75;
-  max-width: 70ch;
   color: var(--muted);
-  padding-bottom: 26px;
+}
+.faq-answer p { max-width: 68ch; }
+
+/* The answer settles in wherever it opens — this works with or without the
+   height transition below. */
+.faq-item[open] .faq-answer { animation: faq-in .42s var(--ease) both; }
+@keyframes faq-in {
+  from { opacity: 0; transform: translateY(-7px); }
 }
 
-/* Smooth disclosure where supported, a clean snap where not. No JS. */
+/* Smooth height where the browser supports it, a clean snap where it doesn't.
+   No JS involved either way. */
 @supports (interpolate-size: allow-keywords) {
   :root { interpolate-size: allow-keywords; }
 
   .faq-item::details-content {
     block-size: 0;
     overflow: hidden;
-    opacity: 0;
-    transition: block-size .32s var(--ease), opacity .28s var(--ease),
-                content-visibility .32s allow-discrete;
+    transition: block-size .34s var(--ease),
+                content-visibility .34s allow-discrete;
     transition-behavior: allow-discrete;
   }
-  .faq-item[open]::details-content { block-size: auto; opacity: 1; }
+  .faq-item[open]::details-content { block-size: auto; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1516,6 +1550,9 @@ a { color: inherit; }
     <symbol id="i-arrow" viewBox="0 0 24 24">
       <line x1="5" y1="12" x2="19" y2="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
       <polyline points="12 5 19 12 12 19" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24">
+      <polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
     <symbol id="i-star" viewBox="0 0 16 16">
       <path d="M8 1.6l1.86 3.94 4.14.62-3 3.03.71 4.28L8 11.47 4.29 13.47 5 9.19 2 6.16l4.14-.62z" fill="currentColor"/>
@@ -1924,7 +1961,7 @@ a { color: inherit; }
 
   <!-- 12 · TESTIMONIALS ----------------------------------------------------- -->
   <section class="band band--tint-b" aria-labelledby="testimonials-title">
-    <div class="testi-head reveal">
+    <div class="sec-head reveal">
       <h2 class="sec-title" id="testimonials-title">What our clients say</h2>
       <p>Our clients <strong>love</strong> our work &amp; the results.</p>
     </div>
@@ -2099,32 +2136,35 @@ a { color: inherit; }
 
   <!-- 13 · FAQ -------------------------------------------------------------- -->
   <section class="band" id="faqs" aria-labelledby="faq-title">
-    <div class="wrap stack">
-      <h2 class="sec-title reveal" id="faq-title">Custom Web Design FAQs</h2>
-      <div class="faq reveal">
+    <div class="sec-head reveal">
+      <h2 class="sec-title" id="faq-title">Custom Web Design FAQs</h2>
+    </div>
+
+    <div class="wrap">
+      <div class="faq reveal" data-faq>
         <details class="faq-item" name="cwd-faq">
-          <summary>Can't AI design a website on its own?<span class="faq-sign" aria-hidden="true"></span></summary>
-          <p>AI doesn't have taste. Like any creative tool, it needs a human directing it — someone who knows what good looks like, understands your brand, and can push it past the generic first draft. Left alone, it defaults to the safest, blandest option every time. AI still needs art direction, the same as any other part of the creative process.</p>
+          <summary>Can't AI design a website on its own?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer"><p>AI doesn't have taste. Like any creative tool, it needs a human directing it — someone who knows what good looks like, understands your brand, and can push it past the generic first draft. Left alone, it defaults to the safest, blandest option every time. AI still needs art direction, the same as any other part of the creative process.</p></div>
         </details>
         <details class="faq-item" name="cwd-faq">
-          <summary>Why do AI-built websites all look the same?<span class="faq-sign" aria-hidden="true"></span></summary>
-          <p>AI recycles the same handful of patterns. The same hero-and-two-buttons layout. The same three-column feature cards. The same eyebrow labels and box-and-icon rows. There are maybe two dozen variations in total, and they're used everywhere. Once you notice it, you can't unsee it — and neither can your prospects.</p>
+          <summary>Why do AI-built websites all look the same?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer"><p>AI recycles the same handful of patterns. The same hero-and-two-buttons layout. The same three-column feature cards. The same eyebrow labels and box-and-icon rows. There are maybe two dozen variations in total, and they're used everywhere. Once you notice it, you can't unsee it — and neither can your prospects.</p></div>
         </details>
         <details class="faq-item" name="cwd-faq">
-          <summary>What's wrong with AI-generated images and illustrations?<span class="faq-sign" aria-hidden="true"></span></summary>
-          <p>AI illustrations look like AI illustrations — soft, oddly proportioned, stylistically inconsistent, and disconnected from the copy beside them. When we design something, the illustration reinforces the point being made. When you say something, the image should back it up — not just fill space. Stock photography has the same weakness.</p>
+          <summary>What's wrong with AI-generated images and illustrations?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer"><p>AI illustrations look like AI illustrations — soft, oddly proportioned, stylistically inconsistent, and disconnected from the copy beside them. When we design something, the illustration reinforces the point being made. When you say something, the image should back it up — not just fill space. Stock photography has the same weakness.</p></div>
         </details>
         <details class="faq-item" name="cwd-faq">
-          <summary>If AI can write and code, why do I need an agency?<span class="faq-sign" aria-hidden="true"></span></summary>
-          <p>AI can't perfect the work. Good copy needs marketing experts. Content needs SEO and AIO specialists to structure it for how people and AI actually search. Custom functionality and performance need developers. AI can produce a rough draft of any of these — but the difference between a draft and a website that wins business is the team of people who refine it. AI is a tool in the workshop, not the craftsman.</p>
+          <summary>If AI can write and code, why do I need an agency?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer"><p>AI can't perfect the work. Good copy needs marketing experts. Content needs SEO and AIO specialists to structure it for how people and AI actually search. Custom functionality and performance need developers. AI can produce a rough draft of any of these — but the difference between a draft and a website that wins business is the team of people who refine it. AI is a tool in the workshop, not the craftsman.</p></div>
         </details>
         <details class="faq-item" name="cwd-faq">
-          <summary>Are there any cases where a template makes sense?<span class="faq-sign" aria-hidden="true"></span></summary>
-          <p>Rarely, and not for any serious business. Templates might be fine for validating an idea over a weekend or a personal portfolio nobody's going to scrutinize. But for actual businesses, templates come with real costs: they hurt SEO because thousands of sites share the same bloated code, generic schema, and identical structure Google has already indexed. They kill differentiation because your competitors bought the same theme. They break when your business grows because they weren't built to scale. If your website is meant to earn trust, drive leads, or represent your brand — a template will hold you back, not help you.</p>
+          <summary>Are there any cases where a template makes sense?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer"><p>Rarely, and not for any serious business. Templates might be fine for validating an idea over a weekend or a personal portfolio nobody's going to scrutinize. But for actual businesses, templates come with real costs: they hurt SEO because thousands of sites share the same bloated code, generic schema, and identical structure Google has already indexed. They kill differentiation because your competitors bought the same theme. They break when your business grows because they weren't built to scale. If your website is meant to earn trust, drive leads, or represent your brand — a template will hold you back, not help you.</p></div>
         </details>
         <details class="faq-item" name="cwd-faq">
-          <summary>How much does a custom website cost?<span class="faq-sign" aria-hidden="true"></span></summary>
-          <p>Every custom project is scoped and quoted individually, because the investment depends on the size of the site, the complexity of the build, and the systems it connects to. We offer both one-time custom projects and all-in-one monthly plans. Tell us what you're building and we'll provide a clear, detailed quote before any work begins.</p>
+          <summary>How much does a custom website cost?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer"><p>Every custom project is scoped and quoted individually, because the investment depends on the size of the site, the complexity of the build, and the systems it connects to. We offer both one-time custom projects and all-in-one monthly plans. Tell us what you're building and we'll provide a clear, detailed quote before any work begins.</p></div>
         </details>
       </div>
     </div>
@@ -2416,11 +2456,48 @@ a { color: inherit; }
     });
   }
 
+  /* ------------------------------------------------------------------
+     The accordion is exclusive, so opening one answer closes another and
+     the page can shift under the reader. After an answer settles, bring it
+     back into view if it ended up under the header or past the fold.
+     ------------------------------------------------------------------ */
+  function setupFaq() {
+    var faq = document.querySelector('[data-faq]');
+    if (!faq) return;
+
+    var header = document.querySelector('.site-header');
+    var items = [].slice.call(faq.querySelectorAll('details'));
+
+    items.forEach(function (item) {
+      item.addEventListener('toggle', function () {
+        if (!item.open) return;
+
+        var settle = function () {
+          var offset = (header ? header.offsetHeight : 0) + 16;
+          var box = item.getBoundingClientRect();
+          var hiddenAbove = box.top < offset;
+          var hiddenBelow = box.bottom > window.innerHeight && box.height < window.innerHeight - offset;
+          if (!hiddenAbove && !hiddenBelow) return;
+
+          window.scrollTo({
+            top: box.top + window.scrollY - offset,
+            behavior: reduced.matches ? 'auto' : 'smooth'
+          });
+        };
+
+        // wait out the height transition before measuring
+        if (reduced.matches) settle();
+        else window.setTimeout(settle, 380);
+      });
+    });
+  }
+
   function init() {
     setupReveals();
     setupRail();
     setupHeader();
     setupAnchors();
+    setupFaq();
   }
 
   if (document.readyState === 'loading') {

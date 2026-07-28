@@ -184,11 +184,48 @@
     });
   }
 
+  /* ------------------------------------------------------------------
+     The accordion is exclusive, so opening one answer closes another and
+     the page can shift under the reader. After an answer settles, bring it
+     back into view if it ended up under the header or past the fold.
+     ------------------------------------------------------------------ */
+  function setupFaq() {
+    var faq = document.querySelector('[data-faq]');
+    if (!faq) return;
+
+    var header = document.querySelector('.site-header');
+    var items = [].slice.call(faq.querySelectorAll('details'));
+
+    items.forEach(function (item) {
+      item.addEventListener('toggle', function () {
+        if (!item.open) return;
+
+        var settle = function () {
+          var offset = (header ? header.offsetHeight : 0) + 16;
+          var box = item.getBoundingClientRect();
+          var hiddenAbove = box.top < offset;
+          var hiddenBelow = box.bottom > window.innerHeight && box.height < window.innerHeight - offset;
+          if (!hiddenAbove && !hiddenBelow) return;
+
+          window.scrollTo({
+            top: box.top + window.scrollY - offset,
+            behavior: reduced.matches ? 'auto' : 'smooth'
+          });
+        };
+
+        // wait out the height transition before measuring
+        if (reduced.matches) settle();
+        else window.setTimeout(settle, 380);
+      });
+    });
+  }
+
   function init() {
     setupReveals();
     setupRail();
     setupHeader();
     setupAnchors();
+    setupFaq();
   }
 
   if (document.readyState === 'loading') {
