@@ -159,6 +159,18 @@ a { color: inherit; }
 }
 .lead strong { color: var(--navy); font-weight: 700; }
 .lead em { font-style: italic; }
+
+/* Set to two balanced lines. The run measures 1860px at 18px, so each line
+   lands near 930px — the widened measure gives them room and `balance` evens
+   the break. Below 1024px it returns to the normal reading measure. */
+.lead--two { max-width: var(--measure); }
+
+@media (min-width: 1024px) {
+  .lead--two {
+    max-width: 1000px;
+    text-wrap: balance;
+  }
+}
 .band--cta .lead { color: rgba(226, 238, 252, .82); }
 .band--cta .lead strong { color: #fff; }
 
