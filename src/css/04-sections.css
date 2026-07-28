@@ -1,0 +1,513 @@
+/* --------------------------------------------------------------------------
+   CHECKLIST
+   -------------------------------------------------------------------------- */
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 64ch;
+}
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  font-size: var(--step-0);
+  font-weight: 500;
+  line-height: 1.55;
+  padding-block: 13px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.checklist li:first-child { border-top: 1px solid var(--border-soft); }
+
+/* --------------------------------------------------------------------------
+   PLATFORM SPLIT
+   -------------------------------------------------------------------------- */
+.platform-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+}
+.platform-half {
+  padding: clamp(28px, 3.2vw, 42px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  border-top: 3px solid transparent;
+}
+.platform-half--drupal { border-top-color: #009CDE; border-right: 1px solid var(--border); }
+.platform-half--wp { border-top-color: #21759B; }
+.platform-half h3 { font-size: var(--step-2); }
+.platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+.platform-half p em { font-style: italic; }
+.platform-half .arrow-link { margin-top: 6px; }
+
+.split-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 6px 13px;
+  border-radius: var(--r);
+  margin-bottom: 4px;
+  background: var(--tint-blue);
+  color: var(--blue);
+}
+
+/* --------------------------------------------------------------------------
+   UNDER THE HOOD — spec table
+   -------------------------------------------------------------------------- */
+.hood-scroll { width: 100%; overflow-x: auto; }
+.hood {
+  min-width: 520px;
+  max-width: 900px;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+}
+.hood-row {
+  display: grid;
+  grid-template-columns: 258px minmax(0, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+.hood-row:last-child { border-bottom: none; }
+.hood-row dt {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 18px 22px;
+  background: var(--band-tint);
+  border-right: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--navy);
+}
+.hood-row dd {
+  display: flex;
+  align-items: center;
+  padding: 18px 24px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   CREDIBILITY STATS
+   -------------------------------------------------------------------------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 30px 26px;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+  border-top: 3px solid var(--blue);
+}
+.stat--green { border-top-color: var(--green); }
+.stat-num {
+  font-size: clamp(32px, 2.6vw, 40px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--navy);
+}
+.stat--green .stat-num { color: var(--green-ink); }
+.stat-label { font-size: 13px; font-weight: 500; line-height: 1.5; color: var(--muted); }
+.stat--pair .stat-label { font-size: 14px; font-weight: 700; color: var(--navy); }
+.stat-icons { display: flex; align-items: center; gap: 7px; color: var(--navy); }
+.stat-icons .plus { font-size: 16px; font-weight: 700; opacity: .45; }
+
+/* --------------------------------------------------------------------------
+   INVESTMENT
+   -------------------------------------------------------------------------- */
+.invest-note {
+  width: 100%;
+  max-width: 800px;
+  padding: 28px 30px;
+  border-radius: var(--r);
+  background: var(--tint-blue);
+  border-left: 3px solid var(--blue);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.invest-note strong { color: var(--navy); font-weight: 700; }
+
+/* --------------------------------------------------------------------------
+   TESTIMONIALS
+   -------------------------------------------------------------------------- */
+/* Centred header, full-bleed marquee — the home's testimonial band, run as a
+   single self-advancing row. */
+.testi-head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 50px;
+  padding-inline: var(--gutter);
+}
+.testi-head h2 { max-width: none; }
+.testi-head p {
+  margin-top: 14px;
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: 500;
+  color: var(--muted);
+}
+.testi-head strong { color: var(--green); font-weight: 800; }
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  /* the padding gives the cards' drop shadow room inside the clip */
+  padding-block: 20px;
+  margin-block: -20px;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-run 72s linear infinite;
+}
+/* The spacing lives on the items rather than in `gap`, so the duplicated half
+   is exactly 50% of the track and the loop closes without a jump. */
+.marquee-track > * { margin-right: 24px; }
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+
+@keyframes marquee-run {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.testi {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  height: 100%;
+  padding: 28px;
+  border-radius: var(--r);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .1), 0 12px 30px rgba(20, 40, 80, .12);
+}
+.testi-item { display: flex; }
+.testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.testi-score b { font-size: 16px; font-weight: 800; color: var(--blue); }
+.testi-stars { display: flex; gap: 2px; color: #ffa733; }
+.testi blockquote { flex: 1; margin-bottom: 18px; font-size: 16px; line-height: 1.6; color: var(--nav-ink); }
+.testi figcaption { font-size: 16px; font-weight: 700; color: var(--blue); }
+
+/* --------------------------------------------------------------------------
+   FAQ
+   -------------------------------------------------------------------------- */
+.faq { width: 100%; max-width: 840px; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  list-style: none;
+  cursor: pointer;
+  padding-block: 22px;
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+  transition: color .2s var(--ease);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--blue); }
+.faq-sign {
+  position: relative;
+  inline-size: 26px;
+  block-size: 26px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--chip-green);
+}
+.faq-sign::before,
+.faq-sign::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  background: var(--green-ink);
+  transform: translate(-50%, -50%);
+  transition: transform .25s var(--ease), opacity .25s var(--ease);
+}
+.faq-sign::before { inline-size: 11px; block-size: 2px; }
+.faq-sign::after { inline-size: 2px; block-size: 11px; }
+.faq-item[open] .faq-sign::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+
+.faq-item p {
+  font-size: var(--step-0);
+  line-height: 1.75;
+  max-width: 70ch;
+  color: var(--muted);
+  padding-bottom: 26px;
+}
+
+/* Smooth disclosure where supported, a clean snap where not. No JS. */
+@supports (interpolate-size: allow-keywords) {
+  :root { interpolate-size: allow-keywords; }
+
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: block-size .32s var(--ease), opacity .28s var(--ease),
+                content-visibility .32s allow-discrete;
+    transition-behavior: allow-discrete;
+  }
+  .faq-item[open]::details-content { block-size: auto; opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   CLOSING CTA
+   -------------------------------------------------------------------------- */
+.final { text-align: center; }
+.final .wrap { max-width: 1340px; }
+.final .stack { align-items: center; }
+.final .lead { margin-inline: auto; }
+
+/* Both closing lines are set to hold on a single line. The sizes are tied to
+   the viewport so the line shrinks to fit rather than breaking; below 560px it
+   is allowed to wrap, because holding one line there would drop the headline
+   under 15px. */
+.final .sec-title,
+.final-flip {
+  max-width: none;
+  white-space: nowrap;
+}
+.final .sec-title { font-size: clamp(19px, 3.62vw, 44px); }
+.final-flip {
+  font-size: clamp(17px, 3.1vw, 28px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.012em;
+  margin-inline: auto;
+  color: rgba(226, 238, 252, .88);
+}
+.final-flip span { color: var(--green); font-weight: 800; }
+
+@media (max-width: 560px) {
+  .final .sec-title,
+  .final-flip { white-space: normal; }
+  .final .sec-title { font-size: var(--step-3); max-width: 23ch; }
+  .final-flip { font-size: clamp(19px, 5vw, 24px); max-width: 25ch; }
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER — a copy of the home's
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--navy-deep);
+  color: #fff;
+  padding: 104px 40px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.foot-grid {
+  max-width: 1340px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.15fr;
+  gap: 80px;
+  align-items: start;
+}
+/* Grid children default to min-width:auto and refuse to shrink below their
+   content, which is what pushed the third column past the viewport. */
+.foot-grid > * { min-width: 0; }
+.foot-logo { width: 168px; max-width: 100%; height: auto; }
+
+.foot-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.foot-logo + .foot-label { margin-top: 26px; }
+.foot-label svg { flex: none; }
+.foot-detail { margin: 4px 0 0 24px; color: rgba(255, 255, 255, .85); }
+.foot-detail a { color: #fff; font-weight: 700; text-decoration: none; }
+
+.foot-social { display: flex; gap: 10px; margin-top: 26px; }
+.foot-social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r);
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  text-decoration: none;
+  transition: background .25s ease;
+}
+.foot-social a:hover { background: var(--green); }
+
+.foot-menus {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.foot-head {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: .5px;
+}
+.foot-head + .foot-list { margin-top: 16px; }
+.foot-list { display: flex; flex-direction: column; gap: 10px; }
+.foot-list a { font-size: 16px; color: #fff; text-decoration: none; width: fit-content; }
+.foot-menus .foot-list + .foot-head { margin-top: 28px; }
+
+.foot-map {
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .12), 0 10px 26px rgba(20, 40, 80, .12);
+}
+.foot-map img { width: 100%; height: auto; }
+
+.foot-news-title { margin-top: 40px; font-size: 16px; font-weight: 700; }
+.foot-news-sub { margin-top: 6px; font-size: 15px; color: rgba(255, 255, 255, .85); }
+.foot-form { margin-top: 12px; display: flex; gap: 8px; max-width: 320px; }
+.foot-form input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: none;
+  border-radius: var(--r);
+  font-family: inherit;
+  font-size: 14px;
+  color: #333;
+}
+.foot-form button {
+  width: 48px;
+  height: 40px;
+  border: none;
+  border-radius: var(--r);
+  background: var(--green);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform .25s var(--ease), filter .25s ease;
+}
+.foot-form button:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+.foot-base {
+  max-width: 1340px;
+  margin: 48px auto 0;
+  padding: 22px 0;
+  border-top: 1px solid rgba(255, 255, 255, .18);
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .85);
+}
+.foot-base a { color: #fff; text-decoration: none; }
+.foot-base-links { margin-top: 8px; }
+.foot-tail { height: 50px; }
+
+/* The home stacks this at 767px, but three columns inside ~800px leaves the
+   map-and-newsletter column too narrow for its own content and the page picks
+   up a horizontal scrollbar. Stacking at the same 1024px the nav uses fixes
+   that and keeps the two breakpoints in step. */
+@media (max-width: 1024px) {
+  .site-footer { padding: 72px 44px 0; }
+  .foot-grid { grid-template-columns: 1fr; gap: 52px; justify-items: center; }
+  .foot-grid > * { width: 100%; max-width: 480px; margin-inline: auto; text-align: left; }
+  .foot-form { max-width: 100%; }
+}
+@media (max-width: 520px) {
+  .site-footer { padding: 60px 34px 0; }
+  .foot-menus { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* --------------------------------------------------------------------------
+   REVEAL
+   -------------------------------------------------------------------------- */
+[data-anim="on"] .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-anim="on"] .reveal.is-revealed { opacity: 1; transform: none; }
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .fa-split { grid-template-columns: 1fr; }
+  .compare { grid-template-columns: 1fr; }
+  .platform-split { grid-template-columns: 1fr; }
+  .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .port-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 767px) {
+  .testi { width: 84vw; max-width: 330px; }
+  .marquee-track { animation-duration: 46s; }
+}
+
+@media (max-width: 640px) {
+  .stats,
+  .port-grid { grid-template-columns: 1fr; }
+  .steps { --rail-x: 26px; }
+  .step-num { inline-size: 52px; block-size: 52px; font-size: 20px; border-width: 3px; }
+  .step-body { padding-top: 6px; }
+  .hood { min-width: 0; }
+  .hood-row { grid-template-columns: 1fr; }
+  .hood-row dt { border-right: none; border-bottom: 1px solid var(--border); }
+  .btn-row { width: 100%; }
+  .btn-row .btn { flex: 1 1 100%; }
+  .hero-trust { gap: 12px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-anim="on"] .reveal { opacity: 1; transform: none; }
+  .mockup--weak { filter: none; }
+  .is-revealed .mockup--strong { transform: none; }
+  .steps[data-rail="live"]::after { height: calc(100% - 68px); }
+
+  /* The blanket rule above would snap the marquee to its end frame, so stop it
+     outright and hand the row over to the reader as a scrollable strip. */
+  .marquee-track { animation: none !important; transform: none !important; }
+  .marquee {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
+@media print {
+  .site-header,
+  .skip-to-content { display: none; }
+  .band { padding-block: 24px; }
+  [data-anim="on"] .reveal { opacity: 1; transform: none; }
+}

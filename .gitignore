@@ -49,6 +49,9 @@ $RECYCLE.BIN/
 # Herramientas locales
 .claude/settings.local.json
 
+# Salida de build solo para el preview del artifact (regenerable con build.ps1)
+preview.artifact.html
+
 # Editores e IDEs
 .vscode/*
 !.vscode/extensions.json

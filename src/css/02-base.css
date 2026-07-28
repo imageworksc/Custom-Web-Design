@@ -1,0 +1,323 @@
+/* --------------------------------------------------------------------------
+   BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-padding-top: calc(var(--nav-h) + 16px); }
+
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI',
+               Roboto, Helvetica, Arial, sans-serif;
+  font-size: var(--step-0);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* clip, not hidden: hidden would make body a scroll container and break
+     the sticky nav */
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  color: var(--navy);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.018em;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+ul, ol, dl, dd { margin: 0; padding: 0; }
+li { list-style: none; }
+figure, blockquote { margin: 0; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+
+::selection { background: rgba(128, 195, 74, .28); }
+
+:where(a, button, summary, details):focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--r);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-to-content {
+  position: absolute;
+  top: 8px; left: 8px;
+  z-index: 200;
+  transform: translateY(-180%);
+  background: var(--navy);
+  color: #fff;
+  font-size: var(--step--1);
+  font-weight: 700;
+  padding: 11px 18px;
+  border-radius: var(--r);
+  text-decoration: none;
+  transition: transform .18s var(--ease);
+}
+.skip-to-content:focus-visible { transform: translateY(0); }
+
+/* --------------------------------------------------------------------------
+   LAYOUT
+   -------------------------------------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.band {
+  padding-block: var(--band-y);
+  background: var(--white);
+}
+.band--tint { background: var(--band-tint); }
+.band--tint-b { background: var(--band-tint-warm); }
+
+/* The closing call to action is the home's #cta band: the same gradient with
+   the same dot field laid over it. */
+.band--cta {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(72px, 8vw, 112px);
+  background: var(--cta-band);
+  color: #fff;
+}
+.band--cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+.band--cta > * { position: relative; }
+.band--cta h2,
+.band--cta h3 { color: #fff; }
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+.stack > * { margin: 0; }
+.w-full { width: 100%; }
+
+/* --------------------------------------------------------------------------
+   TYPE COMPONENTS
+   -------------------------------------------------------------------------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--green-ink);
+}
+.eyebrow::before {
+  content: '';
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  flex: none;
+}
+.band--cta .eyebrow { color: var(--green); }
+
+.sec-title {
+  font-size: var(--step-3);
+  letter-spacing: -.018em;
+  max-width: 21ch;
+}
+.sec-title--wide { max-width: 27ch; }
+.sec-title em { font-style: normal; color: var(--green-ink); }
+.band--cta .sec-title em { color: var(--green); }
+
+.lead {
+  font-size: var(--step-1);
+  line-height: 1.7;
+  max-width: var(--measure);
+  color: var(--muted);
+}
+.lead strong { color: var(--navy); font-weight: 700; }
+.lead em { font-style: italic; }
+.band--cta .lead { color: rgba(226, 238, 252, .82); }
+.band--cta .lead strong { color: #fff; }
+
+.note {
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--navy);
+  max-width: var(--measure);
+}
+
+/* --------------------------------------------------------------------------
+   BUTTONS AND LINKS
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  height: 54px;
+  padding-inline: 26px;
+  border-radius: var(--r);
+  border: 1.5px solid transparent;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform .25s var(--ease), background-color .25s ease,
+              border-color .25s ease, box-shadow .25s ease, color .25s ease;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+.btn:active { transform: translateY(-1px); }
+
+.btn--solid {
+  background: var(--green);
+  border-color: var(--green);
+  color: #143c1f;
+}
+.btn--solid:hover { filter: brightness(1.04); }
+
+/* The home's hero button: the ground shows through a green rule, then fills. */
+.btn--outline {
+  background: rgba(128, 195, 74, .10);
+  border-color: var(--green);
+  color: var(--navy);
+}
+.btn--outline:hover { background: var(--green); color: #143c1f; }
+.band--cta .btn--outline { color: #fff; }
+
+/* The closing band's primary button matches the home's #cta button. */
+.band--cta .btn--solid {
+  height: 58px;
+  padding-inline: 36px;
+  font-size: 17px;
+  box-shadow: 0 1px 2px rgba(20, 40, 80, .14);
+}
+.band--cta .btn--quiet { height: 58px; padding-inline: 30px; font-size: 17px; }
+
+.btn--quiet {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--navy);
+  font-weight: 600;
+}
+.btn--quiet:hover { border-color: var(--navy); }
+.band--cta .btn--quiet { border-color: rgba(255, 255, 255, .34); color: #fff; }
+.band--cta .btn--quiet:hover { border-color: #fff; }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* The home underlines its links with a rule that grows from the left. */
+.iw-link {
+  position: relative;
+  text-decoration: none;
+}
+.iw-link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s var(--ease);
+}
+.iw-link:hover::after { transform: scaleX(1); }
+
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+}
+.arrow-link .arrow { transition: transform .25s var(--ease); }
+.arrow-link:hover .arrow { transform: translateX(5px); }
+.arrow-link--green { color: var(--green-ink); }
+
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--faint);
+  text-decoration: none;
+  padding-block: 8px;
+  border-bottom: 1px solid var(--border);
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.skip-link .arrow { transition: transform .25s var(--ease); }
+.skip-link:hover { color: var(--navy); border-color: var(--navy); }
+.skip-link:hover .arrow { transform: translateX(5px); }
+
+/* "Ready to discuss your project?" repeats seven times in the copy. One quiet
+   rail keeps the repetition reading as rhythm instead of clutter. */
+.quote-rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  width: 100%;
+  margin-top: 6px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--muted);
+}
+.quote-rail a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green-ink);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.quote-rail a .arrow { transition: transform .25s var(--ease); }
+.quote-rail a:hover .arrow { transform: translateX(5px); }
+
+.icon { flex: none; }
+
+/* The home's 22px tinted circle, used wherever a check appears. */
+.chip {
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 50%;
+  background: var(--chip-green);
+  color: var(--green-ink);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.chip svg { inline-size: 12px; block-size: 12px; }
+.chip--blue { background: var(--chip-blue); color: var(--navy); }
+.chip--navy { background: var(--chip-navy); color: var(--navy); }

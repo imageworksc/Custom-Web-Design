@@ -1,0 +1,74 @@
+/* ==========================================================================
+   ImageWorks Creative — Custom Web Design
+   Design system lifted from the live home page:
+   https://imageworksc.github.io/imageworks-home/
+   Single light theme. No dark mode — the brand commits to one visual world.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url(data:font/woff2;base64,__FONT_B64__) format('woff2');
+}
+
+:root {
+  color-scheme: light;
+
+  /* ---- brand, taken verbatim from the home stylesheet ---- */
+  --navy: #143c66;
+  --navy-deep: #0a2c4d;
+  --blue: #1266b5;
+  --blue-bright: #1e6bb0;
+  --green: #80c34a;
+  --green-ink: #5c9a2e;          /* the home's green for text and links */
+  --ink: #1f2b3e;                /* body copy */
+  --muted: #5a6b82;
+  --faint: #7d8ea1;
+  --nav-ink: #3d464d;
+
+  /* ---- surfaces ---- */
+  --white: #ffffff;
+  --band-tint: #f2f5f9;
+  --band-tint-warm: #f1f3f6;
+  --card-top: #ffffff;
+  --card-bottom: #fcfdff;
+  --border: #e3eaf3;
+  --border-soft: #eef2f7;
+  --chip-blue: #c1daff;
+  --chip-green: #eaf6dd;
+  --chip-navy: rgba(24, 73, 125, .14);
+  --tint-green: #eef6e6;
+  --tint-blue: #e5edf7;
+  --danger-soft: #fbe9e9;
+  --danger-ink: #b23b3b;
+
+  /* ---- the CTA band, matching the home's #cta section ---- */
+  --cta-band: linear-gradient(135deg, #1266b5, #0a2c4d);
+
+  /* ---- shape: the home squares its corners at 2px ---- */
+  --r: 2px;
+
+  --shadow-card: 0 1px 3px rgba(20, 40, 80, .08), 0 14px 34px rgba(20, 40, 80, .1);
+  --shadow-flat: 0 1px 3px rgba(20, 40, 80, .07);
+  --shadow-lift: 0 4px 12px rgba(20, 40, 80, .18);
+  --ring: 0 0 0 3px rgba(128, 195, 74, .5), 0 0 0 1px rgba(20, 60, 102, .55);
+
+  /* ---- rhythm ---- */
+  --shell: 1180px;
+  --gutter: clamp(22px, 4vw, 40px);
+  --band-y: clamp(64px, 8vw, 108px);
+  --nav-h: 72px;
+  --measure: 66ch;
+
+  /* ---- type scale, anchored on the home's 46px h1 / 44px h2 ---- */
+  --step--1: clamp(12.5px, .18vw + 12px, 13.5px);
+  --step-0: clamp(15.5px, .25vw + 15px, 17px);
+  --step-1: clamp(16.5px, .4vw + 15.5px, 18px);
+  --step-2: clamp(19px, .9vw + 17px, 23px);
+  --step-3: clamp(28px, 2.6vw + 18px, 44px);
+  --step-4: clamp(34px, 3vw + 20px, 46px);
+
+  --ease: cubic-bezier(.16, .84, .44, 1);
+}
