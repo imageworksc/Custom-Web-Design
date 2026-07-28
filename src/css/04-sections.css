@@ -600,7 +600,6 @@
   .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
-  .port-grid { grid-template-columns: 1fr 1fr; }
   .plans { grid-template-columns: 1fr; }
 }
 
@@ -610,7 +609,6 @@
 }
 
 @media (max-width: 640px) {
-  .port-grid { grid-template-columns: 1fr; }
   .stats { grid-template-columns: 1fr; }
   .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
   .stat:first-child { border-top: 0; }
@@ -648,7 +646,7 @@
     mask-image: none;
     -webkit-mask-image: none;
   }
-  .port-item:hover .slot { transform: none; }
+  .work:hover { transform: none; }
   .step[data-reached="true"] .step-num { animation: none; }
 }
 

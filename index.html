@@ -1018,45 +1018,59 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    PORTFOLIO
    -------------------------------------------------------------------------- */
-.port-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+/* The home's Our Work card: a browser frame with traffic lights, a fixed
+   192px screenshot area, and a name-plus-tag caption. Run as one centred row
+   rather than the home's two scrolling ones. */
+.work-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
   width: 100%;
 }
-.port-item {
+.work {
+  flex: none;
+  width: 300px;
   border-radius: var(--r);
   overflow: hidden;
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .08), 0 10px 26px rgba(20, 40, 80, .1);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
 }
-.port-item:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(20, 40, 80, .16); }
-/* the slot drifts in behind the card's own clip, so the crop stays square */
-.port-item .slot { transition: transform .55s var(--ease); }
-.port-item:hover .slot { transform: scale(1.04); }
+.work:hover { transform: translateY(-8px); box-shadow: 0 14px 36px rgba(20, 40, 80, .16); }
 
-/* Reserved image slots that read as intentional, not as broken images. */
-.slot {
+.work-chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding-inline: 14px;
+  background: #f3f6fb;
+  border-bottom: 1px solid #eaeff6;
+}
+.work-chrome i { inline-size: 9px; block-size: 9px; border-radius: 50%; }
+.work-chrome i:nth-child(1) { background: #ff6058; }
+.work-chrome i:nth-child(2) { background: #ffbd2e; }
+.work-chrome i:nth-child(3) { background: #28c840; }
+
+/* Reserved image slot that reads as intentional, not as a broken image. */
+.work-shot {
   position: relative;
-  aspect-ratio: 4 / 3;
+  block-size: 192px;
   display: grid;
   place-content: center;
   justify-items: center;
   gap: 8px;
+  padding: 20px;
   text-align: center;
-  padding: 24px;
   color: var(--faint);
-  background:
-    radial-gradient(120% 90% at 50% 0%, #eef3f9 0%, rgba(238, 243, 249, 0) 70%),
-    var(--band-tint);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #f7f9fc, #edf1f7);
 }
-.slot::before {
+.work-shot::before {
   content: '';
   position: absolute;
   inset: 14px;
-  border: 1px dashed var(--border);
+  border: 1px dashed #dfe6ef;
   border-radius: var(--r);
 }
 .slot-tag {
@@ -1066,9 +1080,30 @@ a { color: inherit; }
   text-transform: uppercase;
 }
 .slot-name { font-size: 13px; font-weight: 600; }
-.port-cap { padding: 18px 20px; display: flex; flex-direction: column; gap: 3px; }
-.port-cap h3 { font-size: 15px; }
-.port-cap p { font-size: 13px; color: var(--faint); }
+
+.work-cap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+}
+.work-label { font-size: 15px; font-weight: 700; color: var(--navy); }
+.work-tag {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  padding: 4px 9px;
+  border-radius: var(--r);
+  background: #eef7e4;
+  /* the home sets this in #80c34a, which lands at 1.9:1 on its own tint —
+     darkened to clear AA at 11px */
+  color: #41701e;
+  white-space: nowrap;
+}
+
+.work-more { width: 100%; margin-top: 34px; text-align: center; }
 
 /* --------------------------------------------------------------------------
    CHECKLIST
@@ -1672,7 +1707,6 @@ a { color: inherit; }
   .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
-  .port-grid { grid-template-columns: 1fr 1fr; }
   .plans { grid-template-columns: 1fr; }
 }
 
@@ -1682,7 +1716,6 @@ a { color: inherit; }
 }
 
 @media (max-width: 640px) {
-  .port-grid { grid-template-columns: 1fr; }
   .stats { grid-template-columns: 1fr; }
   .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
   .stat:first-child { border-top: 0; }
@@ -1720,7 +1753,7 @@ a { color: inherit; }
     mask-image: none;
     -webkit-mask-image: none;
   }
-  .port-item:hover .slot { transform: none; }
+  .work:hover { transform: none; }
   .step[data-reached="true"] .step-num { animation: none; }
 }
 
@@ -2033,26 +2066,33 @@ a { color: inherit; }
 
   <!-- 6 · PORTFOLIO --------------------------------------------------------- -->
   <section class="band band--tint" id="work" aria-labelledby="work-title">
-    <div class="wrap stack">
-      <h2 class="sec-title reveal" id="work-title">Custom Work We're Proud Of</h2>
-      <p class="lead reveal">Every site below was designed and built from scratch — no templates, no AI shortcuts. Real custom work for real businesses.</p>
+    <div class="sec-head reveal">
+      <h2 class="sec-title" id="work-title">Custom Work We're Proud Of</h2>
+      <p>Every site below was designed and built from scratch — no templates, no AI shortcuts. Real custom work for real businesses.</p>
+    </div>
 
-      <div class="port-grid">
-        <article class="port-item reveal" style="--reveal-delay:0ms">
-          <div class="slot"><span class="slot-tag">Portfolio Image</span><span class="slot-name">Project screenshot #1</span></div>
-          <div class="port-cap"><h3>[Client Name]</h3><p>B2B / Custom Drupal Build</p></div>
+    <div class="wrap">
+      <div class="work-row">
+        <article class="work reveal" style="--reveal-delay:0ms">
+          <div class="work-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="work-shot"><span class="slot-tag">Portfolio Image</span><span class="slot-name">Project screenshot #1</span></div>
+          <div class="work-cap"><h3 class="work-label">[Client Name]</h3><span class="work-tag">B2B / Drupal</span></div>
         </article>
-        <article class="port-item reveal" style="--reveal-delay:120ms">
-          <div class="slot"><span class="slot-tag">Portfolio Image</span><span class="slot-name">Project screenshot #2</span></div>
-          <div class="port-cap"><h3>[Client Name]</h3><p>Professional Services / WordPress</p></div>
+        <article class="work reveal" style="--reveal-delay:120ms">
+          <div class="work-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="work-shot"><span class="slot-tag">Portfolio Image</span><span class="slot-name">Project screenshot #2</span></div>
+          <div class="work-cap"><h3 class="work-label">[Client Name]</h3><span class="work-tag">WordPress</span></div>
         </article>
-        <article class="port-item reveal" style="--reveal-delay:240ms">
-          <div class="slot"><span class="slot-tag">Portfolio Image</span><span class="slot-name">Project screenshot #3</span></div>
-          <div class="port-cap"><h3>[Client Name]</h3><p>GovCon / Custom Build</p></div>
+        <article class="work reveal" style="--reveal-delay:240ms">
+          <div class="work-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="work-shot"><span class="slot-tag">Portfolio Image</span><span class="slot-name">Project screenshot #3</span></div>
+          <div class="work-cap"><h3 class="work-label">[Client Name]</h3><span class="work-tag">GovCon / Custom</span></div>
         </article>
       </div>
 
-      <a class="arrow-link" href="#work">View our full portfolio <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <p class="work-more">
+        <a class="arrow-link" href="#work">View our full portfolio <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </p>
     </div>
   </section>
 
