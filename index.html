@@ -129,6 +129,10 @@
   --tint-blue: #e5edf7;
   --danger-soft: #fbe9e9;
   --danger-ink: #b23b3b;
+  /* Neutral pair for the shortcut column: 5.3:1, so the 10px uppercase tag
+     still clears AA. */
+  --grey-soft: #e8edf4;
+  --grey-ink: #4f5f77;
 
   /* ---- the CTA band, matching the home's #cta section ---- */
   --cta-band: linear-gradient(135deg, #1266b5, #0a2c4d);
@@ -949,9 +953,10 @@ a { color: inherit; }
   flex-direction: column;
   gap: 22px;
 }
+/* The shortcut column is argued down by being grey, not by being alarming. */
 .compare-col--shortcut {
-  background: var(--band-tint-warm);
-  box-shadow: inset 0 0 0 1px var(--border);
+  background: linear-gradient(180deg, #f5f7fa, #eef1f6);
+  box-shadow: inset 0 0 0 1px #e1e7ef;
 }
 .compare-col--custom {
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
@@ -966,7 +971,7 @@ a { color: inherit; }
   border-radius: 50%;
   margin-bottom: 2px;
 }
-.compare-mark--red { background: var(--danger-soft); color: var(--danger-ink); }
+.compare-mark--neutral { background: var(--grey-soft); color: var(--grey-ink); }
 .compare-mark--green { background: var(--tint-green); color: var(--green-ink); }
 .compare-tag {
   font-size: 10px;
@@ -976,7 +981,7 @@ a { color: inherit; }
   padding: 5px 12px;
   border-radius: var(--r);
 }
-.tag-red { background: var(--danger-soft); color: var(--danger-ink); }
+.tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
 .tag-green { background: var(--tint-green); color: var(--green-ink); }
 .compare-head h3 { font-size: var(--step-2); }
 
@@ -993,7 +998,7 @@ a { color: inherit; }
 .compare-list li:first-child { border-top: none; padding-top: 0; }
 .compare-list li em { font-style: italic; }
 .compare-list .mark { margin-top: 3px; flex: none; }
-.mark-x { color: var(--danger-ink); }
+.mark-x { color: var(--grey-ink); opacity: .8; }
 .mark-check { color: var(--green-ink); }
 
 /* --------------------------------------------------------------------------
@@ -1977,8 +1982,8 @@ a { color: inherit; }
       <div class="compare reveal">
         <div class="compare-col compare-col--shortcut">
           <div class="compare-head">
-            <span class="compare-mark compare-mark--red"><svg width="22" height="22" aria-hidden="true"><use href="#i-copies"/></svg></span>
-            <span class="compare-tag tag-red">The Shortcut</span>
+            <span class="compare-mark compare-mark--neutral"><svg width="22" height="22" aria-hidden="true"><use href="#i-copies"/></svg></span>
+            <span class="compare-tag tag-neutral">The Shortcut</span>
             <h3>Templates &amp; AI Builders</h3>
           </div>
           <ul class="compare-list">

@@ -43,6 +43,10 @@
   --tint-blue: #e5edf7;
   --danger-soft: #fbe9e9;
   --danger-ink: #b23b3b;
+  /* Neutral pair for the shortcut column: 5.3:1, so the 10px uppercase tag
+     still clears AA. */
+  --grey-soft: #e8edf4;
+  --grey-ink: #4f5f77;
 
   /* ---- the CTA band, matching the home's #cta section ---- */
   --cta-band: linear-gradient(135deg, #1266b5, #0a2c4d);
