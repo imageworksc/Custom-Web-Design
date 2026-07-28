@@ -855,11 +855,48 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   margin-top: 6px;
 }
 
+/* Stacked, each under its own label — side by side the two read as a pair of
+   options; stacked they read as before and after. */
 .fa-mockups {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.mockup-item {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+}
+.mockup-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--grey-ink);
+}
+.mockup-label .dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: #c2ccd8;
+  flex: none;
+}
+/* the rule runs out to the edge, so the label reads as a caption on the work
+   rather than a chip floating above it */
+.mockup-label::after {
+  content: '';
+  flex: 1;
+  block-size: 1px;
+  background: var(--border);
+}
+.mockup-item--strong .mockup-label { color: var(--green-ink); }
+.mockup-item--strong .mockup-label .dot {
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(128, 195, 74, .24);
 }
 
 .mockup {
@@ -868,8 +905,16 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   border-radius: var(--r);
   overflow: hidden;
   box-shadow: var(--shadow-card);
-  transition: transform .45s var(--ease), box-shadow .45s var(--ease),
-              filter .45s var(--ease);
+}
+.mockup--strong { box-shadow: 0 4px 12px rgba(20, 40, 80, .10), 0 22px 48px rgba(20, 40, 80, .16); }
+
+/* One sits inert while the other breathes. */
+@media (prefers-reduced-motion: no-preference) {
+  .mockup--strong { animation: mockup-float 7s ease-in-out infinite; }
+}
+@keyframes mockup-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
 }
 .mockup-chrome {
   display: flex;
@@ -885,7 +930,21 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   border-radius: 50%;
   background: #cdd5df;
 }
-.mockup-body { position: relative; height: 262px; overflow: hidden; background: #fff; }
+/* The insides were drawn for a 260px card. Rather than re-tune forty values
+   for the wider stacked format, the whole content scales as one: the wrapper
+   is 1/1.62 of the width and scaled back up, so every bar, gap and label keeps
+   its designed proportion. */
+.mockup-body {
+  position: relative;
+  height: 352px;
+  overflow: hidden;
+  background: #fff;
+}
+.mockup-scale {
+  inline-size: 61.7%;
+  transform: scale(1.62);
+  transform-origin: top left;
+}
 
 /* --- the argument, animated ------------------------------------------------
    The template never finishes loading: a skeleton sweep runs over its
@@ -931,22 +990,8 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 @keyframes mc-drift {
   to { background-position: 9px 9px; }
 }
-.mockup-tag {
-  position: absolute;
-  bottom: 10px; right: 10px;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: 4px 8px;
-  border-radius: var(--r);
-}
-.tag-weak { background: var(--danger-soft); color: var(--danger-ink); }
-.tag-strong { background: var(--tint-green); color: var(--green-ink); }
-
-/* The page's argument, made visual: the template drains, the custom lifts. */
-.mockup--weak { filter: saturate(.35); }
-.is-revealed .mockup--strong { transform: translateY(-14px); box-shadow: 0 24px 48px rgba(20, 40, 80, .18); }
+/* The template drains of colour; the custom build keeps it. */
+.mockup--weak { filter: saturate(.2); opacity: .9; }
 
 /* -- template mockup: deliberately generic -- */
 .mw { padding: 12px 12px 16px; }
@@ -2231,9 +2276,12 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
         </div>
 
         <div class="fa-mockups">
-          <figure class="mockup mockup--weak">
+          <figure class="mockup-item mockup-item--weak">
+            <figcaption class="mockup-label"><span class="dot"></span>Template / AI</figcaption>
+            <div class="mockup mockup--weak">
             <div class="mockup-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="mockup-body mw" aria-hidden="true">
+            <div class="mockup-body" aria-hidden="true">
+              <div class="mockup-scale mw">
               <div class="mw-nav">
                 <div class="mw-logo"></div>
                 <div class="mw-links"><i></i><i></i><i></i><i></i></div>
@@ -2250,13 +2298,17 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
                 <div class="mw-card"><div class="mw-icon"></div><div class="mw-l"></div><div class="mw-l is-short"></div></div>
                 <div class="mw-card"><div class="mw-icon"></div><div class="mw-l"></div><div class="mw-l is-short"></div></div>
               </div>
+              </div>
             </div>
-            <figcaption class="mockup-tag tag-weak">Template / AI</figcaption>
+            </div>
           </figure>
 
-          <figure class="mockup mockup--strong">
+          <figure class="mockup-item mockup-item--strong">
+            <figcaption class="mockup-label"><span class="dot"></span>Custom</figcaption>
+            <div class="mockup mockup--strong">
             <div class="mockup-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="mockup-body mc" aria-hidden="true">
+            <div class="mockup-body" aria-hidden="true">
+              <div class="mockup-scale mc">
               <div class="mc-topbar"></div>
               <div class="mc-nav">
                 <div class="mc-logo"><i></i><b>IMAGEWORKS</b></div>
@@ -2277,7 +2329,8 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
                 <div class="mc-card"><i></i><div class="mc-t"></div><div class="mc-l"></div><div class="mc-l is-short"></div></div>
               </div>
             </div>
-            <figcaption class="mockup-tag tag-strong">Custom</figcaption>
+              </div>
+            </div>
           </figure>
         </div>
       </div>
