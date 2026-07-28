@@ -92,8 +92,12 @@
 .hero {
   position: relative;
   isolation: isolate;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  padding-block: clamp(64px, 8vw, 108px) clamp(60px, 7vw, 96px);
+  /* enough height to hold the fold without pushing the next band off it */
+  min-height: min(76vh, 620px);
+  padding-block: clamp(56px, 6vw, 84px);
   background: var(--white);
 }
 
@@ -110,67 +114,103 @@
   -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
 }
 
+/* Claim and call on the left, credentials stacked on the right. As one column
+   the hero left half the band empty and the headline had to carry it alone. */
 .hero-inner {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, .5fr);
+  gap: clamp(32px, 4.5vw, 64px);
+  align-items: center;
+  text-align: left;
+}
+.hero-main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 22px;
-  text-align: left;
+  gap: 24px;
 }
 
 .hero h1 {
-  font-size: var(--step-4);
-  line-height: 1.14;
-  letter-spacing: -.032em;
+  font-size: clamp(36px, 4.2vw + 8px, 64px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
   /* a ragged left column reads faster than a wide centred block */
-  max-width: 17ch;
+  max-width: 16ch;
   text-wrap: balance;
 }
 .hero h1 .accent { color: var(--green-ink); }
 
 .hero-sub {
-  font-size: clamp(16.5px, .55vw + 15px, 18px);
+  font-size: clamp(16.5px, .55vw + 15px, 18.5px);
   line-height: 1.65;
   font-weight: 500;
-  max-width: 56ch;
+  max-width: 52ch;
   color: var(--muted);
   text-wrap: pretty;
 }
 
-.hero .btn-row { margin-top: 12px; }
+.hero .btn-row { margin-top: 10px; }
 
+/* A column of credentials, ruled off from the claim it backs up. Hairlines
+   between the rows so it reads as one stack rather than four loose lines. */
 .hero-trust {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px 30px;
-  width: 100%;
-  max-width: 760px;
-  margin-top: 20px;
-  padding-top: 26px;
-  border-top: 1px solid var(--border);
+  flex-direction: column;
+  padding-left: clamp(20px, 2.6vw, 34px);
+  border-left: 1px solid var(--border);
 }
 .hero-trust li {
   display: flex;
   align-items: center;
-  gap: 9px;
-  font-size: 13.5px;
+  gap: 12px;
+  padding-block: 13px;
+  font-size: 14.5px;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: .01em;
+  transition: color .35s var(--ease);
 }
-.hero-trust .chip { inline-size: 18px; block-size: 18px; }
-.hero-trust .chip svg { inline-size: 10px; block-size: 10px; }
+.hero-trust li + li { border-top: 1px solid var(--border); }
+.hero-trust li:hover { color: var(--navy); }
+.hero-trust .chip {
+  inline-size: 20px;
+  block-size: 20px;
+  transition: background-color .35s var(--ease), color .35s var(--ease);
+}
+.hero-trust .chip svg { inline-size: 11px; block-size: 11px; }
+.hero-trust li:hover .chip { background: var(--green); color: #fff; }
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 34px; }
+  .hero-trust {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    padding-left: 0;
+    padding-top: 22px;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+  .hero-trust li { padding-block: 0; }
+  .hero-trust li + li { border-top: 0; }
+}
 
 /* Staged entrance, built the way the home stages its own hero: each block
    lifts in on its own delay, and the green phrase lands last. `backwards`
    drops the fill afterwards so hover states still win. */
 @media (prefers-reduced-motion: no-preference) {
-  [data-hero-anim="on"] .hero-inner > * { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero h1,
+  [data-hero-anim="on"] .hero-sub,
+  [data-hero-anim="on"] .hero .btn-row,
+  [data-hero-anim="on"] .hero-trust li { animation: hero-in .8s var(--ease) backwards; }
   [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
   [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
   [data-hero-anim="on"] .hero .btn-row { animation-delay: .44s; }
-  [data-hero-anim="on"] .hero-trust { animation-delay: .56s; }
+  [data-hero-anim="on"] .hero-trust li:nth-child(1) { animation-delay: .52s; }
+  [data-hero-anim="on"] .hero-trust li:nth-child(2) { animation-delay: .60s; }
+  [data-hero-anim="on"] .hero-trust li:nth-child(3) { animation-delay: .68s; }
+  [data-hero-anim="on"] .hero-trust li:nth-child(4) { animation-delay: .76s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {

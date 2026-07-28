@@ -72,9 +72,9 @@
 
     /* A well of white under the copy, so the cloth stays a backdrop and the
        headline never has to compete with a thread running through it. */
-    var wx = W * 0.34, wy = H * 0.5;
+    var wx = W * 0.30, wy = H * 0.5;
     well = ctx.createRadialGradient(wx, wy, 0, wx, wy, Math.max(W, H) * 0.58);
-    well.addColorStop(0, 'rgba(255, 255, 255, 0.92)');
+    well.addColorStop(0, 'rgba(255, 255, 255, 0.94)');
     well.addColorStop(0.45, 'rgba(255, 255, 255, 0.62)');
     well.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
@@ -82,7 +82,7 @@
     var n = Math.ceil(W / WARP_GAP) + 1;
     var off = (W - (n - 1) * WARP_GAP) / 2;
     for (var i = 0; i < n; i++) {
-      warps.push({ x: off + i * WARP_GAP, a: rand(0.05, 0.115), w: rand(0.8, 1.3) });
+      warps.push({ x: off + i * WARP_GAP, a: rand(0.07, 0.15), w: rand(0.8, 1.4) });
     }
 
     rows.length = 0;
@@ -90,7 +90,7 @@
     for (var j = 0; j < ROWS; j++) {
       rows.push({
         y: top + (bot - top) * (j / (ROWS - 1)),
-        base: 0.055,
+        base: 0.075,
         lit: 0,
         col: (j % 4 === 2) ? GREEN : NAVY,
         parity: j % 2
