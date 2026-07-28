@@ -440,8 +440,15 @@
 }
 /* The shortcut column is argued down by being grey, not by being alarming. */
 .compare-col--shortcut {
-  background: linear-gradient(180deg, #f5f7fa, #eef1f6);
-  box-shadow: inset 0 0 0 1px #e1e7ef;
+  background: linear-gradient(180deg, #edeff3, #e3e7ed);
+  box-shadow: inset 0 0 0 1px #d9dfe7;
+}
+/* On the darker panel the grey chips would disappear into it, so they invert
+   to white and keep the same ink. */
+.compare-col--shortcut .compare-mark--neutral,
+.compare-col--shortcut .tag-neutral {
+  background: #fff;
+  color: var(--grey-ink);
 }
 .compare-col--custom {
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
