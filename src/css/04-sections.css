@@ -81,53 +81,101 @@
 }
 
 /* --------------------------------------------------------------------------
-   UNDER THE HOOD — spec table
+   UNDER THE HOOD
+   The argument sits still on the left while the five capabilities scroll past
+   it on the right — the section reads as one thought instead of a table
+   floating under a paragraph.
    -------------------------------------------------------------------------- */
-.hood-scroll { width: 100%; overflow-x: auto; }
-.hood {
-  min-width: 520px;
-  max-width: 900px;
+.cms-split {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(36px, 5vw, 72px);
+  align-items: start;
+}
+.cms-aside {
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+.cms-close {
+  margin-top: 6px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+.cms-list {
+  width: 100%;
   border-radius: var(--r);
   overflow: hidden;
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: var(--shadow-card);
 }
-.hood-row {
-  display: grid;
-  grid-template-columns: 258px minmax(0, 1fr);
-  border-bottom: 1px solid var(--border);
-}
-.hood-row:last-child { border-bottom: none; }
-.hood-row dt {
+.cms-row {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 18px 22px;
-  background: var(--band-tint);
-  border-right: 1px solid var(--border);
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--navy);
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px clamp(22px, 2.4vw, 30px);
+  border-top: 1px solid var(--border-soft);
+  transition: background-color .35s var(--ease);
 }
-/* Five identical ticks told you nothing about which row you were reading. */
-.hood-icon {
+.cms-row:first-child { border-top: 0; }
+.cms-row:hover { background: var(--tint-blue); }
+
+/* The rule wipes in from the left — the same mechanic the home gives its
+   links, rather than a decorative bar that is simply always there. */
+.cms-row::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  block-size: 2px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.cms-row:hover::after { transform: scaleX(1); }
+
+.cms-icon {
   flex: none;
   display: grid;
   place-items: center;
-  inline-size: 34px;
-  block-size: 34px;
+  inline-size: 48px;
+  block-size: 48px;
   border-radius: 50%;
-  background: var(--white);
-  box-shadow: inset 0 0 0 1px var(--border);
+  background: var(--tint-blue);
   color: var(--blue);
+  transition: background-color .35s var(--ease), color .35s var(--ease),
+              transform .35s var(--ease);
 }
-.hood-icon svg { inline-size: 18px; block-size: 18px; }
-.hood-row dd {
-  display: flex;
-  align-items: center;
-  padding: 18px 24px;
+.cms-icon svg { inline-size: 22px; block-size: 22px; }
+.cms-row:hover .cms-icon {
+  background: var(--navy);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.cms-body { display: flex; flex-direction: column; gap: 5px; }
+.cms-body dt {
+  font-size: var(--step-1);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -.01em;
+  transition: transform .35s var(--ease);
+}
+.cms-row:hover .cms-body dt { transform: translateX(4px); }
+.cms-body dd {
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--muted);
 }
 
@@ -604,6 +652,10 @@
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
   .plans { grid-template-columns: 1fr; }
+  /* the aside has nothing to stay beside once the list drops below it */
+  .cms-split { grid-template-columns: 1fr; }
+  .cms-aside { position: static; }
+  .cms-close { max-width: var(--measure); }
 }
 
 @media (max-width: 767px) {
@@ -619,9 +671,6 @@
   .steps { --rail-x: 26px; }
   .step-num { inline-size: 52px; block-size: 52px; font-size: 20px; border-width: 3px; }
   .step-body { padding-top: 6px; }
-  .hood { min-width: 0; }
-  .hood-row { grid-template-columns: 1fr; }
-  .hood-row dt { border-right: none; border-bottom: 1px solid var(--border); }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
   .hero-trust { gap: 12px 20px; }
@@ -650,6 +699,10 @@
     -webkit-mask-image: none;
   }
   .work:hover { transform: none; }
+  /* the CMS rows keep their colour change and drop the movement */
+  .cms-row::after { display: none; }
+  .cms-row:hover .cms-icon { transform: none; }
+  .cms-row:hover .cms-body dt { transform: none; }
   .step[data-reached="true"] .step-num { animation: none; }
 }
 
