@@ -203,9 +203,12 @@
   box-shadow: 0 1px 3px rgba(20, 40, 80, .1), 0 12px 30px rgba(20, 40, 80, .12);
 }
 .testi-item { display: flex; }
-.testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+/* line-height 1.25 rather than the body's 1.65: the home leaves this row at the
+   browser default, and inheriting 1.65 made every card 13px taller */
+.testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; line-height: 1.25; }
 .testi-score b { font-size: 16px; font-weight: 800; color: var(--blue); }
-.testi-stars { display: flex; gap: 2px; color: #ffa733; }
+/* the home sets these as text glyphs, not icons */
+.testi-stars { color: #ffa733; font-size: 15px; letter-spacing: 1px; }
 .testi blockquote { flex: 1; margin-bottom: 18px; font-size: 16px; line-height: 1.6; color: var(--nav-ink); }
 .testi figcaption { font-size: 16px; font-weight: 700; color: var(--blue); }
 

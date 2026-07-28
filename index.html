@@ -1186,9 +1186,12 @@ a { color: inherit; }
   box-shadow: 0 1px 3px rgba(20, 40, 80, .1), 0 12px 30px rgba(20, 40, 80, .12);
 }
 .testi-item { display: flex; }
-.testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+/* line-height 1.25 rather than the body's 1.65: the home leaves this row at the
+   browser default, and inheriting 1.65 made every card 13px taller */
+.testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; line-height: 1.25; }
 .testi-score b { font-size: 16px; font-weight: 800; color: var(--blue); }
-.testi-stars { display: flex; gap: 2px; color: #ffa733; }
+/* the home sets these as text glyphs, not icons */
+.testi-stars { color: #ffa733; font-size: 15px; letter-spacing: 1px; }
 .testi blockquote { flex: 1; margin-bottom: 18px; font-size: 16px; line-height: 1.6; color: var(--nav-ink); }
 .testi figcaption { font-size: 16px; font-weight: 700; color: var(--blue); }
 
@@ -1920,8 +1923,8 @@ a { color: inherit; }
   <!-- 12 · TESTIMONIALS ----------------------------------------------------- -->
   <section class="band band--tint-b" aria-labelledby="testimonials-title">
     <div class="testi-head reveal">
-      <h2 class="sec-title" id="testimonials-title">What Our Clients Say</h2>
-      <p>Our clients <strong>love</strong> the work — and the results.</p>
+      <h2 class="sec-title" id="testimonials-title">What our clients say</h2>
+      <p>Our clients <strong>love</strong> our work &amp; the results.</p>
     </div>
 
     <div class="marquee reveal">
@@ -1930,13 +1933,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"ImageWorks’ branding and marketing strategies have led to a tenfold increase in our organic website traffic."</blockquote>
     <figcaption>Diakon</figcaption>
@@ -1946,13 +1943,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"We have already seen a lot more user engagement than we ever have had in the past. Scott never said no. As a result, I am a hero at work for creating this great new site."</blockquote>
     <figcaption>MAG America</figcaption>
@@ -1962,13 +1953,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"Scott is the only person I’ve talked to who really took the time to understand my marketing needs and helped me make the changes to my website and marketing plan."</blockquote>
     <figcaption>SermonScribe</figcaption>
@@ -1978,13 +1963,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"ImageWorks knew exactly what I needed and provided it quickly and economically."</blockquote>
     <figcaption>The People’s Chemist</figcaption>
@@ -1994,13 +1973,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"Thanks to the IWC team for creating a brand for us which consistently receives rave reviews!"</blockquote>
     <figcaption>BeanTree Learning</figcaption>
@@ -2010,13 +1983,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"We have been extremely happy with their creativeness and are very proud of what they have done for us on our web presence."</blockquote>
     <figcaption>Rosoka</figcaption>
@@ -2026,13 +1993,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"This design is phenomenal! Your team has blown me and my expectations away at every phase! I can hardly wait to start marketing."</blockquote>
     <figcaption>Launch Paw</figcaption>
@@ -2042,13 +2003,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"A big thank you for an amazing website! I absolutely love it! Fabulous work — I have been bragging about it to everyone!"</blockquote>
     <figcaption>Lowes Island</figcaption>
@@ -2059,13 +2014,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"ImageWorks’ branding and marketing strategies have led to a tenfold increase in our organic website traffic."</blockquote>
     <figcaption>Diakon</figcaption>
@@ -2075,13 +2024,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"We have already seen a lot more user engagement than we ever have had in the past. Scott never said no. As a result, I am a hero at work for creating this great new site."</blockquote>
     <figcaption>MAG America</figcaption>
@@ -2091,13 +2034,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"Scott is the only person I’ve talked to who really took the time to understand my marketing needs and helped me make the changes to my website and marketing plan."</blockquote>
     <figcaption>SermonScribe</figcaption>
@@ -2107,13 +2044,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"ImageWorks knew exactly what I needed and provided it quickly and economically."</blockquote>
     <figcaption>The People’s Chemist</figcaption>
@@ -2123,13 +2054,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"Thanks to the IWC team for creating a brand for us which consistently receives rave reviews!"</blockquote>
     <figcaption>BeanTree Learning</figcaption>
@@ -2139,13 +2064,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"We have been extremely happy with their creativeness and are very proud of what they have done for us on our web presence."</blockquote>
     <figcaption>Rosoka</figcaption>
@@ -2155,13 +2074,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"This design is phenomenal! Your team has blown me and my expectations away at every phase! I can hardly wait to start marketing."</blockquote>
     <figcaption>Launch Paw</figcaption>
@@ -2171,13 +2084,7 @@ a { color: inherit; }
   <figure class="testi">
     <div class="testi-score">
       <b>5.0</b>
-      <span class="testi-stars" role="img" aria-label="Five out of five stars">
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-        <svg width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg>
-      </span>
+      <span class="testi-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</span>
     </div>
     <blockquote>"A big thank you for an amazing website! I absolutely love it! Fabulous work — I have been bragging about it to everyone!"</blockquote>
     <figcaption>Lowes Island</figcaption>
@@ -2185,10 +2092,6 @@ a { color: inherit; }
 </li>
 
       </ul>
-    </div>
-
-    <div class="wrap" style="margin-top:44px">
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
