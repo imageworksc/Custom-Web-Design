@@ -336,6 +336,18 @@ a { color: inherit; }
     text-wrap: balance;
   }
 }
+
+/* Held on one line at full size. Both runs are well inside the measure — the
+   heading is 791px at 44px and the paragraph 837px at 18px, against 944px of
+   room at this breakpoint — so nothing has to shrink to fit. Below it they
+   wrap at their normal measures. */
+@media (min-width: 1024px) {
+  .sec-title--one,
+  .lead--one {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
 .band--cta .lead { color: rgba(226, 238, 252, .82); }
 .band--cta .lead strong { color: #fff; }
 
@@ -1978,8 +1990,8 @@ a { color: inherit; }
   <!-- 5 · THE DIFFERENCE --------------------------------------------------- -->
   <section class="band" id="difference" aria-labelledby="difference-title">
     <div class="wrap stack">
-      <h2 class="sec-title reveal" id="difference-title">Custom vs. Templates and AI Builders</h2>
-      <p class="lead reveal">The pitch is always the same: <em>save time, save money, launch fast.</em> The difference shows up six months later.</p>
+      <h2 class="sec-title sec-title--one reveal" id="difference-title">Custom vs. Templates and AI Builders</h2>
+      <p class="lead lead--one reveal">The pitch is always the same: <em>save time, save money, launch fast.</em> The difference shows up six months later.</p>
 
       <div class="compare reveal">
         <div class="compare-col compare-col--shortcut">
