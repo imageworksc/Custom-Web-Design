@@ -110,6 +110,33 @@ a { color: inherit; }
 .band--cta h2,
 .band--cta h3 { color: #fff; }
 
+/* The credibility band takes the home's deep blue field — the same ground it
+   uses for "Why ImageWorks". Re-pointing the semantic tokens is enough for
+   every child to flip; nothing inside needs its own dark variant. */
+.band--deep {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(76px, 8vw, 116px);
+  background: linear-gradient(160deg,
+    #205fa6 0%, #1d569a 28%, #164784 47%,
+    #113659 65%, #0d2748 83%, #0a1c38 100%);
+
+  --heading: #ffffff;
+  --text: rgba(226, 238, 252, .82);
+  --muted: rgba(226, 238, 252, .70);
+  --border: rgba(255, 255, 255, .16);
+  --navy: #ffffff;
+}
+.band--deep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+.band--deep > * { position: relative; }
+
 .stack {
   display: flex;
   flex-direction: column;

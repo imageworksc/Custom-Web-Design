@@ -275,6 +275,33 @@ a { color: inherit; }
 .band--cta h2,
 .band--cta h3 { color: #fff; }
 
+/* The credibility band takes the home's deep blue field — the same ground it
+   uses for "Why ImageWorks". Re-pointing the semantic tokens is enough for
+   every child to flip; nothing inside needs its own dark variant. */
+.band--deep {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(76px, 8vw, 116px);
+  background: linear-gradient(160deg,
+    #205fa6 0%, #1d569a 28%, #164784 47%,
+    #113659 65%, #0d2748 83%, #0a1c38 100%);
+
+  --heading: #ffffff;
+  --text: rgba(226, 238, 252, .82);
+  --muted: rgba(226, 238, 252, .70);
+  --border: rgba(255, 255, 255, .16);
+  --navy: #ffffff;
+}
+.band--deep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+.band--deep > * { position: relative; }
+
 .stack {
   display: flex;
   flex-direction: column;
@@ -1253,45 +1280,65 @@ a { color: inherit; }
   border-block: 1px solid var(--border);
 }
 .stat {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: clamp(28px, 3vw, 38px) clamp(20px, 2.4vw, 34px);
+  padding: clamp(30px, 3.2vw, 42px) clamp(20px, 2.4vw, 34px);
   border-left: 1px solid var(--border);
 }
 .stat:first-child { border-left: 0; padding-left: 0; }
+
+/* A pool of green light rises behind the figure you are looking at. */
+.stat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(76% 72% at 50% 34%, rgba(128, 195, 74, .30), transparent 74%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s var(--ease);
+}
+.stat:hover::before { opacity: 1; }
+
 .stat-num {
-  font-size: clamp(38px, 4.4vw, 58px);
+  position: relative;
+  font-size: clamp(42px, 5vw, 66px);
   font-weight: 800;
-  line-height: .95;
+  line-height: .92;
   letter-spacing: -.045em;
   font-variant-numeric: tabular-nums;
-  color: var(--navy);
+  color: var(--heading);
+  transition: transform .4s var(--ease), color .4s var(--ease);
 }
+.stat:hover .stat-num { transform: translateY(-5px); color: var(--green); }
+
 .stat-label {
+  position: relative;
   font-size: 14.5px;
   font-weight: 500;
   line-height: 1.5;
   color: var(--muted);
   max-width: 26ch;
+  transition: color .4s var(--ease);
 }
+.stat:hover .stat-label { color: #fff; }
 
 /* The human + AI line is a claim, not a metric, so it sits on its own. */
 .signature {
   display: inline-flex;
   align-items: center;
   gap: 13px;
-  padding: 14px 22px;
+  padding: 15px 24px;
   border: 1px solid var(--border);
   border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-flat);
+  background: rgba(255, 255, 255, .06);
   font-size: 15px;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
 }
-.signature-icons { display: flex; align-items: center; gap: 7px; color: var(--green-ink); }
-.signature-icons .plus { font-size: 15px; font-weight: 700; opacity: .5; }
+.signature-icons { display: flex; align-items: center; gap: 7px; color: var(--green); }
+.signature-icons .plus { font-size: 15px; font-weight: 700; opacity: .55; }
 
 /* --------------------------------------------------------------------------
    INVESTMENT
@@ -1763,6 +1810,7 @@ a { color: inherit; }
   .cms-row::after { display: none; }
   .cms-row:hover .cms-icon { transform: none; }
   .cms-row:hover .cms-body dt { transform: none; }
+  .stat:hover .stat-num { transform: none; }
   .step[data-reached="true"] .step-num { animation: none; }
 }
 
@@ -2322,7 +2370,7 @@ a { color: inherit; }
   </section>
 
   <!-- 10 · CREDIBILITY ------------------------------------------------------ -->
-  <section class="band band--tint-b" aria-labelledby="credibility-title">
+  <section class="band band--deep" aria-labelledby="credibility-title">
     <div class="wrap stack">
       <h2 class="sec-title sec-title--wide reveal" id="credibility-title">An Award-Winning Agency, Since 1997.</h2>
       <p class="lead reveal">We're not a template shop or an AI wrapper. We're a creative agency that has designed and built custom websites for B2B firms, government contractors, professional services, and local businesses for nearly three decades.</p>
