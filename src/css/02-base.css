@@ -222,6 +222,63 @@ a { color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
+   STATEMENT SECTION
+   Every other section on the page is built from cards and grids, so this one
+   earns its weight by being nothing but type.
+   -------------------------------------------------------------------------- */
+.stmt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+}
+.stmt-title {
+  font-size: clamp(30px, 3.2vw + 14px, 52px);
+  line-height: 1.1;
+  letter-spacing: -.028em;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.stmt-lead {
+  font-size: clamp(18px, .9vw + 15px, 24px);
+  line-height: 1.6;
+  font-weight: 500;
+  max-width: 40ch;
+  color: var(--muted);
+}
+
+/* A marker stroke drawn under each promise, one after the next, the first
+   time the section is read. Painted as a background so it survives a line
+   break instead of leaving a floating box behind the text. */
+.hl {
+  color: var(--navy);
+  font-weight: 700;
+  /* the inline box is only about 1.25em tall, so it needs padding below the
+     baseline for the stroke to sit under the text instead of through it */
+  padding: 0 .06em .16em;
+  background-image: linear-gradient(rgba(128, 195, 74, .42), rgba(128, 195, 74, .42));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 .34em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background-size .75s var(--ease);
+  transition-delay: calc(var(--i) * .24s + .3s);
+}
+.is-revealed .hl { background-size: 100% .34em; }
+
+/* Without the reveal script there is nothing to trigger the sweep, so the
+   strokes are simply there from the start. */
+html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
+
+.stmt .counterpoint {
+  max-width: 52ch;
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* --------------------------------------------------------------------------
    BUTTONS AND LINKS
    -------------------------------------------------------------------------- */
 .btn {

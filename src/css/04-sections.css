@@ -765,6 +765,8 @@
   .stat:hover .stat-num { transform: none; }
   .win-tile:hover { transform: none; }
   .win-tile:hover .win-icon svg { animation: none; }
+  /* the strokes stay, they just stop being drawn */
+  .hl { background-size: 100% .34em; transition: none; }
   .step[data-reached="true"] .step-num { animation: none; }
 }
 
