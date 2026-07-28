@@ -817,18 +817,43 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   width: 100%;
 }
 
-.signals { width: 100%; max-width: 44ch; }
+.signals { width: 100%; max-width: 46ch; }
 .signals li {
   display: flex;
   align-items: center;
   gap: 14px;
   font-size: var(--step-1);
   line-height: 1.5;
-  padding-block: 15px;
+  padding-block: 16px;
   border-bottom: 1px solid var(--border);
+  transition: transform .3s var(--ease);
 }
 .signals li:first-child { border-top: 1px solid var(--border); }
 .signals strong { color: var(--navy); font-weight: 800; }
+.signals .chip { transition: background-color .3s var(--ease), color .3s var(--ease); }
+.signals li:hover { transform: translateX(5px); }
+.signals li:hover .chip { background: var(--green); color: #14300a; }
+
+/* The judgements land one after another — the section is about impressions
+   forming in order, not all at once. */
+@media (prefers-reduced-motion: no-preference) {
+  .is-revealed .signals li {
+    animation: signal-in .55s var(--ease) backwards;
+    animation-delay: calc(var(--i) * .09s + .22s);
+  }
+}
+@keyframes signal-in {
+  from { opacity: 0; transform: translateX(-12px); }
+}
+
+/* The punchline earns display size — it is the whole section in four words. */
+.fa-split .note {
+  font-size: clamp(21px, 1.5vw + 14px, 29px);
+  font-weight: 800;
+  letter-spacing: -.022em;
+  color: var(--navy);
+  margin-top: 6px;
+}
 
 .fa-mockups {
   display: grid;
@@ -860,7 +885,52 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   border-radius: 50%;
   background: #cdd5df;
 }
-.mockup-body { height: 262px; overflow: hidden; background: #fff; }
+.mockup-body { position: relative; height: 262px; overflow: hidden; background: #fff; }
+
+/* --- the argument, animated ------------------------------------------------
+   The template never finishes loading: a skeleton sweep runs over its
+   placeholder bars for ever. The custom build assembles itself once, then
+   settles and stays alive.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .mockup--weak .mockup-body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg,
+      transparent 34%, rgba(255, 255, 255, .78) 50%, transparent 66%);
+    transform: translateX(-110%);
+    animation: skeleton-sweep 3.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .is-revealed .mockup--strong .mc-topbar { animation: mc-in .5s var(--ease) .15s backwards; }
+  .is-revealed .mockup--strong .mc-nav { animation: mc-in .5s var(--ease) .27s backwards; }
+  .is-revealed .mockup--strong .mc-hero { animation: mc-in .55s var(--ease) .39s backwards; }
+  .is-revealed .mockup--strong .mc-card { animation: mc-in .5s var(--ease) backwards; }
+  .is-revealed .mockup--strong .mc-card:nth-child(1) { animation-delay: .56s; }
+  .is-revealed .mockup--strong .mc-card:nth-child(2) { animation-delay: .64s; }
+  .is-revealed .mockup--strong .mc-card:nth-child(3) { animation-delay: .72s; }
+
+  /* the two things that keep breathing once it has landed */
+  .mockup--strong .mc-btn { animation: mc-pulse 3.2s ease-in-out infinite 1.4s; }
+  .mockup--strong .mc-hero-right::after { animation: mc-drift 9s linear infinite; }
+}
+
+@keyframes skeleton-sweep {
+  0%, 16% { transform: translateX(-110%); }
+  74%, 100% { transform: translateX(110%); }
+}
+@keyframes mc-in {
+  from { opacity: 0; transform: translateY(7px); }
+}
+@keyframes mc-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(128, 195, 74, .55); }
+  55% { box-shadow: 0 0 0 5px rgba(128, 195, 74, 0); }
+}
+@keyframes mc-drift {
+  to { background-position: 9px 9px; }
+}
 .mockup-tag {
   position: absolute;
   bottom: 10px; right: 10px;
@@ -1965,6 +2035,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   .step:hover .step-body { transform: none; }
   /* the rail is static, so a node parked at its end would read as a stray dot */
   .steps-node { display: none; }
+  .signals li:hover { transform: none; }
 }
 
 @media print {
@@ -2150,11 +2221,11 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
           <h2 class="sec-title sec-title--wide" id="first-argument">People judge your business before they ever speak with you.</h2>
           <p class="lead">Your website makes the first argument for or against you. A professional custom website tells people:</p>
           <ul class="signals">
-            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company is <strong>established.</strong></li>
-            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company <strong>understands its market.</strong></li>
-            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company <strong>takes its work seriously.</strong></li>
-            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company is <strong>worth contacting.</strong></li>
-            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company may be <strong>the best choice.</strong></li>
+            <li style="--i:0"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company is <strong>established.</strong></li>
+            <li style="--i:1"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company <strong>understands its market.</strong></li>
+            <li style="--i:2"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company <strong>takes its work seriously.</strong></li>
+            <li style="--i:3"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company is <strong>worth contacting.</strong></li>
+            <li style="--i:4"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company may be <strong>the best choice.</strong></li>
           </ul>
           <p class="note">Make sure it wins.</p>
         </div>

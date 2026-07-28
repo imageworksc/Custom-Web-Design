@@ -771,6 +771,7 @@
   .step:hover .step-body { transform: none; }
   /* the rail is static, so a node parked at its end would read as a stray dot */
   .steps-node { display: none; }
+  .signals li:hover { transform: none; }
 }
 
 @media print {
