@@ -492,23 +492,11 @@
    -------------------------------------------------------------------------- */
 /* The rail is a spine the reader travels: it fills as the steps go past, a
    node rides the head of the fill, and each step lights up as it is reached. */
-/* A masthead: claim and framing share a baseline, and a rule closes the block
-   so the spine below starts from something rather than floating. */
-.process-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
-  gap: clamp(28px, 4vw, 60px);
-  align-items: end;
-  width: 100%;
-  padding-bottom: 26px;
-  border-bottom: 1px solid var(--border);
-}
-.process-head .lead { max-width: 46ch; }
-
 .steps {
   position: relative;
   width: 100%;
-  margin-top: 4px;
+  max-width: 880px;
+  margin-top: 12px;
   --rail-x: 36px;
   --fill: 0;
 }
@@ -592,16 +580,13 @@
 
 /* Flat while the step is still ahead of you, a proper card once the rail has
    reached it — the process assembles itself as you read. */
-/* Name and explanation sit side by side, so the row reads like a line in a
-   spec rather than a stacked card. */
 .step-body {
   flex: 1;
   min-width: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 250px) minmax(0, 1fr);
-  gap: 8px 30px;
-  align-items: start;
-  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 24px;
   border-radius: var(--r);
   box-shadow: inset 0 0 0 1px var(--border-soft);
   transition: background .55s var(--ease), box-shadow .55s var(--ease),
