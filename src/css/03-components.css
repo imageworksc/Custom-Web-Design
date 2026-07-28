@@ -492,15 +492,9 @@
    PORTFOLIO
    -------------------------------------------------------------------------- */
 /* The home's Our Work card: a browser frame with traffic lights, a fixed
-   192px screenshot area, and a name-plus-tag caption. Run as one centred row
-   rather than the home's two scrolling ones. */
-.work-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  width: 100%;
-}
+   192px screenshot area, and a name-plus-tag caption. Run as one self-
+   advancing row rather than the home's two scroll-driven ones. */
+.work-item { display: flex; }
 .work {
   flex: none;
   width: 300px;
@@ -528,17 +522,13 @@
 
 .work-shot {
   block-size: 192px;
-  overflow: hidden;
-  background: #f3f6fb;
-}
-.work-shot img {
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
-  object-position: 50% 0;
+  background-color: #f3f6fb;
+  background-size: cover;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
   transition: transform .55s var(--ease);
 }
-.work:hover .work-shot img { transform: scale(1.05); }
+.work:hover .work-shot { transform: scale(1.05); }
 
 .work-cap {
   display: flex;

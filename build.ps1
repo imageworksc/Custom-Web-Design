@@ -25,9 +25,10 @@ $css = @(
     Read-Src 'css/02-base.css'
     Read-Src 'css/03-components.css'
     Read-Src 'css/04-sections.css'
+    Read-Src 'css/05-work.css'
 ) -join "`n"
 
-$css  = $css.Replace('__FONT_B64__', $fontB64)
+$css = $css.Replace('__FONT_B64__', $fontB64)
 
 # --- images: inline so the page makes zero external requests ---------------
 function Read-B64([string]$relative) {
@@ -46,14 +47,21 @@ $testimonials = Read-Src 'testimonials.html'
 $testimonialsDup = $testimonials.Replace('<li class="testi-item">', '<li class="testi-item" aria-hidden="true">')
 $testimonialTrack = $testimonials + "`n" + $testimonialsDup
 
+# The work thumbnails live in the stylesheet, so the duplicated half of the
+# marquee reuses them instead of repeating every data URI.
+for ($i = 1; $i -le 8; $i++) {
+    $css = $css.Replace("__WORK${i}_B64__", (Read-B64 "assets/work-$i.jpg"))
+}
+
+$works = Read-Src 'works.html'
+$worksDup = $works.Replace('<li class="work-item">', '<li class="work-item" aria-hidden="true">')
+
 $body = (Read-Src 'body.html').
     Replace('__TESTIMONIALS__',  $testimonialTrack).
+    Replace('__WORKS__',         ($works + "`n" + $worksDup)).
     Replace('__LOGO_B64__',     (Read-B64 'assets/logo.png')).
     Replace('__FOOTLOGO_B64__', (Read-B64 'assets/footer-logo.png')).
     Replace('__FOOTMAP_B64__',  (Read-B64 'assets/footer-map.jpg')).
-    Replace('__WORK1_B64__',    (Read-B64 'assets/work-1.jpg')).
-    Replace('__WORK2_B64__',    (Read-B64 'assets/work-2s.jpg')).
-    Replace('__WORK3_B64__',    (Read-B64 'assets/work-3.jpg')).
     Replace('__HOME__',         $homeUrl)
 $js   = Read-Src 'app.js'
 $head = Read-Src 'head.html'

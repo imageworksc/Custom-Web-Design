@@ -1,0 +1,14 @@
+/* --------------------------------------------------------------------------
+   WORK THUMBNAILS
+   The marquee holds the set twice so the loop closes seamlessly. Keeping the
+   images here rather than on the elements means the duplicated half reuses
+   these declarations instead of carrying a second copy of every data URI.
+   -------------------------------------------------------------------------- */
+.work-shot--1 { background-image: url(data:image/jpeg;base64,__WORK1_B64__); }
+.work-shot--2 { background-image: url(data:image/jpeg;base64,__WORK2_B64__); }
+.work-shot--3 { background-image: url(data:image/jpeg;base64,__WORK3_B64__); }
+.work-shot--4 { background-image: url(data:image/jpeg;base64,__WORK4_B64__); }
+.work-shot--5 { background-image: url(data:image/jpeg;base64,__WORK5_B64__); }
+.work-shot--6 { background-image: url(data:image/jpeg;base64,__WORK6_B64__); }
+.work-shot--7 { background-image: url(data:image/jpeg;base64,__WORK7_B64__); }
+.work-shot--8 { background-image: url(data:image/jpeg;base64,__WORK8_B64__); }

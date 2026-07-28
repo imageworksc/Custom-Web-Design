@@ -20,13 +20,15 @@ Abre [`index.html`](index.html) en el navegador. No hay servidor ni dependencias
     ├── head.html        # <head>: meta, Open Graph, JSON-LD
     ├── body.html        # Marcado de la página
     ├── testimonials.html# Las 8 reseñas (el build las duplica para el carrusel)
-    ├── app.js           # Reveals, riel del proceso, nav, anclas
+    ├── works.html       # Las 8 tarjetas de portfolio (ídem)
+    ├── app.js           # Reveals, riel del proceso, nav, anclas, contadores
     ├── css/
     │   ├── 01-tokens.css      # Paleta y escalas, tomadas del home
     │   ├── 02-base.css        # Reset, tipografía, botones, enlaces
     │   ├── 03-components.css  # Nav, hero, mockups, proceso, comparativa
-    │   └── 04-sections.css    # Resto de secciones, footer, responsive
-    ├── assets/          # logo.png, footer-logo.png, footer-map.jpg
+    │   ├── 04-sections.css    # Resto de secciones, footer, responsive
+    │   └── 05-work.css        # Miniaturas de portfolio incrustadas
+    ├── assets/          # logos, mapa del footer, work-1..8.jpg
     └── fonts/           # Plus Jakarta Sans (subconjunto latin, variable)
 ```
 

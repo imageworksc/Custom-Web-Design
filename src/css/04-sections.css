@@ -290,6 +290,9 @@
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
 
+/* eight 300px cards plus their 24px gaps make a 2592px loop */
+.marquee--work .marquee-track { animation-duration: 60s; }
+
 @keyframes marquee-run {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }
