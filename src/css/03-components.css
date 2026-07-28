@@ -416,6 +416,16 @@
   box-shadow: var(--shadow-card), inset 0 0 0 2px var(--green);
 }
 .compare-head { display: flex; flex-direction: column; gap: 13px; align-items: flex-start; }
+.compare-mark {
+  display: grid;
+  place-items: center;
+  inline-size: 42px;
+  block-size: 42px;
+  border-radius: 50%;
+  margin-bottom: 2px;
+}
+.compare-mark--red { background: var(--danger-soft); color: var(--danger-ink); }
+.compare-mark--green { background: var(--tint-green); color: var(--green-ink); }
 .compare-tag {
   font-size: 10px;
   font-weight: 800;

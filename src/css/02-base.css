@@ -333,3 +333,17 @@ a { color: inherit; }
 .chip svg { inline-size: 12px; block-size: 12px; }
 .chip--blue { background: var(--chip-blue); color: var(--navy); }
 .chip--navy { background: var(--chip-navy); color: var(--navy); }
+.chip--danger { background: var(--danger-soft); color: var(--danger-ink); }
+
+/* The counterpoint carries the same ✕ the comparison table uses for the
+   shortcut, so the two arguments read as one vocabulary. */
+.counterpoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: var(--measure);
+  font-size: var(--step-1);
+  line-height: 1.7;
+  color: var(--muted);
+}
+.counterpoint .chip { margin-top: 4px; }

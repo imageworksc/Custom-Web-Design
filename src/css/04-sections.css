@@ -1,12 +1,15 @@
 /* --------------------------------------------------------------------------
    CHECKLIST
    -------------------------------------------------------------------------- */
+/* Six items stacked read as a long thin column; two by three sits better
+   against the wide measure the rest of the section uses. */
 .checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 44px;
   width: 100%;
-  max-width: 64ch;
+  max-width: 1000px;
+  border-top: 1px solid var(--border-soft);
 }
 .checklist li {
   display: flex;
@@ -15,10 +18,13 @@
   font-size: var(--step-0);
   font-weight: 500;
   line-height: 1.55;
-  padding-block: 13px;
+  padding-block: 15px;
   border-bottom: 1px solid var(--border-soft);
 }
-.checklist li:first-child { border-top: 1px solid var(--border-soft); }
+
+@media (max-width: 760px) {
+  .checklist { grid-template-columns: 1fr; gap: 0; max-width: var(--measure); }
+}
 
 /* --------------------------------------------------------------------------
    PLATFORM SPLIT
@@ -46,6 +52,19 @@
 .platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
 .platform-half p em { font-style: italic; }
 .platform-half .arrow-link { margin-top: 6px; }
+
+.platform-mark {
+  display: grid;
+  place-items: center;
+  inline-size: 46px;
+  block-size: 46px;
+  border-radius: 50%;
+  margin-bottom: 6px;
+  background: var(--tint-blue);
+  color: var(--blue);
+}
+.platform-half--drupal .platform-mark { background: #e5f6ff; color: #0b7cb0; }
+.platform-half--wp .platform-mark { background: #e8f1f7; color: #1a5f7a; }
 
 .split-badge {
   font-size: 11px;
@@ -80,7 +99,7 @@
 .hood-row dt {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 13px;
   padding: 18px 22px;
   background: var(--band-tint);
   border-right: 1px solid var(--border);
@@ -88,6 +107,19 @@
   font-weight: 800;
   color: var(--navy);
 }
+/* Five identical ticks told you nothing about which row you were reading. */
+.hood-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--border);
+  color: var(--blue);
+}
+.hood-icon svg { inline-size: 18px; block-size: 18px; }
 .hood-row dd {
   display: flex;
   align-items: center;

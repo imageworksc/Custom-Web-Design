@@ -494,6 +494,20 @@ a { color: inherit; }
 .chip svg { inline-size: 12px; block-size: 12px; }
 .chip--blue { background: var(--chip-blue); color: var(--navy); }
 .chip--navy { background: var(--chip-navy); color: var(--navy); }
+.chip--danger { background: var(--danger-soft); color: var(--danger-ink); }
+
+/* The counterpoint carries the same ✕ the comparison table uses for the
+   shortcut, so the two arguments read as one vocabulary. */
+.counterpoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: var(--measure);
+  font-size: var(--step-1);
+  line-height: 1.7;
+  color: var(--muted);
+}
+.counterpoint .chip { margin-top: 4px; }
 
 /* --------------------------------------------------------------------------
    NAV — a copy of the home's bar: full-bleed, 72px, translucent white
@@ -913,6 +927,16 @@ a { color: inherit; }
   box-shadow: var(--shadow-card), inset 0 0 0 2px var(--green);
 }
 .compare-head { display: flex; flex-direction: column; gap: 13px; align-items: flex-start; }
+.compare-mark {
+  display: grid;
+  place-items: center;
+  inline-size: 42px;
+  block-size: 42px;
+  border-radius: 50%;
+  margin-bottom: 2px;
+}
+.compare-mark--red { background: var(--danger-soft); color: var(--danger-ink); }
+.compare-mark--green { background: var(--tint-green); color: var(--green-ink); }
 .compare-tag {
   font-size: 10px;
   font-weight: 800;
@@ -996,12 +1020,15 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    CHECKLIST
    -------------------------------------------------------------------------- */
+/* Six items stacked read as a long thin column; two by three sits better
+   against the wide measure the rest of the section uses. */
 .checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 44px;
   width: 100%;
-  max-width: 64ch;
+  max-width: 1000px;
+  border-top: 1px solid var(--border-soft);
 }
 .checklist li {
   display: flex;
@@ -1010,10 +1037,13 @@ a { color: inherit; }
   font-size: var(--step-0);
   font-weight: 500;
   line-height: 1.55;
-  padding-block: 13px;
+  padding-block: 15px;
   border-bottom: 1px solid var(--border-soft);
 }
-.checklist li:first-child { border-top: 1px solid var(--border-soft); }
+
+@media (max-width: 760px) {
+  .checklist { grid-template-columns: 1fr; gap: 0; max-width: var(--measure); }
+}
 
 /* --------------------------------------------------------------------------
    PLATFORM SPLIT
@@ -1041,6 +1071,19 @@ a { color: inherit; }
 .platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
 .platform-half p em { font-style: italic; }
 .platform-half .arrow-link { margin-top: 6px; }
+
+.platform-mark {
+  display: grid;
+  place-items: center;
+  inline-size: 46px;
+  block-size: 46px;
+  border-radius: 50%;
+  margin-bottom: 6px;
+  background: var(--tint-blue);
+  color: var(--blue);
+}
+.platform-half--drupal .platform-mark { background: #e5f6ff; color: #0b7cb0; }
+.platform-half--wp .platform-mark { background: #e8f1f7; color: #1a5f7a; }
 
 .split-badge {
   font-size: 11px;
@@ -1075,7 +1118,7 @@ a { color: inherit; }
 .hood-row dt {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 13px;
   padding: 18px 22px;
   background: var(--band-tint);
   border-right: 1px solid var(--border);
@@ -1083,6 +1126,19 @@ a { color: inherit; }
   font-weight: 800;
   color: var(--navy);
 }
+/* Five identical ticks told you nothing about which row you were reading. */
+.hood-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--border);
+  color: var(--blue);
+}
+.hood-icon svg { inline-size: 18px; block-size: 18px; }
 .hood-row dd {
   display: flex;
   align-items: center;
@@ -1635,11 +1691,45 @@ a { color: inherit; }
       <line x1="5" y1="12" x2="19" y2="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
       <polyline points="12 5 19 12 12 19" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24">
+      <path d="M12.5 20H21M16.4 3.6a2.1 2.1 0 0 1 3 3L7.4 18.6 3.5 19.7l1.1-3.9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-database" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="5.8" rx="7.5" ry="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M4.5 5.8v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6M4.5 11.8v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24">
+      <path d="M9 2.5v5.5M15 2.5v5.5M6 8h12v3.2a6 6 0 0 1-12 0zM12 17.2V21.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <path d="M12 2.5 20 5.8v5.7c0 4.9-3.4 8.4-8 10.3-4.6-1.9-8-5.4-8-10.3V5.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M8.8 11.9 11.2 14.3 15.4 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-key" viewBox="0 0 24 24">
+      <circle cx="8" cy="15.5" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M11 12.5 20.5 3M17.5 6l2.4 2.4M20.5 3 22 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-drupal" viewBox="0 0 24 24">
+      <path d="M12 2.4s6.9 6.3 6.9 11A6.9 6.9 0 0 1 5.1 13.4C5.1 8.7 12 2.4 12 2.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-wordpress" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M6.4 8.4 9 16.2l3-6.6 3 6.6 2.6-7.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-copies" viewBox="0 0 24 24">
+      <rect x="3.2" y="3.2" width="12.6" height="12.6" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M8.2 18.8v.4a1.6 1.6 0 0 0 1.6 1.6h9.4a1.6 1.6 0 0 0 1.6-1.6V9.8a1.6 1.6 0 0 0-1.6-1.6h-.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-fingerprint" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+        <path d="M3.6 11.8A8.4 8.4 0 0 1 12 3.4c2.3 0 4.4.9 5.9 2.4"/>
+        <path d="M20.4 11.8c0 3-.6 5.8-1.8 8.3"/>
+        <path d="M6.3 16.6c.3-1 .4-2 .4-3a5.3 5.3 0 0 1 10.6 0c0 1.5-.2 3-.7 4.4"/>
+        <path d="M12 20.6c.9-1.9 1.4-4 1.4-6.2a1.4 1.4 0 0 0-2.8 0c0 1.3-.2 2.6-.6 3.8"/>
+      </g>
+    </symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24">
       <polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="i-star" viewBox="0 0 16 16">
-      <path d="M8 1.6l1.86 3.94 4.14.62-3 3.03.71 4.28L8 11.47 4.29 13.47 5 9.19 2 6.16l4.14-.62z" fill="currentColor"/>
     </symbol>
     <symbol id="i-person" viewBox="0 0 24 24">
       <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.75"/>
@@ -1695,7 +1785,6 @@ a { color: inherit; }
     <div class="wrap">
       <div class="fa-split reveal">
         <div class="stack">
-          <p class="eyebrow">The First Argument</p>
           <h2 class="sec-title sec-title--wide" id="first-argument">People judge your business before they ever speak with you.</h2>
           <p class="lead">Your website makes the first argument for or against you. A professional custom website tells people:</p>
           <ul class="signals">
@@ -1770,18 +1859,19 @@ a { color: inherit; }
   <!-- 3 · WHY IT MATTERS -------------------------------------------------- -->
   <section class="band" aria-labelledby="why-it-matters">
     <div class="wrap stack reveal">
-      <p class="eyebrow">Why It Matters</p>
       <h2 class="sec-title" id="why-it-matters">A better website works harder for your business.</h2>
-      <p class="lead">Our custom websites impress visitors from the first scroll, tell the right story about your company, and move people to take action — request a quote, book a call, pick up the phone. A template or AI-built site puts you online cheap and fast — and more often hurts your brand than helps it.</p>
+      <p class="lead lead--two">Our custom websites impress visitors from the first scroll, tell the right story about your company, and move people to take action — request a quote, book a call, pick up the phone.</p>
+      <p class="counterpoint">
+        <span class="chip chip--danger"><svg aria-hidden="true"><use href="#i-x"/></svg></span>
+        A template or AI-built site puts you online cheap and fast — and more often hurts your brand than helps it.
+      </p>
       <a class="skip-link" href="#how-we-build">See how we build it <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
   <!-- 4 · HOW WE BUILD ---------------------------------------------------- -->
   <section class="band band--tint" id="how-we-build" aria-labelledby="process-title">
     <div class="wrap stack">
-      <p class="eyebrow reveal">Our Process</p>
       <h2 class="sec-title sec-title--wide reveal" id="process-title">How We Build Amazing, Award-Winning Websites</h2>
       <p class="lead reveal">A proven process, refined over 28 years — human-led at every step, with AI used where it makes the work faster and smarter.</p>
 
@@ -1837,20 +1927,19 @@ a { color: inherit; }
         </li>
       </ol>
 
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
   <!-- 5 · THE DIFFERENCE --------------------------------------------------- -->
   <section class="band" id="difference" aria-labelledby="difference-title">
     <div class="wrap stack">
-      <p class="eyebrow reveal">The Difference</p>
       <h2 class="sec-title reveal" id="difference-title">Custom vs. Templates and AI Builders</h2>
       <p class="lead reveal">The pitch is always the same: <em>save time, save money, launch fast.</em> The difference shows up six months later.</p>
 
       <div class="compare reveal">
         <div class="compare-col compare-col--shortcut">
           <div class="compare-head">
+            <span class="compare-mark compare-mark--red"><svg width="22" height="22" aria-hidden="true"><use href="#i-copies"/></svg></span>
             <span class="compare-tag tag-red">The Shortcut</span>
             <h3>Templates &amp; AI Builders</h3>
           </div>
@@ -1864,6 +1953,7 @@ a { color: inherit; }
         </div>
         <div class="compare-col compare-col--custom">
           <div class="compare-head">
+            <span class="compare-mark compare-mark--green"><svg width="22" height="22" aria-hidden="true"><use href="#i-fingerprint"/></svg></span>
             <span class="compare-tag tag-green">The Real Thing</span>
             <h3>Custom Web Design</h3>
           </div>
@@ -1908,14 +1998,12 @@ a { color: inherit; }
       </div>
 
       <a class="arrow-link" href="#work">View our full portfolio <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
   <!-- 7 · BUILT TO WIN ------------------------------------------------------ -->
   <section class="band" aria-labelledby="payoff-title">
     <div class="wrap stack reveal">
-      <p class="eyebrow">The Payoff</p>
       <h2 class="sec-title" id="payoff-title">Custom Means Built to Win</h2>
       <p class="lead">A custom website gives you control over the entire sales experience. Every page has a job. Every section supports the sale. Every call to action gives the visitor a clear next step.</p>
       <ul class="checklist">
@@ -1928,7 +2016,6 @@ a { color: inherit; }
       </ul>
       <p class="note">That is the difference between owning a website and owning a real business-development platform.</p>
       <a class="skip-link" href="#how-we-build">See our process <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
@@ -1940,6 +2027,7 @@ a { color: inherit; }
 
       <div class="platform-split reveal">
         <div class="platform-half platform-half--drupal">
+          <span class="platform-mark"><svg width="26" height="26" aria-hidden="true"><use href="#i-drupal"/></svg></span>
           <span class="split-badge">Drupal</span>
           <h3>Control, Security &amp; Scale</h3>
           <p>For organizations that need structured content, advanced integrations, multi-user workflows, and high-security environments, Drupal web design is often the right foundation — trusted by government agencies, universities, and enterprises.</p>
@@ -1947,6 +2035,7 @@ a { color: inherit; }
           <a class="arrow-link" href="#platforms">Drupal Web Design <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
         <div class="platform-half platform-half--wp">
+          <span class="platform-mark"><svg width="26" height="26" aria-hidden="true"><use href="#i-wordpress"/></svg></span>
           <span class="split-badge">WordPress</span>
           <h3>Agile, Marketing-Driven Sites</h3>
           <p>For agile, marketing-driven organizations, WordPress web design offers speed and flexibility without sacrificing quality — <em>when it's built custom.</em> The problem was never WordPress; it's the millions of template-based, plugin-bloated sites that gave it a bad name.</p>
@@ -1955,44 +2044,41 @@ a { color: inherit; }
         </div>
       </div>
 
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
   <!-- 9 · UNDER THE HOOD ---------------------------------------------------- -->
   <section class="band" aria-labelledby="hood-title">
     <div class="wrap stack">
-      <p class="eyebrow reveal">Under the Hood</p>
       <h2 class="sec-title sec-title--wide reveal" id="hood-title">Why a Real CMS Beats an AI-Generated Site</h2>
       <p class="lead reveal">AI can generate a good-looking page. A real CMS — <strong>Drupal</strong> or <strong>WordPress</strong> — gives you a website your business can actually edit, manage, connect, expand, and improve.</p>
 
       <div class="hood-scroll reveal">
         <dl class="hood">
           <div class="hood-row">
-            <dt><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Easy editing</dt>
+            <dt><span class="hood-icon"><svg aria-hidden="true"><use href="#i-pencil"/></svg></span>Easy editing</dt>
             <dd>Your team updates pages, images, services, and menus without touching code.</dd>
           </div>
           <div class="hood-row">
-            <dt><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>A real database</dt>
+            <dt><span class="hood-icon"><svg aria-hidden="true"><use href="#i-database"/></svg></span>A real database</dt>
             <dd>Services, locations, team members, and content are structured, reusable, and searchable across the site.</dd>
           </div>
           <div class="hood-row">
-            <dt><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Business integrations</dt>
+            <dt><span class="hood-icon"><svg aria-hidden="true"><use href="#i-plug"/></svg></span>Business integrations</dt>
             <dd>Connect your CRM, email, payments, scheduling, and analytics — the software your business runs on.</dd>
           </div>
           <div class="hood-row">
-            <dt><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Security &amp; scalability</dt>
+            <dt><span class="hood-icon"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>Security &amp; scalability</dt>
             <dd>Updated, backed up, and monitored — built to grow from ten pages to thousands.</dd>
           </div>
           <div class="hood-row">
-            <dt><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Real ownership</dt>
+            <dt><span class="hood-icon"><svg aria-hidden="true"><use href="#i-key"/></svg></span>Real ownership</dt>
             <dd>You control the site, content, database, and hosting — not locked inside a closed website builder.</dd>
           </div>
         </dl>
       </div>
 
       <p class="lead reveal">AI is a useful production tool. It is not a replacement for the secure, editable, connected system a serious business website needs.</p>
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
@@ -2026,7 +2112,6 @@ a { color: inherit; }
         Crafted by humans. Enhanced by AI.
       </p>
 
-      <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
