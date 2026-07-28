@@ -711,6 +711,9 @@
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
   .plans { grid-template-columns: 1fr; }
+  /* the masthead and the step rows both fall back to one column */
+  .process-head { grid-template-columns: 1fr; gap: 16px; align-items: start; }
+  .step-body { grid-template-columns: 1fr; gap: 6px; }
   /* the aside has nothing to stay beside once the list drops below it */
   .cms-split { grid-template-columns: 1fr; }
   .cms-aside { position: static; }
