@@ -119,24 +119,6 @@
   text-align: left;
 }
 
-.hero-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12.5px;
-  font-weight: 800;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--green-ink);
-}
-.hero-kicker::before {
-  content: '';
-  inline-size: 30px;
-  block-size: 2px;
-  background: var(--green);
-  flex: none;
-}
-
 .hero h1 {
   font-size: var(--step-4);
   line-height: 1.14;
@@ -185,11 +167,10 @@
    drops the fill afterwards so hover states still win. */
 @media (prefers-reduced-motion: no-preference) {
   [data-hero-anim="on"] .hero-inner > * { animation: hero-in .8s var(--ease) backwards; }
-  [data-hero-anim="on"] .hero-kicker { animation-delay: .06s; }
-  [data-hero-anim="on"] .hero h1 { animation-delay: .18s; }
-  [data-hero-anim="on"] .hero-sub { animation-delay: .38s; }
-  [data-hero-anim="on"] .hero .btn-row { animation-delay: .56s; }
-  [data-hero-anim="on"] .hero-trust { animation-delay: .68s; }
+  [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
+  [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
+  [data-hero-anim="on"] .hero .btn-row { animation-delay: .44s; }
+  [data-hero-anim="on"] .hero-trust { animation-delay: .56s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {
