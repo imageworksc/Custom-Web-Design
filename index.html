@@ -619,39 +619,31 @@ a { color: inherit; }
 .hero {
   position: relative;
   isolation: isolate;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  padding: clamp(64px, 8vw, 104px) var(--gutter) clamp(56px, 7vw, 88px);
-  background:
-    radial-gradient(130% 100% at 50% -8%, #dcebf9 0%, rgba(220, 235, 249, 0) 54%),
-    radial-gradient(72% 62% at 84% 14%, rgba(128, 195, 74, .20) 0%, rgba(128, 195, 74, 0) 62%),
-    radial-gradient(58% 56% at 12% 82%, rgba(18, 102, 181, .12) 0%, rgba(18, 102, 181, 0) 64%),
-    linear-gradient(165deg, #f5f9fd 0%, #eff4fa 46%, #ffffff 100%);
+  padding-block: clamp(64px, 8vw, 108px) clamp(60px, 7vw, 96px);
+  background: var(--white);
 }
-/* the same dotted mesh the home lays over its navy field */
-.hero::before {
-  content: '';
+
+/* The woven cloth the home runs behind its hero, drawn dark on white. It is
+   painted by src/mesh.js and never takes pointer events. */
+.hero-mesh {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: radial-gradient(rgba(20, 60, 102, .10) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 82%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 82%, transparent 100%);
+  inline-size: 100%;
+  block-size: 100%;
   pointer-events: none;
+  mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
 }
 
-.hero-center {
+.hero-inner {
   position: relative;
-  width: 100%;
-  max-width: 880px;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 22px;
+  text-align: left;
 }
 
 .hero-kicker {
@@ -664,10 +656,9 @@ a { color: inherit; }
   text-transform: uppercase;
   color: var(--green-ink);
 }
-.hero-kicker::before,
-.hero-kicker::after {
+.hero-kicker::before {
   content: '';
-  inline-size: 28px;
+  inline-size: 30px;
   block-size: 2px;
   background: var(--green);
   flex: none;
@@ -675,29 +666,34 @@ a { color: inherit; }
 
 .hero h1 {
   font-size: var(--step-4);
-  line-height: 1.16;
+  line-height: 1.14;
   letter-spacing: -.032em;
-  max-width: 18ch;
+  /* a ragged left column reads faster than a wide centred block */
+  max-width: 17ch;
+  text-wrap: balance;
 }
 .hero h1 .accent { color: var(--green-ink); }
 
 .hero-sub {
   font-size: clamp(16.5px, .55vw + 15px, 18px);
-  line-height: 1.6;
+  line-height: 1.65;
   font-weight: 500;
-  max-width: 62ch;
+  max-width: 56ch;
   color: var(--muted);
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
-.hero .btn-row { justify-content: center; margin-top: 10px; }
+.hero .btn-row { margin-top: 12px; }
 
 .hero-trust {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px 28px;
-  margin-top: 14px;
+  gap: 14px 30px;
+  width: 100%;
+  max-width: 760px;
+  margin-top: 20px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
 }
 .hero-trust li {
   display: flex;
@@ -715,16 +711,16 @@ a { color: inherit; }
    lifts in on its own delay, and the green phrase lands last. `backwards`
    drops the fill afterwards so hover states still win. */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-center > * { animation: hero-in .8s var(--ease) backwards; }
-  .hero-kicker { animation-delay: .06s; }
-  .hero h1 { animation-delay: .18s; }
-  .hero-sub { animation-delay: .38s; }
-  .hero .btn-row { animation-delay: .56s; }
-  .hero-trust { animation-delay: .68s; }
+  [data-hero-anim="on"] .hero-inner > * { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero-kicker { animation-delay: .06s; }
+  [data-hero-anim="on"] .hero h1 { animation-delay: .18s; }
+  [data-hero-anim="on"] .hero-sub { animation-delay: .38s; }
+  [data-hero-anim="on"] .hero .btn-row { animation-delay: .56s; }
+  [data-hero-anim="on"] .hero-trust { animation-delay: .68s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {
-    .hero h1 .accent {
+    [data-hero-anim="on"] .hero h1 .accent {
       display: inline-block;
       animation: hero-in .8s var(--ease) .34s backwards;
     }
@@ -1761,6 +1757,12 @@ a { color: inherit; }
 </style>
 </head>
 <body>
+<!-- Set before first paint. The hero's entrance hides its own content until it
+     plays, and that content is the most important thing on the page — gating
+     the hidden state on this flag means a page that never runs this line just
+     shows the hero outright instead of a blank band. -->
+<script>document.documentElement.setAttribute('data-hero-anim', 'on');</script>
+
 <a class="skip-to-content" href="#main">Skip to content</a>
 
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
@@ -1846,8 +1848,9 @@ a { color: inherit; }
 <main id="main">
 
   <!-- 1 · HERO ---------------------------------------------------------- -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-center">
+  <section class="hero" aria-labelledby="hero-title" data-hero>
+    <canvas class="hero-mesh" data-mesh aria-hidden="true"></canvas>
+    <div class="wrap hero-inner">
       <p class="hero-kicker">Web Design Services</p>
       <h1 id="hero-title">Custom Web Design — Handcrafted for Brands That <span class="accent">Refuse Shortcuts.</span></h1>
       <p class="hero-sub">AI builders and templates are the shortcuts — fast, cheap, and everywhere. Serious businesses don't put their brand on either one. We design and build truly custom websites, crafted by an award-winning creative team, for companies that know the difference.</p>
@@ -2917,6 +2920,268 @@ a { color: inherit; }
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
+  }
+})();
+
+/* ---------------------------------------------------------------------------
+   HERO MESH
+   The home weaves a cloth behind its hero: standing threads, a weft that runs
+   over one and under the next, and a dent that follows the cursor. Same idea
+   here, drawn dark on white instead of light on navy.
+   --------------------------------------------------------------------------- */
+(function () {
+  'use strict';
+
+  var hero = document.querySelector('[data-hero]');
+  if (!hero) return;
+
+  var canvas = hero.querySelector('[data-mesh]');
+  if (!canvas || !canvas.getContext) return;
+
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var WARP_GAP = 54;      // spacing of the standing threads
+  var ROWS = 13;          // weft rows across the height
+  var SEGS = 10;          // samples per thread — enough for the dent to bend it
+  var FLOAT = 5;          // gap left where the weft passes under a warp
+  var INFLUENCE = 250;    // how far the dent under the cursor reaches
+  var PULL = 22;          // how far the cloth slides toward it
+  var PASS_MS = 5200;     // one crossing of the shuttle
+  var REST_MS = 1100;
+
+  var NAVY = '20, 60, 102';
+  var GREEN = '128, 195, 74';
+
+  var W = 0, H = 0, dpr = 1;
+  var warps = [], rows = [];
+  var well = null;
+  var rowN = 0, passStart = 0;
+  var raf = null, running = false;
+
+  var px = -9999, py = -9999;   // raw pointer, in hero space
+  var cx = -9999, cy = -9999;   // eased pointer, so the dent glides
+  var strength = 0;
+
+  // disp() runs thousands of times a frame, so it writes to these instead of
+  // allocating a point object per call.
+  var dX = 0, dY = 0;
+
+  function disp(x, y) {
+    dX = x; dY = y;
+    if (strength < 0.004 || cx < -9000) return;
+    var ddx = x - cx, ddy = y - cy;
+    var d = Math.sqrt(ddx * ddx + ddy * ddy);
+    if (d >= INFLUENCE) return;
+    var f = 1 - d / INFLUENCE;
+    var e = f * f * strength;
+    var inv = 1 / (d || 1);
+    dX = x - ddx * inv * e * PULL;
+    dY = y - ddy * inv * e * PULL;
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function build() {
+    var r = hero.getBoundingClientRect();
+    W = Math.round(r.width);
+    H = Math.round(r.height);
+    if (!W || !H) return false;
+
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    /* A well of white under the copy, so the cloth stays a backdrop and the
+       headline never has to compete with a thread running through it. */
+    var wx = W * 0.34, wy = H * 0.5;
+    well = ctx.createRadialGradient(wx, wy, 0, wx, wy, Math.max(W, H) * 0.58);
+    well.addColorStop(0, 'rgba(255, 255, 255, 0.92)');
+    well.addColorStop(0.45, 'rgba(255, 255, 255, 0.62)');
+    well.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    warps.length = 0;
+    var n = Math.ceil(W / WARP_GAP) + 1;
+    var off = (W - (n - 1) * WARP_GAP) / 2;
+    for (var i = 0; i < n; i++) {
+      warps.push({ x: off + i * WARP_GAP, a: rand(0.05, 0.115), w: rand(0.8, 1.3) });
+    }
+
+    rows.length = 0;
+    var top = H * 0.09, bot = H * 0.93;
+    for (var j = 0; j < ROWS; j++) {
+      rows.push({
+        y: top + (bot - top) * (j / (ROWS - 1)),
+        base: 0.055,
+        lit: 0,
+        col: (j % 4 === 2) ? GREEN : NAVY,
+        parity: j % 2
+      });
+    }
+
+    // The loom opens mid-canvas: starting at row 0 puts the first pass up
+    // under the nav where nobody sees it.
+    rowN = Math.floor(ROWS / 2);
+    passStart = 0;
+    return true;
+  }
+
+  /* Where warp i sits at height y once its slow drift is applied. The weft
+     calls this too, so every crossing lands on the thread itself. */
+  function warpAt(i, y, t) {
+    var wp = warps[i];
+    return wp.x + Math.sin(t * 0.00021 + i * 0.85 + y * 0.0016) * 1.6;
+  }
+
+  function drawWarps(t) {
+    for (var i = 0; i < warps.length; i++) {
+      var wp = warps[i];
+      ctx.beginPath();
+      for (var s = 0; s <= SEGS; s++) {
+        var y = (H * s) / SEGS;
+        disp(warpAt(i, y, t), y);
+        if (s === 0) ctx.moveTo(dX, dY); else ctx.lineTo(dX, dY);
+      }
+      ctx.strokeStyle = 'rgba(' + NAVY + ',' + wp.a + ')';
+      ctx.lineWidth = wp.w;
+      ctx.stroke();
+    }
+  }
+
+  /* One weft row: over a standing thread, under the next. That alternation is
+     the whole point — it is what makes this cloth rather than a grid. */
+  function drawRow(row, t, progress) {
+    var alpha = row.base + row.lit;
+    if (alpha <= 0.002) return;
+
+    ctx.strokeStyle = 'rgba(' + row.col + ',' + alpha + ')';
+    ctx.lineWidth = 1;
+
+    var edge = progress === null ? W + 1 : W * progress;
+
+    for (var i = 0; i < warps.length - 1; i++) {
+      var overHere = ((i + row.parity) % 2) === 0;
+      var overNext = ((i + 1 + row.parity) % 2) === 0;
+
+      var x1 = warpAt(i, row.y, t) + (overHere ? 0 : FLOAT);
+      var x2 = warpAt(i + 1, row.y, t) - (overNext ? 0 : FLOAT);
+      if (x2 <= x1) continue;
+      if (x1 > edge) break;
+      if (x2 > edge) x2 = edge;
+
+      ctx.beginPath();
+      var steps = 3;
+      for (var s = 0; s <= steps; s++) {
+        var x = x1 + ((x2 - x1) * s) / steps;
+        disp(x, row.y);
+        if (s === 0) ctx.moveTo(dX, dY); else ctx.lineTo(dX, dY);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function drawStatic() {
+    if (!build()) return;
+    ctx.clearRect(0, 0, W, H);
+    drawWarps(0);
+    for (var i = 0; i < rows.length; i++) drawRow(rows[i], 0, null);
+    ctx.fillStyle = well;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function frame(now) {
+    raf = window.requestAnimationFrame(frame);
+
+    // ease the pointer so the dent glides instead of snapping
+    if (cx < -9000) { cx = px; cy = py; }
+    cx += (px - cx) * 0.12;
+    cy += (py - cy) * 0.12;
+    var target = px > -9000 ? 1 : 0;
+    strength += (target - strength) * 0.08;
+
+    if (!passStart) passStart = now;
+    var elapsed = now - passStart;
+    var progress = elapsed / PASS_MS;
+
+    if (progress >= 1) {
+      rows[rowN].lit = 0.075;
+      if (elapsed > PASS_MS + REST_MS) {
+        rowN = (rowN + 1) % rows.length;
+        passStart = now;
+        progress = 0;
+      } else {
+        progress = null;
+      }
+    }
+
+    ctx.clearRect(0, 0, W, H);
+    drawWarps(now);
+
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      if (i === rowN && progress !== null && progress < 1) {
+        row.lit = 0.09 * (1 - progress);
+        drawRow(row, now, progress);
+      } else {
+        row.lit *= 0.985;
+        drawRow(row, now, null);
+      }
+    }
+
+    ctx.fillStyle = well;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function start() {
+    if (running || reduced.matches) return;
+    running = true;
+    passStart = 0;
+    raf = window.requestAnimationFrame(frame);
+  }
+
+  function stop() {
+    running = false;
+    if (raf) window.cancelAnimationFrame(raf);
+    raf = null;
+  }
+
+  hero.addEventListener('pointermove', function (event) {
+    var r = hero.getBoundingClientRect();
+    px = event.clientX - r.left;
+    py = event.clientY - r.top;
+  }, { passive: true });
+
+  hero.addEventListener('pointerleave', function () {
+    px = -9999; py = -9999;
+  }, { passive: true });
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(function () {
+      if (reduced.matches) drawStatic(); else build();
+    }, 180);
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop(); else start();
+  });
+
+  // Only run while the hero is actually on screen.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) start(); else stop();
+    }, { threshold: 0 }).observe(hero);
+  }
+
+  if (reduced.matches) {
+    drawStatic();
+  } else {
+    build();
+    start();
   }
 })();
 

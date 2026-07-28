@@ -63,7 +63,7 @@ $body = (Read-Src 'body.html').
     Replace('__FOOTLOGO_B64__', (Read-B64 'assets/footer-logo.png')).
     Replace('__FOOTMAP_B64__',  (Read-B64 'assets/footer-map.jpg')).
     Replace('__HOME__',         $homeUrl)
-$js   = Read-Src 'app.js'
+$js   = (Read-Src 'app.js') + "`n" + (Read-Src 'mesh.js')
 $head = Read-Src 'head.html'
 
 $styleBlock  = "<style>`n$css`n</style>"

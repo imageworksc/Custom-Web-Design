@@ -92,39 +92,31 @@
 .hero {
   position: relative;
   isolation: isolate;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  padding: clamp(64px, 8vw, 104px) var(--gutter) clamp(56px, 7vw, 88px);
-  background:
-    radial-gradient(130% 100% at 50% -8%, #dcebf9 0%, rgba(220, 235, 249, 0) 54%),
-    radial-gradient(72% 62% at 84% 14%, rgba(128, 195, 74, .20) 0%, rgba(128, 195, 74, 0) 62%),
-    radial-gradient(58% 56% at 12% 82%, rgba(18, 102, 181, .12) 0%, rgba(18, 102, 181, 0) 64%),
-    linear-gradient(165deg, #f5f9fd 0%, #eff4fa 46%, #ffffff 100%);
+  padding-block: clamp(64px, 8vw, 108px) clamp(60px, 7vw, 96px);
+  background: var(--white);
 }
-/* the same dotted mesh the home lays over its navy field */
-.hero::before {
-  content: '';
+
+/* The woven cloth the home runs behind its hero, drawn dark on white. It is
+   painted by src/mesh.js and never takes pointer events. */
+.hero-mesh {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: radial-gradient(rgba(20, 60, 102, .10) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 82%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 82%, transparent 100%);
+  inline-size: 100%;
+  block-size: 100%;
   pointer-events: none;
+  mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
 }
 
-.hero-center {
+.hero-inner {
   position: relative;
-  width: 100%;
-  max-width: 880px;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 22px;
+  text-align: left;
 }
 
 .hero-kicker {
@@ -137,10 +129,9 @@
   text-transform: uppercase;
   color: var(--green-ink);
 }
-.hero-kicker::before,
-.hero-kicker::after {
+.hero-kicker::before {
   content: '';
-  inline-size: 28px;
+  inline-size: 30px;
   block-size: 2px;
   background: var(--green);
   flex: none;
@@ -148,29 +139,34 @@
 
 .hero h1 {
   font-size: var(--step-4);
-  line-height: 1.16;
+  line-height: 1.14;
   letter-spacing: -.032em;
-  max-width: 18ch;
+  /* a ragged left column reads faster than a wide centred block */
+  max-width: 17ch;
+  text-wrap: balance;
 }
 .hero h1 .accent { color: var(--green-ink); }
 
 .hero-sub {
   font-size: clamp(16.5px, .55vw + 15px, 18px);
-  line-height: 1.6;
+  line-height: 1.65;
   font-weight: 500;
-  max-width: 62ch;
+  max-width: 56ch;
   color: var(--muted);
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
-.hero .btn-row { justify-content: center; margin-top: 10px; }
+.hero .btn-row { margin-top: 12px; }
 
 .hero-trust {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px 28px;
-  margin-top: 14px;
+  gap: 14px 30px;
+  width: 100%;
+  max-width: 760px;
+  margin-top: 20px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
 }
 .hero-trust li {
   display: flex;
@@ -188,16 +184,16 @@
    lifts in on its own delay, and the green phrase lands last. `backwards`
    drops the fill afterwards so hover states still win. */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-center > * { animation: hero-in .8s var(--ease) backwards; }
-  .hero-kicker { animation-delay: .06s; }
-  .hero h1 { animation-delay: .18s; }
-  .hero-sub { animation-delay: .38s; }
-  .hero .btn-row { animation-delay: .56s; }
-  .hero-trust { animation-delay: .68s; }
+  [data-hero-anim="on"] .hero-inner > * { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero-kicker { animation-delay: .06s; }
+  [data-hero-anim="on"] .hero h1 { animation-delay: .18s; }
+  [data-hero-anim="on"] .hero-sub { animation-delay: .38s; }
+  [data-hero-anim="on"] .hero .btn-row { animation-delay: .56s; }
+  [data-hero-anim="on"] .hero-trust { animation-delay: .68s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {
-    .hero h1 .accent {
+    [data-hero-anim="on"] .hero h1 .accent {
       display: inline-block;
       animation: hero-in .8s var(--ease) .34s backwards;
     }
