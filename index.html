@@ -695,6 +695,30 @@ a { color: inherit; }
 .hero-trust .chip { inline-size: 18px; block-size: 18px; }
 .hero-trust .chip svg { inline-size: 10px; block-size: 10px; }
 
+/* Staged entrance, built the way the home stages its own hero: each block
+   lifts in on its own delay, and the green phrase lands last. `backwards`
+   drops the fill afterwards so hover states still win. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-center > * { animation: hero-in .8s var(--ease) backwards; }
+  .hero-kicker { animation-delay: .06s; }
+  .hero h1 { animation-delay: .18s; }
+  .hero-sub { animation-delay: .38s; }
+  .hero .btn-row { animation-delay: .56s; }
+  .hero-trust { animation-delay: .68s; }
+
+  /* inline-block only where the phrase can't be pushed off the measure */
+  @media (min-width: 640px) {
+    .hero h1 .accent {
+      display: inline-block;
+      animation: hero-in .8s var(--ease) .34s backwards;
+    }
+  }
+}
+
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
 /* --------------------------------------------------------------------------
    CARD — the home's recipe: 2px corner, white-to-#fcfdff, layered shadow
    -------------------------------------------------------------------------- */
@@ -895,8 +919,15 @@ a { color: inherit; }
   box-shadow: 0 4px 14px rgba(20, 40, 80, .18);
   transition: background-color .3s var(--ease), transform .3s var(--ease);
 }
-.step[data-reached="true"] .step-num { background: var(--green-ink); }
+.step[data-reached="true"] .step-num {
+  background: var(--green-ink);
+  animation: step-pop .5s var(--ease);
+}
 .step:hover .step-num { transform: scale(1.05); }
+
+@keyframes step-pop {
+  40% { transform: scale(1.12); }
+}
 .step-body { padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
 .step-body h3 { font-size: var(--step-1); }
 .step-body p { font-size: 15px; line-height: 1.66; color: var(--muted); }
@@ -982,6 +1013,9 @@ a { color: inherit; }
   transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
 .port-item:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(20, 40, 80, .16); }
+/* the slot drifts in behind the card's own clip, so the crop stays square */
+.port-item .slot { transition: transform .55s var(--ease); }
+.port-item:hover .slot { transform: scale(1.04); }
 
 /* Reserved image slots that read as intentional, not as broken images. */
 .slot {
@@ -1065,7 +1099,8 @@ a { color: inherit; }
   gap: 12px;
   border-top: 3px solid transparent;
 }
-.platform-half--drupal { border-top-color: #009CDE; border-right: 1px solid var(--border); }
+/* Official brand blues */
+.platform-half--drupal { border-top-color: #0678BE; border-right: 1px solid var(--border); }
 .platform-half--wp { border-top-color: #21759B; }
 .platform-half h3 { font-size: var(--step-2); }
 .platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
@@ -1082,8 +1117,9 @@ a { color: inherit; }
   background: var(--tint-blue);
   color: var(--blue);
 }
-.platform-half--drupal .platform-mark { background: #e5f6ff; color: #0b7cb0; }
-.platform-half--wp .platform-mark { background: #e8f1f7; color: #1a5f7a; }
+.platform-half--drupal .platform-mark { background: #e3f1fb; color: #0678BE; }
+.platform-half--wp .platform-mark { background: #e7eff4; color: #21759B; }
+.platform-mark svg { inline-size: 26px; block-size: 26px; }
 
 .split-badge {
   font-size: 11px;
@@ -1665,6 +1701,8 @@ a { color: inherit; }
     mask-image: none;
     -webkit-mask-image: none;
   }
+  .port-item:hover .slot { transform: none; }
+  .step[data-reached="true"] .step-num { animation: none; }
 }
 
 @media print {
@@ -1709,12 +1747,12 @@ a { color: inherit; }
       <circle cx="8" cy="15.5" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
       <path d="M11 12.5 20.5 3M17.5 6l2.4 2.4M20.5 3 22 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
+    <!-- Official Drupal and WordPress marks -->
     <symbol id="i-drupal" viewBox="0 0 24 24">
-      <path d="M12 2.4s6.9 6.3 6.9 11A6.9 6.9 0 0 1 5.1 13.4C5.1 8.7 12 2.4 12 2.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path fill="currentColor" d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1018.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 01-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 01-3.158-3.159 3.291 3.291 0 01.787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 01.792 2.093A3.158 3.158 0 0112 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253"/>
     </symbol>
     <symbol id="i-wordpress" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="9.3" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M6.4 8.4 9 16.2l3-6.6 3 6.6 2.6-7.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill="currentColor" d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/>
     </symbol>
     <symbol id="i-copies" viewBox="0 0 24 24">
       <rect x="3.2" y="3.2" width="12.6" height="12.6" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -1967,8 +2005,6 @@ a { color: inherit; }
         </div>
       </div>
 
-      <a class="skip-link" href="#how-we-build">See how we do it <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-
       <div class="btn-row w-full" style="margin-top:20px">
         <a class="btn btn--solid" href="#quote">Discuss Your Project<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--quiet" href="#quote">Book a Call</a>
@@ -2015,7 +2051,6 @@ a { color: inherit; }
         <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>How visitors are moved toward action, not just left to bounce</li>
       </ul>
       <p class="note">That is the difference between owning a website and owning a real business-development platform.</p>
-      <a class="skip-link" href="#how-we-build">See our process <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </section>
 

@@ -46,7 +46,8 @@
   gap: 12px;
   border-top: 3px solid transparent;
 }
-.platform-half--drupal { border-top-color: #009CDE; border-right: 1px solid var(--border); }
+/* Official brand blues */
+.platform-half--drupal { border-top-color: #0678BE; border-right: 1px solid var(--border); }
 .platform-half--wp { border-top-color: #21759B; }
 .platform-half h3 { font-size: var(--step-2); }
 .platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
@@ -63,8 +64,9 @@
   background: var(--tint-blue);
   color: var(--blue);
 }
-.platform-half--drupal .platform-mark { background: #e5f6ff; color: #0b7cb0; }
-.platform-half--wp .platform-mark { background: #e8f1f7; color: #1a5f7a; }
+.platform-half--drupal .platform-mark { background: #e3f1fb; color: #0678BE; }
+.platform-half--wp .platform-mark { background: #e7eff4; color: #21759B; }
+.platform-mark svg { inline-size: 26px; block-size: 26px; }
 
 .split-badge {
   font-size: 11px;
@@ -646,6 +648,8 @@
     mask-image: none;
     -webkit-mask-image: none;
   }
+  .port-item:hover .slot { transform: none; }
+  .step[data-reached="true"] .step-num { animation: none; }
 }
 
 @media print {

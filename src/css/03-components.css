@@ -184,6 +184,30 @@
 .hero-trust .chip { inline-size: 18px; block-size: 18px; }
 .hero-trust .chip svg { inline-size: 10px; block-size: 10px; }
 
+/* Staged entrance, built the way the home stages its own hero: each block
+   lifts in on its own delay, and the green phrase lands last. `backwards`
+   drops the fill afterwards so hover states still win. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-center > * { animation: hero-in .8s var(--ease) backwards; }
+  .hero-kicker { animation-delay: .06s; }
+  .hero h1 { animation-delay: .18s; }
+  .hero-sub { animation-delay: .38s; }
+  .hero .btn-row { animation-delay: .56s; }
+  .hero-trust { animation-delay: .68s; }
+
+  /* inline-block only where the phrase can't be pushed off the measure */
+  @media (min-width: 640px) {
+    .hero h1 .accent {
+      display: inline-block;
+      animation: hero-in .8s var(--ease) .34s backwards;
+    }
+  }
+}
+
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
 /* --------------------------------------------------------------------------
    CARD — the home's recipe: 2px corner, white-to-#fcfdff, layered shadow
    -------------------------------------------------------------------------- */
@@ -384,8 +408,15 @@
   box-shadow: 0 4px 14px rgba(20, 40, 80, .18);
   transition: background-color .3s var(--ease), transform .3s var(--ease);
 }
-.step[data-reached="true"] .step-num { background: var(--green-ink); }
+.step[data-reached="true"] .step-num {
+  background: var(--green-ink);
+  animation: step-pop .5s var(--ease);
+}
 .step:hover .step-num { transform: scale(1.05); }
+
+@keyframes step-pop {
+  40% { transform: scale(1.12); }
+}
 .step-body { padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
 .step-body h3 { font-size: var(--step-1); }
 .step-body p { font-size: 15px; line-height: 1.66; color: var(--muted); }
@@ -471,6 +502,9 @@
   transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
 .port-item:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(20, 40, 80, .16); }
+/* the slot drifts in behind the card's own clip, so the crop stays square */
+.port-item .slot { transition: transform .55s var(--ease); }
+.port-item:hover .slot { transform: scale(1.04); }
 
 /* Reserved image slots that read as intentional, not as broken images. */
 .slot {
