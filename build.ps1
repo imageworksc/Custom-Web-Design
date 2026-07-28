@@ -1,6 +1,6 @@
 # Assembles the two outputs from src/:
 #   index.html              standalone page (open it directly in a browser)
-#   preview.artifact.html   body-only fragment for the Claude Artifact preview
+#   preview.artifact.html   body-only fragment for the artifact preview
 #
 # Run:  pwsh -File build.ps1
 
