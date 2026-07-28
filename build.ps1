@@ -51,6 +51,9 @@ $body = (Read-Src 'body.html').
     Replace('__LOGO_B64__',     (Read-B64 'assets/logo.png')).
     Replace('__FOOTLOGO_B64__', (Read-B64 'assets/footer-logo.png')).
     Replace('__FOOTMAP_B64__',  (Read-B64 'assets/footer-map.jpg')).
+    Replace('__WORK1_B64__',    (Read-B64 'assets/work-1.jpg')).
+    Replace('__WORK2_B64__',    (Read-B64 'assets/work-2s.jpg')).
+    Replace('__WORK3_B64__',    (Read-B64 'assets/work-3.jpg')).
     Replace('__HOME__',         $homeUrl)
 $js   = Read-Src 'app.js'
 $head = Read-Src 'head.html'

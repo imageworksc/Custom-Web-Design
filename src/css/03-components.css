@@ -526,33 +526,19 @@
 .work-chrome i:nth-child(2) { background: #ffbd2e; }
 .work-chrome i:nth-child(3) { background: #28c840; }
 
-/* Reserved image slot that reads as intentional, not as a broken image. */
 .work-shot {
-  position: relative;
   block-size: 192px;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 8px;
-  padding: 20px;
-  text-align: center;
-  color: var(--faint);
-  background: linear-gradient(180deg, #f7f9fc, #edf1f7);
+  overflow: hidden;
+  background: #f3f6fb;
 }
-.work-shot::before {
-  content: '';
-  position: absolute;
-  inset: 14px;
-  border: 1px dashed #dfe6ef;
-  border-radius: var(--r);
+.work-shot img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  transition: transform .55s var(--ease);
 }
-.slot-tag {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-}
-.slot-name { font-size: 13px; font-weight: 600; }
+.work:hover .work-shot img { transform: scale(1.05); }
 
 .work-cap {
   display: flex;
