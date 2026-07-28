@@ -198,14 +198,23 @@
 .plan h3 { font-size: var(--step-2); }
 .plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
 
+/* Same size as the lead above it — no viewport scaling, so the two really do
+   match. The line measures 901px at 18px, so it holds on one line from 1024px
+   up (944px of room) and wraps normally below that. */
 .invest-note {
   width: 100%;
-  max-width: 760px;
-  font-size: 15px;
+  max-width: var(--measure);
+  font-size: var(--step-1);
   line-height: 1.7;
   color: var(--muted);
 }
-.invest-note strong { color: var(--navy); font-weight: 700; }
+
+@media (min-width: 1024px) {
+  .invest-note {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
 
 /* --------------------------------------------------------------------------
    TESTIMONIALS

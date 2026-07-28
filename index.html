@@ -1181,14 +1181,23 @@ a { color: inherit; }
 .plan h3 { font-size: var(--step-2); }
 .plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
 
+/* Same size as the lead above it — no viewport scaling, so the two really do
+   match. The line measures 901px at 18px, so it holds on one line from 1024px
+   up (944px of room) and wraps normally below that. */
 .invest-note {
   width: 100%;
-  max-width: 760px;
-  font-size: 15px;
+  max-width: var(--measure);
+  font-size: var(--step-1);
   line-height: 1.7;
   color: var(--muted);
 }
-.invest-note strong { color: var(--navy); font-weight: 700; }
+
+@media (min-width: 1024px) {
+  .invest-note {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
 
 /* --------------------------------------------------------------------------
    TESTIMONIALS
@@ -2012,7 +2021,6 @@ a { color: inherit; }
   <!-- 11 · INVESTMENT ------------------------------------------------------- -->
   <section class="band" id="quote" aria-labelledby="investment-title">
     <div class="wrap stack reveal">
-      <p class="eyebrow">Investment</p>
       <h2 class="sec-title" id="investment-title">What a Custom Website Costs</h2>
       <p class="lead">Custom work is scoped to your business — so every project is quoted individually rather than sold off a fixed price list. What you invest depends on the size of the site, the complexity of the build, and the systems it needs to connect to.</p>
       <p class="plans-label">Two ways to work with us</p>
@@ -2028,8 +2036,7 @@ a { color: inherit; }
           <p>Bundles your website with content, SEO, hosting, and ongoing support.</p>
         </div>
       </div>
-      <p class="invest-note">Tell us what you're building and we'll recommend the right fit — with a clear, detailed quote before any work begins.</p>
-      <a class="arrow-link arrow-link--green" href="#quote">Get a custom quote <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <p class="invest-note">Tell us what you're building and we'll recommend the right fit with a clear, detailed quote before any work begins.</p>
       <p class="quote-rail">Ready to discuss your project? <a href="#quote">Request a quote <svg class="arrow icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
