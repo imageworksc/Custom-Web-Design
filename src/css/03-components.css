@@ -438,17 +438,12 @@
   flex-direction: column;
   gap: 22px;
 }
-/* The shortcut column is argued down by being grey, not by being alarming. */
+/* The shortcut column is argued down by being grey, not by being alarming.
+   The tint stays barely there — the rule is what defines the panel, so the
+   chips inside still have something to sit against. */
 .compare-col--shortcut {
-  background: linear-gradient(180deg, #edeff3, #e3e7ed);
-  box-shadow: inset 0 0 0 1px #d9dfe7;
-}
-/* On the darker panel the grey chips would disappear into it, so they invert
-   to white and keep the same ink. */
-.compare-col--shortcut .compare-mark--neutral,
-.compare-col--shortcut .tag-neutral {
-  background: #fff;
-  color: var(--grey-ink);
+  background: linear-gradient(180deg, #fbfcfe, #f6f8fb);
+  box-shadow: inset 0 0 0 1px #e4eaf1;
 }
 .compare-col--custom {
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
