@@ -600,17 +600,6 @@
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
   .fa-split { grid-template-columns: 1fr; }
-  /* The overlap needs width to breathe; below this they stack. `align-items`
-     has to be reset too — inherited from the grid it would leave both cards
-     shrunk to their content width. */
-  .fa-mockups {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 18px;
-    padding-bottom: 0;
-  }
-  .mockup--strong { margin-top: 0; }
   .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
