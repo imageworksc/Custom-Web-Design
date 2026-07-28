@@ -88,6 +88,8 @@ a { color: inherit; }
 }
 .band--tint { background: var(--band-tint); }
 .band--tint-b { background: var(--band-tint-warm); }
+/* for sections whose own content already carries plenty of vertical air */
+.band--snug { padding-block: clamp(44px, 4.6vw, 64px); }
 
 /* The closing call to action is the home's #cta band: the same gradient with
    the same dot field laid over it. */

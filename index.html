@@ -253,6 +253,8 @@ a { color: inherit; }
 }
 .band--tint { background: var(--band-tint); }
 .band--tint-b { background: var(--band-tint-warm); }
+/* for sections whose own content already carries plenty of vertical air */
+.band--snug { padding-block: clamp(44px, 4.6vw, 64px); }
 
 /* The closing call to action is the home's #cta band: the same gradient with
    the same dot field laid over it. */
@@ -971,9 +973,47 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   .is-revealed .mockup--strong .mc-card:nth-child(2) { animation-delay: .64s; }
   .is-revealed .mockup--strong .mc-card:nth-child(3) { animation-delay: .72s; }
 
-  /* the two things that keep breathing once it has landed */
+  /* --- the template, stuck --- */
+  /* its call to action keeps flickering between two greys and never resolves */
+  .mockup--weak .mw-btn { animation: dead-cta 2.8s ease-in-out infinite; }
+  /* the placeholder cards fade in and out in sequence, the way a skeleton
+     loader does while it waits for content that is never coming */
+  .mockup--weak .mw-card { animation: card-breathe 3.4s ease-in-out infinite; }
+  .mockup--weak .mw-card:nth-child(2) { animation-delay: .38s; }
+  .mockup--weak .mw-card:nth-child(3) { animation-delay: .76s; }
+  .mockup--weak .mw-t,
+  .mockup--weak .mw-s { animation: card-breathe 3.4s ease-in-out infinite .2s; }
+
+  /* --- the custom build, running --- */
   .mockup--strong .mc-btn { animation: mc-pulse 3.2s ease-in-out infinite 1.4s; }
   .mockup--strong .mc-hero-right::after { animation: mc-drift 9s linear infinite; }
+  /* light moves across the hero field, the way it would over real artwork */
+  .mockup--strong .mc-hero {
+    background-size: 170% 170%;
+    animation: mc-atmosphere 14s ease-in-out infinite;
+  }
+  /* each card reports in on its own beat — a system with something to say */
+  .mockup--strong .mc-card i { animation: mc-dot 2.6s ease-in-out infinite; }
+  .mockup--strong .mc-card:nth-child(2) i { animation-delay: .42s; }
+  .mockup--strong .mc-card:nth-child(3) i { animation-delay: .84s; }
+  .mockup--strong .mc-links .mc-cta { animation: mc-pulse 3.2s ease-in-out infinite 2.2s; }
+}
+
+@keyframes dead-cta {
+  0%, 100% { background: #a8b3c1; }
+  50% { background: #c6ced9; }
+}
+@keyframes card-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+@keyframes mc-atmosphere {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes mc-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .45; transform: scale(.78); }
 }
 
 @keyframes skeleton-sweep {
@@ -2259,7 +2299,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   </section>
 
   <!-- 2 · THE FIRST ARGUMENT --------------------------------------------- -->
-  <section class="band band--tint" aria-labelledby="first-argument">
+  <section class="band band--tint band--snug" aria-labelledby="first-argument">
     <div class="wrap">
       <div class="fa-split reveal">
         <div class="stack">
@@ -2273,6 +2313,10 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
             <li style="--i:4"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>This company may be <strong>the best choice.</strong></li>
           </ul>
           <p class="note">Make sure it wins.</p>
+          <div class="btn-row" style="margin-top:8px">
+            <a class="btn btn--solid" href="#quote">Discuss Your Project<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--quiet" href="#quote">Book a Call</a>
+          </div>
         </div>
 
         <div class="fa-mockups">
@@ -2335,10 +2379,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
         </div>
       </div>
 
-      <div class="btn-row" style="margin-top:44px">
-        <a class="btn btn--solid" href="#quote">Discuss Your Project<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn--quiet" href="#quote">Book a Call</a>
-      </div>
     </div>
   </section>
 
