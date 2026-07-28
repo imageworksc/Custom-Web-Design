@@ -308,18 +308,10 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 .btn--solid {
   background: var(--green);
   border-color: var(--green);
-  color: #143c1f;
+  color: #fff;
 }
 .btn--solid:hover { filter: brightness(1.04); }
 
-/* The home's hero button: the ground shows through a green rule, then fills. */
-.btn--outline {
-  background: rgba(128, 195, 74, .10);
-  border-color: var(--green);
-  color: var(--navy);
-}
-.btn--outline:hover { background: var(--green); color: #143c1f; }
-.band--cta .btn--outline { color: #fff; }
 
 /* The closing band's primary button matches the home's #cta button. */
 .band--cta .btn--solid {

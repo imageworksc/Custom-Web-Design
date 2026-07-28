@@ -214,16 +214,18 @@
   line-height: 1.5;
   padding-block: 16px;
   border-bottom: 1px solid var(--border);
-  transition: transform .3s var(--ease);
+  transition: background-color .3s var(--ease);
 }
 .signals li:first-child { border-top: 1px solid var(--border); }
 /* One flex item, not two — otherwise the row's 14px gap lands between the
    sentence and its emphasis instead of a word space. */
 .signal-text { min-width: 0; }
 .signals strong { color: var(--navy); font-weight: 700; }
-.signals .chip { transition: background-color .3s var(--ease), color .3s var(--ease); }
-.signals li:hover { transform: translateX(5px); }
-.signals li:hover .chip { background: var(--green); color: #14300a; }
+.signals .chip { transition: background-color .3s var(--ease); }
+/* A whisper, not a move — five rows all shifting under the cursor was busier
+   than the content deserved. */
+.signals li:hover { background: rgba(128, 195, 74, .07); }
+.signals li:hover .chip { background: #d9ecc4; }
 
 /* The judgements land one after another — the section is about impressions
    forming in order, not all at once. */
@@ -237,11 +239,12 @@
   from { opacity: 0; transform: translateX(-12px); }
 }
 
-/* The punchline earns display size — it is the whole section in four words. */
+/* Bigger than the list, well short of the heading — a closing beat, not a
+   second title. */
 .fa-split .note {
-  font-size: clamp(21px, 1.5vw + 14px, 29px);
+  font-size: clamp(18px, .6vw + 16px, 21px);
   font-weight: 800;
-  letter-spacing: -.022em;
+  letter-spacing: -.015em;
   color: var(--navy);
   margin-top: 6px;
 }
