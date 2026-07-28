@@ -768,11 +768,22 @@ a { color: inherit; }
 .signals li:first-child { border-top: 1px solid var(--border); }
 .signals strong { color: var(--navy); font-weight: 800; }
 
+/* The two states overlap rather than sitting side by side: the template drops
+   behind, the real build steps in front of it. */
 .fa-mockups {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(12, 1fr);
   align-items: start;
+  padding-bottom: 26px;
+}
+.mockup--weak {
+  grid-area: 1 / 1 / 2 / 9;
+  z-index: 1;
+}
+.mockup--strong {
+  grid-area: 1 / 5 / 2 / 13;
+  z-index: 2;
+  margin-top: 92px;
 }
 
 .mockup {
@@ -799,6 +810,16 @@ a { color: inherit; }
   background: #cdd5df;
 }
 .mockup-body { height: 262px; overflow: hidden; background: #fff; }
+
+/* The real build shows a real site — no invented headline standing in for one. */
+.mockup-shot {
+  aspect-ratio: 480 / 307;
+  background-color: #f3f6fb;
+  background-size: cover;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+}
+
 .mockup-tag {
   position: absolute;
   bottom: 10px; right: 10px;
@@ -809,12 +830,14 @@ a { color: inherit; }
   padding: 4px 8px;
   border-radius: var(--r);
 }
-.tag-weak { background: var(--danger-soft); color: var(--danger-ink); }
-.tag-strong { background: var(--tint-green); color: var(--green-ink); }
+.tag-weak { background: var(--grey-soft); color: var(--grey-ink); }
+.tag-strong { background: var(--tint-green); color: #41701e; }
+/* the card in front covers the bottom-right corner, so this one sits left */
+.mockup--weak .mockup-tag { right: auto; left: 10px; }
 
-/* The page's argument, made visual: the template drains, the custom lifts. */
-.mockup--weak { filter: saturate(.35); }
-.is-revealed .mockup--strong { transform: translateY(-14px); box-shadow: 0 24px 48px rgba(20, 40, 80, .18); }
+/* The argument, made visual: the template drains, the real build lifts. */
+.mockup--weak { filter: saturate(.25); opacity: .92; }
+.is-revealed .mockup--strong { transform: translateY(-14px); box-shadow: 0 26px 54px rgba(20, 40, 80, .22); }
 
 /* -- template mockup: deliberately generic -- */
 .mw { padding: 12px 12px 16px; }
@@ -833,50 +856,6 @@ a { color: inherit; }
 .mw-icon { inline-size: 12px; block-size: 12px; border-radius: 1px; background: #dbe0e7; margin: 0 auto 6px; }
 .mw-l { block-size: 3px; border-radius: 1px; background: #dbe0e7; margin: 2px auto; inline-size: 75%; }
 .mw-l.is-short { inline-size: 55%; }
-
-/* -- custom mockup: art-directed -- */
-.mc { display: flex; flex-direction: column; }
-.mc-topbar { block-size: 8px; background: var(--navy); }
-.mc-nav {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 6px 12px 8px; background: #fff; border-bottom: 1px solid #eef1f5;
-}
-.mc-logo { display: flex; align-items: center; gap: 4px; }
-.mc-logo i { inline-size: 10px; block-size: 10px; border-radius: 2px; background: var(--navy); flex: none; }
-.mc-logo b { font-size: 7px; font-weight: 800; color: var(--navy); letter-spacing: .04em; }
-.mc-links { display: flex; gap: 5px; align-items: center; font-size: 5.5px; font-weight: 700; color: #33404f; }
-.mc-links .mc-cta { background: var(--green); color: #143c1f; padding: 3px 6px; border-radius: 1px; }
-.mc-hero {
-  position: relative; display: flex; block-size: 130px; overflow: hidden;
-  background: linear-gradient(165deg, #103f74 0%, #0b2c55 48%, #071a38 100%);
-}
-.mc-hero-left { flex: 1; z-index: 2; padding: 14px 12px; display: flex; flex-direction: column; justify-content: center; }
-.mc-head { font-size: 11px; font-weight: 800; line-height: 1.15; letter-spacing: -.02em; color: #fff; margin-bottom: 5px; }
-.mc-head span { color: var(--green); }
-.mc-s { block-size: 2px; border-radius: 1px; background: rgba(255, 255, 255, .5); margin-block: 2px; inline-size: 90%; }
-.mc-s.is-short { inline-size: 65%; }
-.mc-btn { block-size: 10px; inline-size: 52px; border-radius: 1px; background: var(--green); margin-top: 8px; }
-.mc-hero-right {
-  flex: .9; position: relative;
-  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
-  background:
-    radial-gradient(72% 62% at 70% 20%, rgba(32, 132, 206, .55) 0%, rgba(32, 132, 206, 0) 62%),
-    linear-gradient(150deg, #17578f 0%, #0d3059 60%, #08203f 100%);
-}
-.mc-hero-right::after {
-  content: ''; position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, .16) 1px, transparent 1px);
-  background-size: 9px 9px;
-}
-.mc-cards {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;
-  padding: 0 12px; margin-top: -18px; position: relative; z-index: 3;
-}
-.mc-card { background: #fff; border-radius: 1px; padding: 6px 5px; box-shadow: 0 2px 6px rgba(20, 40, 80, .16); }
-.mc-card i { display: block; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--green); margin-bottom: 4px; }
-.mc-t { block-size: 3px; border-radius: 1px; background: var(--navy); margin-bottom: 3px; inline-size: 75%; }
-.mc-l { block-size: 2px; border-radius: 1px; background: #d5dae2; margin-block: 1.5px; inline-size: 90%; }
-.mc-l.is-short { inline-size: 60%; }
 
 /* --------------------------------------------------------------------------
    PROCESS — the rail fills as the seven steps scroll past
@@ -1683,6 +1662,17 @@ a { color: inherit; }
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
   .fa-split { grid-template-columns: 1fr; }
+  /* The overlap needs width to breathe; below this they stack. `align-items`
+     has to be reset too — inherited from the grid it would leave both cards
+     shrunk to their content width. */
+  .fa-mockups {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding-bottom: 0;
+  }
+  .mockup--strong { margin-top: 0; }
   .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
@@ -1907,27 +1897,7 @@ a { color: inherit; }
 
           <figure class="mockup mockup--strong">
             <div class="mockup-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="mockup-body mc" aria-hidden="true">
-              <div class="mc-topbar"></div>
-              <div class="mc-nav">
-                <div class="mc-logo"><i></i><b>IMAGEWORKS</b></div>
-                <div class="mc-links"><span>About</span><span>Services</span><span>News</span><span class="mc-cta">Contact</span></div>
-              </div>
-              <div class="mc-hero">
-                <div class="mc-hero-left">
-                  <div class="mc-head">Custom design.<br><span>Built to win.</span></div>
-                  <div class="mc-s"></div>
-                  <div class="mc-s is-short"></div>
-                  <div class="mc-btn"></div>
-                </div>
-                <div class="mc-hero-right"></div>
-              </div>
-              <div class="mc-cards">
-                <div class="mc-card"><i></i><div class="mc-t"></div><div class="mc-l"></div><div class="mc-l is-short"></div></div>
-                <div class="mc-card"><i></i><div class="mc-t"></div><div class="mc-l"></div><div class="mc-l is-short"></div></div>
-                <div class="mc-card"><i></i><div class="mc-t"></div><div class="mc-l"></div><div class="mc-l is-short"></div></div>
-              </div>
-            </div>
+            <div class="mockup-shot work-shot--1" role="img" aria-label="A custom ImageWorks build: the JRC site"></div>
             <figcaption class="mockup-tag tag-strong">Custom</figcaption>
           </figure>
         </div>
