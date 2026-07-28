@@ -1,29 +1,68 @@
 /* --------------------------------------------------------------------------
    CHECKLIST
    -------------------------------------------------------------------------- */
-/* Six items stacked read as a long thin column; two by three sits better
-   against the wide measure the rest of the section uses. */
-.checklist {
+/* Six facets of one thing, so they get six equal tiles rather than a ruled
+   list — the section is about control, and a grid reads as coverage. */
+.win-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 44px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
   width: 100%;
-  max-width: 1000px;
-  border-top: 1px solid var(--border-soft);
+  margin-top: 6px;
 }
-.checklist li {
+.win-tile {
   display: flex;
-  align-items: flex-start;
-  gap: 13px;
-  font-size: var(--step-0);
+  flex-direction: column;
+  gap: 16px;
+  padding: 30px 26px;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.win-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 44px rgba(20, 40, 80, .16);
+}
+.win-tile p {
+  font-size: 15.5px;
   font-weight: 500;
-  line-height: 1.55;
-  padding-block: 15px;
-  border-bottom: 1px solid var(--border-soft);
+  line-height: 1.6;
+  color: var(--ink);
 }
 
-@media (max-width: 760px) {
-  .checklist { grid-template-columns: 1fr; gap: 0; max-width: var(--measure); }
+.win-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 54px;
+  block-size: 54px;
+  border-radius: 50%;
+  background: var(--tint-green);
+  color: var(--green-ink);
+  transition: background-color .4s var(--ease), color .4s var(--ease);
+}
+.win-tile:hover .win-icon { background: var(--green); color: #14300a; }
+
+/* Every path carries pathLength="1", so one dash value covers all of them and
+   the mark redraws itself on hover. At rest the offset is 0 — a browser that
+   ignores the animation still shows a complete icon. */
+.win-icon svg {
+  inline-size: 26px;
+  block-size: 26px;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.win-tile:hover .win-icon svg { animation: icon-draw .85s var(--ease); }
+
+@keyframes icon-draw {
+  from { stroke-dashoffset: 1; }
+}
+
+@media (max-width: 980px) {
+  .win-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .win-grid { grid-template-columns: 1fr; }
 }
 
 /* --------------------------------------------------------------------------
@@ -724,6 +763,8 @@
   .cms-row:hover .cms-icon { transform: none; }
   .cms-row:hover .cms-body dt { transform: none; }
   .stat:hover .stat-num { transform: none; }
+  .win-tile:hover { transform: none; }
+  .win-tile:hover .win-icon svg { animation: none; }
   .step[data-reached="true"] .step-num { animation: none; }
 }
 
