@@ -599,16 +599,15 @@
   padding-block: 10px;
 }
 
-/* The marker was a 72px circle carrying a 27px numeral — the loudest thing
-   in the section and the only round surface on the page. It is now a square
-   token on the same 2px radius as every card, band and button, with the
-   numeral sized as a label rather than a headline. */
+/* The marker stays round, at 56px rather than the old 72px, and the numeral
+   is sized as a label instead of a headline — the seven circles used to be
+   the loudest thing in the section. */
 .step-num {
   position: relative;
   z-index: 2;
   inline-size: var(--num-size);
   block-size: var(--num-size);
-  border-radius: var(--r);
+  border-radius: 50%;
   flex: none;
   display: grid;
   place-items: center;
