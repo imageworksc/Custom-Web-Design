@@ -32,7 +32,6 @@
 
   var W = 0, H = 0, dpr = 1;
   var warps = [], rows = [];
-  var well = null;
   var rowN = 0, passStart = 0;
   var raf = null, running = false;
 
@@ -70,14 +69,9 @@
     canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    /* A well of white under the copy, so the cloth stays a backdrop and the
-       headline never has to compete with a thread running through it. */
-    var wx = W * 0.30, wy = H * 0.5;
-    well = ctx.createRadialGradient(wx, wy, 0, wx, wy, Math.max(W, H) * 0.58);
-    well.addColorStop(0, 'rgba(255, 255, 255, 0.94)');
-    well.addColorStop(0.45, 'rgba(255, 255, 255, 0.62)');
-    well.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
+    /* No white well over the copy: it was centred on the left, which left the
+       cloth reading heavier on the right. The alphas below are low enough to
+       sit under the headline unaided, so the weave is even edge to edge. */
     warps.length = 0;
     var n = Math.ceil(W / WARP_GAP) + 1;
     var off = (W - (n - 1) * WARP_GAP) / 2;
@@ -163,8 +157,6 @@
     ctx.clearRect(0, 0, W, H);
     drawWarps(0);
     for (var i = 0; i < rows.length; i++) drawRow(rows[i], 0, null);
-    ctx.fillStyle = well;
-    ctx.fillRect(0, 0, W, H);
   }
 
   function frame(now) {
@@ -205,9 +197,6 @@
         drawRow(row, now, null);
       }
     }
-
-    ctx.fillStyle = well;
-    ctx.fillRect(0, 0, W, H);
   }
 
   function start() {
