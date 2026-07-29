@@ -728,6 +728,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   min-height: min(76vh, 620px);
   padding-block: clamp(56px, 6vw, 84px);
   background: var(--white);
+  /* The weave used to be faded out at both ends. Now it runs to the edge and
+     a hairline states where the block stops. */
+  border-block: 1px solid var(--border);
 }
 
 /* The woven cloth the home runs behind its hero, drawn dark on white. It is
@@ -739,8 +742,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   inline-size: 100%;
   block-size: 100%;
   pointer-events: none;
-  mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
 }
 
 /* Claim and call on the left, credentials stacked on the right. As one column
@@ -3620,7 +3621,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     var n = Math.ceil(W / WARP_GAP) + 1;
     var off = (W - (n - 1) * WARP_GAP) / 2;
     for (var i = 0; i < n; i++) {
-      warps.push({ x: off + i * WARP_GAP, a: rand(0.059, 0.128), w: rand(0.8, 1.4) });
+      warps.push({ x: off + i * WARP_GAP, a: rand(0.053, 0.115), w: rand(0.8, 1.4) });
     }
 
     rows.length = 0;
@@ -3628,7 +3629,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     for (var j = 0; j < ROWS; j++) {
       rows.push({
         y: top + (bot - top) * (j / (ROWS - 1)),
-        base: 0.064,
+        base: 0.058,
         lit: 0,
         col: (j % 4 === 2) ? GREEN : NAVY,
         parity: j % 2
@@ -3718,7 +3719,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     var progress = elapsed / PASS_MS;
 
     if (progress >= 1) {
-      rows[rowN].lit = 0.064;
+      rows[rowN].lit = 0.058;
       if (elapsed > PASS_MS + REST_MS) {
         rowN = (rowN + 1) % rows.length;
         passStart = now;
@@ -3734,7 +3735,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       if (i === rowN && progress !== null && progress < 1) {
-        row.lit = 0.0765 * (1 - progress);
+        row.lit = 0.069 * (1 - progress);
         drawRow(row, now, progress);
       } else {
         row.lit *= 0.985;

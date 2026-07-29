@@ -99,6 +99,9 @@
   min-height: min(76vh, 620px);
   padding-block: clamp(56px, 6vw, 84px);
   background: var(--white);
+  /* The weave used to be faded out at both ends. Now it runs to the edge and
+     a hairline states where the block stops. */
+  border-block: 1px solid var(--border);
 }
 
 /* The woven cloth the home runs behind its hero, drawn dark on white. It is
@@ -110,8 +113,6 @@
   inline-size: 100%;
   block-size: 100%;
   pointer-events: none;
-  mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
 }
 
 /* Claim and call on the left, credentials stacked on the right. As one column
