@@ -319,9 +319,18 @@
     var angle = REST, target = REST, lit = 0, litTarget = 0;
     var raf = null;
 
+    var REACH = 17;   // how far the card throws its shadow
+
     function apply() {
       card.style.setProperty('--glare', angle.toFixed(1) + 'deg');
       card.style.setProperty('--glare-lit', lit.toFixed(3));
+
+      /* The shadow falls away from the light. --glare already points away
+         from the pointer, so it is the shadow's own bearing: 0deg is up, and
+         screen y grows downward. */
+      var rad = angle * Math.PI / 180;
+      card.style.setProperty('--sx', (Math.sin(rad) * REACH).toFixed(1) + 'px');
+      card.style.setProperty('--sy', (-Math.cos(rad) * REACH).toFixed(1) + 'px');
     }
 
     function tick() {

@@ -797,54 +797,44 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   flex-direction: column;
   padding: 8px clamp(18px, 1.6vw, 22px);
   border-radius: var(--r);
-  background: rgba(255, 255, 255, .46);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8),
-              0 1px 2px rgba(20, 40, 80, .04),
-              0 16px 38px rgba(20, 40, 80, .07);
+  /* Thin enough, and blurred lightly enough, that the weave still reads
+     through the pane. A heavier blur turns 1px threads into nothing. */
+  background: rgba(255, 255, 255, .22);
+  backdrop-filter: blur(3px) saturate(1.2);
+  -webkit-backdrop-filter: blur(3px) saturate(1.2);
+  /* The light's own shadow, cast behind the card away from the pointer.
+     Nothing is painted over the face — that is what was erasing the threads. */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7),
+              /* 12/12 is the resting 135deg bearing, so nothing jumps when
+                 the script takes over on the first pointer move */
+              var(--sx, 12px) var(--sy, 12px) calc(30px + var(--glare-lit) * 12px)
+                rgba(20, 40, 80, calc(.09 + var(--glare-lit) * .05));
+  transition: box-shadow .18s linear;
   --glare: 135deg;
   --glare-lit: 0;
 }
-/* Where the light is coming from. The angle is the pointer's bearing from the
-   centre of the card; at rest it sits at the CSS default. */
-.hero-trust::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  /* A lit edge and a shaded one. White fading to nothing was invisible on a
-     white hero — with the far side in shade the pane reads as turning. */
-  background:
-    linear-gradient(var(--glare),
-      rgba(255, 255, 255, .96) 0%,
-      rgba(255, 255, 255, .42) 26%,
-      rgba(22, 58, 102, .045) 72%,
-      rgba(22, 58, 102, .085) 100%);
-  opacity: calc(.62 + var(--glare-lit) * .38);
-  transition: opacity .5s var(--ease);
-}
-/* The lit edge travels with it, so the pane looks turned rather than repainted. */
+/* The lit edge, 1px of it, turning with the light. It travels with the shadow
+   so the pane reads as turned rather than merely brighter. */
 .hero-trust::after {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 2;
+  pointer-events: none;
   border-radius: inherit;
   padding: 1px;
   background: linear-gradient(var(--glare),
-    rgba(255, 255, 255, .95), rgba(255, 255, 255, .1) 55%, rgba(20, 60, 102, .12));
+    rgba(255, 255, 255, .98), rgba(255, 255, 255, .15) 52%, rgba(20, 60, 102, .16));
   /* paint only the 1px frame */
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: calc(.55 + var(--glare-lit) * .45);
+  opacity: calc(.6 + var(--glare-lit) * .4);
   transition: opacity .5s var(--ease);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .hero-trust { background: rgba(255, 255, 255, .88); }
+  .hero-trust { background: rgba(255, 255, 255, .72); }
 }
 
 .hero-trust li {
@@ -3625,9 +3615,18 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     var angle = REST, target = REST, lit = 0, litTarget = 0;
     var raf = null;
 
+    var REACH = 17;   // how far the card throws its shadow
+
     function apply() {
       card.style.setProperty('--glare', angle.toFixed(1) + 'deg');
       card.style.setProperty('--glare-lit', lit.toFixed(3));
+
+      /* The shadow falls away from the light. --glare already points away
+         from the pointer, so it is the shadow's own bearing: 0deg is up, and
+         screen y grows downward. */
+      var rad = angle * Math.PI / 180;
+      card.style.setProperty('--sx', (Math.sin(rad) * REACH).toFixed(1) + 'px');
+      card.style.setProperty('--sy', (-Math.cos(rad) * REACH).toFixed(1) + 'px');
     }
 
     function tick() {
