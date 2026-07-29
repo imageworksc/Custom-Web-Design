@@ -630,16 +630,51 @@
 .step[data-reached="true"] .step-num {
   background: #dee9f5;
   color: var(--navy);
-  box-shadow: inset 0 0 0 1px #c3d6ea;
+  /* the grey ring steps aside — the green one below draws in its place */
+  box-shadow: inset 0 0 0 1px transparent;
   animation: step-pop .5s var(--ease);
 }
-.step:hover .step-num {
+/* Only while the step is still ahead: on a reached one this would fight the
+   green ring for the same edge. */
+.step:not([data-reached="true"]):hover .step-num {
   color: var(--navy);
   box-shadow: inset 0 0 0 1px var(--navy);
 }
 
 @keyframes step-pop {
   40% { transform: scale(1.09); }
+}
+
+/* The ring the marker draws for itself as the rail reaches it. It sits on the
+   padding box, so it lands exactly where the grey ring was. */
+.step-ring {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.step-ring circle {
+  fill: none;
+  stroke: #94ca66;              /* the rail's own green, not full brand */
+  stroke-width: 2;
+  stroke-linecap: round;
+  /* 2πr for r=21, so one dash is the whole circumference */
+  stroke-dasharray: 132;
+  stroke-dashoffset: 132;
+  /* start at twelve o'clock rather than three */
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+/* Not --ease here: that curve is 70% done in its first quarter, which reads
+   as a flick rather than a line being drawn. */
+.step[data-reached="true"] .step-ring circle {
+  animation: ring-draw .8s cubic-bezier(.4, 0, .25, 1) forwards;
+}
+
+@keyframes ring-draw {
+  to { stroke-dashoffset: 0; }
 }
 
 /* Flat while the step is still ahead of you, a proper card once the rail has
