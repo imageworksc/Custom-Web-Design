@@ -319,7 +319,7 @@
     var angle = REST, target = REST, lit = 0, litTarget = 0;
     var raf = null;
 
-    var REACH = 17;   // how far the card throws its shadow
+    var REACH = 11;   // how far the card throws its shadow
 
     function apply() {
       card.style.setProperty('--glare', angle.toFixed(1) + 'deg');
