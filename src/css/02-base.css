@@ -351,7 +351,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   color: var(--navy);
   font-weight: 600;
 }
-.btn--quiet:hover { border-color: var(--navy); }
+/* Was a jump straight to navy, which read louder than the green button next
+   to it. #c3d6ea is the ring the reached process step already uses. */
+.btn--quiet:hover { border-color: #c3d6ea; }
 .band--cta .btn--quiet { border-color: rgba(255, 255, 255, .34); color: #fff; }
 .band--cta .btn--quiet:hover { border-color: #fff; }
 
