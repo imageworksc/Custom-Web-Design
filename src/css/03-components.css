@@ -120,7 +120,7 @@
 .hero-inner {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, .5fr);
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, .55fr);
   gap: clamp(32px, 4.5vw, 64px);
   align-items: center;
   text-align: left;
@@ -157,14 +157,65 @@
    weave run straight through it. Only the hero fills it. */
 .hero .btn--quiet { background: var(--white); }
 
-/* A column of credentials, ruled off from the claim it backs up. Hairlines
-   between the rows so it reads as one stack rather than four loose lines. */
+/* A column of credentials on a pane of glass: the weave stays visible through
+   it, blurred, and a sheen crosses it at an angle the pointer sets. */
 .hero-trust {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
-  padding-left: clamp(20px, 2.6vw, 34px);
-  border-left: 1px solid var(--border);
+  padding: 8px clamp(18px, 1.6vw, 22px);
+  border-radius: var(--r);
+  background: rgba(255, 255, 255, .46);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8),
+              0 1px 2px rgba(20, 40, 80, .04),
+              0 16px 38px rgba(20, 40, 80, .07);
+  --glare: 135deg;
+  --glare-lit: 0;
 }
+/* Where the light is coming from. The angle is the pointer's bearing from the
+   centre of the card; at rest it sits at the CSS default. */
+.hero-trust::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  /* A lit edge and a shaded one. White fading to nothing was invisible on a
+     white hero — with the far side in shade the pane reads as turning. */
+  background:
+    linear-gradient(var(--glare),
+      rgba(255, 255, 255, .96) 0%,
+      rgba(255, 255, 255, .42) 26%,
+      rgba(22, 58, 102, .045) 72%,
+      rgba(22, 58, 102, .085) 100%);
+  opacity: calc(.62 + var(--glare-lit) * .38);
+  transition: opacity .5s var(--ease);
+}
+/* The lit edge travels with it, so the pane looks turned rather than repainted. */
+.hero-trust::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(var(--glare),
+    rgba(255, 255, 255, .95), rgba(255, 255, 255, .1) 55%, rgba(20, 60, 102, .12));
+  /* paint only the 1px frame */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: calc(.55 + var(--glare-lit) * .45);
+  transition: opacity .5s var(--ease);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-trust { background: rgba(255, 255, 255, .88); }
+}
+
 .hero-trust li {
   display: flex;
   align-items: center;
@@ -176,7 +227,7 @@
   letter-spacing: .01em;
   transition: color .35s var(--ease);
 }
-.hero-trust li + li { border-top: 1px solid var(--border); }
+.hero-trust li + li { border-top: 1px solid rgba(20, 60, 102, .09); }
 .hero-trust li:hover { color: var(--navy); }
 .hero-trust .chip {
   inline-size: 20px;
@@ -191,13 +242,10 @@
   .hero-trust {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 12px 28px;
-    padding-left: 0;
-    padding-top: 22px;
-    border-left: 0;
-    border-top: 1px solid var(--border);
+    gap: 4px 28px;
+    padding: 14px 20px;
   }
-  .hero-trust li { padding-block: 0; }
+  .hero-trust li { padding-block: 6px; }
   .hero-trust li + li { border-top: 0; }
 }
 

@@ -306,9 +306,65 @@
     });
   }
 
+  /* ------------------------------------------------------------------
+     The credentials pane is glass, and glass shows where the light is
+     coming from. The pointer's bearing from the centre of the card sets
+     the angle of its sheen; letting go returns it to rest.
+     ------------------------------------------------------------------ */
+  function setupGlare() {
+    var card = document.querySelector('[data-glare]');
+    if (!card || reduced.matches) return;
+
+    var REST = 135;
+    var angle = REST, target = REST, lit = 0, litTarget = 0;
+    var raf = null;
+
+    function apply() {
+      card.style.setProperty('--glare', angle.toFixed(1) + 'deg');
+      card.style.setProperty('--glare-lit', lit.toFixed(3));
+    }
+
+    function tick() {
+      // shortest way round, so 350deg to 10deg is 20deg and not 340
+      var delta = ((target - angle + 540) % 360) - 180;
+      angle = (angle + delta * 0.18 + 360) % 360;
+      lit += (litTarget - lit) * 0.12;
+      apply();
+
+      if (Math.abs(delta) > 0.2 || Math.abs(litTarget - lit) > 0.004) {
+        raf = window.requestAnimationFrame(tick);
+      } else {
+        raf = null;
+      }
+    }
+
+    function run() {
+      if (raf === null) raf = window.requestAnimationFrame(tick);
+    }
+
+    card.addEventListener('pointermove', function (event) {
+      var r = card.getBoundingClientRect();
+      var dx = event.clientX - (r.left + r.width / 2);
+      var dy = event.clientY - (r.top + r.height / 2);
+      /* CSS gradient angles are clockwise from "to top", which is what
+         atan2(dx, -dy) gives directly. The light comes from the pointer, so
+         the gradient has to start on the opposite side: +180. */
+      target = (Math.atan2(dx, -dy) * 180 / Math.PI + 180 + 360) % 360;
+      litTarget = 1;
+      run();
+    }, { passive: true });
+
+    card.addEventListener('pointerleave', function () {
+      target = REST;
+      litTarget = 0;
+      run();
+    }, { passive: true });
+  }
+
   function init() {
     setupReveals();
     setupRail();
+    setupGlare();
     setupHeader();
     setupAnchors();
     setupFaq();
