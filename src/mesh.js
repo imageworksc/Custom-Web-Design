@@ -76,7 +76,7 @@
     var n = Math.ceil(W / WARP_GAP) + 1;
     var off = (W - (n - 1) * WARP_GAP) / 2;
     for (var i = 0; i < n; i++) {
-      warps.push({ x: off + i * WARP_GAP, a: rand(0.07, 0.15), w: rand(0.8, 1.4) });
+      warps.push({ x: off + i * WARP_GAP, a: rand(0.066, 0.142), w: rand(0.8, 1.4) });
     }
 
     rows.length = 0;
@@ -84,7 +84,7 @@
     for (var j = 0; j < ROWS; j++) {
       rows.push({
         y: top + (bot - top) * (j / (ROWS - 1)),
-        base: 0.075,
+        base: 0.071,
         lit: 0,
         col: (j % 4 === 2) ? GREEN : NAVY,
         parity: j % 2
@@ -174,7 +174,7 @@
     var progress = elapsed / PASS_MS;
 
     if (progress >= 1) {
-      rows[rowN].lit = 0.075;
+      rows[rowN].lit = 0.071;
       if (elapsed > PASS_MS + REST_MS) {
         rowN = (rowN + 1) % rows.length;
         passStart = now;
@@ -190,7 +190,7 @@
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       if (i === rowN && progress !== null && progress < 1) {
-        row.lit = 0.09 * (1 - progress);
+        row.lit = 0.085 * (1 - progress);
         drawRow(row, now, progress);
       } else {
         row.lit *= 0.985;

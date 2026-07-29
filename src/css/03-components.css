@@ -152,6 +152,10 @@
 
 .hero .btn-row { margin-top: 10px; }
 
+/* The quiet button is transparent everywhere else, which here would let the
+   weave run straight through it. Only the hero fills it. */
+.hero .btn--quiet { background: var(--white); }
+
 /* A column of credentials, ruled off from the claim it backs up. Hairlines
    between the rows so it reads as one stack rather than four loose lines. */
 .hero-trust {
