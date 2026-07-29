@@ -58,10 +58,52 @@
      ------------------------------------------------------------------ */
   function setupRail() {
     var steps = document.getElementById('steps');
-    if (!steps || reduced.matches) return;
+    if (!steps) return;
 
     var items = Array.prototype.slice.call(steps.querySelectorAll('.step'));
     if (!items.length) return;
+
+    /* The markers are centred on their cards, and the cards are different
+       heights, so only a measurement knows where the first and last one sit.
+       Without this the rail overshoots both ends of the run. */
+    /* Layout position of el inside root. Rects are no good here — the steps
+       still carry the reveal transform when this runs, and a rect would hand
+       back the animated position. offsetTop alone is no good either: a step
+       that is still transformed becomes its own offsetParent, so the chain has
+       to be walked rather than read once. */
+    function offsetIn(el, root) {
+      var y = 0;
+      while (el && el !== root) {
+        y += el.offsetTop;
+        el = el.offsetParent;
+      }
+      return el === root ? y : null;
+    }
+
+    function measure() {
+      var first = items[0].querySelector('.step-num');
+      var last = items[items.length - 1].querySelector('.step-num');
+      if (!first || !last) return;
+
+      var a = offsetIn(first, steps);
+      var b = offsetIn(last, steps);
+      if (a === null || b === null) return;
+
+      var top = a + first.offsetHeight / 2;
+      var span = (b + last.offsetHeight / 2) - top;
+      if (span <= 0) return;
+
+      steps.style.setProperty('--rail-top', top.toFixed(1) + 'px');
+      steps.style.setProperty('--rail-span', span.toFixed(1) + 'px');
+    }
+
+    measure();
+    window.addEventListener('resize', measure, { passive: true });
+    // web fonts land after first paint and change every card's height
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+    // The travelling fill and the node are motion; the geometry above is not.
+    if (reduced.matches) return;
 
     steps.setAttribute('data-rail', 'live');
 
