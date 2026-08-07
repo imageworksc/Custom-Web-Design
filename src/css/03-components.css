@@ -863,7 +863,7 @@
      screen reader has no hover to give. */
   .step-body p {
     position: absolute;
-    top: calc(100% + 14px);
+    top: calc(100% + 28px);
     left: 50%;
     z-index: 5;
     inline-size: 236px;
@@ -901,8 +901,9 @@
     transform: translate(0, 0);
   }
 
-  /* room for the panel, so it never lands on the band below */
-  .flow-list { padding-bottom: 150px; }
+  /* room for the panel, so it never lands on the band below — the reserve
+     tracks the drop above it */
+  .flow-list { padding-bottom: 164px; }
   .step:focus { outline: none; }
   .step:focus-visible .step-num {
     outline: 2px solid var(--blue);
