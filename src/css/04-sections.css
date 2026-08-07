@@ -1,12 +1,12 @@
 /* --------------------------------------------------------------------------
    CHECKLIST
    -------------------------------------------------------------------------- */
-/* Six facets of one thing, so they get six equal tiles rather than a ruled
-   list — the section is about control, and a grid reads as coverage. */
+/* Four facets of one thing, so they get four equal tiles rather than a ruled
+   list — the section is about control, and a row reads as coverage. */
 .win-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
   width: 100%;
   margin-top: 6px;
 }
@@ -14,7 +14,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 30px 26px;
+  /* tighter than the three-up version was: four columns leave less room */
+  padding: 28px 22px;
   border-radius: var(--r);
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: var(--shadow-card);
@@ -58,7 +59,8 @@
   from { stroke-dashoffset: 1; }
 }
 
-@media (max-width: 980px) {
+/* Four across needs the full measure; below it they pair off. */
+@media (max-width: 1024px) {
   .win-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 620px) {
