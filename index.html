@@ -1202,76 +1202,102 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 .mc-l.is-short { inline-size: 60%; }
 
 /* --------------------------------------------------------------------------
-   PROCESS — the rail fills as the seven steps scroll past
+   PROCESS — the seven steps as a horizontal flow
    -------------------------------------------------------------------------- */
-/* The rail is a spine the reader travels: it fills as the steps go past, a
-   node rides the head of the fill, and each step lights up as it is reached. */
-.steps {
+/* The source document drew this as a run of seven columns under a band of
+   three phases, with a connector threaded behind the numbers. Same diagram
+   here, on our own type, radius and colour — and the connector fills as the
+   section is read instead of sitting there complete.
+
+   Stacked is the base case; the row takes over once there is width for it. */
+.flow {
   position: relative;
   width: 100%;
-  max-width: 880px;
   margin-top: 12px;
   --num-size: 56px;
-  --rail-x: calc(var(--num-size) / 2);
-  /* Overwritten in px by setupRail() with the real centres of the first and
-     last markers. These are only the pre-measurement fallback. */
-  --rail-top: 56px;
-  --rail-span: calc(100% - 112px);
+  /* the three phases cover steps 1-2, 3-5 and 6-7 */
+  --ph-a: #94ca66;
+  --ph-b: #5a97cf;
+  --ph-c: #46688f;
   --fill: 0;
 }
-.steps::before,
-.steps::after {
+
+/* The phase band. Hidden while stacked: with one step per row the spans
+   would be claiming a grouping the layout no longer shows. */
+.flow-phases { display: none; }
+.flow-phase {
+  margin: 0;
+  padding: 0 4px 9px;
+  border-bottom: 2px solid;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.flow-phase--a { color: var(--green-ink); border-color: var(--ph-a); }
+.flow-phase--b { color: var(--blue); border-color: var(--ph-b); }
+.flow-phase--c { color: var(--navy); border-color: var(--ph-c); }
+
+.flow-list {
+  position: relative;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+
+/* --------------------------- stacked (base) --------------------------- */
+.flow-list::before,
+.flow-list::after {
   content: '';
   position: absolute;
-  left: var(--rail-x);
-  top: var(--rail-top);
-  height: var(--rail-span);
+  left: calc(var(--num-size) / 2);
+  top: var(--rail-top, 44px);
+  height: var(--rail-span, calc(100% - 88px));
   inline-size: 2px;
   border-radius: 2px;
   transform: translateX(-50%);
 }
-.steps::before { background: var(--border); }
-.steps::after {
-  /* softened: the full-strength green read louder than a progress cue needs to */
-  background: linear-gradient(180deg, #b4dc93 0%, #94ca66 100%);
-}
-.steps[data-rail="live"]::after {
-  height: calc(var(--fill) * var(--rail-span));
+.flow-list::before { background: var(--border); }
+.flow-list::after {
+  background: linear-gradient(180deg, var(--ph-a) 0%, var(--ph-b) 52%, var(--ph-c) 100%);
+  height: calc(var(--fill) * var(--rail-span, 100%));
   transition: height .15s linear;
 }
 
-/* The node only exists once the script is driving the fill — parked at the
-   bottom of a static rail it would read as a stray dot. */
-.steps-node {
-  position: absolute;
-  left: var(--rail-x);
-  top: calc(var(--rail-top) + var(--fill) * var(--rail-span));
-  inline-size: 13px;
-  block-size: 13px;
-  margin: -6.5px 0 0 -6.5px;
-  border-radius: 50%;
-  background: #94ca66;
-  box-shadow: 0 0 0 6px rgba(128, 195, 74, .15);
-  opacity: 0;
-  /* above the rail it rides on, below the numbers — so it slips behind each
-     circle instead of sitting on top of the digits */
-  z-index: 1;
-  transition: top .15s linear, opacity .4s var(--ease);
-}
-.steps[data-rail="live"] .steps-node { opacity: 1; }
-
-/* Centred, so the marker sits on the middle of the card it belongs to
-   rather than hanging off its top corner. */
 .step {
+  position: relative;
   display: flex;
-  gap: clamp(18px, 3vw, 28px);
   align-items: center;
+  gap: clamp(18px, 3vw, 28px);
   padding-block: 10px;
 }
+.step-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 22px 26px;
+  border-radius: var(--r);
+  box-shadow: inset 0 0 0 1px var(--border-soft);
+  transition: background .55s var(--ease), box-shadow .55s var(--ease),
+              transform .4s var(--ease);
+}
+.step[data-reached="true"] .step-body {
+  background: linear-gradient(180deg, #f8fafd, #f1f4f9);
+  box-shadow: var(--shadow-card);
+}
+.step:hover .step-body {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 20px 44px rgba(20, 40, 80, .11);
+}
 
-/* The marker stays round, at 56px rather than the old 72px, and the numeral
-   is sized as a label instead of a headline — the seven circles used to be
-   the loudest thing in the section. */
+/* ------------------------------- marker ------------------------------- */
+/* Round, at 56px rather than the source's 40px numeral, with the numeral set
+   as a label. The moat is the band colour so the connector stops at its edge
+   instead of running under the digits. */
 .step-num {
   position: relative;
   z-index: 2;
@@ -1287,24 +1313,17 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   letter-spacing: .06em;
   color: var(--faint);
   background: #fff;
-  /* a moat in the band colour, so the rail runs behind the token and stops
-     cleanly at its edge instead of touching the digits */
   border: 6px solid var(--band-tint);
   box-shadow: inset 0 0 0 1px var(--border);
   transition: background-color .45s var(--ease), color .45s var(--ease),
               box-shadow .45s var(--ease);
 }
-/* Reached reads as a filled step without going to full navy — the seven
-   markers at brand strength were the loudest thing in the section. */
 .step[data-reached="true"] .step-num {
   background: #dee9f5;
   color: var(--navy);
-  /* the grey ring steps aside — the green one below draws in its place */
   box-shadow: inset 0 0 0 1px transparent;
   animation: step-pop .5s var(--ease);
 }
-/* Only while the step is still ahead: on a reached one this would fight the
-   green ring for the same edge. */
 .step:not([data-reached="true"]):hover .step-num {
   color: var(--navy);
   box-shadow: inset 0 0 0 1px var(--navy);
@@ -1314,8 +1333,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   40% { transform: scale(1.09); }
 }
 
-/* The ring the marker draws for itself as the rail reaches it. It sits on the
-   padding box, so it lands exactly where the grey ring was. */
+/* The ring the marker draws for itself as the run reaches it. */
 .step-ring {
   position: absolute;
   inset: 0;
@@ -1326,87 +1344,49 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 .step-ring circle {
   fill: none;
-  stroke: #94ca66;              /* the rail's own green, not full brand */
+  stroke: var(--ph-a);
   stroke-width: 2;
   stroke-linecap: round;
   /* 2πr for r=21, so one dash is the whole circumference */
   stroke-dasharray: 132;
   stroke-dashoffset: 132;
-  /* start at twelve o'clock rather than three */
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
 }
-/* Not --ease here: that curve is 70% done in its first quarter, which reads
-   as a flick rather than a line being drawn. */
+/* Not --ease for the draw: that curve is 70% done in its first quarter,
+   which reads as a flick rather than a line being drawn. */
 .step[data-reached="true"] .step-ring circle {
   animation: ring-draw .8s cubic-bezier(.4, 0, .25, 1) forwards;
 }
+/* of-type, not nth-child: the node rides in the same list and would shift
+   every count by one. Each marker takes its phase's colour. */
+.step:nth-of-type(-n+2) .step-ring circle { stroke: var(--ph-a); }
+.step:nth-of-type(n+3):nth-of-type(-n+5) .step-ring circle { stroke: var(--ph-b); }
+.step:nth-of-type(n+6) .step-ring circle { stroke: var(--ph-c); }
 
 @keyframes ring-draw {
   to { stroke-dashoffset: 0; }
 }
 
-/* Flat while the step is still ahead of you, a proper card once the rail has
-   reached it — the process assembles itself as you read. */
-.step-body {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  padding: 22px 26px;
-  border-radius: var(--r);
-  box-shadow: inset 0 0 0 1px var(--border-soft);
-  transition: background .55s var(--ease), box-shadow .55s var(--ease),
-              transform .4s var(--ease);
+/* The node rides the head of the fill. It only appears once the script is
+   driving it — parked at the end of a static rail it reads as a stray dot. */
+.steps-node {
+  position: absolute;
+  left: calc(var(--num-size) / 2);
+  top: calc(var(--rail-top, 44px) + var(--fill) * var(--rail-span, 100%));
+  inline-size: 13px;
+  block-size: 13px;
+  margin: -6.5px 0 0 -6.5px;
+  border-radius: 50%;
+  background: var(--ph-a);
+  box-shadow: 0 0 0 6px rgba(128, 195, 74, .15);
+  opacity: 0;
+  z-index: 1;
+  transition: top .15s linear, left .15s linear, opacity .4s var(--ease);
 }
-/* Kept within a hair of the band it sits on: the shadow does the lifting, so
-   the row never turns into a white slab on a tinted ground. */
-.step[data-reached="true"] .step-body {
-  background: linear-gradient(180deg, #f8fafd, #f1f4f9);
-  box-shadow: var(--shadow-card);
-}
-/* A lift, not a slide: the row used to shunt 5px right, which broke its
-   alignment with the marker it belongs to. */
-.step:hover .step-body {
-  transform: translateY(-2px);
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 20px 44px rgba(20, 40, 80, .11);
-}
+.flow[data-rail="live"] .steps-node { opacity: 1; }
 
-/* The seven steps fall into three phases, as they do in the source document.
-   The label clears the rail and lines up with the cards. */
-.steps-phase {
-  margin: 26px 0 10px calc(var(--num-size) + clamp(18px, 3vw, 28px));
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-.steps-phase:first-of-type { margin-top: 4px; }
-
-.step-head {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 6px 12px;
-}
-/* Who does the work at this step — the section's whole argument is that the
-   process is human-led with AI where it earns its place. */
-.step-role {
-  flex: none;
-  padding: 3px 9px;
-  border-radius: var(--r);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.step-role--human { background: var(--chip-navy); color: var(--navy); }
-.step-role--both { background: var(--chip-blue); color: var(--navy); }
-.step-role--ai { background: var(--chip-green); color: var(--green-ink); }
-
+/* ------------------------------ type ---------------------------------- */
 .step-body h3 {
   font-size: 19px;
   line-height: 1.3;
@@ -1416,6 +1396,104 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 .step[data-reached="true"] .step-body h3 { color: var(--navy); }
 .step-body p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+
+/* Who does the work at this step — the section's whole argument is that the
+   process is human-led with AI where it earns its place. */
+.step-role {
+  flex: none;
+  padding: 3px 9px;
+  border-radius: var(--r);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.step-role--human { background: var(--chip-navy); color: var(--navy); }
+.step-role--both { background: var(--chip-blue); color: var(--navy); }
+.step-role--ai { background: var(--chip-green); color: var(--green-ink); }
+
+/* ---------------------------- the row --------------------------------- */
+@media (min-width: 1024px) {
+  /* Same seven columns as the run below, so each phase rule ends exactly
+     where its last step's column does. 2fr/3fr/2fr drifts: the band has two
+     gaps to the list's six. */
+  .flow-phases {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 30px;
+  }
+  .flow-phase--a { grid-column: span 2; }
+  .flow-phase--b { grid-column: span 3; }
+  .flow-phase--c { grid-column: span 2; }
+
+  .flow-list {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  /* the connector runs behind the markers, from the first centre to the last */
+  .flow-list::before,
+  .flow-list::after {
+    left: var(--rail-left, 7%);
+    top: calc(var(--num-size) / 2);
+    inline-size: var(--rail-span, 86%);
+    /* block-size is height — declaring `height: auto` after it would win and
+       collapse the line to nothing */
+    block-size: 2px;
+    transform: translateY(-50%);
+  }
+  /* The run spans marker 1 to marker 7, so the phase boundaries land at 25%
+     (between steps 2 and 3) and 75% (between 5 and 6). */
+  .flow-list::after {
+    background: linear-gradient(90deg,
+      var(--ph-a) 0%, var(--ph-a) 24%,
+      var(--ph-b) 26%, var(--ph-b) 74%,
+      var(--ph-c) 76%, var(--ph-c) 100%);
+    background-size: var(--rail-span, 100%) 100%;
+    background-repeat: no-repeat;
+    inline-size: calc(var(--fill) * var(--rail-span, 100%));
+    transition: inline-size .15s linear;
+  }
+
+  .step {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding-block: 0;
+    text-align: center;
+  }
+  .step-body {
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 10px 0;
+    box-shadow: none;
+    background: none;
+  }
+  /* the card treatment belongs to the stacked layout; in the row the marker
+     and the rule under the phase carry the structure instead */
+  .step[data-reached="true"] .step-body,
+  .step:hover .step-body {
+    background: none;
+    box-shadow: none;
+    transform: none;
+  }
+  .step-body h3 {
+    font-size: 15.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    min-height: 2.6em;
+  }
+  .step-body p { font-size: 13.5px; line-height: 1.55; }
+  .step-role { font-size: 10px; padding: 3px 7px; }
+
+  .steps-node {
+    top: calc(var(--num-size) / 2);
+    left: calc(var(--rail-left, 0px) + var(--fill) * var(--rail-span, 0px));
+  }
+}
 
 /* --------------------------------------------------------------------------
    COMPARE
@@ -2282,7 +2360,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   .stat:first-child { border-top: 0; }
   .signature { width: 100%; }
   /* --rail-x follows --num-size, so the rail re-centres on its own */
-  .steps { --num-size: 46px; }
+  .flow { --num-size: 46px; }
   .step-num { font-size: 13px; border-width: 4px; }
   .step-body { padding: 17px 19px; }
   .step-body h3 { font-size: 17px; }
@@ -2303,7 +2381,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
   .mockup--weak { filter: none; }
   .is-revealed .mockup--strong { transform: none; }
-  .steps[data-rail="live"]::after { height: calc(100% - 80px); }
+  .flow-list::after { height: var(--rail-span, calc(100% - 88px)); inline-size: var(--rail-span, 86%); }
 
   /* The blanket rule above would snap the marquee to its end frame, so stop it
      outright and hand the row over to the reader as a scrollable strip. */
@@ -2602,89 +2680,72 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
       <h2 class="sec-title sec-title--wide reveal" id="process-title">How We Build Amazing, Award-Winning Websites</h2>
       <p class="lead reveal">A proven process, refined over 28 years — human-led at every step, with AI used where it makes the work faster and smarter.</p>
 
-      <div class="steps" id="steps">
-        <span class="steps-node" aria-hidden="true"></span>
+      <div class="flow" id="steps">
+        <div class="flow-phases" aria-hidden="true">
+          <p class="flow-phase flow-phase--a">Discovery &amp; Strategy</p>
+          <p class="flow-phase flow-phase--b">Design</p>
+          <p class="flow-phase flow-phase--c">Build &amp; Launch</p>
+        </div>
 
-        <p class="steps-phase">Discovery &amp; Strategy</p>
-        <ol class="steps-list">
-        <li class="step reveal">
-          <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>01</span>
-          <div class="step-body">
-            <div class="step-head">
+        <ol class="flow-list">
+          <span class="steps-node" aria-hidden="true"></span>
+
+          <li class="step reveal">
+            <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>01</span>
+            <div class="step-body">
               <h3>Strategy Meeting</h3>
               <span class="step-role step-role--human">Human-led</span>
+              <p>Learn your goals, company, and competitors — build the game plan.</p>
             </div>
-            <p>Learn your goals, company, and competitors — build the game plan.</p>
-          </div>
-        </li>
-        <li class="step reveal">
-          <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>02</span>
-          <div class="step-body">
-            <div class="step-head">
+          </li>
+          <li class="step reveal">
+            <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>02</span>
+            <div class="step-body">
               <h3>Outline + Homepage</h3>
               <span class="step-role step-role--human">Human-led</span>
+              <p>Site blueprint plus the homepage story, structured to rank.</p>
             </div>
-            <p>Site blueprint plus the homepage story, structured to rank.</p>
-          </div>
-        </li>
-        </ol>
-
-        <p class="steps-phase">Design</p>
-        <ol class="steps-list">
-        <li class="step reveal">
-          <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>03</span>
-          <div class="step-body">
-            <div class="step-head">
+          </li>
+          <li class="step reveal">
+            <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>03</span>
+            <div class="step-body">
               <h3>Content</h3>
               <span class="step-role step-role--both">Human + AI</span>
+              <p>Copy humans want to read and machines want to cite and rank.</p>
             </div>
-            <p>Copy humans want to read and machines want to cite and rank.</p>
-          </div>
-        </li>
-        <li class="step reveal">
-          <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>04</span>
-          <div class="step-body">
-            <div class="step-head">
+          </li>
+          <li class="step reveal">
+            <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>04</span>
+            <div class="step-body">
               <h3>AI Wireframes</h3>
               <span class="step-role step-role--ai">AI-assisted</span>
+              <p>Rapid wireframes showing flow and structure, directed by our team.</p>
             </div>
-            <p>Rapid wireframes showing flow and structure, directed by our team.</p>
-          </div>
-        </li>
-        <li class="step reveal">
-          <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>05</span>
-          <div class="step-body">
-            <div class="step-head">
+          </li>
+          <li class="step reveal">
+            <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>05</span>
+            <div class="step-body">
               <h3>Custom Design</h3>
               <span class="step-role step-role--human">Human-led</span>
+              <p>Our expert designers turn the wireframes into beautiful custom art — on-brand and unmistakably yours.</p>
             </div>
-            <p>Our expert designers take the wireframes and turn them into beautiful custom art — on-brand and unmistakably yours.</p>
-          </div>
-        </li>
-        </ol>
-
-        <p class="steps-phase">Build &amp; Launch</p>
-        <ol class="steps-list">
-        <li class="step reveal">
-          <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>06</span>
-          <div class="step-body">
-            <div class="step-head">
+          </li>
+          <li class="step reveal">
+            <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>06</span>
+            <div class="step-body">
               <h3>Development</h3>
               <span class="step-role step-role--both">Human + AI</span>
+              <p>Drupal, WordPress, or AI-assisted HTML — clean, custom, performant.</p>
             </div>
-            <p>Drupal, WordPress, or AI-assisted HTML — clean, custom, performant.</p>
-          </div>
-        </li>
-        <li class="step reveal">
-          <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>07</span>
-          <div class="step-body">
-            <div class="step-head">
+          </li>
+          <li class="step reveal">
+            <span class="step-num" aria-hidden="true"><svg class="step-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21"/></svg>07</span>
+            <div class="step-body">
               <h3>Testing &amp; Launch</h3>
               <span class="step-role step-role--human">Human-led</span>
+              <p>Tested across devices, then launched — clean, fast, ready to perform.</p>
             </div>
-            <p>Tested across devices, then launched — clean, fast, ready to perform.</p>
-          </div>
-        </li>
+          </li>
         </ol>
       </div>
 
@@ -3393,76 +3454,105 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   }
 
   /* ------------------------------------------------------------------
-     The process rail fills as the seven steps scroll past. The section
-     argues that the process is proven and sequential, so the rail behaves
-     like one instead of being a static decoration.
+     The process flow fills as the section is read. It is a row of seven
+     on a wide screen and a stack on a narrow one, and the connector has
+     to be measured either way — the markers are the only thing that
+     knows where the run really starts and ends.
      ------------------------------------------------------------------ */
   function setupRail() {
-    var steps = document.getElementById('steps');
-    if (!steps) return;
+    var flow = document.getElementById('steps');
+    if (!flow) return;
 
-    var items = Array.prototype.slice.call(steps.querySelectorAll('.step'));
-    if (!items.length) return;
+    var list = flow.querySelector('.flow-list');
+    var items = Array.prototype.slice.call(flow.querySelectorAll('.step'));
+    if (!list || !items.length) return;
 
-    /* The markers are centred on their cards, and the cards are different
-       heights, so only a measurement knows where the first and last one sit.
-       Without this the rail overshoots both ends of the run. */
-    /* Layout position of el inside root. Rects are no good here — the steps
-       still carry the reveal transform when this runs, and a rect would hand
-       back the animated position. offsetTop alone is no good either: a step
-       that is still transformed becomes its own offsetParent, so the chain has
-       to be walked rather than read once. */
-    function offsetIn(el, root) {
-      var y = 0;
+    var markers = items.map(function (el) { return el.querySelector('.step-num'); });
+    if (markers.indexOf(null) > -1) return;
+
+    var isRow = false;
+
+    /* Layout position of el inside root, on one axis. Rects are no good here —
+       the steps still carry the reveal transform when this runs, and a rect
+       would hand back the animated position. A single offsetTop is no good
+       either: a step that is still transformed becomes its own offsetParent,
+       so the chain has to be walked rather than read once. */
+    function offsetIn(el, root, axis) {
+      var v = 0;
       while (el && el !== root) {
-        y += el.offsetTop;
+        v += (axis === 'x' ? el.offsetLeft : el.offsetTop);
         el = el.offsetParent;
       }
-      return el === root ? y : null;
+      return el === root ? v : null;
     }
 
     function measure() {
-      var first = items[0].querySelector('.step-num');
-      var last = items[items.length - 1].querySelector('.step-num');
-      if (!first || !last) return;
+      var first = markers[0];
+      var last = markers[markers.length - 1];
 
-      var a = offsetIn(first, steps);
-      var b = offsetIn(last, steps);
-      if (a === null || b === null) return;
+      var y1 = offsetIn(first, list, 'y');
+      var y2 = offsetIn(last, list, 'y');
+      var x1 = offsetIn(first, list, 'x');
+      var x2 = offsetIn(last, list, 'x');
+      if (y1 === null || y2 === null || x1 === null || x2 === null) return;
 
-      var top = a + first.offsetHeight / 2;
-      var span = (b + last.offsetHeight / 2) - top;
-      if (span <= 0) return;
+      // one row or a stack? the last marker's own position answers it
+      isRow = Math.abs(y2 - y1) < 4;
 
-      steps.style.setProperty('--rail-top', top.toFixed(1) + 'px');
-      steps.style.setProperty('--rail-span', span.toFixed(1) + 'px');
+      var start, span;
+      if (isRow) {
+        start = x1 + first.offsetWidth / 2;
+        span = (x2 + last.offsetWidth / 2) - start;
+        if (span <= 0) return;
+        flow.style.setProperty('--rail-left', start.toFixed(1) + 'px');
+      } else {
+        start = y1 + first.offsetHeight / 2;
+        span = (y2 + last.offsetHeight / 2) - start;
+        if (span <= 0) return;
+        flow.style.setProperty('--rail-top', start.toFixed(1) + 'px');
+      }
+      flow.style.setProperty('--rail-span', span.toFixed(1) + 'px');
     }
 
     measure();
     window.addEventListener('resize', measure, { passive: true });
-    // web fonts land after first paint and change every card's height
+    // web fonts land after first paint and change every step's box
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 
     // The travelling fill and the node are motion; the geometry above is not.
     if (reduced.matches) return;
 
-    steps.setAttribute('data-rail', 'live');
+    flow.setAttribute('data-rail', 'live');
 
     var ticking = false;
 
     function update() {
       ticking = false;
-      var box = steps.getBoundingClientRect();
-      var anchor = window.innerHeight * 0.62;
+      var box = flow.getBoundingClientRect();
+      var progress;
 
-      // 0 before the list reaches the anchor line, 1 once it has passed it.
-      var progress = (anchor - box.top) / Math.max(box.height, 1);
+      if (isRow) {
+        /* A row has no height to travel through, so the fill is driven by the
+           section's own approach: nothing at four fifths of the way down the
+           viewport, complete by a third. */
+        var from = window.innerHeight * 0.82;
+        var to = window.innerHeight * 0.34;
+        progress = (from - box.top) / Math.max(from - to, 1);
+      } else {
+        var anchor = window.innerHeight * 0.62;
+        progress = (anchor - box.top) / Math.max(box.height, 1);
+      }
       progress = Math.min(1, Math.max(0, progress));
-      steps.style.setProperty('--fill', progress.toFixed(4));
+      flow.style.setProperty('--fill', progress.toFixed(4));
 
       for (var i = 0; i < items.length; i++) {
-        var dot = items[i].querySelector('.step-num');
-        var reached = dot ? dot.getBoundingClientRect().top < anchor : false;
+        var reached;
+        if (isRow) {
+          // marker i sits at i/(n-1) along the run
+          reached = progress >= (i / (items.length - 1)) - 0.001;
+        } else {
+          reached = markers[i].getBoundingClientRect().top < window.innerHeight * 0.62;
+        }
         items[i].setAttribute('data-reached', reached ? 'true' : 'false');
       }
     }

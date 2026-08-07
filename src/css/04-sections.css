@@ -730,7 +730,7 @@
   .stat:first-child { border-top: 0; }
   .signature { width: 100%; }
   /* --rail-x follows --num-size, so the rail re-centres on its own */
-  .steps { --num-size: 46px; }
+  .flow { --num-size: 46px; }
   .step-num { font-size: 13px; border-width: 4px; }
   .step-body { padding: 17px 19px; }
   .step-body h3 { font-size: 17px; }
@@ -751,7 +751,7 @@
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
   .mockup--weak { filter: none; }
   .is-revealed .mockup--strong { transform: none; }
-  .steps[data-rail="live"]::after { height: calc(100% - 80px); }
+  .flow-list::after { height: var(--rail-span, calc(100% - 88px)); inline-size: var(--rail-span, 86%); }
 
   /* The blanket rule above would snap the marquee to its end frame, so stop it
      outright and hand the row over to the reader as a scrollable strip. */

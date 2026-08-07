@@ -52,76 +52,105 @@
   }
 
   /* ------------------------------------------------------------------
-     The process rail fills as the seven steps scroll past. The section
-     argues that the process is proven and sequential, so the rail behaves
-     like one instead of being a static decoration.
+     The process flow fills as the section is read. It is a row of seven
+     on a wide screen and a stack on a narrow one, and the connector has
+     to be measured either way — the markers are the only thing that
+     knows where the run really starts and ends.
      ------------------------------------------------------------------ */
   function setupRail() {
-    var steps = document.getElementById('steps');
-    if (!steps) return;
+    var flow = document.getElementById('steps');
+    if (!flow) return;
 
-    var items = Array.prototype.slice.call(steps.querySelectorAll('.step'));
-    if (!items.length) return;
+    var list = flow.querySelector('.flow-list');
+    var items = Array.prototype.slice.call(flow.querySelectorAll('.step'));
+    if (!list || !items.length) return;
 
-    /* The markers are centred on their cards, and the cards are different
-       heights, so only a measurement knows where the first and last one sit.
-       Without this the rail overshoots both ends of the run. */
-    /* Layout position of el inside root. Rects are no good here — the steps
-       still carry the reveal transform when this runs, and a rect would hand
-       back the animated position. offsetTop alone is no good either: a step
-       that is still transformed becomes its own offsetParent, so the chain has
-       to be walked rather than read once. */
-    function offsetIn(el, root) {
-      var y = 0;
+    var markers = items.map(function (el) { return el.querySelector('.step-num'); });
+    if (markers.indexOf(null) > -1) return;
+
+    var isRow = false;
+
+    /* Layout position of el inside root, on one axis. Rects are no good here —
+       the steps still carry the reveal transform when this runs, and a rect
+       would hand back the animated position. A single offsetTop is no good
+       either: a step that is still transformed becomes its own offsetParent,
+       so the chain has to be walked rather than read once. */
+    function offsetIn(el, root, axis) {
+      var v = 0;
       while (el && el !== root) {
-        y += el.offsetTop;
+        v += (axis === 'x' ? el.offsetLeft : el.offsetTop);
         el = el.offsetParent;
       }
-      return el === root ? y : null;
+      return el === root ? v : null;
     }
 
     function measure() {
-      var first = items[0].querySelector('.step-num');
-      var last = items[items.length - 1].querySelector('.step-num');
-      if (!first || !last) return;
+      var first = markers[0];
+      var last = markers[markers.length - 1];
 
-      var a = offsetIn(first, steps);
-      var b = offsetIn(last, steps);
-      if (a === null || b === null) return;
+      var y1 = offsetIn(first, list, 'y');
+      var y2 = offsetIn(last, list, 'y');
+      var x1 = offsetIn(first, list, 'x');
+      var x2 = offsetIn(last, list, 'x');
+      if (y1 === null || y2 === null || x1 === null || x2 === null) return;
 
-      var top = a + first.offsetHeight / 2;
-      var span = (b + last.offsetHeight / 2) - top;
-      if (span <= 0) return;
+      // one row or a stack? the last marker's own position answers it
+      isRow = Math.abs(y2 - y1) < 4;
 
-      steps.style.setProperty('--rail-top', top.toFixed(1) + 'px');
-      steps.style.setProperty('--rail-span', span.toFixed(1) + 'px');
+      var start, span;
+      if (isRow) {
+        start = x1 + first.offsetWidth / 2;
+        span = (x2 + last.offsetWidth / 2) - start;
+        if (span <= 0) return;
+        flow.style.setProperty('--rail-left', start.toFixed(1) + 'px');
+      } else {
+        start = y1 + first.offsetHeight / 2;
+        span = (y2 + last.offsetHeight / 2) - start;
+        if (span <= 0) return;
+        flow.style.setProperty('--rail-top', start.toFixed(1) + 'px');
+      }
+      flow.style.setProperty('--rail-span', span.toFixed(1) + 'px');
     }
 
     measure();
     window.addEventListener('resize', measure, { passive: true });
-    // web fonts land after first paint and change every card's height
+    // web fonts land after first paint and change every step's box
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 
     // The travelling fill and the node are motion; the geometry above is not.
     if (reduced.matches) return;
 
-    steps.setAttribute('data-rail', 'live');
+    flow.setAttribute('data-rail', 'live');
 
     var ticking = false;
 
     function update() {
       ticking = false;
-      var box = steps.getBoundingClientRect();
-      var anchor = window.innerHeight * 0.62;
+      var box = flow.getBoundingClientRect();
+      var progress;
 
-      // 0 before the list reaches the anchor line, 1 once it has passed it.
-      var progress = (anchor - box.top) / Math.max(box.height, 1);
+      if (isRow) {
+        /* A row has no height to travel through, so the fill is driven by the
+           section's own approach: nothing at four fifths of the way down the
+           viewport, complete by a third. */
+        var from = window.innerHeight * 0.82;
+        var to = window.innerHeight * 0.34;
+        progress = (from - box.top) / Math.max(from - to, 1);
+      } else {
+        var anchor = window.innerHeight * 0.62;
+        progress = (anchor - box.top) / Math.max(box.height, 1);
+      }
       progress = Math.min(1, Math.max(0, progress));
-      steps.style.setProperty('--fill', progress.toFixed(4));
+      flow.style.setProperty('--fill', progress.toFixed(4));
 
       for (var i = 0; i < items.length; i++) {
-        var dot = items[i].querySelector('.step-num');
-        var reached = dot ? dot.getBoundingClientRect().top < anchor : false;
+        var reached;
+        if (isRow) {
+          // marker i sits at i/(n-1) along the run
+          reached = progress >= (i / (items.length - 1)) - 0.001;
+        } else {
+          reached = markers[i].getBoundingClientRect().top < window.innerHeight * 0.62;
+        }
         items[i].setAttribute('data-reached', reached ? 'true' : 'false');
       }
     }
