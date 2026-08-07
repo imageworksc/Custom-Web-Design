@@ -811,8 +811,9 @@
 /* The run already reserves room under itself for the hover panel, so this
    band does not need its full share of air at the bottom on top of that. */
 #how-we-build {
-  /* the band--snug measure at the top, so the section lands at 680px */
-  padding-top: clamp(44px, 4.6vw, 64px);
+  /* between band--snug and the full --band-y: the run needs a little more
+     room above the heading than the snug measure gave it */
+  padding-top: clamp(56px, 5.8vw, 84px);
   /* the 22px the flow gained above its head comes off here, holding 680 */
   padding-bottom: clamp(14px, 1.2vw, 16px);
 }
