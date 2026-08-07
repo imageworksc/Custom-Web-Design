@@ -52,10 +52,14 @@
   }
 
   /* ------------------------------------------------------------------
-     The process flow fills as the section is read. It is a row of seven
-     on a wide screen and a stack on a narrow one, and the connector has
-     to be measured either way — the markers are the only thing that
-     knows where the run really starts and ends.
+     The process flow. It is a row of seven on a wide screen and a stack
+     on a narrow one, and the connector has to be measured either way —
+     the markers are the only thing that knows where the run really
+     starts and ends.
+
+     In the row, pointing at a step runs the connector up to it and
+     lights every step behind it. The stack has no hover to rely on, so
+     it simply shows the run complete.
      ------------------------------------------------------------------ */
   function setupRail() {
     var flow = document.getElementById('steps');
@@ -68,6 +72,7 @@
     var markers = items.map(function (el) { return el.querySelector('.step-num'); });
     if (markers.indexOf(null) > -1) return;
 
+    var last = items.length - 1;
     var isRow = false;
 
     /* Layout position of el inside root, on one axis. Rects are no good here —
@@ -85,13 +90,13 @@
     }
 
     function measure() {
-      var first = markers[0];
-      var last = markers[markers.length - 1];
+      var a = markers[0];
+      var b = markers[last];
 
-      var y1 = offsetIn(first, list, 'y');
-      var y2 = offsetIn(last, list, 'y');
-      var x1 = offsetIn(first, list, 'x');
-      var x2 = offsetIn(last, list, 'x');
+      var y1 = offsetIn(a, list, 'y');
+      var y2 = offsetIn(b, list, 'y');
+      var x1 = offsetIn(a, list, 'x');
+      var x2 = offsetIn(b, list, 'x');
       if (y1 === null || y2 === null || x1 === null || x2 === null) return;
 
       // one row or a stack? the last marker's own position answers it
@@ -99,71 +104,56 @@
 
       var start, span;
       if (isRow) {
-        start = x1 + first.offsetWidth / 2;
-        span = (x2 + last.offsetWidth / 2) - start;
+        start = x1 + a.offsetWidth / 2;
+        span = (x2 + b.offsetWidth / 2) - start;
         if (span <= 0) return;
         flow.style.setProperty('--rail-left', start.toFixed(1) + 'px');
       } else {
-        start = y1 + first.offsetHeight / 2;
-        span = (y2 + last.offsetHeight / 2) - start;
+        start = y1 + a.offsetHeight / 2;
+        span = (y2 + b.offsetHeight / 2) - start;
         if (span <= 0) return;
         flow.style.setProperty('--rail-top', start.toFixed(1) + 'px');
       }
       flow.style.setProperty('--rail-span', span.toFixed(1) + 'px');
     }
 
-    measure();
-    window.addEventListener('resize', measure, { passive: true });
-    // web fonts land after first paint and change every step's box
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-
-    // The travelling fill and the node are motion; the geometry above is not.
-    if (reduced.matches) return;
-
-    flow.setAttribute('data-rail', 'live');
-
-    var ticking = false;
-
-    function update() {
-      ticking = false;
-      var box = flow.getBoundingClientRect();
-      var progress;
-
-      if (isRow) {
-        /* A row has no height to travel through, so the fill is driven by the
-           section's own approach: nothing at four fifths of the way down the
-           viewport, complete by a third. */
-        var from = window.innerHeight * 0.82;
-        var to = window.innerHeight * 0.34;
-        progress = (from - box.top) / Math.max(from - to, 1);
-      } else {
-        var anchor = window.innerHeight * 0.62;
-        progress = (anchor - box.top) / Math.max(box.height, 1);
-      }
-      progress = Math.min(1, Math.max(0, progress));
-      flow.style.setProperty('--fill', progress.toFixed(4));
-
+    /* index -1 is the resting state: nothing reached, connector empty. */
+    function show(index) {
+      flow.style.setProperty('--fill', (index < 0 ? 0 : index / last).toFixed(4));
       for (var i = 0; i < items.length; i++) {
-        var reached;
-        if (isRow) {
-          // marker i sits at i/(n-1) along the run
-          reached = progress >= (i / (items.length - 1)) - 0.001;
-        } else {
-          reached = markers[i].getBoundingClientRect().top < window.innerHeight * 0.62;
-        }
-        items[i].setAttribute('data-reached', reached ? 'true' : 'false');
+        items[i].setAttribute('data-reached', i <= index ? 'true' : 'false');
       }
     }
 
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(update);
+    function rest() {
+      // A stack gets no pointer, so it reads as done rather than as untouched.
+      show(isRow ? -1 : last);
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    update();
+    function sync() {
+      measure();
+      rest();
+    }
+
+    sync();
+    window.addEventListener('resize', sync, { passive: true });
+    // web fonts land after first paint and change every step's box
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+
+    items.forEach(function (step, i) {
+      step.addEventListener('pointerenter', function () { if (isRow) show(i); }, { passive: true });
+      // focus, not focus-visible: the handler cannot ask which one it was, and
+      // a keyboard tab through the run should light it the same way
+      step.addEventListener('focus', function () { if (isRow) show(i); });
+    });
+
+    list.addEventListener('pointerleave', function () { rest(); }, { passive: true });
+    list.addEventListener('focusout', function (event) {
+      if (!list.contains(event.relatedTarget)) rest();
+    });
+
+    // The node rides the head of the fill, and that is motion.
+    if (!reduced.matches) flow.setAttribute('data-rail', 'live');
   }
 
   /* ------------------------------------------------------------------

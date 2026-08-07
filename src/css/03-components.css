@@ -855,8 +855,59 @@
     line-height: 1.3;
     min-height: 2.6em;
   }
-  .step-body p { font-size: 13.5px; line-height: 1.55; }
   .step-role { font-size: 10px; padding: 3px 7px; }
+
+  /* The description waits under its own step and comes up on hover or focus,
+     the way the source document had it. Opacity only — visibility:hidden or
+     display:none would take the text out of the accessibility tree, and a
+     screen reader has no hover to give. */
+  .step-body p {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    z-index: 5;
+    inline-size: 236px;
+    padding: 14px 16px;
+    border-radius: var(--r);
+    background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+    box-shadow: inset 0 0 0 1px var(--border), var(--shadow-card);
+    font-size: 13.5px;
+    line-height: 1.6;
+    text-align: left;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 6px);
+    transition: opacity .28s var(--ease), transform .28s var(--ease);
+  }
+  /* The end columns would hang off the measure if they stayed centred. */
+  .step:first-of-type .step-body p {
+    left: 0;
+    transform: translate(0, 6px);
+  }
+  .step:last-of-type .step-body p {
+    left: auto;
+    right: 0;
+    transform: translate(0, 6px);
+  }
+  .step:hover .step-body p,
+  .step:focus-visible .step-body p {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  .step:first-of-type:hover .step-body p,
+  .step:first-of-type:focus-visible .step-body p,
+  .step:last-of-type:hover .step-body p,
+  .step:last-of-type:focus-visible .step-body p {
+    transform: translate(0, 0);
+  }
+
+  /* room for the panel, so it never lands on the band below */
+  .flow-list { padding-bottom: 150px; }
+  .step:focus { outline: none; }
+  .step:focus-visible .step-num {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
 
   .steps-node {
     top: calc(var(--num-size) / 2);
