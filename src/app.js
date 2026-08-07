@@ -214,6 +214,69 @@
   }
 
   /* ------------------------------------------------------------------
+     The nav's dropdowns. Pointing at a top-level item opens it and
+     closes the others; leaving waits a moment first, so crossing the gap
+     between the button and the panel does not shut it. The button also
+     answers a click and a focus, so the run works from the keyboard.
+
+     Below the breakpoint the panels are unfolded in place by CSS, and
+     the buttons are left alone — there is nothing to open.
+     ------------------------------------------------------------------ */
+  function setupMenu() {
+    var items = Array.prototype.slice.call(
+      document.querySelectorAll('.menu__item[data-menu]')
+    );
+    if (!items.length) return;
+
+    var stacked = window.matchMedia('(max-width: 1024px)');
+    var timer = null;
+
+    function closeAll() {
+      items.forEach(function (item) {
+        item.classList.remove('is-open');
+        var btn = item.querySelector('.menu__link');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    items.forEach(function (item) {
+      var btn = item.querySelector('.menu__link');
+      if (!btn) return;
+
+      function open() {
+        if (stacked.matches) return;
+        window.clearTimeout(timer);
+        closeAll();
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      item.addEventListener('pointerenter', open, { passive: true });
+      item.addEventListener('pointerleave', function () {
+        if (stacked.matches) return;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(closeAll, 140);
+      }, { passive: true });
+
+      btn.addEventListener('focus', open);
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (stacked.matches) return;
+        if (item.classList.contains('is-open')) closeAll(); else open();
+      });
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.menu__item')) closeAll();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeAll();
+    });
+    // a panel left open behind the hamburger would sit on top of the page
+    stacked.addEventListener('change', closeAll);
+  }
+
+  /* ------------------------------------------------------------------
      In-page links land below the sticky header rather than under it.
      ------------------------------------------------------------------ */
   function setupAnchors() {
@@ -394,6 +457,7 @@
     setupRail();
     setupGlare();
     setupHeader();
+    setupMenu();
     setupAnchors();
     setupFaq();
     setupCounts();

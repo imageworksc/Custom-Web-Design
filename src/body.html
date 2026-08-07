@@ -96,21 +96,119 @@
   </defs>
 </svg>
 
+<!-- The utility bar scrolls away; only the nav below it sticks. -->
+<div class="utility-bar">
+  <div class="utility-bar__inner">
+    <a href="#quote" class="utility-bar__item">
+      <svg class="utility-bar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="5" y="4" width="14" height="18" rx="2" fill="#e8f2fd" stroke="#1266b5" stroke-width="1.6"/>
+        <path d="M9 3.5h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" fill="#1266b5"/>
+        <path d="M8.5 12.5l1.4 1.4 2.6-2.8" stroke="#80C34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="14" y1="12.2" x2="16.5" y2="12.2" stroke="#1266b5" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="8" y1="17.5" x2="16.5" y2="17.5" stroke="#1266b5" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Support / Service Request
+    </a>
+    <span class="utility-bar__sep">|</span>
+    <a href="tel:7039287309" class="utility-bar__item">
+      <svg class="utility-bar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 4h3l1.3 3.3-2 1.4a12 12 0 0 0 5 5l1.4-2 3.3 1.3v3a1.8 1.8 0 0 1-2 1.8A15.5 15.5 0 0 1 4.7 6a1.8 1.8 0 0 1 1.8-2Z" fill="#80C34A"/>
+      </svg>
+      Call or text! (703) 928-7309
+    </a>
+  </div>
+</div>
+
 <header class="site-header" id="top" data-nav>
-  <a class="brand" href="__HOME__">
-    <img src="data:image/png;base64,__LOGO_B64__" alt="ImageWorks Creative" width="317" height="80">
-  </a>
-  <nav class="nav-links" id="nav-links" aria-label="Main">
-    <a class="iw-link" href="__HOME__#work">Marketing</a>
-    <a class="iw-link" href="__HOME__#work">Web Plans</a>
-    <a class="iw-link" href="__HOME__#work">Branding</a>
-    <a class="iw-link" href="__HOME__#work">Our Work</a>
-    <a class="iw-link" href="__HOME__#why">About</a>
-    <a class="iw-link is-contact" href="#quote">Contact</a>
-  </nav>
-  <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav__inner">
+    <a class="brand" href="__HOME__" aria-label="ImageWorks Creative">
+      <img src="data:image/png;base64,__LOGO_B64__" alt="ImageWorks Creative" width="317" height="80">
+    </a>
+
+    <ul class="menu nav-links" id="nav-links">
+      <li class="menu__item" data-menu="web">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          Web
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown">
+          <div class="dropdown__section-label">Web Design</div>
+          <ul class="dropdown__list">
+            <li><a href="#" class="dropdown__link">Custom Website Design<span class="dropdown__link-accent">Drupal / WordPress</span></a></li>
+            <li><a href="#" class="dropdown__link"><span class="dropdown__link-main">AI Website Design<svg class="dropdown__ai-icon" viewBox="0 0 28 24" fill="#80C34A" aria-hidden="true"><path d="M10 2 C10 6 10.5 6.5 14.5 6.5 C10.5 6.5 10 7 10 11 C10 7 9.5 6.5 5.5 6.5 C9.5 6.5 10 6 10 2 Z"/><path d="M20.5 12 C20.5 14.5 20.75 14.75 23 14.75 C20.75 14.75 20.5 15 20.5 17.5 C20.5 15 20.25 14.75 18 14.75 C20.25 14.75 20.5 14.5 20.5 12 Z"/></svg></span><span class="dropdown__link-accent">Fast &amp; Affordable</span></a></li>
+            <li><a href="#" class="dropdown__link">Homepage Facelift<span class="dropdown__link-accent">Low Cost · Major Impact</span></a></li>
+          </ul>
+          <div class="dropdown__section-label dropdown__section-label--next">Website Services</div>
+          <ul class="dropdown__list">
+            <li><a href="#" class="dropdown__link">Website Content</a></li>
+            <li><a href="#" class="dropdown__link">Website Evolution<span class="dropdown__badge">Essential</span></a></li>
+            <li><a href="#" class="dropdown__link">Website Maintenance<span class="dropdown__link-accent">Drupal &amp; WordPress</span></a></li>
+            <li><a href="#" class="dropdown__link">Advanced Website Animations</a></li>
+            <li><a href="#" class="dropdown__link">Creative Support Hours</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item" data-menu="marketing">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          Marketing
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown">
+          <div class="dropdown__section-label">SEO + AIO <span class="dropdown__section-label-note">(Modern Search)</span></div>
+          <ul class="dropdown__list">
+            <li><a href="#" class="dropdown__link">Website Setup &amp; Optimization</a></li>
+            <li><a href="#" class="dropdown__link">On-Page Content Optimization</a></li>
+            <li><a href="#" class="dropdown__link">Link Building</a></li>
+            <li><a href="#" class="dropdown__link">Citations &amp; Entity Signals<span class="dropdown__link-accent">Local · SEO · AI Trust</span></a></li>
+          </ul>
+          <div class="dropdown__section-label dropdown__section-label--next">Local &amp; Paid Ads <span class="dropdown__section-label-note">(PPC)</span></div>
+          <ul class="dropdown__list">
+            <li><a href="#" class="dropdown__link">Google Profile &amp; Maps<span class="dropdown__badge">Rank Locally</span></a></li>
+            <li><a href="#" class="dropdown__link">Location &amp; Service-Area Pages</a></li>
+            <li><a href="#" class="dropdown__link">Google &amp; Meta Ads</a></li>
+            <li><a href="#" class="dropdown__link">Social Media Reels &amp; Ads</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item" data-menu="plans">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          Plans
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown dropdown--narrow dropdown--flat">
+          <ul class="dropdown__list">
+            <li><a href="#plans" class="dropdown__link">Website Plans</a></li>
+            <li><a href="#" class="dropdown__link">Marketing Plans</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item"><a href="__HOME__#work" class="menu__link">Branding</a></li>
+      <li class="menu__item"><a href="#work" class="menu__link">Portfolio</a></li>
+
+      <li class="menu__item" data-menu="about">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          About
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown dropdown--narrow dropdown--flat">
+          <ul class="dropdown__list">
+            <li><a href="__HOME__#why" class="dropdown__link">About Us</a></li>
+            <li><a href="#" class="dropdown__link">Customer's Lounge</a></li>
+            <li><a href="#" class="dropdown__link">Blog</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item"><a href="#quote" class="menu__link menu__link--outline">Contact</a></li>
+    </ul>
+
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <main id="main">

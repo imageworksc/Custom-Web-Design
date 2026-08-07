@@ -779,6 +779,7 @@
 
 @media print {
   .site-header,
+  .utility-bar,
   .skip-to-content { display: none; }
   .band { padding-block: 24px; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
