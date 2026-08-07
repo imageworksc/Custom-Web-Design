@@ -573,6 +573,9 @@
 /* --------------------------------------------------------------------------
    PROCESS — the seven steps as a horizontal flow
    -------------------------------------------------------------------------- */
+/* The run already reserves room under itself for the hover panel, so this
+   band does not need its full share of air at the bottom on top of that. */
+#how-we-build { padding-bottom: clamp(30px, 3.4vw, 48px); }
 /* The source document drew this as a run of seven columns under a band of
    three phases, with a connector threaded behind the numbers. Same diagram
    here, on our own type, radius and colour — and the connector fills as the
