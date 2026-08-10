@@ -963,11 +963,13 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   /* enough height to hold the fold without pushing the next band off it */
   min-height: min(76vh, 620px);
   padding-block: clamp(56px, 6vw, 84px);
-  background: var(--white);
-  /* The weave used to be faded out at both ends. Now it runs to the edge and
-     a hairline states where the block stops. Only at the foot: the nav above
-     carries its own rule now, and two of them would stack into 2px. */
-  border-bottom: 1px solid var(--border);
+  /* No rule at the foot, and no flat white either: the ground ramps into the
+     tint of the band below so the two read as one surface. The band starts on
+     exactly the colour this ends on, so there is no step to see. */
+  background: linear-gradient(180deg,
+    var(--white) 0%,
+    var(--white) 56%,
+    var(--band-tint) 100%);
 }
 
 /* The woven cloth the home runs behind its hero, drawn dark on white. It is
@@ -979,6 +981,10 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   inline-size: 100%;
   block-size: 100%;
   pointer-events: none;
+  /* the weave dissolves into the ramp rather than being sliced off at the
+     band edge — a cut thread is the seam this change is meant to remove */
+  mask-image: linear-gradient(180deg, #000 0, #000 64%, transparent 97%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 64%, transparent 97%);
 }
 
 /* Claim and call on the left, credentials stacked on the right. As one column
