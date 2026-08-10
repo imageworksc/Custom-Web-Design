@@ -215,7 +215,14 @@
 
   <!-- 1 · HERO ---------------------------------------------------------- -->
   <section class="hero" aria-labelledby="hero-title" data-hero>
-    <canvas class="hero-mesh" data-mesh aria-hidden="true"></canvas>
+    <!-- The ground: three washes of brand colour, each on its own heading and
+         at its own rate, so they drift apart and back together instead of
+         sliding as one sheet. -->
+    <div class="hero-wash" aria-hidden="true">
+      <span class="hero-wash__g"></span>
+      <span class="hero-wash__b"></span>
+      <span class="hero-wash__s"></span>
+    </div>
     <div class="wrap hero-inner">
       <div class="hero-main">
         <!-- nbsp before the dash: it must never fall to the start of a line -->

@@ -341,19 +341,107 @@
     var(--band-tint) 100%);
 }
 
-/* The woven cloth the home runs behind its hero, drawn dark on white. It is
-   painted by src/mesh.js and never takes pointer events. */
-.hero-mesh {
+/* ---------- the ground: washes of brand colour, each on its own heading ----
+   One element per wash, moved by transform. Separate elements mean separate
+   clocks and separate directions — the green runs one way, the blue the other,
+   so they drift apart and back together instead of sliding as one sheet.
+
+   Pale on purpose: on a white ground anything stronger stops reading as light
+   and starts reading as decoration.
+
+   Every number below is in px, not vw. What the washes have to sit behind is a
+   stack of type whose height barely changes with the screen; sized in viewport
+   units they would grow on a wide monitor while the copy stayed put, and the
+   colour would slide off it. `left: 50%` plus a px margin hangs each wash off
+   the middle of the page, which is the right anchor because the wrap is
+   centred too. */
+.hero-wash {
   position: absolute;
   inset: 0;
   z-index: -1;
-  inline-size: 100%;
-  block-size: 100%;
+  overflow: hidden;
   pointer-events: none;
-  /* the weave dissolves into the ramp rather than being sliced off at the
-     band edge — a cut thread is the seam this change is meant to remove */
-  mask-image: linear-gradient(180deg, #000 0, #000 64%, transparent 97%);
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 64%, transparent 97%);
+  /* the colour softens away instead of stopping, so the band below picks up
+     from the ramp with nothing to see */
+  mask-image: linear-gradient(180deg, #000 0, #000 58%, transparent 96%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 58%, transparent 96%);
+}
+.hero-wash span {
+  position: absolute;
+  left: 50%;
+  will-change: transform;
+}
+/* green: opens top-left over the headline, runs down and to the right */
+.hero-wash__g {
+  inline-size: 780px;
+  block-size: 640px;
+  margin-left: -820px;
+  top: -200px;
+  background: radial-gradient(closest-side ellipse at center, rgba(128, 195, 74, .24), rgba(128, 195, 74, 0) 100%);
+  animation: washG 71s linear infinite;
+}
+/* brand blue: opens top-right behind the credentials pane, runs the other way */
+.hero-wash__b {
+  inline-size: 840px;
+  block-size: 700px;
+  margin-left: 40px;
+  top: -170px;
+  background: radial-gradient(closest-side ellipse at center, rgba(18, 102, 181, .21), rgba(18, 102, 181, 0) 100%);
+  animation: washB 97s linear infinite;
+}
+/* sky: the low one, parked under the call to action. Slowest and widest. */
+.hero-wash__s {
+  inline-size: 900px;
+  block-size: 620px;
+  margin-left: -430px;
+  top: 190px;
+  background: radial-gradient(closest-side ellipse at center, rgba(46, 140, 214, .21), rgba(46, 140, 214, 0) 100%);
+  animation: washS 127s linear infinite;
+}
+
+/* A sheen crossing the surface, the way light moves over one. It rides inside
+   the wash layer rather than on the hero, so it fades out under the same mask
+   as everything else instead of cutting a diagonal across the seam. */
+.hero-wash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(102deg,
+    rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .34) 50%, rgba(255, 255, 255, 0) 70%);
+  background-repeat: no-repeat;
+  background-size: 260% 100%;
+  animation: heroSheen 47s ease-in-out infinite;
+}
+
+/* Closed loops at a constant rate. Two waypoints on an ease would decelerate,
+   stop and reverse, which reads as an animation looping; four that come back
+   round read as something wandering. The three periods share no useful factor,
+   so the arrangement takes hours to recur. */
+@keyframes washG {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(38%, 22%, 0); }
+  50%  { transform: translate3d(64%, 6%, 0); }
+  75%  { transform: translate3d(26%, -14%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes washB {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(-42%, 26%, 0); }
+  50%  { transform: translate3d(-70%, -8%, 0); }
+  75%  { transform: translate3d(-30%, -24%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes washS {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(-34%, -18%, 0); }
+  50%  { transform: translate3d(-58%, 10%, 0); }
+  75%  { transform: translate3d(-18%, 20%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes heroSheen {
+  0%, 100% { background-position: 124% 0; }
+  50%      { background-position: -24% 0; }
 }
 
 /* Claim and call on the left, credentials stacked on the right. As one column
