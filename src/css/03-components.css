@@ -355,16 +355,26 @@
    colour would slide off it. `left: 50%` plus a px margin hangs each wash off
    the middle of the page, which is the right anchor because the wrap is
    centred too. */
+/* The layer is 1040px tall rather than the hero's own height, and it is
+   measured in px like everything inside it — the washes sit where the
+   reference puts them, which only holds if the box they sit in is the same
+   box. It runs past the hero on purpose: the colour does not stop where the
+   copy does. The mask dissolves it well before the end. */
 .hero-wash {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  block-size: 1040px;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  /* the colour softens away instead of stopping, so the band below picks up
-     from the ramp with nothing to see */
-  mask-image: linear-gradient(180deg, #000 0, #000 58%, transparent 96%);
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 58%, transparent 96%);
+  /* The reference fades over 700→1040px because its ground is that tall. Ours
+     is a 620px hero, so the fade has to finish inside it — a wash still
+     carrying colour at the band edge would be cut there, which is the seam
+     this whole change removes. */
+  mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
 }
 .hero-wash span {
   position: absolute;
@@ -375,8 +385,8 @@
 .hero-wash__g {
   inline-size: 780px;
   block-size: 640px;
-  margin-left: -820px;
-  top: -200px;
+  margin-left: -870px;
+  top: -220px;
   background: radial-gradient(closest-side ellipse at center, rgba(128, 195, 74, .24), rgba(128, 195, 74, 0) 100%);
   animation: washG 71s linear infinite;
 }
@@ -384,17 +394,17 @@
 .hero-wash__b {
   inline-size: 840px;
   block-size: 700px;
-  margin-left: 40px;
-  top: -170px;
+  margin-left: 50px;
+  top: -190px;
   background: radial-gradient(closest-side ellipse at center, rgba(18, 102, 181, .21), rgba(18, 102, 181, 0) 100%);
   animation: washB 97s linear infinite;
 }
 /* sky: the low one, parked under the call to action. Slowest and widest. */
 .hero-wash__s {
   inline-size: 900px;
-  block-size: 620px;
-  margin-left: -430px;
-  top: 190px;
+  block-size: 660px;
+  margin-left: -410px;
+  top: 300px;
   background: radial-gradient(closest-side ellipse at center, rgba(46, 140, 214, .21), rgba(46, 140, 214, 0) 100%);
   animation: washS 127s linear infinite;
 }
