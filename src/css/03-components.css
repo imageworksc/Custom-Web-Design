@@ -454,14 +454,10 @@
   50%      { background-position: -24% 0; }
 }
 
-/* Claim and call on the left, credentials stacked on the right. As one column
-   the hero left half the band empty and the headline had to carry it alone. */
+/* One column now that the credentials pane is gone. The washes carry the
+   right-hand side, so the band does not read as half empty. */
 .hero-inner {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(0, .55fr);
-  gap: clamp(32px, 4.5vw, 64px);
-  align-items: center;
   text-align: left;
 }
 .hero-main {
@@ -496,103 +492,16 @@
    weave run straight through it. Only the hero fills it. */
 .hero .btn--quiet { background: var(--white); }
 
-/* A column of credentials on a pane of glass: the weave stays visible through
-   it, blurred, and a sheen crosses it at an angle the pointer sets. */
-.hero-trust {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  padding: 8px clamp(18px, 1.6vw, 22px);
-  border-radius: var(--r);
-  /* Thin enough, and blurred lightly enough, that the weave still reads
-     through the pane. A heavier blur turns 1px threads into nothing. */
-  background: rgba(255, 255, 255, .22);
-  backdrop-filter: blur(3px) saturate(1.2);
-  -webkit-backdrop-filter: blur(3px) saturate(1.2);
-  /* The light's own shadow, cast behind the card away from the pointer.
-     Nothing is painted over the face — that is what was erasing the threads. */
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7),
-              /* 8/8 is the resting 135deg bearing, so nothing jumps when
-                 the script takes over on the first pointer move */
-              var(--sx, 8px) var(--sy, 8px) calc(26px + var(--glare-lit) * 10px)
-                rgba(20, 40, 80, calc(.05 + var(--glare-lit) * .028));
-  transition: box-shadow .18s linear;
-  --glare: 135deg;
-  --glare-lit: 0;
-}
-/* The lit edge, 1px of it, turning with the light. It travels with the shadow
-   so the pane reads as turned rather than merely brighter. */
-.hero-trust::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(var(--glare),
-    rgba(255, 255, 255, .98), rgba(255, 255, 255, .15) 52%, rgba(20, 60, 102, .16));
-  /* paint only the 1px frame */
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: calc(.6 + var(--glare-lit) * .4);
-  transition: opacity .5s var(--ease);
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .hero-trust { background: rgba(255, 255, 255, .72); }
-}
-
-.hero-trust li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-block: 13px;
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: .01em;
-  transition: color .35s var(--ease);
-}
-.hero-trust li + li { border-top: 1px solid rgba(20, 60, 102, .09); }
-.hero-trust li:hover { color: var(--navy); }
-.hero-trust .chip {
-  inline-size: 20px;
-  block-size: 20px;
-  transition: background-color .35s var(--ease), color .35s var(--ease);
-}
-.hero-trust .chip svg { inline-size: 11px; block-size: 11px; }
-.hero-trust li:hover .chip { background: var(--green); color: #fff; }
-
-@media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 34px; }
-  .hero-trust {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px 28px;
-    padding: 14px 20px;
-  }
-  .hero-trust li { padding-block: 6px; }
-  .hero-trust li + li { border-top: 0; }
-}
-
 /* Staged entrance, built the way the home stages its own hero: each block
    lifts in on its own delay, and the green phrase lands last. `backwards`
    drops the fill afterwards so hover states still win. */
 @media (prefers-reduced-motion: no-preference) {
   [data-hero-anim="on"] .hero h1,
   [data-hero-anim="on"] .hero-sub,
-  [data-hero-anim="on"] .hero .btn-row,
-  [data-hero-anim="on"] .hero-trust li { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero .btn-row { animation: hero-in .8s var(--ease) backwards; }
   [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
   [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
   [data-hero-anim="on"] .hero .btn-row { animation-delay: .44s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(1) { animation-delay: .52s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(2) { animation-delay: .60s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(3) { animation-delay: .68s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(4) { animation-delay: .76s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {

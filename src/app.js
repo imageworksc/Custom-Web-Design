@@ -388,74 +388,9 @@
     });
   }
 
-  /* ------------------------------------------------------------------
-     The credentials pane is glass, and glass shows where the light is
-     coming from. The pointer's bearing from the centre of the card sets
-     the angle of its sheen; letting go returns it to rest.
-     ------------------------------------------------------------------ */
-  function setupGlare() {
-    var card = document.querySelector('[data-glare]');
-    if (!card || reduced.matches) return;
-
-    var REST = 135;
-    var angle = REST, target = REST, lit = 0, litTarget = 0;
-    var raf = null;
-
-    var REACH = 11;   // how far the card throws its shadow
-
-    function apply() {
-      card.style.setProperty('--glare', angle.toFixed(1) + 'deg');
-      card.style.setProperty('--glare-lit', lit.toFixed(3));
-
-      /* The shadow falls away from the light. --glare already points away
-         from the pointer, so it is the shadow's own bearing: 0deg is up, and
-         screen y grows downward. */
-      var rad = angle * Math.PI / 180;
-      card.style.setProperty('--sx', (Math.sin(rad) * REACH).toFixed(1) + 'px');
-      card.style.setProperty('--sy', (-Math.cos(rad) * REACH).toFixed(1) + 'px');
-    }
-
-    function tick() {
-      // shortest way round, so 350deg to 10deg is 20deg and not 340
-      var delta = ((target - angle + 540) % 360) - 180;
-      angle = (angle + delta * 0.18 + 360) % 360;
-      lit += (litTarget - lit) * 0.12;
-      apply();
-
-      if (Math.abs(delta) > 0.2 || Math.abs(litTarget - lit) > 0.004) {
-        raf = window.requestAnimationFrame(tick);
-      } else {
-        raf = null;
-      }
-    }
-
-    function run() {
-      if (raf === null) raf = window.requestAnimationFrame(tick);
-    }
-
-    card.addEventListener('pointermove', function (event) {
-      var r = card.getBoundingClientRect();
-      var dx = event.clientX - (r.left + r.width / 2);
-      var dy = event.clientY - (r.top + r.height / 2);
-      /* CSS gradient angles are clockwise from "to top", which is what
-         atan2(dx, -dy) gives directly. The light comes from the pointer, so
-         the gradient has to start on the opposite side: +180. */
-      target = (Math.atan2(dx, -dy) * 180 / Math.PI + 180 + 360) % 360;
-      litTarget = 1;
-      run();
-    }, { passive: true });
-
-    card.addEventListener('pointerleave', function () {
-      target = REST;
-      litTarget = 0;
-      run();
-    }, { passive: true });
-  }
-
   function init() {
     setupReveals();
     setupRail();
-    setupGlare();
     setupHeader();
     setupMenu();
     setupAnchors();

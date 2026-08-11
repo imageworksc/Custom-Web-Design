@@ -1085,14 +1085,10 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   50%      { background-position: -24% 0; }
 }
 
-/* Claim and call on the left, credentials stacked on the right. As one column
-   the hero left half the band empty and the headline had to carry it alone. */
+/* One column now that the credentials pane is gone. The washes carry the
+   right-hand side, so the band does not read as half empty. */
 .hero-inner {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(0, .55fr);
-  gap: clamp(32px, 4.5vw, 64px);
-  align-items: center;
   text-align: left;
 }
 .hero-main {
@@ -1127,103 +1123,16 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
    weave run straight through it. Only the hero fills it. */
 .hero .btn--quiet { background: var(--white); }
 
-/* A column of credentials on a pane of glass: the weave stays visible through
-   it, blurred, and a sheen crosses it at an angle the pointer sets. */
-.hero-trust {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  padding: 8px clamp(18px, 1.6vw, 22px);
-  border-radius: var(--r);
-  /* Thin enough, and blurred lightly enough, that the weave still reads
-     through the pane. A heavier blur turns 1px threads into nothing. */
-  background: rgba(255, 255, 255, .22);
-  backdrop-filter: blur(3px) saturate(1.2);
-  -webkit-backdrop-filter: blur(3px) saturate(1.2);
-  /* The light's own shadow, cast behind the card away from the pointer.
-     Nothing is painted over the face — that is what was erasing the threads. */
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7),
-              /* 8/8 is the resting 135deg bearing, so nothing jumps when
-                 the script takes over on the first pointer move */
-              var(--sx, 8px) var(--sy, 8px) calc(26px + var(--glare-lit) * 10px)
-                rgba(20, 40, 80, calc(.05 + var(--glare-lit) * .028));
-  transition: box-shadow .18s linear;
-  --glare: 135deg;
-  --glare-lit: 0;
-}
-/* The lit edge, 1px of it, turning with the light. It travels with the shadow
-   so the pane reads as turned rather than merely brighter. */
-.hero-trust::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(var(--glare),
-    rgba(255, 255, 255, .98), rgba(255, 255, 255, .15) 52%, rgba(20, 60, 102, .16));
-  /* paint only the 1px frame */
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: calc(.6 + var(--glare-lit) * .4);
-  transition: opacity .5s var(--ease);
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .hero-trust { background: rgba(255, 255, 255, .72); }
-}
-
-.hero-trust li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-block: 13px;
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: .01em;
-  transition: color .35s var(--ease);
-}
-.hero-trust li + li { border-top: 1px solid rgba(20, 60, 102, .09); }
-.hero-trust li:hover { color: var(--navy); }
-.hero-trust .chip {
-  inline-size: 20px;
-  block-size: 20px;
-  transition: background-color .35s var(--ease), color .35s var(--ease);
-}
-.hero-trust .chip svg { inline-size: 11px; block-size: 11px; }
-.hero-trust li:hover .chip { background: var(--green); color: #fff; }
-
-@media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 34px; }
-  .hero-trust {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px 28px;
-    padding: 14px 20px;
-  }
-  .hero-trust li { padding-block: 6px; }
-  .hero-trust li + li { border-top: 0; }
-}
-
 /* Staged entrance, built the way the home stages its own hero: each block
    lifts in on its own delay, and the green phrase lands last. `backwards`
    drops the fill afterwards so hover states still win. */
 @media (prefers-reduced-motion: no-preference) {
   [data-hero-anim="on"] .hero h1,
   [data-hero-anim="on"] .hero-sub,
-  [data-hero-anim="on"] .hero .btn-row,
-  [data-hero-anim="on"] .hero-trust li { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero .btn-row { animation: hero-in .8s var(--ease) backwards; }
   [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
   [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
   [data-hero-anim="on"] .hero .btn-row { animation-delay: .44s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(1) { animation-delay: .52s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(2) { animation-delay: .60s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(3) { animation-delay: .68s; }
-  [data-hero-anim="on"] .hero-trust li:nth-child(4) { animation-delay: .76s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {
@@ -2767,7 +2676,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   .step-body h3 { font-size: 17px; }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
-  .hero-trust { gap: 12px 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3070,12 +2978,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
         </div>
       </div>
 
-      <ul class="hero-trust" data-glare>
-        <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>No AI-Clone Design</li>
-        <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>No Templates</li>
-        <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Drupal &amp; WordPress CMS</li>
-        <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Since 1997</li>
-      </ul>
     </div>
   </section>
 
@@ -4295,74 +4197,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     });
   }
 
-  /* ------------------------------------------------------------------
-     The credentials pane is glass, and glass shows where the light is
-     coming from. The pointer's bearing from the centre of the card sets
-     the angle of its sheen; letting go returns it to rest.
-     ------------------------------------------------------------------ */
-  function setupGlare() {
-    var card = document.querySelector('[data-glare]');
-    if (!card || reduced.matches) return;
-
-    var REST = 135;
-    var angle = REST, target = REST, lit = 0, litTarget = 0;
-    var raf = null;
-
-    var REACH = 11;   // how far the card throws its shadow
-
-    function apply() {
-      card.style.setProperty('--glare', angle.toFixed(1) + 'deg');
-      card.style.setProperty('--glare-lit', lit.toFixed(3));
-
-      /* The shadow falls away from the light. --glare already points away
-         from the pointer, so it is the shadow's own bearing: 0deg is up, and
-         screen y grows downward. */
-      var rad = angle * Math.PI / 180;
-      card.style.setProperty('--sx', (Math.sin(rad) * REACH).toFixed(1) + 'px');
-      card.style.setProperty('--sy', (-Math.cos(rad) * REACH).toFixed(1) + 'px');
-    }
-
-    function tick() {
-      // shortest way round, so 350deg to 10deg is 20deg and not 340
-      var delta = ((target - angle + 540) % 360) - 180;
-      angle = (angle + delta * 0.18 + 360) % 360;
-      lit += (litTarget - lit) * 0.12;
-      apply();
-
-      if (Math.abs(delta) > 0.2 || Math.abs(litTarget - lit) > 0.004) {
-        raf = window.requestAnimationFrame(tick);
-      } else {
-        raf = null;
-      }
-    }
-
-    function run() {
-      if (raf === null) raf = window.requestAnimationFrame(tick);
-    }
-
-    card.addEventListener('pointermove', function (event) {
-      var r = card.getBoundingClientRect();
-      var dx = event.clientX - (r.left + r.width / 2);
-      var dy = event.clientY - (r.top + r.height / 2);
-      /* CSS gradient angles are clockwise from "to top", which is what
-         atan2(dx, -dy) gives directly. The light comes from the pointer, so
-         the gradient has to start on the opposite side: +180. */
-      target = (Math.atan2(dx, -dy) * 180 / Math.PI + 180 + 360) % 360;
-      litTarget = 1;
-      run();
-    }, { passive: true });
-
-    card.addEventListener('pointerleave', function () {
-      target = REST;
-      litTarget = 0;
-      run();
-    }, { passive: true });
-  }
-
   function init() {
     setupReveals();
     setupRail();
-    setupGlare();
     setupHeader();
     setupMenu();
     setupAnchors();

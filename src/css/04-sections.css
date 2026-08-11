@@ -736,7 +736,6 @@
   .step-body h3 { font-size: 17px; }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
-  .hero-trust { gap: 12px 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
