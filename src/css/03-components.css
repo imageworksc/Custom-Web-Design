@@ -468,7 +468,13 @@
 }
 
 .hero h1 {
-  font-size: clamp(36px, 4.2vw + 8px, 64px);
+  /* The floor scales below 400px instead of sitting flat at 36px. Pinned
+     there, "Custom Web Design" no longer fitted the measure on a 320-360px
+     phone and the headline broke to four and five lines. min() leaves every
+     width from 400px up exactly as it was — 9vw only undercuts 36px below
+     that — and the largest size that still holds three lines measured 29.5px
+     at 320 and 33.5px at 360, so 9vw (28.8 and 32.4) clears both. */
+  font-size: clamp(min(9vw, 36px), 4.2vw + 8px, 64px);
   line-height: 1.08;
   letter-spacing: -.035em;
   /* a ragged left column reads faster than a wide centred block */
