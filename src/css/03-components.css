@@ -486,6 +486,26 @@
   text-wrap: pretty;
 }
 
+/* The four credentials the pane used to hold, back as one ruled line under
+   the copy. The separator is a pseudo-element rather than a character in the
+   markup, so a screen reader reads four items and not four pipes. */
+.hero-points {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--muted);
+}
+.hero-points li + li::before {
+  content: '|';
+  margin-inline: 12px;
+  color: var(--border);
+  font-weight: 500;
+}
+
 .hero .btn-row { margin-top: 10px; }
 
 /* The quiet button is transparent everywhere else, which here would let the
@@ -498,10 +518,12 @@
 @media (prefers-reduced-motion: no-preference) {
   [data-hero-anim="on"] .hero h1,
   [data-hero-anim="on"] .hero-sub,
+  [data-hero-anim="on"] .hero-points,
   [data-hero-anim="on"] .hero .btn-row { animation: hero-in .8s var(--ease) backwards; }
   [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
   [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
-  [data-hero-anim="on"] .hero .btn-row { animation-delay: .44s; }
+  [data-hero-anim="on"] .hero-points { animation-delay: .40s; }
+  [data-hero-anim="on"] .hero .btn-row { animation-delay: .54s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {
