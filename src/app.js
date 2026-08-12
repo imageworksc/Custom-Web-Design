@@ -72,6 +72,8 @@
     var markers = items.map(function (el) { return el.querySelector('.step-num'); });
     if (markers.indexOf(null) > -1) return;
 
+    var thumb = list.querySelector('.flow-thumb');
+
     var last = items.length - 1;
     var isRow = false;
 
@@ -117,17 +119,29 @@
       flow.style.setProperty('--rail-span', span.toFixed(1) + 'px');
     }
 
-    /* index -1 is the resting state: nothing reached, connector empty. */
+    /* Three states, the way a stepper reads: everything before the pointer is
+       done, the step under it is active, the rest are ahead. --active is the
+       index the white thumb slides to; --fill is what the stacked rail uses. */
     function show(index) {
       flow.style.setProperty('--fill', (index < 0 ? 0 : index / last).toFixed(4));
       for (var i = 0; i < items.length; i++) {
         items[i].setAttribute('data-reached', i <= index ? 'true' : 'false');
+        items[i].setAttribute('data-state',
+          i < index ? 'done' : (i === index ? 'active' : 'ahead'));
       }
+      if (!thumb || !isRow) return;
+      var at = markers[index < 0 ? 0 : index];
+      var x = offsetIn(at, list, 'x');
+      if (x === null) return;
+      thumb.style.left = x + 'px';
+      thumb.style.width = at.offsetWidth + 'px';
     }
 
     function rest() {
-      // A stack gets no pointer, so it reads as done rather than as untouched.
-      show(isRow ? -1 : last);
+      /* The row parks on the first step rather than on nothing — a stepper
+         with no current step reads as broken. The stack gets no pointer at
+         all, so it reads as done. */
+      show(isRow ? 0 : last);
     }
 
     function sync() {

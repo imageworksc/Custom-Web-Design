@@ -870,6 +870,7 @@
   /* the run sits clear of the lead rather than right under it */
   margin-top: 34px;
   --num-size: 56px;
+  --track-h: 62px;
   /* the three phases cover steps 1-2, 3-5 and 6-7 */
   --ph-a: #94ca66;
   --ph-b: #5a97cf;
@@ -950,9 +951,8 @@
 }
 
 /* ------------------------------- marker ------------------------------- */
-/* Round, at 56px rather than the source's 40px numeral, with the numeral set
-   as a label. The moat is the band colour so the connector stops at its edge
-   instead of running under the digits. */
+/* The stepper's markers. On the stack they are still discs on a rail; in the
+   row they sit inside the capsule track and the white thumb travels to them. */
 .step-num {
   position: relative;
   z-index: 2;
@@ -977,51 +977,28 @@
   background: #dee9f5;
   color: var(--navy);
   box-shadow: inset 0 0 0 1px transparent;
-  animation: step-pop .5s var(--ease);
 }
 .step:not([data-reached="true"]):hover .step-num {
   color: var(--navy);
   box-shadow: inset 0 0 0 1px var(--navy);
 }
 
-@keyframes step-pop {
-  40% { transform: scale(1.09); }
+/* Digit and tick occupy the same cell, so swapping them moves nothing. */
+.step-digit,
+.step-tick {
+  grid-area: 1 / 1;
+  transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.step-tick {
+  inline-size: 15px;
+  block-size: 15px;
+  color: var(--green-ink);
+  opacity: 0;
+  transform: scale(.7);
 }
 
-/* The ring the marker draws for itself as the run reaches it. */
-.step-ring {
-  position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-.step-ring circle {
-  fill: none;
-  stroke: var(--ph-a);
-  stroke-width: 2;
-  stroke-linecap: round;
-  /* 2πr for r=21, so one dash is the whole circumference */
-  stroke-dasharray: 132;
-  stroke-dashoffset: 132;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
-/* Not --ease for the draw: that curve is 70% done in its first quarter,
-   which reads as a flick rather than a line being drawn. */
-.step[data-reached="true"] .step-ring circle {
-  animation: ring-draw .8s cubic-bezier(.4, 0, .25, 1) forwards;
-}
-/* of-type, not nth-child: the node rides in the same list and would shift
-   every count by one. Each marker takes its phase's colour. */
-.step:nth-of-type(-n+2) .step-ring circle { stroke: var(--ph-a); }
-.step:nth-of-type(n+3):nth-of-type(-n+5) .step-ring circle { stroke: var(--ph-b); }
-.step:nth-of-type(n+6) .step-ring circle { stroke: var(--ph-c); }
-
-@keyframes ring-draw {
-  to { stroke-dashoffset: 0; }
-}
+/* Only the row uses the thumb; the stack keeps its rail. */
+.flow-thumb { display: none; }
 
 /* The node rides the head of the fill. It only appears once the script is
    driving it — parked at the end of a static rail it reads as a stray dot. */
@@ -1088,28 +1065,46 @@
     gap: 6px;
   }
 
-  /* the connector runs behind the markers, from the first centre to the last */
+  /* ---- the capsule track ----
+     The two pseudo-elements stop being a hairline and become the stepper: a
+     pill holding the whole run, and a white thumb that slides to the step
+     under the pointer. The thumb is one column wide and moved by transform,
+     so it travels on the compositor rather than relaying out the row. */
+  .flow-list {
+    padding-top: var(--track-h);
+    /* the thumb has to match a column, and a column is not 100%/7 — the six
+       gaps come out of the total first */
+    --col: calc((100% - 6 * 6px) / 7);
+  }
   .flow-list::before,
   .flow-list::after {
-    left: var(--rail-left, 7%);
-    top: calc(var(--num-size) / 2);
-    inline-size: var(--rail-span, 86%);
-    /* block-size is height — declaring `height: auto` after it would win and
-       collapse the line to nothing */
-    block-size: 2px;
-    transform: translateY(-50%);
+    left: 0;
+    top: 0;
+    inline-size: 100%;
+    block-size: var(--track-h);
+    border-radius: 999px;
+    transform: none;
   }
-  /* The run spans marker 1 to marker 7, so the phase boundaries land at 25%
-     (between steps 2 and 3) and 75% (between 5 and 6). */
-  .flow-list::after {
-    background: linear-gradient(90deg,
-      var(--ph-a) 0%, var(--ph-a) 24%,
-      var(--ph-b) 26%, var(--ph-b) 74%,
-      var(--ph-c) 76%, var(--ph-c) 100%);
-    background-size: var(--rail-span, 100%) 100%;
-    background-repeat: no-repeat;
-    inline-size: calc(var(--fill) * var(--rail-span, 100%));
-    transition: inline-size .15s linear;
+  .flow-list::before { background: rgba(20, 60, 102, .075); }
+  /* the fill line belongs to the stacked rail; the row has the thumb */
+  .flow-list::after { display: none; }
+
+  /* The thumb is a real element, placed in px by the script from the markers'
+     own measured positions. Driving it from a custom property meant its box
+     depended on a percentage resolving against something — the track for
+     `left`, itself for `translateX` — and the paint and the computed value
+     disagreed about where that put it. Measured px has nothing to resolve. */
+  .flow-thumb {
+    display: block;
+    position: absolute;
+    top: 0;
+    block-size: var(--track-h);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px rgba(20, 60, 102, .05),
+                0 1px 2px rgba(20, 40, 80, .07), 0 10px 26px rgba(20, 40, 80, .13);
+    transition: left .42s cubic-bezier(.34, .8, .3, 1),
+                width .42s cubic-bezier(.34, .8, .3, 1);
   }
 
   .step {
@@ -1119,6 +1114,31 @@
     padding-block: 0;
     text-align: center;
   }
+  /* The marker sits in the track, so it loses the disc it wore on the stack —
+     the thumb behind it is the surface now. */
+  .step-num {
+    position: absolute;
+    top: calc(var(--track-h) / -1);
+    inline-size: 100%;
+    block-size: var(--track-h);
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    box-shadow: none;
+    font-size: 15px;
+    color: var(--faint);
+  }
+  /* data-reached drives the stacked layout's disc; in the row the thumb is
+     the only surface, so every state stays transparent. */
+  .step[data-reached="true"] .step-num,
+  .step[data-state="done"] .step-num { background: none; box-shadow: none; }
+  .step[data-state="done"] .step-num { color: var(--green-ink); }  /* Only the row swaps the number for a tick. The stack rests with every step
+     done, and seven ticks and no numbers is not a numbered process. */
+  .step[data-state="done"] .step-digit { opacity: 0; transform: scale(.7); }
+  .step[data-state="done"] .step-tick { opacity: 1; transform: scale(1); }
+  .step[data-state="active"] .step-num { color: var(--navy); font-weight: 800; }
+  .step:not([data-state="active"]):hover .step-num { color: var(--muted); box-shadow: none; }
+
   .step-body {
     flex: 1;
     align-items: center;
@@ -1136,12 +1156,14 @@
     transform: none;
   }
   .step-body h3 {
+    color: var(--muted);
     font-size: 15.5px;
     font-weight: 700;
     line-height: 1.3;
     min-height: 2.6em;
   }
   .step-role { font-size: 10px; padding: 3px 7px; }
+  .step[data-state="active"] .step-body h3 { color: var(--navy); }
 
   /* The description waits under its own step and comes up on hover or focus,
      the way the source document had it. Opacity only — visibility:hidden or
@@ -1196,10 +1218,8 @@
     outline-offset: 3px;
   }
 
-  .steps-node {
-    top: calc(var(--num-size) / 2);
-    left: calc(var(--rail-left, 0px) + var(--fill) * var(--rail-span, 0px));
-  }
+  /* the node rode the head of a fill line; the track has no fill to ride */
+  .steps-node { display: none; }
 }
 
 /* --------------------------------------------------------------------------
