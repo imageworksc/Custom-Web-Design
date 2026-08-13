@@ -73,6 +73,7 @@
     if (markers.indexOf(null) > -1) return;
 
     var thumb = list.querySelector('.flow-thumb');
+    var progress = list.querySelector('.flow-progress');
 
     var last = items.length - 1;
     var isRow = false;
@@ -135,6 +136,8 @@
       if (x === null) return;
       thumb.style.left = x + 'px';
       thumb.style.width = at.offsetWidth + 'px';
+      // the read-so-far fill stops where the thumb starts
+      if (progress) progress.style.width = x + 'px';
     }
 
     function rest() {

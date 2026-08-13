@@ -997,8 +997,9 @@
   transform: scale(.7);
 }
 
-/* Only the row uses the thumb; the stack keeps its rail. */
-.flow-thumb { display: none; }
+/* Only the row uses the track; the stack keeps its rail. */
+.flow-thumb,
+.flow-progress { display: none; }
 
 /* The node rides the head of the fill. It only appears once the script is
    driving it — parked at the end of a static rail it reads as a stray dot. */
@@ -1094,6 +1095,22 @@
      depended on a percentage resolving against something — the track for
      `left`, itself for `translateX` — and the paint and the computed value
      disagreed about where that put it. Measured px has nothing to resolve. */
+  /* What has been read already. It runs from the head of the track to the
+     left edge of the thumb, so it covers exactly the steps behind the one
+     you are on — and it travels on the same clock, so the two read as one
+     movement rather than two things chasing each other. */
+  .flow-progress {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    inline-size: 0;
+    block-size: var(--track-h);
+    border-radius: 999px;
+    background: var(--chip-green);
+    transition: width .42s cubic-bezier(.34, .8, .3, 1);
+  }
+
   .flow-thumb {
     display: block;
     position: absolute;

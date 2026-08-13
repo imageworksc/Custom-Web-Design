@@ -1628,8 +1628,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   transform: scale(.7);
 }
 
-/* Only the row uses the thumb; the stack keeps its rail. */
-.flow-thumb { display: none; }
+/* Only the row uses the track; the stack keeps its rail. */
+.flow-thumb,
+.flow-progress { display: none; }
 
 /* The node rides the head of the fill. It only appears once the script is
    driving it — parked at the end of a static rail it reads as a stray dot. */
@@ -1725,6 +1726,22 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
      depended on a percentage resolving against something — the track for
      `left`, itself for `translateX` — and the paint and the computed value
      disagreed about where that put it. Measured px has nothing to resolve. */
+  /* What has been read already. It runs from the head of the track to the
+     left edge of the thumb, so it covers exactly the steps behind the one
+     you are on — and it travels on the same clock, so the two read as one
+     movement rather than two things chasing each other. */
+  .flow-progress {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    inline-size: 0;
+    block-size: var(--track-h);
+    border-radius: 999px;
+    background: var(--chip-green);
+    transition: width .42s cubic-bezier(.34, .8, .3, 1);
+  }
+
   .flow-thumb {
     display: block;
     position: absolute;
@@ -3152,6 +3169,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 
         <ol class="flow-list">
           <span class="steps-node" aria-hidden="true"></span>
+          <span class="flow-progress" aria-hidden="true"></span>
           <span class="flow-thumb" aria-hidden="true"></span>
 
           <li class="step reveal" tabindex="0">
@@ -3937,6 +3955,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     if (markers.indexOf(null) > -1) return;
 
     var thumb = list.querySelector('.flow-thumb');
+    var progress = list.querySelector('.flow-progress');
 
     var last = items.length - 1;
     var isRow = false;
@@ -3999,6 +4018,8 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
       if (x === null) return;
       thumb.style.left = x + 'px';
       thumb.style.width = at.offsetWidth + 'px';
+      // the read-so-far fill stops where the thumb starts
+      if (progress) progress.style.width = x + 'px';
     }
 
     function rest() {
