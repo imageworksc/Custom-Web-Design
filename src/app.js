@@ -136,8 +136,11 @@
       if (x === null) return;
       thumb.style.left = x + 'px';
       thumb.style.width = at.offsetWidth + 'px';
-      // the read-so-far fill stops where the thumb starts
-      if (progress) progress.style.width = x + 'px';
+      /* The fill runs under the thumb, not up to it: two rounded ends facing
+         each other leave a lens of bare track between them, and at this size
+         that reads as a grey seam. The thumb is opaque, so the overlap is
+         invisible and the join is not. */
+      if (progress) progress.style.width = (x + at.offsetWidth) + 'px';
     }
 
     function rest() {

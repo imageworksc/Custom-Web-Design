@@ -992,7 +992,7 @@
 .step-tick {
   inline-size: 15px;
   block-size: 15px;
-  color: var(--green-ink);
+  color: inherit;
   opacity: 0;
   transform: scale(.7);
 }
@@ -1107,7 +1107,7 @@
     inline-size: 0;
     block-size: var(--track-h);
     border-radius: 999px;
-    background: var(--chip-green);
+    background: var(--green);
     transition: width .42s cubic-bezier(.34, .8, .3, 1);
   }
 
@@ -1149,7 +1149,8 @@
      the only surface, so every state stays transparent. */
   .step[data-reached="true"] .step-num,
   .step[data-state="done"] .step-num { background: none; box-shadow: none; }
-  .step[data-state="done"] .step-num { color: var(--green-ink); }  /* Only the row swaps the number for a tick. The stack rests with every step
+  /* white on the strong green, the way a completed step reads */
+  .step[data-state="done"] .step-num { color: #fff; }  /* Only the row swaps the number for a tick. The stack rests with every step
      done, and seven ticks and no numbers is not a numbered process. */
   .step[data-state="done"] .step-digit { opacity: 0; transform: scale(.7); }
   .step[data-state="done"] .step-tick { opacity: 1; transform: scale(1); }
