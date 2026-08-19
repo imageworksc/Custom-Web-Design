@@ -704,60 +704,108 @@
    frame it sits in still breathes — see .mockup--strong above. */
 /* The template. Not a skeleton of grey bars — that read as a page still
    loading, and the argument is not that a template is unfinished. It is that
-   it is finished and says nothing: a stock hero, a stock headline, a row of
-   three identical cards, no colour of its own. So it is drawn as a real page,
-   in nothing but greys. */
+   it is finished and it is bad: a promo strip nobody asked for, a logo that
+   still says LOGO, six crammed links, a stock photograph stretched out of
+   shape, a Times headline over a sans body, two buttons that agree on
+   nothing, and three cards that cannot hold the same shape twice.
+
+   Every one of those is a real thing real templates do. Nothing here is
+   colour: the whole argument has to survive in grey, because the point is
+   the craft, not the palette. */
+.mw-bar {
+  padding: 3px 8px;
+  background: #9ca2ac;
+  color: #f0f1f3;
+  font-size: 4.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-align: center;
+}
 .mw-nav {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 6px 12px 8px; background: #fff; border-bottom: 1px solid #eceef1;
+  padding: 5px 10px 6px; background: #fff; border-bottom: 2px solid #b9bfc8;
 }
-.mw-logo { display: flex; align-items: center; gap: 4px; }
-.mw-logo i { inline-size: 10px; block-size: 10px; border-radius: 1px; background: #c6cad2; flex: none; }
-.mw-logo b { font-size: 7px; font-weight: 800; color: #a9aeb8; letter-spacing: .06em; }
-.mw-links { display: flex; gap: 6px; align-items: center; font-size: 5.5px; font-weight: 600; color: #a7adb7; }
+.mw-logo { display: flex; align-items: center; gap: 3px; }
+/* squashed out of its own aspect, the way a logo dropped into a fixed slot is */
+.mw-logo i { inline-size: 16px; block-size: 9px; background: #b3b9c2; flex: none; }
+.mw-logo b {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 7.5px; font-weight: 700; color: #8f959f; letter-spacing: .02em;
+}
+/* six links, uneven gaps, and one bolder than the rest for no reason at all */
+.mw-links { display: flex; gap: 3px; align-items: baseline; font-size: 5px; color: #a7adb7; }
+.mw-links span:nth-child(2) { margin-inline: 5px; }
+.mw-links span:nth-child(4) { margin-left: 7px; }
+.mw-links .is-bold { font-weight: 800; font-size: 5.6px; color: #7f858f; }
 
-/* the hero every template ships with: one stock photograph and a slogan */
 .mw-hero {
   position: relative;
   overflow: hidden;
-  padding: 20px 12px 18px;
+  padding: 14px 10px 16px;
   text-align: center;
-  background: #eceef1;
+  /* the banding a cheap gradient leaves behind */
+  background: linear-gradient(#e7e9ed, #d9dce1 60%, #e4e6ea);
 }
+/* the stock photograph, stretched to fill a box it was never cut for */
 .mw-photo {
   position: absolute;
-  inset-block: 0;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  inline-size: 62px;
-  opacity: .55;
+  top: 8px; right: -6px;
+  inline-size: 78px; block-size: 74px;
+  opacity: .5;
 }
-.mw-photo svg { inline-size: 62px; block-size: 43px; fill: #d3d7dd; }
+.mw-photo svg { inline-size: 100%; block-size: 100%; fill: #c2c7ce; }
 .mw-head {
   position: relative;
-  font-size: 10px; font-weight: 800; line-height: 1.2;
-  letter-spacing: -.01em; color: #9ba1ab; margin-bottom: 4px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12px; font-weight: 700; line-height: 1.1;
+  letter-spacing: .12em; color: #868c96;
+  /* centred by eye, which is to say not centred */
+  margin: 0 0 5px 14px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
 }
 .mw-sub {
   position: relative;
-  font-size: 5.5px; font-weight: 500; line-height: 1.5;
-  color: #b3b9c2; max-width: 78%; margin: 0 auto;
+  font-size: 5px; font-weight: 400; line-height: 1.35;
+  color: #9ba1ab; max-width: 62%; margin: 0 auto;
+  /* justified into rivers, at a measure far too narrow for it */
+  text-align: justify;
 }
+.mw-btns { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 5px; margin-top: 8px; }
+/* two buttons that agree on nothing: not the height, not the corner, not the case */
 .mw-btn {
-  position: relative;
   display: inline-flex; align-items: center; justify-content: center;
-  block-size: 12px; padding-inline: 8px; margin-top: 9px;
-  border-radius: 1px; background: #b9bfc8;
-  font-size: 5px; font-weight: 700; letter-spacing: .04em; color: #f4f5f7;
+  block-size: 15px; padding-inline: 10px;
+  border: 1px solid #7f858f;
+  border-radius: 7px;
+  background: linear-gradient(#c8cdd4, #a8aeb8);
+  font-size: 5.5px; font-weight: 800; letter-spacing: .06em; color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
+}
+.mw-btn2 {
+  display: inline-flex; align-items: center; justify-content: center;
+  block-size: 10px; padding-inline: 6px;
+  border: 1px dashed #a7adb7;
+  background: #eceef1;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 5px; font-style: italic; color: #8f959f;
 }
 
-.mw-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 12px; }
-.mw-card { padding: 9px 6px; background: #fff; border: 1px solid #e8eaee; border-radius: 1px; text-align: center; }
-.mw-icon { inline-size: 13px; block-size: 13px; border-radius: 50%; background: #dcdfe4; margin: 0 auto 6px; }
-.mw-ct { font-size: 5.5px; font-weight: 700; color: #a9aeb8; margin-bottom: 4px; }
-.mw-l { block-size: 2px; border-radius: 1px; background: #e4e6ea; margin: 2px auto; inline-size: 82%; }
-.mw-l.is-short { inline-size: 58%; }
+/* three cards that cannot hold the same shape twice */
+.mw-cards { display: grid; grid-template-columns: 1.15fr .8fr 1.05fr; gap: 4px; padding: 9px 10px 10px; align-items: start; }
+.mw-card { padding: 7px 5px; background: #fff; border: 1px solid #c8cdd4; text-align: center; }
+.mw-card--b { padding: 4px 4px 9px; border: 3px double #b9bfc8; text-align: left; }
+.mw-card--c { padding: 9px 6px 5px; border: 1px solid #dfe2e7; box-shadow: 3px 3px 0 #cfd3d9; text-align: right; }
+/* and icons that cannot agree on a size or a shape either */
+.mw-icon { inline-size: 13px; block-size: 13px; border-radius: 50%; background: #cdd2d8; margin: 0 auto 5px; }
+.mw-card--b .mw-icon { inline-size: 9px; block-size: 9px; border-radius: 0; margin: 0 0 4px; }
+.mw-card--c .mw-icon { inline-size: 16px; block-size: 11px; border-radius: 2px; margin: 0 0 5px auto; }
+.mw-ct { font-size: 5.5px; font-weight: 700; color: #9ba1ab; margin-bottom: 4px; }
+.mw-card--b .mw-ct { font-size: 6.5px; letter-spacing: .1em; }
+.mw-card--c .mw-ct { font-family: 'Times New Roman', Times, serif; font-size: 6px; font-weight: 400; }
+.mw-l { block-size: 2px; background: #e0e3e8; margin: 2px auto; inline-size: 88%; }
+.mw-l.is-short { inline-size: 52%; }
+.mw-card--b .mw-l { margin-inline: 0; }
+.mw-card--c .mw-l { margin-inline: auto 0; }
 
 /* -- custom mockup: a screenshot of the real site -- */
 /* It used to be drawn in divs. A drawing of a good website is still a
