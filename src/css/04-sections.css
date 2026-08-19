@@ -2,7 +2,11 @@
    CHECKLIST
    -------------------------------------------------------------------------- */
 /* Four facets of one thing, so they get four equal tiles rather than a ruled
-   list — the section is about control, and a row reads as coverage. */
+   list — the section is about control, and a row reads as coverage.
+
+   This band is white, unlike the ones the page's other cards sit on, so a
+   white card with only a shadow under it had almost nothing to read as an
+   edge. These carry a hairline instead, and the shadow only does the lifting. */
 .win-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -11,26 +15,48 @@
   margin-top: 6px;
 }
 .win-tile {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 16px;
   /* tighter than the three-up version was: four columns leave less room */
-  padding: 28px 22px;
+  padding: 30px 24px 28px;
   border-radius: var(--r);
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
+  box-shadow: inset 0 0 0 1px var(--border), 0 1px 2px rgba(20, 40, 80, .04);
   transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
+
+/* The rule wipes in from the left — the same gesture the CMS rows and the
+   home's links use, rather than a coloured edge that is simply always on. */
+.win-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  block-size: 3px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.win-tile:hover::before { transform: scaleX(1); }
+
 .win-tile:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 44px rgba(20, 40, 80, .16);
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 1px var(--border),
+              0 1px 3px rgba(20, 40, 80, .06),
+              0 18px 40px rgba(20, 40, 80, .13);
 }
 .win-tile p {
   font-size: 15.5px;
   font-weight: 500;
   line-height: 1.6;
   color: var(--ink);
+  transition: color .35s var(--ease);
 }
+.win-tile:hover p { color: var(--navy); }
 
 .win-icon {
   display: grid;
@@ -40,9 +66,18 @@
   border-radius: 50%;
   background: var(--tint-green);
   color: var(--green-ink);
-  transition: background-color .4s var(--ease), color .4s var(--ease);
+  /* a ring, so the disc reads as a mark rather than a flat blob of tint */
+  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, .30);
+  transition: background-color .4s var(--ease), color .4s var(--ease),
+              box-shadow .4s var(--ease), transform .4s var(--ease);
 }
-.win-tile:hover .win-icon { background: var(--green); color: #14300a; }
+.win-tile:hover .win-icon {
+  background: var(--green);
+  color: #14300a;
+  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, 0),
+              0 6px 16px rgba(128, 195, 74, .38);
+  transform: scale(1.06);
+}
 
 /* Every path carries pathLength="1", so one dash value covers all of them and
    the mark redraws itself on hover. At rest the offset is 0 — a browser that
