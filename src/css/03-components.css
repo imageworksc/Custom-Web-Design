@@ -700,22 +700,12 @@
 }
 
 /* --- the argument, animated ------------------------------------------------
-   The template never finishes loading: a skeleton sweep runs over its
-   placeholder bars for ever. The custom build assembles itself once, then
-   settles and stays alive.
+   The custom build assembles itself once, then settles and stays alive. The
+   template does nothing at all, and that is the argument: it is not a page
+   that never finishes, it is a page with nothing to say. Leaving it still
+   next to a moving one says that better than a skeleton sweep did.
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  .mockup--weak .mockup-body::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg,
-      transparent 34%, rgba(255, 255, 255, .78) 50%, transparent 66%);
-    transform: translateX(-110%);
-    animation: skeleton-sweep 3.4s ease-in-out infinite;
-    pointer-events: none;
-  }
-
   .is-revealed .mockup--strong .mc-topbar { animation: mc-in .5s var(--ease) .15s backwards; }
   .is-revealed .mockup--strong .mc-nav { animation: mc-in .5s var(--ease) .27s backwards; }
   .is-revealed .mockup--strong .mc-hero { animation: mc-in .55s var(--ease) .39s backwards; }
@@ -723,18 +713,6 @@
   .is-revealed .mockup--strong .mc-card:nth-child(1) { animation-delay: .56s; }
   .is-revealed .mockup--strong .mc-card:nth-child(2) { animation-delay: .64s; }
   .is-revealed .mockup--strong .mc-card:nth-child(3) { animation-delay: .72s; }
-
-  /* --- the template, stuck --- */
-  /* its call to action keeps flickering between two greys and never resolves */
-  .mockup--weak .mw-btn { animation: dead-cta 2.8s ease-in-out infinite; }
-  /* the placeholder cards fade in and out in sequence, the way a skeleton
-     loader does while it waits for content that is never coming */
-  .mockup--weak .mw-card { animation: card-breathe 3.4s ease-in-out infinite; }
-  .mockup--weak .mw-card:nth-child(2) { animation-delay: .38s; }
-  .mockup--weak .mw-card:nth-child(3) { animation-delay: .76s; }
-  .mockup--weak .mw-t,
-  .mockup--weak .mw-s { animation: card-breathe 3.4s ease-in-out infinite .2s; }
-
   /* --- the custom build, running --- */
   .mockup--strong .mc-btn { animation: mc-pulse 3.2s ease-in-out infinite 1.4s; }
   .mockup--strong .mc-hero-right::after { animation: mc-drift 9s linear infinite; }
@@ -750,14 +728,6 @@
   .mockup--strong .mc-links .mc-cta { animation: mc-pulse 3.2s ease-in-out infinite 2.2s; }
 }
 
-@keyframes dead-cta {
-  0%, 100% { background: #a8b3c1; }
-  50% { background: #c6ced9; }
-}
-@keyframes card-breathe {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .5; }
-}
 @keyframes mc-atmosphere {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -765,11 +735,6 @@
 @keyframes mc-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: .45; transform: scale(.78); }
-}
-
-@keyframes skeleton-sweep {
-  0%, 16% { transform: translateX(-110%); }
-  74%, 100% { transform: translateX(110%); }
 }
 @keyframes mc-in {
   from { opacity: 0; transform: translateY(7px); }
@@ -782,25 +747,62 @@
   to { background-position: 9px 9px; }
 }
 /* The template drains of colour; the custom build keeps it. */
-.mockup--weak { filter: saturate(.2); opacity: .9; }
+/* The template. Not a skeleton of grey bars — that read as a page still
+   loading, and the argument is not that a template is unfinished. It is that
+   it is finished and says nothing: a stock hero, a stock headline, a row of
+   three identical cards, no colour of its own. So it is drawn as a real page,
+   in nothing but greys. */
+.mw-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 12px 8px; background: #fff; border-bottom: 1px solid #eceef1;
+}
+.mw-logo { display: flex; align-items: center; gap: 4px; }
+.mw-logo i { inline-size: 10px; block-size: 10px; border-radius: 1px; background: #c6cad2; flex: none; }
+.mw-logo b { font-size: 7px; font-weight: 800; color: #a9aeb8; letter-spacing: .06em; }
+.mw-links { display: flex; gap: 6px; align-items: center; font-size: 5.5px; font-weight: 600; color: #a7adb7; }
 
-/* -- template mockup: deliberately generic -- */
-.mw { padding: 12px 12px 16px; }
-.mw-nav { display: flex; justify-content: space-between; align-items: center; padding-block: 4px 20px; }
-.mw-logo { inline-size: 34px; block-size: 8px; border-radius: 1px; background: #d5dae2; }
-.mw-links { display: flex; gap: 8px; }
-.mw-links i { inline-size: 16px; block-size: 3px; border-radius: 1px; background: #dfe3ea; }
-.mw-hero { margin-inline: -12px; padding: 22px 12px; text-align: center; background: #f4f5f7; }
-.mw-t { block-size: 6px; border-radius: 1px; background: #b8c0cc; margin: 0 auto 5px; inline-size: 55%; }
-.mw-t.is-short { inline-size: 38%; }
-.mw-s { block-size: 3px; border-radius: 1px; background: #dbe0e7; margin: 3px auto; inline-size: 65%; }
-.mw-s.is-short { inline-size: 45%; }
-.mw-btn { block-size: 10px; inline-size: 44px; border-radius: 1px; background: #a8b3c1; margin: 12px auto 0; }
-.mw-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 12px; }
-.mw-card { padding: 10px 5px; background: #fff; border: 1px solid #eaedf1; border-radius: 1px; }
-.mw-icon { inline-size: 12px; block-size: 12px; border-radius: 1px; background: #dbe0e7; margin: 0 auto 6px; }
-.mw-l { block-size: 3px; border-radius: 1px; background: #dbe0e7; margin: 2px auto; inline-size: 75%; }
-.mw-l.is-short { inline-size: 55%; }
+/* the hero every template ships with: one stock photograph and a slogan */
+.mw-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 12px 18px;
+  text-align: center;
+  background: #eceef1;
+}
+.mw-photo {
+  position: absolute;
+  inset-block: 0;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  inline-size: 62px;
+  opacity: .55;
+}
+.mw-photo svg { inline-size: 62px; block-size: 43px; fill: #d3d7dd; }
+.mw-head {
+  position: relative;
+  font-size: 10px; font-weight: 800; line-height: 1.2;
+  letter-spacing: -.01em; color: #9ba1ab; margin-bottom: 4px;
+}
+.mw-sub {
+  position: relative;
+  font-size: 5.5px; font-weight: 500; line-height: 1.5;
+  color: #b3b9c2; max-width: 78%; margin: 0 auto;
+}
+.mw-btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  block-size: 12px; padding-inline: 8px; margin-top: 9px;
+  border-radius: 1px; background: #b9bfc8;
+  font-size: 5px; font-weight: 700; letter-spacing: .04em; color: #f4f5f7;
+}
+
+.mw-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 12px; }
+.mw-card { padding: 9px 6px; background: #fff; border: 1px solid #e8eaee; border-radius: 1px; text-align: center; }
+.mw-icon { inline-size: 13px; block-size: 13px; border-radius: 50%; background: #dcdfe4; margin: 0 auto 6px; }
+.mw-ct { font-size: 5.5px; font-weight: 700; color: #a9aeb8; margin-bottom: 4px; }
+.mw-l { block-size: 2px; border-radius: 1px; background: #e4e6ea; margin: 2px auto; inline-size: 82%; }
+.mw-l.is-short { inline-size: 58%; }
 
 /* -- custom mockup: art-directed -- */
 .mc { display: flex; flex-direction: column; }
