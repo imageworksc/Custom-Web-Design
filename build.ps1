@@ -53,6 +53,10 @@ for ($i = 1; $i -le 8; $i++) {
     $css = $css.Replace("__WORK${i}_B64__", (Read-B64 "assets/work-$i.jpg"))
 }
 
+# The custom mockup is a screenshot of imageworks-home-2 rather than a drawing,
+# and it lives in the stylesheet for the same reason the thumbnails do.
+$css = $css.Replace('__CUSTOMSHOT_B64__', (Read-B64 'assets/custom-shot.jpg'))
+
 $works = Read-Src 'works.html'
 $worksDup = $works.Replace('<li class="work-item">', '<li class="work-item" aria-hidden="true">')
 

@@ -699,54 +699,9 @@
   transform-origin: top left;
 }
 
-/* --- the argument, animated ------------------------------------------------
-   The custom build assembles itself once, then settles and stays alive. The
-   template does nothing at all, and that is the argument: it is not a page
-   that never finishes, it is a page with nothing to say. Leaving it still
-   next to a moving one says that better than a skeleton sweep did.
-   -------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: no-preference) {
-  .is-revealed .mockup--strong .mc-topbar { animation: mc-in .5s var(--ease) .15s backwards; }
-  .is-revealed .mockup--strong .mc-nav { animation: mc-in .5s var(--ease) .27s backwards; }
-  .is-revealed .mockup--strong .mc-hero { animation: mc-in .55s var(--ease) .39s backwards; }
-  .is-revealed .mockup--strong .mc-card { animation: mc-in .5s var(--ease) backwards; }
-  .is-revealed .mockup--strong .mc-card:nth-child(1) { animation-delay: .56s; }
-  .is-revealed .mockup--strong .mc-card:nth-child(2) { animation-delay: .64s; }
-  .is-revealed .mockup--strong .mc-card:nth-child(3) { animation-delay: .72s; }
-  /* --- the custom build, running --- */
-  .mockup--strong .mc-btn { animation: mc-pulse 3.2s ease-in-out infinite 1.4s; }
-  .mockup--strong .mc-hero-right::after { animation: mc-drift 9s linear infinite; }
-  /* light moves across the hero field, the way it would over real artwork */
-  .mockup--strong .mc-hero {
-    background-size: 170% 170%;
-    animation: mc-atmosphere 14s ease-in-out infinite;
-  }
-  /* each card reports in on its own beat — a system with something to say */
-  .mockup--strong .mc-card i { animation: mc-dot 2.6s ease-in-out infinite; }
-  .mockup--strong .mc-card:nth-child(2) i { animation-delay: .42s; }
-  .mockup--strong .mc-card:nth-child(3) i { animation-delay: .84s; }
-  .mockup--strong .mc-links .mc-cta { animation: mc-pulse 3.2s ease-in-out infinite 2.2s; }
-}
-
-@keyframes mc-atmosphere {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-@keyframes mc-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .45; transform: scale(.78); }
-}
-@keyframes mc-in {
-  from { opacity: 0; transform: translateY(7px); }
-}
-@keyframes mc-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(128, 195, 74, .55); }
-  55% { box-shadow: 0 0 0 5px rgba(128, 195, 74, 0); }
-}
-@keyframes mc-drift {
-  to { background-position: 9px 9px; }
-}
-/* The template drains of colour; the custom build keeps it. */
+/* The mc-* keyframes went with the drawing they animated: the custom mockup
+   is a photograph of the real site now, and a photograph holds still. The
+   frame it sits in still breathes — see .mockup--strong above. */
 /* The template. Not a skeleton of grey bars — that read as a page still
    loading, and the argument is not that a template is unfinished. It is that
    it is finished and says nothing: a stock hero, a stock headline, a row of
@@ -804,49 +759,18 @@
 .mw-l { block-size: 2px; border-radius: 1px; background: #e4e6ea; margin: 2px auto; inline-size: 82%; }
 .mw-l.is-short { inline-size: 58%; }
 
-/* -- custom mockup: art-directed -- */
-.mc { display: flex; flex-direction: column; }
-.mc-topbar { block-size: 8px; background: var(--navy); }
-.mc-nav {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 6px 12px 8px; background: #fff; border-bottom: 1px solid #eef1f5;
+/* -- custom mockup: a screenshot of the real site -- */
+/* It used to be drawn in divs. A drawing of a good website is still a
+   drawing, and next to a template that now looks like a template the honest
+   comparison is the site itself. The shot is inlined like the portfolio
+   thumbnails, so the page still makes no external request. */
+.mc-shot {
+  block-size: 100%;
+  background-image: url(data:image/jpeg;base64,__CUSTOMSHOT_B64__);
+  background-size: cover;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
 }
-.mc-logo { display: flex; align-items: center; gap: 4px; }
-.mc-logo i { inline-size: 10px; block-size: 10px; border-radius: 2px; background: var(--navy); flex: none; }
-.mc-logo b { font-size: 7px; font-weight: 800; color: var(--navy); letter-spacing: .04em; }
-.mc-links { display: flex; gap: 5px; align-items: center; font-size: 5.5px; font-weight: 700; color: #33404f; }
-.mc-links .mc-cta { background: var(--green); color: #143c1f; padding: 3px 6px; border-radius: 1px; }
-.mc-hero {
-  position: relative; display: flex; block-size: 130px; overflow: hidden;
-  background: linear-gradient(165deg, #103f74 0%, #0b2c55 48%, #071a38 100%);
-}
-.mc-hero-left { flex: 1; z-index: 2; padding: 14px 12px; display: flex; flex-direction: column; justify-content: center; }
-.mc-head { font-size: 11px; font-weight: 800; line-height: 1.15; letter-spacing: -.02em; color: #fff; margin-bottom: 5px; }
-.mc-head span { color: var(--green); }
-.mc-s { block-size: 2px; border-radius: 1px; background: rgba(255, 255, 255, .5); margin-block: 2px; inline-size: 90%; }
-.mc-s.is-short { inline-size: 65%; }
-.mc-btn { block-size: 10px; inline-size: 52px; border-radius: 1px; background: var(--green); margin-top: 8px; }
-.mc-hero-right {
-  flex: .9; position: relative;
-  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
-  background:
-    radial-gradient(72% 62% at 70% 20%, rgba(32, 132, 206, .55) 0%, rgba(32, 132, 206, 0) 62%),
-    linear-gradient(150deg, #17578f 0%, #0d3059 60%, #08203f 100%);
-}
-.mc-hero-right::after {
-  content: ''; position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, .16) 1px, transparent 1px);
-  background-size: 9px 9px;
-}
-.mc-cards {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;
-  padding: 0 12px; margin-top: -18px; position: relative; z-index: 3;
-}
-.mc-card { background: #fff; border-radius: 1px; padding: 6px 5px; box-shadow: 0 2px 6px rgba(20, 40, 80, .16); }
-.mc-card i { display: block; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--green); margin-bottom: 4px; }
-.mc-t { block-size: 3px; border-radius: 1px; background: var(--navy); margin-bottom: 3px; inline-size: 75%; }
-.mc-l { block-size: 2px; border-radius: 1px; background: #d5dae2; margin-block: 1.5px; inline-size: 90%; }
-.mc-l.is-short { inline-size: 60%; }
 
 /* --------------------------------------------------------------------------
    PROCESS — the seven steps as a horizontal flow
