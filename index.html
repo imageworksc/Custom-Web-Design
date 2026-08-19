@@ -963,9 +963,8 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   /* enough height to hold the fold without pushing the next band off it */
   min-height: min(76vh, 620px);
   padding-block: clamp(56px, 6vw, 84px);
-  /* No rule at the foot, and no flat white either: the ground ramps into the
-     tint of the band below so the two read as one surface. The band starts on
-     exactly the colour this ends on, so there is no step to see. */
+  /* No rule at the foot and no flat white: the ground runs into the tint of
+     the band below, which starts on exactly the colour this ends on. */
   background: linear-gradient(180deg,
     var(--white) 0%,
     var(--white) 56%,
@@ -973,69 +972,59 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 
 /* ---------- the ground: washes of brand colour, each on its own heading ----
-   One element per wash, moved by transform. Separate elements mean separate
-   clocks and separate directions — the green runs one way, the blue the other,
-   so they drift apart and back together instead of sliding as one sheet.
+   One element per wash, moved by transform: separate clocks and separate
+   directions, so they drift apart and come back together rather than sliding
+   as one sheet. Pale on purpose — on a light ground anything stronger stops
+   reading as light and starts reading as decoration.
 
-   Pale on purpose: on a white ground anything stronger stops reading as light
-   and starts reading as decoration.
-
-   Every number below is in px, not vw. What the washes have to sit behind is a
-   stack of type whose height barely changes with the screen; sized in viewport
-   units they would grow on a wide monitor while the copy stayed put, and the
-   colour would slide off it. `left: 50%` plus a px margin hangs each wash off
-   the middle of the page, which is the right anchor because the wrap is
-   centred too. */
-/* The layer is 1040px tall rather than the hero's own height, and it is
-   measured in px like everything inside it — the washes sit where the
-   reference puts them, which only holds if the box they sit in is the same
-   box. It runs past the hero on purpose: the colour does not stop where the
-   copy does. The mask dissolves it well before the end. */
+   The layer is the height of the hero and its mask is in percentages, not
+   pixels. It used to be a fixed 1040px box fading from 330 to 600, and against
+   a hero of a different height the washes reached the bottom edge still
+   carrying colour and were cut off square. That cut was the line that showed
+   between the hero and the section under it. They now go out entirely a
+   little before the end, so the hero finishes on the same flat tint the band
+   below begins with. */
 .hero-wash {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  block-size: 1040px;
+  block-size: 100%;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  /* The reference fades over 700→1040px because its ground is that tall. Ours
-     is a 620px hero, so the fade has to finish inside it — a wash still
-     carrying colour at the band edge would be cut there, which is the seam
-     this whole change removes. */
-  mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
+  mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
 }
 .hero-wash span {
   position: absolute;
   left: 50%;
   will-change: transform;
 }
-/* green: opens top-left over the headline, runs down and to the right */
+/* green: opens top-left over the headline and runs down to the right */
 .hero-wash__g {
-  inline-size: 780px;
-  block-size: 640px;
-  margin-left: -870px;
-  top: -220px;
+  inline-size: 1015px;
+  block-size: 830px;
+  margin-left: -987px;
+  top: -315px;
   background: radial-gradient(closest-side ellipse at center, rgba(128, 195, 74, .24), rgba(128, 195, 74, 0) 100%);
   animation: washG 71s linear infinite;
 }
-/* brand blue: opens top-right behind the credentials pane, runs the other way */
+/* brand blue: opens top-right and runs the other way */
 .hero-wash__b {
-  inline-size: 840px;
-  block-size: 700px;
-  margin-left: 50px;
-  top: -190px;
+  inline-size: 1090px;
+  block-size: 910px;
+  margin-left: -75px;
+  top: -295px;
   background: radial-gradient(closest-side ellipse at center, rgba(18, 102, 181, .21), rgba(18, 102, 181, 0) 100%);
   animation: washB 97s linear infinite;
 }
-/* sky: the low one, parked under the call to action. Slowest and widest. */
+/* sky: the low one, parked under the call. Slowest and widest. */
 .hero-wash__s {
-  inline-size: 900px;
-  block-size: 660px;
-  margin-left: -410px;
-  top: 300px;
+  inline-size: 1170px;
+  block-size: 860px;
+  margin-left: -545px;
+  top: 200px;
   background: radial-gradient(closest-side ellipse at center, rgba(46, 140, 214, .21), rgba(46, 140, 214, 0) 100%);
   animation: washS 127s linear infinite;
 }
@@ -1055,29 +1044,30 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   animation: heroSheen 47s ease-in-out infinite;
 }
 
-/* Closed loops at a constant rate. Two waypoints on an ease would decelerate,
-   stop and reverse, which reads as an animation looping; four that come back
-   round read as something wandering. The three periods share no useful factor,
-   so the arrangement takes hours to recur. */
+/* Vertical only. The Y values are the original ones, one for one; X is held at
+   zero, so each wash rises and falls in its own place and none of them travels
+   across the one beside it. Four waypoints that come back round read as
+   something wandering; two on an ease would decelerate, stop and reverse,
+   which reads as an animation looping. The periods share no useful factor. */
 @keyframes washG {
   0%   { transform: translate3d(0, 0, 0); }
-  25%  { transform: translate3d(38%, 22%, 0); }
-  50%  { transform: translate3d(64%, 6%, 0); }
-  75%  { transform: translate3d(26%, -14%, 0); }
+  25%  { transform: translate3d(0, 22%, 0); }
+  50%  { transform: translate3d(0, 6%, 0); }
+  75%  { transform: translate3d(0, -14%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 @keyframes washB {
   0%   { transform: translate3d(0, 0, 0); }
-  25%  { transform: translate3d(-42%, 26%, 0); }
-  50%  { transform: translate3d(-70%, -8%, 0); }
-  75%  { transform: translate3d(-30%, -24%, 0); }
+  25%  { transform: translate3d(0, 26%, 0); }
+  50%  { transform: translate3d(0, -8%, 0); }
+  75%  { transform: translate3d(0, -24%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 @keyframes washS {
   0%   { transform: translate3d(0, 0, 0); }
-  25%  { transform: translate3d(-34%, -18%, 0); }
-  50%  { transform: translate3d(-58%, 10%, 0); }
-  75%  { transform: translate3d(-18%, 20%, 0); }
+  25%  { transform: translate3d(0, -18%, 0); }
+  50%  { transform: translate3d(0, 10%, 0); }
+  75%  { transform: translate3d(0, 20%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 @keyframes heroSheen {
