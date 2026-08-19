@@ -1325,14 +1325,17 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
    frame it sits in still breathes — see .mockup--strong above. */
 /* The template. Not a skeleton of grey bars — that read as a page still
    loading, and the argument is not that a template is unfinished. It is that
-   it is finished and it is bad: a promo strip nobody asked for, a logo that
-   still says LOGO, six crammed links, a stock photograph stretched out of
-   shape, a Times headline over a sans body, two buttons that agree on
-   nothing, and three cards that cannot hold the same shape twice.
+   it is finished and nobody laid it out: a promo strip that runs off its own
+   edge, a nav whose links wrap into the logo, a headline the stock photograph
+   sits on top of, a paragraph that starts nowhere near it, two buttons that
+   agree on nothing, and three cards at three different heights, one of them
+   hanging off the side.
 
-   Every one of those is a real thing real templates do. Nothing here is
-   colour: the whole argument has to survive in grey, because the point is
-   the craft, not the palette. */
+   Every fault here is one a template actually commits. None of it is colour:
+   the whole argument has to survive in grey, because the point is the craft,
+   not the palette. */
+
+/* too much copy for the strip it was given, so it simply runs off the end */
 .mw-bar {
   padding: 3px 8px;
   background: #9ca2ac;
@@ -1341,38 +1344,44 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   font-weight: 700;
   letter-spacing: .08em;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
 }
+
+/* the links wrap onto a second line and come back into the logo */
 .mw-nav {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 5px 10px 6px; background: #fff; border-bottom: 2px solid #b9bfc8;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 5px 10px 4px; background: #fff; border-bottom: 2px solid #b9bfc8;
 }
-.mw-logo { display: flex; align-items: center; gap: 3px; }
+.mw-logo { display: flex; align-items: center; gap: 3px; margin-top: 5px; }
 /* squashed out of its own aspect, the way a logo dropped into a fixed slot is */
 .mw-logo i { inline-size: 16px; block-size: 9px; background: #b3b9c2; flex: none; }
 .mw-logo b {
   font-family: 'Times New Roman', Times, serif;
   font-size: 7.5px; font-weight: 700; color: #8f959f; letter-spacing: .02em;
 }
-/* six links, uneven gaps, and one bolder than the rest for no reason at all */
-.mw-links { display: flex; gap: 3px; align-items: baseline; font-size: 5px; color: #a7adb7; }
+.mw-links {
+  display: flex; flex-wrap: wrap; justify-content: flex-end;
+  gap: 2px 3px; inline-size: 74px;
+  font-size: 5px; color: #a7adb7; line-height: 1.9;
+}
 .mw-links span:nth-child(2) { margin-inline: 5px; }
 .mw-links span:nth-child(4) { margin-left: 7px; }
 .mw-links .is-bold { font-weight: 800; font-size: 5.6px; color: #7f858f; }
 
 .mw-hero {
   position: relative;
-  overflow: hidden;
-  padding: 14px 10px 16px;
-  text-align: center;
+  padding: 12px 10px 14px;
   /* the banding a cheap gradient leaves behind */
   background: linear-gradient(#e7e9ed, #d9dce1 60%, #e4e6ea);
 }
-/* the stock photograph, stretched to fill a box it was never cut for */
+/* the stock photograph, stretched out of shape and dropped on the headline */
 .mw-photo {
   position: absolute;
-  top: 8px; right: -6px;
-  inline-size: 78px; block-size: 74px;
-  opacity: .5;
+  top: -4px; right: 24px;
+  inline-size: 84px; block-size: 78px;
+  opacity: .55;
+  z-index: 1;
 }
 .mw-photo svg { inline-size: 100%; block-size: 100%; fill: #c2c7ce; }
 .mw-head {
@@ -1381,18 +1390,21 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   font-size: 12px; font-weight: 700; line-height: 1.1;
   letter-spacing: .12em; color: #868c96;
   /* centred by eye, which is to say not centred */
-  margin: 0 0 5px 14px;
+  text-align: center;
+  margin: 0 0 6px 18px;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
 }
+/* and the paragraph starts nowhere near where the headline does */
 .mw-sub {
   position: relative;
   font-size: 5px; font-weight: 400; line-height: 1.35;
-  color: #9ba1ab; max-width: 62%; margin: 0 auto;
+  color: #9ba1ab; inline-size: 54%; margin-left: 6px;
   /* justified into rivers, at a measure far too narrow for it */
   text-align: justify;
 }
-.mw-btns { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 5px; margin-top: 8px; }
-/* two buttons that agree on nothing: not the height, not the corner, not the case */
+/* two buttons that agree on nothing: not the height, not the corner, not the
+   case, not the baseline, and not how far apart they should sit */
+.mw-btns { position: relative; display: flex; align-items: flex-end; gap: 16px; margin: 9px 0 0 30px; }
 .mw-btn {
   display: inline-flex; align-items: center; justify-content: center;
   block-size: 15px; padding-inline: 10px;
@@ -1405,17 +1417,31 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 .mw-btn2 {
   display: inline-flex; align-items: center; justify-content: center;
   block-size: 10px; padding-inline: 6px;
+  margin-bottom: -7px;
   border: 1px dashed #a7adb7;
   background: #eceef1;
   font-family: 'Times New Roman', Times, serif;
   font-size: 5px; font-style: italic; color: #8f959f;
 }
 
-/* three cards that cannot hold the same shape twice */
-.mw-cards { display: grid; grid-template-columns: 1.15fr .8fr 1.05fr; gap: 4px; padding: 9px 10px 10px; align-items: start; }
-.mw-card { padding: 7px 5px; background: #fff; border: 1px solid #c8cdd4; text-align: center; }
-.mw-card--b { padding: 4px 4px 9px; border: 3px double #b9bfc8; text-align: left; }
-.mw-card--c { padding: 9px 6px 5px; border: 1px solid #dfe2e7; box-shadow: 3px 3px 0 #cfd3d9; text-align: right; }
+/* three cards at three heights, on gaps that do not match, and the last one
+   too wide for the room it was given — so the frame cuts it off */
+.mw-cards {
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 6px 0 10px 9px;
+}
+.mw-card { inline-size: 96px; padding: 7px 5px; background: #fff; border: 1px solid #c8cdd4; text-align: center; }
+.mw-card--b {
+  inline-size: 62px; margin-top: 13px; margin-left: 11px;
+  padding: 4px 4px 9px; border: 3px double #b9bfc8; text-align: left;
+}
+.mw-card--c {
+  inline-size: 118px; margin-top: -5px; margin-left: 5px;
+  padding: 9px 6px 5px; border: 1px solid #dfe2e7;
+  box-shadow: 3px 3px 0 #cfd3d9; text-align: right;
+}
 /* and icons that cannot agree on a size or a shape either */
 .mw-icon { inline-size: 13px; block-size: 13px; border-radius: 50%; background: #cdd2d8; margin: 0 auto 5px; }
 .mw-card--b .mw-icon { inline-size: 9px; block-size: 9px; border-radius: 0; margin: 0 0 4px; }
