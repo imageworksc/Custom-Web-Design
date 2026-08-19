@@ -103,16 +103,18 @@
 }
 
 /* --------------------------------------------------------------------------
+/* --------------------------------------------------------------------------
    PLATFORM SPLIT
    -------------------------------------------------------------------------- */
+/* Two cards, built like the pricing pair: same shell, same 3px accent on the
+   head, and the same blue-then-green reading. They used to be two halves of
+   one shell divided by a rule, which made the platforms look like two parts
+   of a single offer rather than two ways to work. */
 .platform-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 20px;
   width: 100%;
-  border-radius: var(--r);
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
 }
 .platform-half {
   padding: clamp(28px, 3.2vw, 42px);
@@ -120,16 +122,21 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
-  border-top: 3px solid transparent;
+  border-radius: var(--r);
+  border-top: 3px solid var(--blue);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
 }
-/* Official brand blues */
-.platform-half--drupal { border-top-color: #0678BE; border-right: 1px solid var(--border); }
-.platform-half--wp { border-top-color: #21759B; }
+.platform-half--wp { border-top-color: var(--green); }
 .platform-half h3 { font-size: var(--step-2); }
 .platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
 .platform-half p em { font-style: italic; }
 .platform-half .arrow-link { margin-top: 6px; }
+/* the link follows its own card rather than staying blue on the green one */
+.platform-half--wp .arrow-link { color: var(--green-ink); }
 
+/* The marks are still the official Drupal and WordPress logos; only the
+   colour they are set in follows the card now. */
 .platform-mark {
   display: grid;
   place-items: center;
@@ -140,8 +147,7 @@
   background: var(--tint-blue);
   color: var(--blue);
 }
-.platform-half--drupal .platform-mark { background: #e3f1fb; color: #0678BE; }
-.platform-half--wp .platform-mark { background: #e7eff4; color: #21759B; }
+.platform-half--wp .platform-mark { background: var(--tint-green); color: var(--green-ink); }
 .platform-mark svg { inline-size: 26px; block-size: 26px; }
 
 .split-badge {
@@ -155,6 +161,7 @@
   background: var(--tint-blue);
   color: var(--blue);
 }
+.platform-half--wp .split-badge { background: var(--tint-green); color: var(--green-ink); }
 
 /* --------------------------------------------------------------------------
    UNDER THE HOOD
@@ -746,7 +753,6 @@
   .fa-split { grid-template-columns: 1fr; }
   .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
-  .platform-half--drupal { border-right: none; border-bottom: 1px solid var(--border); }
   .plans { grid-template-columns: 1fr; }
   /* the aside has nothing to stay beside once the list drops below it */
   .cms-split { grid-template-columns: 1fr; }
