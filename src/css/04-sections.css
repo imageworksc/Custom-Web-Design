@@ -103,7 +103,6 @@
 }
 
 /* --------------------------------------------------------------------------
-/* --------------------------------------------------------------------------
    PLATFORM SPLIT
    -------------------------------------------------------------------------- */
 /* Two cards, built like the pricing pair: same shell, same 3px accent on the
@@ -823,4 +822,156 @@
   .skip-to-content { display: none; }
   .band { padding-block: 24px; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   THE COPY DECK'S OWN COMPONENTS
+   Five sections came in with the new text that the page had no home for, plus
+   a third deploy lane and a fourth figure. Everything below is built from the
+   tokens already in use — no new colour, no new radius, no new shadow.
+   -------------------------------------------------------------------------- */
+
+/* the line under the hero's buttons */
+.hero-note {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--faint);
+}
+
+/* Four figures where there were three. The row still divides evenly, and the
+   fourth is a percentage rather than a count, so it carries no data-count and
+   simply prints. */
+.stats--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1024px) {
+  .stats--four { grid-template-columns: 1fr 1fr; }
+  .stats--four .stat:nth-child(-n+2) { border-top: 0; }
+  .stats--four .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+}
+
+/* --- three deploy lanes ------------------------------------------------- */
+.platform-split--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.platform-half--ai { border-top-color: var(--navy); }
+.platform-half--ai .platform-mark { background: var(--chip-navy); color: var(--navy); }
+.platform-half--ai .split-badge { background: var(--chip-navy); color: var(--navy); }
+/* the badge carries its own smaller badge, so "Newer" reads as a note on the
+   name rather than as part of it */
+.split-badge__new {
+  margin-left: 7px;
+  padding: 2px 6px;
+  border-radius: var(--r);
+  background: var(--green);
+  color: #fff;
+  font-size: 9.5px;
+  font-style: normal;
+  letter-spacing: .1em;
+}
+.platform-note {
+  width: 100%;
+  margin-top: 6px;
+  padding: 20px 24px;
+  border-radius: var(--r);
+  background: var(--tint-blue);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--navy);
+}
+.platform-note strong { font-weight: 700; }
+
+@media (max-width: 1024px) {
+  .platform-split--three { grid-template-columns: 1fr; }
+}
+
+/* --- the callout on the deep band --------------------------------------- */
+/* The band re-points --navy to white, so this cannot lean on the tokens the
+   way the light sections do: it states its own surface. */
+.callout {
+  width: 100%;
+  max-width: 62ch;
+  margin-top: 6px;
+  padding: 22px 26px;
+  border-left: 4px solid var(--green);
+  border-radius: 0 var(--r) var(--r) 0;
+  background: rgba(255, 255, 255, .07);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.7;
+  color: #fff;
+}
+
+/* --- standard pages beside custom pages --------------------------------- */
+.pages-split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 22px;
+  width: 100%;
+}
+.page-kind {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  padding: clamp(28px, 3.2vw, 40px);
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.page-kind h3 { font-size: var(--step-2); }
+.page-kind p { font-size: 16px; line-height: 1.7; color: var(--muted); }
+/* the pages that carry the revenue get the surface that carries the weight */
+.page-kind--custom {
+  background: linear-gradient(160deg, #205fa6 0%, #16447c 55%, #0d2748 100%);
+  box-shadow: var(--shadow-card);
+}
+.page-kind--custom h3 { color: #fff; }
+.page-kind--custom p { color: rgba(226, 238, 252, .82); }
+.page-kind--custom strong { color: var(--green); font-weight: 700; }
+.page-kind--custom .compare-tag { background: var(--green); color: #143c1f; }
+
+@media (max-width: 860px) {
+  .pages-split { grid-template-columns: 1fr; }
+}
+
+/* --- the loop after launch ----------------------------------------------- */
+/* Chips with an arrow drawn between them by the pseudo-element, so the marks
+   are never read out as content and never wrap onto a line of their own. */
+.evolve {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* the column gap is where the arrows live */
+  gap: 12px 30px;
+  width: 100%;
+  margin-top: 10px;
+}
+.evolve-step {
+  position: relative;
+  padding: 12px 20px;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: inset 0 0 0 1px var(--border);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.evolve-step + .evolve-step::before {
+  content: '→';
+  position: absolute;
+  left: -21px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--green-ink);
+  font-weight: 800;
+}
+/* the last one is where the loop is going, so it is the one that is filled */
+.evolve-step.is-last {
+  background: var(--green);
+  box-shadow: none;
+  color: #fff;
+}
+
+@media (max-width: 620px) {
+  .evolve { flex-direction: column; align-items: stretch; }
+  .evolve-step { text-align: center; }
+  .evolve-step + .evolve-step::before { position: static; transform: none; display: block; margin: 0 0 10px; }
 }

@@ -374,7 +374,9 @@
     if (!nums.length || reduced.matches || !('IntersectionObserver' in window)) return;
 
     function render(el, value) {
-      el.textContent = value + (el.getAttribute('data-suffix') || '');
+      /* grouped, or the thousand lands as 1000 and the markup that says 1,000
+         is overwritten by the count the moment it starts */
+      el.textContent = value.toLocaleString('en-US') + (el.getAttribute('data-suffix') || '');
     }
 
     function run(el) {

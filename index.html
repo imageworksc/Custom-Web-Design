@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Custom Web Design for Brands That Refuse Shortcuts | ImageWorks Creative</title>
-<meta name="description" content="Truly custom web design — no templates, no AI-clone layouts. An award-winning creative team has designed and built custom Drupal and WordPress websites since 1997.">
+<title>Custom Web Design in the AI Era | ImageWorks Creative</title>
+<meta name="description" content="Custom web design for established businesses. AI-accelerated planning, human-crafted design, and deployment on WordPress, Drupal, or an AI-managed environment.">
 <meta name="theme-color" content="#143c66">
 <link rel="canonical" href="https://www.imageworkscreative.com/custom-web-design/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ImageWorks Creative">
-<meta property="og:title" content="Custom Web Design for Brands That Refuse Shortcuts">
-<meta property="og:description" content="AI builders and templates are the shortcuts. We design and build truly custom websites for companies that know the difference.">
+<meta property="og:title" content="Custom Web Design in the AI Era">
+<meta property="og:description" content="AI-accelerated planning, human-crafted design, and deployment on WordPress, Drupal, or an AI-managed environment.">
 <meta property="og:url" content="https://www.imageworkscreative.com/custom-web-design/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Custom Web Design for Brands That Refuse Shortcuts">
-<meta name="twitter:description" content="AI builders and templates are the shortcuts. We design and build truly custom websites for companies that know the difference.">
+<meta name="twitter:title" content="Custom Web Design in the AI Era">
+<meta name="twitter:description" content="AI-accelerated planning, human-crafted design, and deployment on WordPress, Drupal, or an AI-managed environment.">
 
 <script type="application/ld+json">
 {
@@ -2099,7 +2099,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 
 /* --------------------------------------------------------------------------
-/* --------------------------------------------------------------------------
    PLATFORM SPLIT
    -------------------------------------------------------------------------- */
 /* Two cards, built like the pricing pair: same shell, same 3px accent on the
@@ -2822,6 +2821,158 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 
 /* --------------------------------------------------------------------------
+   THE COPY DECK'S OWN COMPONENTS
+   Five sections came in with the new text that the page had no home for, plus
+   a third deploy lane and a fourth figure. Everything below is built from the
+   tokens already in use — no new colour, no new radius, no new shadow.
+   -------------------------------------------------------------------------- */
+
+/* the line under the hero's buttons */
+.hero-note {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--faint);
+}
+
+/* Four figures where there were three. The row still divides evenly, and the
+   fourth is a percentage rather than a count, so it carries no data-count and
+   simply prints. */
+.stats--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1024px) {
+  .stats--four { grid-template-columns: 1fr 1fr; }
+  .stats--four .stat:nth-child(-n+2) { border-top: 0; }
+  .stats--four .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+}
+
+/* --- three deploy lanes ------------------------------------------------- */
+.platform-split--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.platform-half--ai { border-top-color: var(--navy); }
+.platform-half--ai .platform-mark { background: var(--chip-navy); color: var(--navy); }
+.platform-half--ai .split-badge { background: var(--chip-navy); color: var(--navy); }
+/* the badge carries its own smaller badge, so "Newer" reads as a note on the
+   name rather than as part of it */
+.split-badge__new {
+  margin-left: 7px;
+  padding: 2px 6px;
+  border-radius: var(--r);
+  background: var(--green);
+  color: #fff;
+  font-size: 9.5px;
+  font-style: normal;
+  letter-spacing: .1em;
+}
+.platform-note {
+  width: 100%;
+  margin-top: 6px;
+  padding: 20px 24px;
+  border-radius: var(--r);
+  background: var(--tint-blue);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--navy);
+}
+.platform-note strong { font-weight: 700; }
+
+@media (max-width: 1024px) {
+  .platform-split--three { grid-template-columns: 1fr; }
+}
+
+/* --- the callout on the deep band --------------------------------------- */
+/* The band re-points --navy to white, so this cannot lean on the tokens the
+   way the light sections do: it states its own surface. */
+.callout {
+  width: 100%;
+  max-width: 62ch;
+  margin-top: 6px;
+  padding: 22px 26px;
+  border-left: 4px solid var(--green);
+  border-radius: 0 var(--r) var(--r) 0;
+  background: rgba(255, 255, 255, .07);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.7;
+  color: #fff;
+}
+
+/* --- standard pages beside custom pages --------------------------------- */
+.pages-split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 22px;
+  width: 100%;
+}
+.page-kind {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  padding: clamp(28px, 3.2vw, 40px);
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.page-kind h3 { font-size: var(--step-2); }
+.page-kind p { font-size: 16px; line-height: 1.7; color: var(--muted); }
+/* the pages that carry the revenue get the surface that carries the weight */
+.page-kind--custom {
+  background: linear-gradient(160deg, #205fa6 0%, #16447c 55%, #0d2748 100%);
+  box-shadow: var(--shadow-card);
+}
+.page-kind--custom h3 { color: #fff; }
+.page-kind--custom p { color: rgba(226, 238, 252, .82); }
+.page-kind--custom strong { color: var(--green); font-weight: 700; }
+.page-kind--custom .compare-tag { background: var(--green); color: #143c1f; }
+
+@media (max-width: 860px) {
+  .pages-split { grid-template-columns: 1fr; }
+}
+
+/* --- the loop after launch ----------------------------------------------- */
+/* Chips with an arrow drawn between them by the pseudo-element, so the marks
+   are never read out as content and never wrap onto a line of their own. */
+.evolve {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* the column gap is where the arrows live */
+  gap: 12px 30px;
+  width: 100%;
+  margin-top: 10px;
+}
+.evolve-step {
+  position: relative;
+  padding: 12px 20px;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: inset 0 0 0 1px var(--border);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.evolve-step + .evolve-step::before {
+  content: '→';
+  position: absolute;
+  left: -21px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--green-ink);
+  font-weight: 800;
+}
+/* the last one is where the loop is going, so it is the one that is filled */
+.evolve-step.is-last {
+  background: var(--green);
+  box-shadow: none;
+  color: #fff;
+}
+
+@media (max-width: 620px) {
+  .evolve { flex-direction: column; align-items: stretch; }
+  .evolve-step { text-align: center; }
+  .evolve-step + .evolve-step::before { position: static; transform: none; display: block; margin: 0 0 10px; }
+}
+
+/* --------------------------------------------------------------------------
    WORK THUMBNAILS
    The marquee holds the set twice so the loop closes seamlessly. Keeping the
    images here rather than on the elements means the duplicated half reuses
@@ -3066,9 +3217,8 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     </div>
     <div class="wrap hero-inner">
       <div class="hero-main">
-        <!-- nbsp before the dash: it must never fall to the start of a line -->
-        <h1 id="hero-title">Custom Web Design for Brands That <span class="accent">Refuse Shortcuts.</span></h1>
-        <p class="hero-sub">AI builders and templates are the shortcuts — fast, cheap, everywhere. Serious businesses don't put their brand on either. We build truly custom websites, handcrafted by an award-winning team.</p>
+        <h1 id="hero-title">Why Custom Web Design Matters <span class="accent">More in the AI Era</span></h1>
+        <p class="hero-sub">We put AI to work where it earns its keep — speed, structure, research — then our creative team shapes the content, design, and styles into something uniquely yours, built around your brand to impress, build credibility, and convert.</p>
         <ul class="hero-points">
           <li>No AI-Clone Design</li>
           <li>No Templates</li>
@@ -3076,11 +3226,22 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
           <li>Since 1997</li>
         </ul>
         <div class="btn-row">
-          <a class="btn btn--solid" href="#quote">Get a Custom Quote<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--solid" href="#quote">Let's Build Something Amazing<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn--quiet" href="#work">See Our Work</a>
         </div>
+        <p class="hero-note">Built for businesses that want more than a template or an AI-generated site.</p>
       </div>
 
+    </div>
+  </section>
+
+  <!-- 1b · YOUR #1 BRAND ASSET ----------------------------------------------- -->
+  <section class="band band--snug" aria-labelledby="asset-title">
+    <div class="wrap stack">
+      <h2 class="sec-title sec-title--wide reveal" id="asset-title">Your Website Is Your #1 Brand Asset — and Your #1 Marketing Tool</h2>
+      <p class="note reveal">Treat it like your most important business tool — because it probably is.</p>
+      <p class="lead reveal">Your website shapes how prospects, customers, candidates, partners, and stakeholders see your business.</p>
+      <p class="lead reveal">If it feels outdated, confusing, or underwhelming, it weakens trust, hurts conversions, and makes the competition look better.</p>
     </div>
   </section>
 
@@ -3175,6 +3336,26 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     </div>
   </section>
 
+  <!-- 3b · PLAN AND DESIGN --------------------------------------------------- -->
+  <section class="band" aria-labelledby="stages-title">
+    <div class="wrap stack">
+      <h2 class="sec-title sec-title--wide reveal" id="stages-title">Structure First. Then the Custom Design.</h2>
+      <p class="lead reveal">Two stages, one custom website.</p>
+      <div class="plans reveal">
+        <div class="plan">
+          <span class="plan-tag">Step 1 · Plan</span>
+          <h3>How we plan your website</h3>
+          <p>We use nearly 30 years of marketing and web experience, plus AI-assisted research, SEO/AIO planning, content strategy, navigation, and wireframing to get the structure right before design begins.</p>
+        </div>
+        <div class="plan plan--monthly">
+          <span class="plan-tag">Step 2 · Design</span>
+          <h3>Where the custom design happens</h3>
+          <p>Then our creative team takes over — creating custom layouts, styles, imagery, motion, and content presentation around your brand so the finished site feels uniquely yours, built to impress and convert.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 4 · HOW WE BUILD ---------------------------------------------------- -->
   <section class="band band--tint" id="how-we-build" aria-labelledby="process-title">
     <div class="wrap stack">
@@ -3252,6 +3433,25 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
         </ol>
       </div>
 
+    </div>
+  </section>
+
+  <!-- 4b · STANDARD VS CUSTOM PAGES ------------------------------------------ -->
+  <section class="band" aria-labelledby="pages-title">
+    <div class="wrap stack">
+      <h2 class="sec-title sec-title--wide reveal" id="pages-title">Every Page Follows Your Custom Styles. Not Every Page Needs the Same Work.</h2>
+      <div class="pages-split reveal">
+        <div class="page-kind">
+          <span class="compare-tag tag-neutral">Standard Pages</span>
+          <h3>Straightforward pages, done efficiently</h3>
+          <p>Informational or text-heavy pages that use the styles and layouts we've already established. They're faster to produce and help keep unnecessary costs down.</p>
+        </div>
+        <div class="page-kind page-kind--custom">
+          <span class="compare-tag tag-green">Custom Pages</span>
+          <h3>The pages that carry your brand and revenue</h3>
+          <p>The pages that matter most to your brand, customer experience, and revenue — <strong>services, products, key team or bio pages, portfolios, and landing pages.</strong> These get more individual attention to content, layout, imagery, graphics, animation, and interaction.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -3459,29 +3659,42 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     </div>
   </section>
 
+  <!-- 7b · FUNCTIONALITY ----------------------------------------------------- -->
+  <section class="band band--deep" aria-labelledby="function-title">
+    <div class="wrap stack">
+      <h2 class="sec-title sec-title--wide reveal" id="function-title">Your Website Also Has a Job to Do Behind the Scenes.</h2>
+      <p class="lead reveal">We build the functionality your business actually needs — forms, CRM connections, tracking, APIs, search, databases, plugins and modules, backend applications, third-party integrations, and other systems that make the website work as part of your business.</p>
+      <p class="callout reveal">The goal is not more technology. It's the right technology, properly integrated.</p>
+    </div>
+  </section>
+
   <!-- 8 · PLATFORMS --------------------------------------------------------- -->
   <section class="band band--tint" id="platforms" aria-labelledby="platforms-title">
     <div class="wrap stack">
-      <h2 class="sec-title reveal" id="platforms-title">Custom Drupal &amp; WordPress Web Design</h2>
-      <p class="lead reveal">We don't build on every platform — we focus on the two that serious B2B and government organizations rely on.</p>
+      <h2 class="sec-title sec-title--wide reveal" id="platforms-title">Same Custom Website. Three Ways to Deploy and Manage It.</h2>
 
-      <div class="platform-split reveal">
-        <div class="platform-half platform-half--drupal">
-          <span class="platform-mark"><svg width="26" height="26" aria-hidden="true"><use href="#i-drupal"/></svg></span>
-          <span class="split-badge">Drupal</span>
-          <h3>Control, Security &amp; Scale</h3>
-          <p>For organizations that need structured content, advanced integrations, multi-user workflows, and high-security environments, Drupal web design is often the right foundation — trusted by government agencies, universities, and enterprises.</p>
-          <a class="arrow-link" href="#platforms">Drupal Web Design <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </div>
+      <div class="platform-split platform-split--three reveal">
         <div class="platform-half platform-half--wp">
           <span class="platform-mark"><svg width="26" height="26" aria-hidden="true"><use href="#i-wordpress"/></svg></span>
           <span class="split-badge">WordPress</span>
-          <h3>Agile, Marketing-Driven Sites</h3>
-          <p>For agile, marketing-driven organizations, WordPress web design offers speed and flexibility without sacrificing quality — <em>when it's built custom.</em> The problem was never WordPress; it's the millions of template-based, plugin-bloated sites that gave it a bad name.</p>
-          <p>Our custom WordPress work means purpose-built themes, clean code, strong performance, and a site your marketing team can move fast on.</p>
-          <a class="arrow-link" href="#platforms">WordPress Web Design <svg class="arrow icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <h3>Familiar and flexible</h3>
+          <p>A flexible, familiar CMS for content management, integrations, forms, SEO, and ongoing editing.</p>
+        </div>
+        <div class="platform-half platform-half--drupal">
+          <span class="platform-mark"><svg width="26" height="26" aria-hidden="true"><use href="#i-drupal"/></svg></span>
+          <span class="split-badge">Drupal</span>
+          <h3>Control, security and scale</h3>
+          <p>A more advanced CMS for larger websites that need stronger content management, permissions, workflows, integrations, and backend functionality.</p>
+        </div>
+        <div class="platform-half platform-half--ai">
+          <span class="platform-mark"><svg width="26" height="26" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
+          <span class="split-badge">AI-Managed <em class="split-badge__new">Newer</em></span>
+          <h3>Managed by prompt</h3>
+          <p>A newer approach where the website lives in an AI-managed environment rather than a traditional CMS, and many changes are made through prompts and AI-assisted development. It can offer a faster, more conversational way to manage and evolve a website.</p>
         </div>
       </div>
+
+      <p class="platform-note reveal">For larger sites, a CMS may still be the better fit for managing pages, forms, files, schema, integrations, and backend systems. <strong>We support all three approaches and recommend the best fit for your site.</strong></p>
 
     </div>
   </section>
@@ -3534,24 +3747,45 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     </div>
   </section>
 
+  <!-- 9b · KEEPS IMPROVING --------------------------------------------------- -->
+  <section class="band band--tint band--snug" aria-labelledby="evolve-title">
+    <div class="wrap stack">
+      <h2 class="sec-title sec-title--wide reveal" id="evolve-title">Launch Is Version One — Not the Finish Line.</h2>
+      <p class="lead reveal">Your business changes. Your customers change. Search changes. Your website should be able to change with them.</p>
+      <p class="lead reveal">We can continue improving content, pages, design, SEO/AIO, conversion paths, functionality, and performance based on what we learn after launch.</p>
+      <ol class="evolve reveal">
+        <li class="evolve-step">Strategy</li>
+        <li class="evolve-step">Design</li>
+        <li class="evolve-step">Build</li>
+        <li class="evolve-step">Rank</li>
+        <li class="evolve-step">Measure</li>
+        <li class="evolve-step is-last">Improve</li>
+      </ol>
+    </div>
+  </section>
+
   <!-- 10 · CREDIBILITY ------------------------------------------------------ -->
   <section class="band band--deep" aria-labelledby="credibility-title">
     <div class="wrap stack">
-      <h2 class="sec-title sec-title--wide reveal" id="credibility-title">An Award-Winning Agency, Since 1997.</h2>
+      <h2 class="sec-title sec-title--wide reveal" id="credibility-title">Nearly 30 Years of Building Better Websites</h2>
       <p class="lead reveal">We're not a template shop or an AI wrapper. We're a creative agency that has designed and built custom websites for B2B firms, government contractors, professional services, and local businesses for nearly three decades.</p>
 
-      <div class="stats reveal">
+      <div class="stats stats--four reveal">
         <div class="stat">
-          <span class="stat-num" data-count="700" data-suffix="+">700+</span>
-          <span class="stat-label">Clients served across B2B, GovCon, and professional services</span>
+          <span class="stat-num" data-count="30">30</span>
+          <span class="stat-label">Nearly 30 years of website building experience</span>
         </div>
         <div class="stat">
-          <span class="stat-num" data-count="20" data-suffix="+">20+</span>
-          <span class="stat-label">Industry awards for design and digital excellence</span>
+          <span class="stat-num" data-count="1000" data-suffix="+">1,000+</span>
+          <span class="stat-label">Custom websites delivered</span>
         </div>
         <div class="stat">
-          <span class="stat-num" data-count="28" data-suffix="+">28+</span>
-          <span class="stat-label">Years designing and building custom websites</span>
+          <span class="stat-num" data-count="23" data-suffix="+">23+</span>
+          <span class="stat-label">Website design awards</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">99.7%</span>
+          <span class="stat-label">Client satisfaction</span>
         </div>
       </div>
 
@@ -3563,6 +3797,10 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
         </span>
         Crafted by humans. Enhanced by AI.
       </p>
+
+      <div class="btn-row reveal" style="margin-top:6px">
+        <a class="btn btn--solid" href="#quote">Get Pricing &amp; Discuss Options<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
 
     </div>
   </section>
@@ -3768,34 +4006,66 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   <!-- 13 · FAQ -------------------------------------------------------------- -->
   <section class="band" id="faqs" aria-labelledby="faq-title">
     <div class="sec-head reveal">
-      <h2 class="sec-title" id="faq-title">Custom Web Design FAQs</h2>
+      <h2 class="sec-title" id="faq-title">Frequently Asked Questions</h2>
     </div>
 
     <div class="wrap">
       <div class="faq reveal" data-faq>
         <details class="faq-item" name="cwd-faq">
-          <summary>Can't AI design a website on its own?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
-          <div class="faq-answer"><p>AI doesn't have taste. Like any creative tool, it needs a human directing it — someone who knows what good looks like, understands your brand, and can push it past the generic first draft. Left alone, it defaults to the safest, blandest option every time. AI still needs art direction, the same as any other part of the creative process.</p></div>
-        </details>
-        <details class="faq-item" name="cwd-faq">
-          <summary>Why do AI-built websites all look the same?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
-          <div class="faq-answer"><p>AI recycles the same handful of patterns. The same hero-and-two-buttons layout. The same three-column feature cards. The same eyebrow labels and box-and-icon rows. There are maybe two dozen variations in total, and they're used everywhere. Once you notice it, you can't unsee it — and neither can your prospects.</p></div>
-        </details>
-        <details class="faq-item" name="cwd-faq">
-          <summary>What's wrong with AI-generated images and illustrations?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
-          <div class="faq-answer"><p>AI illustrations look like AI illustrations — soft, oddly proportioned, stylistically inconsistent, and disconnected from the copy beside them. When we design something, the illustration reinforces the point being made. When you say something, the image should back it up — not just fill space. Stock photography has the same weakness.</p></div>
-        </details>
-        <details class="faq-item" name="cwd-faq">
-          <summary>If AI can write and code, why do I need an agency?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
-          <div class="faq-answer"><p>AI can't perfect the work. Good copy needs marketing experts. Content needs SEO and AIO specialists to structure it for how people and AI actually search. Custom functionality and performance need developers. AI can produce a rough draft of any of these — but the difference between a draft and a website that wins business is the team of people who refine it. AI is a tool in the workshop, not the craftsman.</p></div>
-        </details>
-        <details class="faq-item" name="cwd-faq">
-          <summary>Are there any cases where a template makes sense?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
-          <div class="faq-answer"><p>Rarely, and not for any serious business. Templates might be fine for validating an idea over a weekend or a personal portfolio nobody's going to scrutinize. But for actual businesses, templates come with real costs: they hurt SEO because thousands of sites share the same bloated code, generic schema, and identical structure Google has already indexed. They kill differentiation because your competitors bought the same theme. They break when your business grows because they weren't built to scale. If your website is meant to earn trust, drive leads, or represent your brand — a template will hold you back, not help you.</p></div>
+          <summary>What is custom web design?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer">
+            <p>Custom web design is the process of designing and building a website from scratch around a specific business — its brand, goals, content, and audience — rather than using a pre-made template or theme.</p>
+            <p>At ImageWorks Creative, that means custom strategy, layouts, styles, and functionality created specifically for your business, so the finished website is unique to you and built to perform.</p>
+          </div>
         </details>
         <details class="faq-item" name="cwd-faq">
           <summary>How much does a custom website cost?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
-          <div class="faq-answer"><p>Every project is quoted individually — the investment depends on the size of the site, the complexity of the build, and the systems it connects to. We offer one-time custom projects and all-in-one monthly plans.</p></div>
+          <div class="faq-answer">
+            <p>Custom website pricing depends on the number of pages, level of custom design, content needs, functionality, integrations, and how the site is built and managed.</p>
+            <p>AI reduces time in research, planning, wireframing, and production, and standard pages help control costs. We price each project around the work it actually requires, and provide a clear quote before any work begins.</p>
+          </div>
+        </details>
+        <details class="faq-item" name="cwd-faq">
+          <summary>Why does custom web design cost more than a template?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer">
+            <p>A template is pre-built and reused across thousands of websites. A custom website is designed and built specifically for your business.</p>
+            <p>You're paying for strategy, original design, custom development, and functionality built around your goals — not a one-size-fits-all layout. The result is a site that looks distinct, converts better, and can scale as your business grows.</p>
+          </div>
+        </details>
+        <details class="faq-item" name="cwd-faq">
+          <summary>What's the difference between custom web design and a template?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer">
+            <p>A template gives you a fixed layout you adjust to fit your content. Custom web design does the opposite — the design is built around your brand, content, and conversion goals from the start.</p>
+            <p>Templates are faster and cheaper, but they look generic and limit flexibility. Custom websites are unique, more flexible, and built to perform.</p>
+          </div>
+        </details>
+        <details class="faq-item" name="cwd-faq">
+          <summary>Custom website vs. AI website builder — which is better?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer">
+            <p>AI website builders and generators are fast and inexpensive, and they can produce an acceptable site. What they can't do is deliver original, brand-specific design and the strategic thinking behind a high-performing website.</p>
+            <p>We use AI to accelerate research and production, then our creative team designs the site so it's genuinely yours — not another AI-generated look.</p>
+          </div>
+        </details>
+        <details class="faq-item" name="cwd-faq">
+          <summary>How long does it take to build a custom website?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer">
+            <p>Timeline depends on the size of the site, number of custom pages, functionality, integrations, and how quickly content and feedback come together. AI-assisted planning and production shorten the early phases.</p>
+            <p>We give you a realistic schedule up front and keep the project moving through clear milestones.</p>
+          </div>
+        </details>
+        <details class="faq-item" name="cwd-faq">
+          <summary>Do you build on WordPress, Drupal, or an AI-managed platform?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer">
+            <p>All three. The same custom website can be deployed in WordPress (a flexible, familiar CMS), Drupal (advanced content management and backend functionality for larger sites), or a newer AI-managed environment where changes are made through AI-assisted tools.</p>
+            <p>We recommend the best fit based on your site's size, content, and how you want to manage it.</p>
+          </div>
+        </details>
+        <details class="faq-item" name="cwd-faq">
+          <summary>Are your custom websites built for SEO and AI search?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+          <div class="faq-answer">
+            <p>Yes. Every custom site is structured for both traditional SEO and AI search from the ground up — clean architecture, metadata, schema, heading structure, and content organization that help search engines and AI systems like Google AI Overviews, ChatGPT, and Gemini understand and recommend your business.</p>
+            <p>It's the foundation our SEO and AI search programs build on.</p>
+          </div>
         </details>
       </div>
     </div>
@@ -3804,11 +4074,10 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   <!-- 14 · CLOSING CTA ------------------------------------------------------ -->
   <section class="band band--cta final" aria-labelledby="final-title">
     <div class="wrap stack reveal">
-      <h2 class="sec-title" id="final-title">The question isn't whether custom costs more.</h2>
-      <p class="final-flip">It's how much a weak website is <span>already costing you.</span></p>
-      <p class="lead" style="max-width:52ch;margin-top:10px">Stop sending serious prospects to an average website. Let's talk about what a custom site could do for your business.</p>
+      <h2 class="sec-title" id="final-title">Let's Build a Website Your Competitors Wish They Had.</h2>
+      <p class="lead" style="max-width:58ch;margin-top:10px">Your business deserves more than an acceptable website. Let's create something uniquely yours — built to represent your brand, impress the people who matter, and turn more of them into customers.</p>
       <div class="btn-row" style="justify-content:center;margin-top:12px">
-        <a class="btn btn--solid" href="#quote">Discuss Your Custom Website<svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--solid" href="#quote">Start Your Custom Website<svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--quiet" href="#work">See Our Work</a>
       </div>
     </div>
@@ -4277,7 +4546,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     if (!nums.length || reduced.matches || !('IntersectionObserver' in window)) return;
 
     function render(el, value) {
-      el.textContent = value + (el.getAttribute('data-suffix') || '');
+      /* grouped, or the thousand lands as 1000 and the markup that says 1,000
+         is overwritten by the count the moment it starts */
+      el.textContent = value.toLocaleString('en-US') + (el.getAttribute('data-suffix') || '');
     }
 
     function run(el) {
