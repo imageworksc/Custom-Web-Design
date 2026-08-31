@@ -1,6 +1,17 @@
-# Assembles the two outputs from src/:
-#   index.html              standalone page (open it directly in a browser)
-#   preview.artifact.html   body-only fragment for the artifact preview
+# Assembles the page from src/ into three separate files plus a preview:
+#
+#   index.html              the markup — links the stylesheet and the script
+#   styles.css              every rule, in source order (tokens → base →
+#                           components → sections → work)
+#   app.js                  the behaviour
+#
+# assets/ and fonts/ already sit beside those three and are not generated; the
+# stylesheet points at them where they stand.
+#
+#   preview.artifact.html   the same page as one self-contained fragment, with
+#                           the CSS, the JS and every asset inlined. Gitignored;
+#                           it exists only so the page can be published as an
+#                           artifact, which is a single file by definition.
 #
 # Run:  pwsh -File build.ps1
 
@@ -14,12 +25,27 @@ function Read-Src([string]$relative) {
     return [IO.File]::ReadAllText($path)
 }
 
-# --- font: inline the Plus Jakarta Sans latin subset as a data URI ----------
-$fontPath = Join-Path $srcDir 'fonts/plus-jakarta-sans-latin.woff2'
-if (-not (Test-Path $fontPath)) { throw "Missing font: $fontPath" }
-$fontB64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($fontPath))
+function Read-B64([string]$relative) {
+    $path = Join-Path $rootDir $relative
+    if (-not (Test-Path $path)) { throw "Missing asset: $path" }
+    return [Convert]::ToBase64String([IO.File]::ReadAllBytes($path))
+}
 
-# --- assemble -------------------------------------------------------------
+# --------------------------------------------------------------------------
+# The assets the stylesheet reaches for. Each one is written into the CSS
+# twice over: as a relative path for the split build, and as a data URI for
+# the single-file preview. The source keeps a placeholder so neither form is
+# baked into it.
+# --------------------------------------------------------------------------
+$assets = [ordered]@{
+    '__ASSET_FONT__'       = @{ Path = 'fonts/plus-jakarta-sans-latin.woff2'; Mime = 'font/woff2' }
+    '__ASSET_CUSTOMSHOT__' = @{ Path = 'assets/custom-shot.jpg';              Mime = 'image/jpeg' }
+}
+for ($i = 1; $i -le 8; $i++) {
+    $assets["__ASSET_WORK${i}__"] = @{ Path = "assets/work-$i.jpg"; Mime = 'image/jpeg' }
+}
+
+# --- the stylesheet, in cascade order -------------------------------------
 $css = @(
     Read-Src 'css/01-tokens.css'
     Read-Src 'css/02-base.css'
@@ -28,76 +54,76 @@ $css = @(
     Read-Src 'css/05-work.css'
 ) -join "`n"
 
-$css = $css.Replace('__FONT_B64__', $fontB64)
-
-# --- images: inline so the page makes zero external requests ---------------
-function Read-B64([string]$relative) {
-    $path = Join-Path $srcDir $relative
-    if (-not (Test-Path $path)) { throw "Missing asset: $path" }
-    return [Convert]::ToBase64String([IO.File]::ReadAllBytes($path))
+$cssLinked = $css
+$cssInline = $css
+foreach ($token in $assets.Keys) {
+    $asset = $assets[$token]
+    $cssLinked = $cssLinked.Replace($token, $asset.Path)
+    $cssInline = $cssInline.Replace($token, "data:$($asset.Mime);base64,$(Read-B64 $asset.Path)")
 }
 
-# Where the shared site chrome points. Swap for the production origin when the
-# page is deployed alongside the rest of the site.
-$homeUrl = 'https://imageworksc.github.io/imageworks-home/'
-
-# The marquee loops by translating -50%, so the track holds the set twice. The
-# second pass is duplicate content and is hidden from assistive tech.
+# --- the markup -----------------------------------------------------------
+# Both marquees loop by translating -50%, so each track holds its set twice.
+# The second pass is duplicate content and is hidden from assistive tech.
 $testimonials = Read-Src 'testimonials.html'
-$testimonialsDup = $testimonials.Replace('<li class="testi-item">', '<li class="testi-item" aria-hidden="true">')
-$testimonialTrack = $testimonials + "`n" + $testimonialsDup
-
-# The work thumbnails live in the stylesheet, so the duplicated half of the
-# marquee reuses them instead of repeating every data URI.
-for ($i = 1; $i -le 8; $i++) {
-    $css = $css.Replace("__WORK${i}_B64__", (Read-B64 "assets/work-$i.jpg"))
-}
-
-# The custom mockup is a screenshot of imageworks-home-2 rather than a drawing,
-# and it lives in the stylesheet for the same reason the thumbnails do.
-$css = $css.Replace('__CUSTOMSHOT_B64__', (Read-B64 'assets/custom-shot.jpg'))
+$testimonialTrack = $testimonials + "`n" +
+    $testimonials.Replace('<li class="testi-item">', '<li class="testi-item" aria-hidden="true">')
 
 $works = Read-Src 'works.html'
-$worksDup = $works.Replace('<li class="work-item">', '<li class="work-item" aria-hidden="true">')
+$worksTrack = $works + "`n" +
+    $works.Replace('<li class="work-item">', '<li class="work-item" aria-hidden="true">')
 
 $body = (Read-Src 'body.html').
-    Replace('__TESTIMONIALS__',  $testimonialTrack).
-    Replace('__WORKS__',         ($works + "`n" + $worksDup)).
-    Replace('__LOGO_B64__',     (Read-B64 'assets/logo.png')).
-    Replace('__FOOTLOGO_B64__', (Read-B64 'assets/footer-logo.png')).
-    Replace('__FOOTMAP_B64__',  (Read-B64 'assets/footer-map.jpg')).
-    Replace('__HOME__',         $homeUrl)
+    Replace('__TESTIMONIALS__', $testimonialTrack).
+    Replace('__WORKS__',        $worksTrack)
+
 $js   = Read-Src 'app.js'
 $head = Read-Src 'head.html'
 
-$styleBlock  = "<style>`n$css`n</style>"
-$scriptBlock = "<script>`n$js`n</script>"
-
-# --- 1. standalone page ---------------------------------------------------
-$standalone = @"
+# --------------------------------------------------------------------------
+# 1. the three files
+# app.js is in the head and is not deferred: it sets the flag that gates the
+# hero's entrance, and that has to be on the root element before the body is
+# parsed or the hero flashes its resting state first.
+# --------------------------------------------------------------------------
+$page = @"
 <!doctype html>
 <html lang="en">
 <head>
 $head
-$styleBlock
+<link rel="stylesheet" href="styles.css">
+<script src="app.js"></script>
 </head>
 <body>
 $body
-$scriptBlock
 </body>
 </html>
 "@
 
-# --- 2. artifact fragment (no doctype/html/head/body — the host wraps it) ---
+$utf8 = New-Object System.Text.UTF8Encoding($false)
+[IO.File]::WriteAllText((Join-Path $rootDir 'index.html'), $page, $utf8)
+[IO.File]::WriteAllText((Join-Path $rootDir 'styles.css'), $cssLinked, $utf8)
+[IO.File]::WriteAllText((Join-Path $rootDir 'app.js'),     $js,        $utf8)
+
+# --------------------------------------------------------------------------
+# 2. the single-file preview — no doctype/html/head/body, the host wraps it.
+# Everything here runs after the body, so the one line app.js would otherwise
+# have run before it is repeated up front; without it the hero paints at rest
+# and then plays its entrance.
+# --------------------------------------------------------------------------
 $fragment = @"
-$styleBlock
+<style>
+$cssInline
+</style>
+<script>document.documentElement.setAttribute('data-hero-anim', 'on');</script>
 $body
-$scriptBlock
+<script>
+$js
+</script>
 "@
 
-$utf8 = New-Object System.Text.UTF8Encoding($false)
-[IO.File]::WriteAllText((Join-Path $rootDir 'index.html'), $standalone, $utf8)
 [IO.File]::WriteAllText((Join-Path $rootDir 'preview.artifact.html'), $fragment, $utf8)
 
-'{0,-24} {1,9:N0} bytes' -f 'index.html', (Get-Item (Join-Path $rootDir 'index.html')).Length
-'{0,-24} {1,9:N0} bytes' -f 'preview.artifact.html', (Get-Item (Join-Path $rootDir 'preview.artifact.html')).Length
+foreach ($name in 'index.html', 'styles.css', 'app.js', 'preview.artifact.html') {
+    '{0,-24} {1,9:N0} bytes' -f $name, (Get-Item (Join-Path $rootDir $name)).Length
+}

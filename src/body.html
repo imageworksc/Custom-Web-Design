@@ -1,12 +1,5 @@
-<!-- Set before first paint. The hero's entrance hides its own content until it
-     plays, and that content is the most important thing on the page — gating
-     the hidden state on this flag means a page that never runs this line just
-     shows the hero outright instead of a blank band. -->
-<script>document.documentElement.setAttribute('data-hero-anim', 'on');</script>
 
-<a class="skip-to-content" href="#main">Skip to content</a>
-
-<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+<svg class="icon-sprite" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="i-check" viewBox="0 0 16 16">
       <path d="M3.6 8.4 6.4 11.2 12.4 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -96,121 +89,6 @@
   </defs>
 </svg>
 
-<!-- The utility bar scrolls away; only the nav below it sticks. -->
-<div class="utility-bar">
-  <div class="utility-bar__inner">
-    <a href="#quote" class="utility-bar__item">
-      <svg class="utility-bar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="5" y="4" width="14" height="18" rx="2" fill="#e8f2fd" stroke="#1266b5" stroke-width="1.6"/>
-        <path d="M9 3.5h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" fill="#1266b5"/>
-        <path d="M8.5 12.5l1.4 1.4 2.6-2.8" stroke="#80C34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="14" y1="12.2" x2="16.5" y2="12.2" stroke="#1266b5" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="8" y1="17.5" x2="16.5" y2="17.5" stroke="#1266b5" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-      Support / Service Request
-    </a>
-    <span class="utility-bar__sep">|</span>
-    <a href="tel:7039287309" class="utility-bar__item">
-      <svg class="utility-bar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M6.5 4h3l1.3 3.3-2 1.4a12 12 0 0 0 5 5l1.4-2 3.3 1.3v3a1.8 1.8 0 0 1-2 1.8A15.5 15.5 0 0 1 4.7 6a1.8 1.8 0 0 1 1.8-2Z" fill="#80C34A"/>
-      </svg>
-      Call or text! (703) 928-7309
-    </a>
-  </div>
-</div>
-
-<header class="site-header" id="top" data-nav>
-  <div class="nav__inner">
-    <a class="brand" href="__HOME__" aria-label="ImageWorks Creative">
-      <img src="data:image/png;base64,__LOGO_B64__" alt="ImageWorks Creative" width="317" height="80">
-    </a>
-
-    <ul class="menu nav-links" id="nav-links">
-      <li class="menu__item" data-menu="web">
-        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
-          Web
-          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="dropdown">
-          <div class="dropdown__section-label">Web Design</div>
-          <ul class="dropdown__list">
-            <li><a href="#" class="dropdown__link">Custom Website Design<span class="dropdown__link-accent">Drupal / WordPress</span></a></li>
-            <li><a href="#" class="dropdown__link"><span class="dropdown__link-main">AI Website Design<svg class="dropdown__ai-icon" viewBox="0 0 28 24" fill="#80C34A" aria-hidden="true"><path d="M10 2 C10 6 10.5 6.5 14.5 6.5 C10.5 6.5 10 7 10 11 C10 7 9.5 6.5 5.5 6.5 C9.5 6.5 10 6 10 2 Z"/><path d="M20.5 12 C20.5 14.5 20.75 14.75 23 14.75 C20.75 14.75 20.5 15 20.5 17.5 C20.5 15 20.25 14.75 18 14.75 C20.25 14.75 20.5 14.5 20.5 12 Z"/></svg></span><span class="dropdown__link-accent">Fast &amp; Affordable</span></a></li>
-            <li><a href="#" class="dropdown__link">Homepage Facelift<span class="dropdown__link-accent">Low Cost · Major Impact</span></a></li>
-          </ul>
-          <div class="dropdown__section-label dropdown__section-label--next">Website Services</div>
-          <ul class="dropdown__list">
-            <li><a href="#" class="dropdown__link">Website Content</a></li>
-            <li><a href="#" class="dropdown__link">Website Evolution<span class="dropdown__badge">Essential</span></a></li>
-            <li><a href="#" class="dropdown__link">Website Maintenance<span class="dropdown__link-accent">Drupal &amp; WordPress</span></a></li>
-            <li><a href="#" class="dropdown__link">Advanced Website Animations</a></li>
-            <li><a href="#" class="dropdown__link">Creative Support Hours</a></li>
-          </ul>
-        </div>
-      </li>
-
-      <li class="menu__item" data-menu="marketing">
-        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
-          Marketing
-          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="dropdown">
-          <div class="dropdown__section-label">SEO + AIO <span class="dropdown__section-label-note">(Modern Search)</span></div>
-          <ul class="dropdown__list">
-            <li><a href="#" class="dropdown__link">Website Setup &amp; Optimization</a></li>
-            <li><a href="#" class="dropdown__link">On-Page Content Optimization</a></li>
-            <li><a href="#" class="dropdown__link">Link Building</a></li>
-            <li><a href="#" class="dropdown__link">Citations &amp; Entity Signals<span class="dropdown__link-accent">Local · SEO · AI Trust</span></a></li>
-          </ul>
-          <div class="dropdown__section-label dropdown__section-label--next">Local &amp; Paid Ads <span class="dropdown__section-label-note">(PPC)</span></div>
-          <ul class="dropdown__list">
-            <li><a href="#" class="dropdown__link">Google Profile &amp; Maps<span class="dropdown__badge">Rank Locally</span></a></li>
-            <li><a href="#" class="dropdown__link">Location &amp; Service-Area Pages</a></li>
-            <li><a href="#" class="dropdown__link">Google &amp; Meta Ads</a></li>
-            <li><a href="#" class="dropdown__link">Social Media Reels &amp; Ads</a></li>
-          </ul>
-        </div>
-      </li>
-
-      <li class="menu__item" data-menu="plans">
-        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
-          Plans
-          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="dropdown dropdown--narrow dropdown--flat">
-          <ul class="dropdown__list">
-            <li><a href="#plans" class="dropdown__link">Website Plans</a></li>
-            <li><a href="#" class="dropdown__link">Marketing Plans</a></li>
-          </ul>
-        </div>
-      </li>
-
-      <li class="menu__item"><a href="__HOME__#work" class="menu__link">Branding</a></li>
-      <li class="menu__item"><a href="#work" class="menu__link">Portfolio</a></li>
-
-      <li class="menu__item" data-menu="about">
-        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
-          About
-          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="dropdown dropdown--narrow dropdown--flat">
-          <ul class="dropdown__list">
-            <li><a href="__HOME__#why" class="dropdown__link">About Us</a></li>
-            <li><a href="#" class="dropdown__link">Customer's Lounge</a></li>
-            <li><a href="#" class="dropdown__link">Blog</a></li>
-          </ul>
-        </div>
-      </li>
-
-      <li class="menu__item"><a href="#quote" class="menu__link menu__link--outline">Contact</a></li>
-    </ul>
-
-    <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
 <main id="main">
 
   <!-- 1 · HERO ---------------------------------------------------------- -->
@@ -261,14 +139,14 @@
           <h2 class="sec-title sec-title--wide" id="first-argument">People judge your business before they ever speak with you.</h2>
           <p class="lead">Your website makes the first argument for or against you. A professional custom website tells people:</p>
           <ul class="signals">
-            <li style="--i:0"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company is <strong>established.</strong></span></li>
-            <li style="--i:1"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company <strong>understands its market.</strong></span></li>
-            <li style="--i:2"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company <strong>takes its work seriously.</strong></span></li>
-            <li style="--i:3"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company is <strong>worth contacting.</strong></span></li>
-            <li style="--i:4"><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company may be <strong>the best choice.</strong></span></li>
+            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company is <strong>established.</strong></span></li>
+            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company <strong>understands its market.</strong></span></li>
+            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company <strong>takes its work seriously.</strong></span></li>
+            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company is <strong>worth contacting.</strong></span></li>
+            <li><span class="chip"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="signal-text">This company may be <strong>the best choice.</strong></span></li>
           </ul>
           <p class="note">Make sure it wins.</p>
-          <div class="btn-row" style="margin-top:8px">
+          <div class="btn-row mt-8">
             <a class="btn btn--solid" href="#quote">Discuss Your Project<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="btn btn--quiet" href="#quote">Book a Call</a>
           </div>
@@ -335,7 +213,7 @@
       </div>
 
       <div class="stmt-body">
-        <p class="stmt-lead">Our custom websites <span class="hl" style="--i:0">impress visitors</span> from the first scroll, <span class="hl" style="--i:1">tell the right story</span> about your company, and move people to <span class="hl" style="--i:2">take action</span> — request a quote, book a call, pick up the phone.</p>
+        <p class="stmt-lead">Our custom websites <span class="hl">impress visitors</span> from the first scroll, <span class="hl">tell the right story</span> about your company, and move people to <span class="hl">take action</span> — request a quote, book a call, pick up the phone.</p>
         <p class="counterpoint">
           <span class="chip chip--danger"><svg aria-hidden="true"><use href="#i-x"/></svg></span>
           A template or AI-built site puts you online cheap and fast — and more often hurts your brand than helps it.
@@ -500,7 +378,7 @@
         </div>
       </div>
 
-      <div class="btn-row w-full" style="margin-top:20px">
+      <div class="btn-row w-full mt-20">
         <a class="btn btn--solid" href="#quote">Discuss Your Project<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--quiet" href="#quote">Book a Call</a>
       </div>
@@ -693,7 +571,7 @@
         Crafted by humans. Enhanced by AI.
       </p>
 
-      <div class="btn-row reveal" style="margin-top:6px">
+      <div class="btn-row reveal mt-6">
         <a class="btn btn--solid" href="#quote">Get Pricing &amp; Discuss Options<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
 
@@ -809,8 +687,8 @@
   <section class="band band--cta final" aria-labelledby="final-title">
     <div class="wrap stack reveal">
       <h2 class="sec-title" id="final-title">Let's Build a Website Your Competitors Wish They Had.</h2>
-      <p class="lead" style="max-width:58ch;margin-top:10px">Your business deserves more than an acceptable website. Let's create something uniquely yours — built to represent your brand, impress the people who matter, and turn more of them into customers.</p>
-      <div class="btn-row" style="justify-content:center;margin-top:12px">
+      <p class="lead measure-58 mt-10">Your business deserves more than an acceptable website. Let's create something uniquely yours — built to represent your brand, impress the people who matter, and turn more of them into customers.</p>
+      <div class="btn-row center mt-12">
         <a class="btn btn--solid" href="#quote">Start Your Custom Website<svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--quiet" href="#work">See Our Work</a>
       </div>
@@ -819,86 +697,3 @@
 
 </main>
 
-<footer class="site-footer">
-  <div class="foot-grid">
-
-    <div>
-      <img class="foot-logo" src="data:image/png;base64,__FOOTLOGO_B64__" alt="ImageWorks Creative" width="226" height="59">
-
-      <div class="foot-label">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#80c34a" stroke-width="2.4" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ashburn, VA Location
-      </div>
-      <div class="foot-detail">44679 Endicott Dr Suite 300<br>Unit 580 | Ashburn, VA 20147</div>
-
-      <div class="foot-label">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#80c34a" stroke-width="2.4" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>St. Petersburg, FL Location
-      </div>
-      <div class="foot-detail">433 Central Ave<br>4th floor | St. Petersburg, FL 33701</div>
-
-      <div class="foot-label">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#80c34a" stroke-width="2.4" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Questions? Quote?
-      </div>
-      <div class="foot-detail">Call or text us: <a href="tel:+17039287309">(703) 928-7309</a></div>
-
-      <div class="foot-social">
-        <a href="__HOME__" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg></a>
-        <a href="__HOME__" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.24 2.25H8.08l4.71 6.23 5.45-6.23Zm-1.16 17.52h1.83L7.01 4.13H5.04l12.04 15.64Z"/></svg></a>
-        <a href="__HOME__" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg></a>
-        <a href="__HOME__" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12A5.92 5.92 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg></a>
-      </div>
-    </div>
-
-    <div class="foot-menus">
-      <div>
-        <div class="foot-head">Services</div>
-        <div class="foot-list">
-          <a class="iw-link" href="#top">Web Design</a>
-          <a class="iw-link" href="__HOME__#work">Digital Marketing</a>
-          <a class="iw-link" href="__HOME__#work">Branding</a>
-          <a class="iw-link" href="__HOME__#work">Website &amp; Marketing Plans</a>
-          <a class="iw-link" href="__HOME__#work">Website Maintenance</a>
-          <a class="iw-link" href="__HOME__#work">Content Writing</a>
-          <a class="iw-link" href="__HOME__#work">Google Maps Optimization</a>
-          <a class="iw-link" href="__HOME__#work">SEO + AIO Optimization</a>
-        </div>
-      </div>
-      <div>
-        <div class="foot-head">Company</div>
-        <div class="foot-list">
-          <a class="iw-link" href="#work">Our Work</a>
-          <a class="iw-link" href="__HOME__#why">About</a>
-          <a class="iw-link" href="__HOME__">Awards</a>
-          <a class="iw-link" href="__HOME__">Testimonials</a>
-          <a class="iw-link" href="#quote">Contact</a>
-        </div>
-        <div class="foot-head">Platform Expertise</div>
-        <div class="foot-list">
-          <a class="iw-link" href="#platforms">Drupal</a>
-          <a class="iw-link" href="#platforms">WordPress</a>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="foot-map">
-        <img src="data:image/jpeg;base64,__FOOTMAP_B64__" alt="Map of ImageWorks Creative locations" width="740" height="384">
-      </div>
-      <div class="foot-news-title">Subscribe to Our Newsletter</div>
-      <div class="foot-news-sub">Marketing insights &amp; company news sent straight to your inbox</div>
-      <form class="foot-form" onsubmit="return false">
-        <label class="visually-hidden" for="foot-email">Email Address</label>
-        <input id="foot-email" type="email" placeholder="Email Address" autocomplete="email">
-        <button type="submit" aria-label="Subscribe">
-          <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg>
-        </button>
-      </form>
-    </div>
-
-  </div>
-
-  <div class="foot-base">
-    © 2026 ImageWorks Creative, a full-service marketing company, branding firm, and web design agency since 1997. All rights reserved.
-    <div class="foot-base-links"><a class="iw-link" href="__HOME__">Sitemap</a> &nbsp;|&nbsp; <a class="iw-link" href="__HOME__">Privacy Policy</a></div>
-  </div>
-  <div class="foot-tail"></div>
-</footer>

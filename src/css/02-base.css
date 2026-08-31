@@ -5,7 +5,7 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-padding-top: calc(var(--nav-h) + 16px); }
+html { scroll-padding-top: var(--anchor-offset); }
 
 body {
   margin: 0;
@@ -55,22 +55,6 @@ a { color: inherit; }
   clip-path: inset(50%);
   white-space: nowrap;
 }
-
-.skip-to-content {
-  position: absolute;
-  top: 8px; left: 8px;
-  z-index: 200;
-  transform: translateY(-180%);
-  background: var(--navy);
-  color: #fff;
-  font-size: var(--step--1);
-  font-weight: 700;
-  padding: 11px 18px;
-  border-radius: var(--r);
-  text-decoration: none;
-  transition: transform .18s var(--ease);
-}
-.skip-to-content:focus-visible { transform: translateY(0); }
 
 /* --------------------------------------------------------------------------
    LAYOUT
@@ -147,6 +131,21 @@ a { color: inherit; }
 }
 .stack > * { margin: 0; }
 .w-full { width: 100%; }
+
+/* Spacing utilities. A `.stack` sets the rhythm inside a group; these nudge a
+   single child off it — a button row that needs a little more air than the
+   paragraph above it. Kept here so no rule lives in the markup. */
+.mt-6 { margin-top: 6px; }
+.mt-8 { margin-top: 8px; }
+.mt-10 { margin-top: 10px; }
+.mt-12 { margin-top: 12px; }
+.mt-20 { margin-top: 20px; }
+.center { justify-content: center; }
+.measure-58 { max-width: 58ch; }
+
+/* The icon sprite is markup, not something to see: taken out of flow so it
+   cannot open a gap at the top of the page. */
+.icon-sprite { position: absolute; }
 
 /* --------------------------------------------------------------------------
    TYPE COMPONENTS
@@ -288,8 +287,13 @@ a { color: inherit; }
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   transition: background-size .75s var(--ease);
-  transition-delay: calc(var(--i) * .24s + .3s);
+  /* Each stroke waits its turn, so the phrases are read in order. The delay
+     comes from the mark's position in its sentence, not from the markup. */
+  transition-delay: .3s;
 }
+.hl:nth-of-type(2) { transition-delay: .54s; }
+.hl:nth-of-type(3) { transition-delay: .78s; }
+.hl:nth-of-type(4) { transition-delay: 1.02s; }
 .is-revealed .hl { background-size: 100% .34em; }
 
 /* Without the reveal script there is nothing to trigger the sweep, so the

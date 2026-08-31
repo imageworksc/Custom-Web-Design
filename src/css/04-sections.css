@@ -176,7 +176,7 @@
 }
 .cms-aside {
   position: sticky;
-  top: calc(var(--nav-h) + 40px);
+  top: 40px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -606,135 +606,6 @@
 }
 
 /* --------------------------------------------------------------------------
-   FOOTER — a copy of the home's
-   -------------------------------------------------------------------------- */
-.site-footer {
-  background: var(--navy-deep);
-  color: #fff;
-  padding: 104px 40px 0;
-  font-size: 16px;
-  line-height: 1.5;
-}
-.foot-grid {
-  max-width: 1340px;
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 1.15fr;
-  gap: 80px;
-  align-items: start;
-}
-/* Grid children default to min-width:auto and refuse to shrink below their
-   content, which is what pushed the third column past the viewport. */
-.foot-grid > * { min-width: 0; }
-.foot-logo { width: 168px; max-width: 100%; height: auto; }
-
-.foot-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  margin-top: 20px;
-}
-.foot-logo + .foot-label { margin-top: 26px; }
-.foot-label svg { flex: none; }
-.foot-detail { margin: 4px 0 0 24px; color: rgba(255, 255, 255, .85); }
-.foot-detail a { color: #fff; font-weight: 700; text-decoration: none; }
-
-.foot-social { display: flex; gap: 10px; margin-top: 26px; }
-.foot-social a {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--r);
-  background: rgba(255, 255, 255, .12);
-  color: #fff;
-  text-decoration: none;
-  transition: background .25s ease;
-}
-.foot-social a:hover { background: var(--green); }
-
-.foot-menus {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-.foot-head {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--green);
-  letter-spacing: .5px;
-}
-.foot-head + .foot-list { margin-top: 16px; }
-.foot-list { display: flex; flex-direction: column; gap: 10px; }
-.foot-list a { font-size: 16px; color: #fff; text-decoration: none; width: fit-content; }
-.foot-menus .foot-list + .foot-head { margin-top: 28px; }
-
-.foot-map {
-  border-radius: var(--r);
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .12), 0 10px 26px rgba(20, 40, 80, .12);
-}
-.foot-map img { width: 100%; height: auto; }
-
-.foot-news-title { margin-top: 40px; font-size: 16px; font-weight: 700; }
-.foot-news-sub { margin-top: 6px; font-size: 15px; color: rgba(255, 255, 255, .85); }
-.foot-form { margin-top: 12px; display: flex; gap: 8px; max-width: 320px; }
-.foot-form input {
-  flex: 1;
-  min-width: 0;
-  height: 40px;
-  padding: 0 12px;
-  border: none;
-  border-radius: var(--r);
-  font-family: inherit;
-  font-size: 14px;
-  color: #333;
-}
-.foot-form button {
-  width: 48px;
-  height: 40px;
-  border: none;
-  border-radius: var(--r);
-  background: var(--green);
-  color: #fff;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: transform .25s var(--ease), filter .25s ease;
-}
-.foot-form button:hover { transform: translateY(-2px); filter: brightness(1.05); }
-
-.foot-base {
-  max-width: 1340px;
-  margin: 48px auto 0;
-  padding: 22px 0;
-  border-top: 1px solid rgba(255, 255, 255, .18);
-  text-align: center;
-  font-size: 14px;
-  color: rgba(255, 255, 255, .85);
-}
-.foot-base a { color: #fff; text-decoration: none; }
-.foot-base-links { margin-top: 8px; }
-.foot-tail { height: 50px; }
-
-/* The home stacks this at 767px, but three columns inside ~800px leaves the
-   map-and-newsletter column too narrow for its own content and the page picks
-   up a horizontal scrollbar. Stacking at the same 1024px the nav uses fixes
-   that and keeps the two breakpoints in step. */
-@media (max-width: 1024px) {
-  .site-footer { padding: 72px 44px 0; }
-  .foot-grid { grid-template-columns: 1fr; gap: 52px; justify-items: center; }
-  .foot-grid > * { width: 100%; max-width: 480px; margin-inline: auto; text-align: left; }
-  .foot-form { max-width: 100%; }
-}
-@media (max-width: 520px) {
-  .site-footer { padding: 60px 34px 0; }
-  .foot-menus { grid-template-columns: 1fr; gap: 40px; }
-}
-
-/* --------------------------------------------------------------------------
    REVEAL
    -------------------------------------------------------------------------- */
 [data-anim="on"] .reveal {
@@ -817,9 +688,6 @@
 }
 
 @media print {
-  .site-header,
-  .utility-bar,
-  .skip-to-content { display: none; }
   .band { padding-block: 24px; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
 }
