@@ -620,27 +620,101 @@
   color: #fff;
 }
 
-/* --- standard pages beside custom pages --------------------------------- */
-.pages-split {
+/* --- standard pages beside custom pages ---------------------------------- */
+/* The branding page's split, value for value:
+   https://imageworksc.github.io/branding-page/  →  styles.css, .cms-split
+   The heading holds still on the left while the list passes it on the right,
+   so the section reads as one thought rather than a table sitting under a
+   paragraph. Only the sticky offset differs: the source clears a fixed nav
+   that this page does not carry. */
+.cms-split {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 22px;
-  width: 100%;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(36px, 5vw, 72px);
+  align-items: start;
 }
-.page-kind {
+.cms-aside {
+  position: sticky;
+  top: 40px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 13px;
-  padding: clamp(28px, 3.2vw, 40px);
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: inset 0 0 0 1px var(--border);
+  gap: 18px;
 }
-.page-kind h3 { font-size: var(--step-2); line-height: 1.25; letter-spacing: -.015em; }
-.page-kind p { font-size: 16px; line-height: 1.7; color: var(--muted); }
 
-/* The small uppercase label each card is headed with. */
+.cms-list {
+  width: 100%;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+}
+.cms-row {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px clamp(22px, 2.4vw, 30px);
+  border-top: 1px solid var(--border-soft);
+  transition: background-color .35s var(--ease);
+}
+.cms-row:first-child { border-top: 0; }
+.cms-row:hover { background: var(--tint-blue); }
+
+/* The rule wipes in from the left — the same mechanic the home gives its
+   links, rather than a decorative bar that is simply always there. */
+.cms-row::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  block-size: 2px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.cms-row:hover::after { transform: scaleX(1); }
+
+.cms-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 48px;
+  block-size: 48px;
+  border-radius: 50%;
+  background: var(--tint-blue);
+  color: var(--blue);
+  transition: background-color .35s var(--ease), color .35s var(--ease),
+              transform .35s var(--ease);
+}
+.cms-icon svg { inline-size: 22px; block-size: 22px; }
+.cms-row:hover .cms-icon {
+  background: var(--navy);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.cms-body { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.cms-body dt {
+  font-size: var(--step-1);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -.01em;
+  transition: transform .35s var(--ease);
+}
+.cms-row:hover .cms-body dt { transform: translateX(4px); }
+.cms-body dd {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.cms-body dd strong { color: var(--navy); font-weight: 700; }
+/* the label sits above the term it heads, with its own air under it */
+.cms-body .compare-tag { margin-bottom: 7px; }
+
+/* The small uppercase label each row is headed with. */
 .compare-tag {
   font-size: 12px;
   font-weight: 800;
@@ -652,18 +726,20 @@
 .tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
 .tag-green { background: var(--tint-green); color: var(--green-ink); }
 
-/* the pages that carry the revenue get the surface that carries the weight */
-.page-kind--custom {
-  background: linear-gradient(160deg, #205fa6 0%, #16447c 55%, #0d2748 100%);
-  box-shadow: var(--shadow-card);
+/* The rows arrive one after the other, the same beat the deploy lanes use. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="on"] .cms-list.is-revealed .cms-row { animation: card-rise .55s var(--ease) backwards; }
+  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(1) { animation-delay: .08s; }
+  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(2) { animation-delay: .2s; }
 }
-.page-kind--custom h3 { color: #fff; }
-.page-kind--custom p { color: rgba(226, 238, 252, .82); }
-.page-kind--custom strong { color: var(--green); font-weight: 700; }
-.page-kind--custom .compare-tag { background: var(--green); color: #143c1f; }
 
-@media (max-width: 860px) {
-  .pages-split { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  /* the aside has nothing to stay beside once the list drops below it */
+  .cms-split { grid-template-columns: 1fr; }
+  .cms-aside { position: static; }
+}
+@media (max-width: 520px) {
+  .cms-row { flex-direction: column; gap: 14px; }
 }
 
 /* --------------------------------------------------------------------------

@@ -43,6 +43,18 @@
       <path d="M19.6 10.6A7.8 7.8 0 016.4 16.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
       <polyline points="6.1 20.1 6.1 15.8 10.4 15.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
+    <!-- The two kinds of page: one plain, one with the mark that says this is
+         where the work goes. -->
+    <symbol id="i-page" viewBox="0 0 24 24">
+      <path d="M14 3H6.5A1.5 1.5 0 005 4.5v15A1.5 1.5 0 006.5 21h11a1.5 1.5 0 001.5-1.5V8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M8.4 12.6h7.2M8.4 16.2h4.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-page-star" viewBox="0 0 24 24">
+      <path d="M14 3H6.5A1.5 1.5 0 005 4.5v15A1.5 1.5 0 006.5 21h11a1.5 1.5 0 001.5-1.5V8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M12 11.3l1.1 2.35 2.5.3-1.85 1.75.5 2.5L12 16.95l-2.25 1.25.5-2.5L8.4 13.95l2.5-.3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24">
       <polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
@@ -166,20 +178,30 @@
 
   <!-- 4 · STANDARD VS CUSTOM PAGES ------------------------------------------ -->
   <section class="band band--tint" aria-labelledby="pages-title">
-    <div class="wrap stack">
-      <h2 class="sec-title sec-title--wide reveal" id="pages-title">Every Page Follows Your Custom Styles. Not Every Page Needs the Same Work.</h2>
-      <div class="pages-split reveal">
-        <div class="page-kind">
-          <span class="compare-tag tag-neutral">Standard Pages</span>
-          <h3>Straightforward pages, done efficiently</h3>
-          <p>Informational or text-heavy pages that use the styles and layouts we've already established. They're faster to produce and help keep unnecessary costs down.</p>
-        </div>
-        <div class="page-kind page-kind--custom">
-          <span class="compare-tag tag-green">Custom Pages</span>
-          <h3>The pages that carry your brand and revenue</h3>
-          <p>The pages that matter most to your brand, customer experience, and revenue — <strong>services, products, key team or bio pages, portfolios, and landing pages.</strong> These get more individual attention to content, layout, imagery, graphics, animation, and interaction.</p>
-        </div>
+    <!-- The branding page's split: the heading holds still on the left while
+         the two kinds of page pass it on the right. -->
+    <div class="wrap cms-split">
+      <div class="cms-aside reveal">
+        <h2 class="sec-title sec-title--wide" id="pages-title">Every Page Follows Your Custom Styles. Not Every Page Needs the Same Work.</h2>
       </div>
+      <dl class="cms-list reveal">
+        <div class="cms-row">
+          <span class="cms-icon"><svg aria-hidden="true"><use href="#i-page"/></svg></span>
+          <div class="cms-body">
+            <span class="compare-tag tag-neutral">Standard Pages</span>
+            <dt>Straightforward pages, done efficiently</dt>
+            <dd>Informational or text-heavy pages that use the styles and layouts we've already established. They're faster to produce and help keep unnecessary costs down.</dd>
+          </div>
+        </div>
+        <div class="cms-row">
+          <span class="cms-icon"><svg aria-hidden="true"><use href="#i-page-star"/></svg></span>
+          <div class="cms-body">
+            <span class="compare-tag tag-green">Custom Pages</span>
+            <dt>The pages that carry your brand and revenue</dt>
+            <dd>The pages that matter most to your brand, customer experience, and revenue — <strong>services, products, key team or bio pages, portfolios, and landing pages.</strong> These get more individual attention to content, layout, imagery, graphics, animation, and interaction.</dd>
+          </div>
+        </div>
+      </dl>
     </div>
   </section>
 
