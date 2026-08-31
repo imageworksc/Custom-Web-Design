@@ -75,13 +75,27 @@ $head = Read-Src 'head.html'
 # hero's entrance, and that has to be on the root element before the body is
 # parsed or the hero flashes its resting state first.
 # --------------------------------------------------------------------------
+# Both links carry a hash of what they point at. GitHub Pages serves these with
+# Cache-Control: max-age=600, so without it a visitor who has been on the page
+# in the last ten minutes gets the old stylesheet back without the browser so
+# much as asking the server — a deployed change that looks like no change at
+# all. The hash only moves when the file does, so the cache still does its job
+# between releases.
+function Get-Stamp([string]$text) {
+    $bytes = [Text.Encoding]::UTF8.GetBytes($text)
+    $hash = [Security.Cryptography.SHA1]::Create().ComputeHash($bytes)
+    return (($hash | ForEach-Object { $_.ToString('x2') }) -join '').Substring(0, 8)
+}
+$cssStamp = Get-Stamp $cssLinked
+$jsStamp  = Get-Stamp $js
+
 $page = @"
 <!doctype html>
 <html lang="en">
 <head>
 $head
-<link rel="stylesheet" href="styles.css">
-<script src="app.js"></script>
+<link rel="stylesheet" href="styles.css?v=$cssStamp">
+<script src="app.js?v=$jsStamp"></script>
 </head>
 <body>
 $body
