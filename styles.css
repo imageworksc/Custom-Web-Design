@@ -100,8 +100,9 @@ body {
   background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* clip, not hidden: hidden would make body a scroll container and break
-     the sticky nav */
+  /* The hero's washes are wider than the viewport by design. clip, not hidden:
+     hidden would make body a scroll container, which breaks position: sticky
+     for anything inside it. */
   overflow-x: clip;
 }
 
@@ -127,15 +128,6 @@ a { color: inherit; }
   outline: none;
   box-shadow: var(--ring);
   border-radius: var(--r);
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
@@ -232,26 +224,6 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    TYPE COMPONENTS
    -------------------------------------------------------------------------- */
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--green-ink);
-}
-.eyebrow::before {
-  content: '';
-  inline-size: 8px;
-  block-size: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  flex: none;
-}
-.band--cta .eyebrow { color: var(--green); }
-
 .sec-title {
   font-size: var(--step-3);
   letter-spacing: -.018em;
@@ -473,7 +445,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 .arrow-link .arrow { transition: transform .25s var(--ease); }
 .arrow-link:hover .arrow { transform: translateX(5px); }
-.arrow-link--green { color: var(--green-ink); }
 
 .skip-link {
   display: inline-flex;
@@ -533,8 +504,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   flex: none;
 }
 .chip svg { inline-size: 12px; block-size: 12px; }
-.chip--blue { background: var(--chip-blue); color: var(--navy); }
-.chip--navy { background: var(--chip-navy); color: var(--navy); }
 .chip--danger { background: var(--danger-soft); color: var(--danger-ink); }
 
 /* The counterpoint carries the same ✕ the comparison table uses for the
@@ -1781,16 +1750,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   align-items: flex-start;
   gap: 18px;
 }
-.cms-close {
-  margin-top: 6px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--muted);
-  max-width: 46ch;
-}
-
 .cms-list {
   width: 100%;
   border-radius: var(--r);
@@ -2177,31 +2136,22 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 .final .stack { align-items: center; }
 .final .lead { margin-inline: auto; }
 
-/* Both closing lines are set to hold on a single line. The sizes are tied to
+/* The closing headline is set to hold on a single line. The size is tied to
    the viewport so the line shrinks to fit rather than breaking; below 560px it
-   is allowed to wrap, because holding one line there would drop the headline
-   under 15px. */
-.final .sec-title,
-.final-flip {
+   is allowed to wrap, because holding one line there would drop it under
+   15px. */
+.final .sec-title {
   max-width: none;
   white-space: nowrap;
+  font-size: clamp(19px, 3.62vw, 44px);
 }
-.final .sec-title { font-size: clamp(19px, 3.62vw, 44px); }
-.final-flip {
-  font-size: clamp(17px, 3.1vw, 28px);
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -.012em;
-  margin-inline: auto;
-  color: rgba(226, 238, 252, .88);
-}
-.final-flip span { color: var(--green); font-weight: 800; }
 
 @media (max-width: 560px) {
-  .final .sec-title,
-  .final-flip { white-space: normal; }
-  .final .sec-title { font-size: var(--step-3); max-width: 23ch; }
-  .final-flip { font-size: clamp(19px, 5vw, 24px); max-width: 25ch; }
+  .final .sec-title {
+    white-space: normal;
+    font-size: var(--step-3);
+    max-width: 23ch;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -2226,7 +2176,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   /* the aside has nothing to stay beside once the list drops below it */
   .cms-split { grid-template-columns: 1fr; }
   .cms-aside { position: static; }
-  .cms-close { max-width: var(--measure); }
 }
 
 @media (max-width: 767px) {

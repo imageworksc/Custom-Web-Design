@@ -182,16 +182,6 @@
   align-items: flex-start;
   gap: 18px;
 }
-.cms-close {
-  margin-top: 6px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--muted);
-  max-width: 46ch;
-}
-
 .cms-list {
   width: 100%;
   border-radius: var(--r);
@@ -578,31 +568,22 @@
 .final .stack { align-items: center; }
 .final .lead { margin-inline: auto; }
 
-/* Both closing lines are set to hold on a single line. The sizes are tied to
+/* The closing headline is set to hold on a single line. The size is tied to
    the viewport so the line shrinks to fit rather than breaking; below 560px it
-   is allowed to wrap, because holding one line there would drop the headline
-   under 15px. */
-.final .sec-title,
-.final-flip {
+   is allowed to wrap, because holding one line there would drop it under
+   15px. */
+.final .sec-title {
   max-width: none;
   white-space: nowrap;
+  font-size: clamp(19px, 3.62vw, 44px);
 }
-.final .sec-title { font-size: clamp(19px, 3.62vw, 44px); }
-.final-flip {
-  font-size: clamp(17px, 3.1vw, 28px);
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -.012em;
-  margin-inline: auto;
-  color: rgba(226, 238, 252, .88);
-}
-.final-flip span { color: var(--green); font-weight: 800; }
 
 @media (max-width: 560px) {
-  .final .sec-title,
-  .final-flip { white-space: normal; }
-  .final .sec-title { font-size: var(--step-3); max-width: 23ch; }
-  .final-flip { font-size: clamp(19px, 5vw, 24px); max-width: 25ch; }
+  .final .sec-title {
+    white-space: normal;
+    font-size: var(--step-3);
+    max-width: 23ch;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -627,7 +608,6 @@
   /* the aside has nothing to stay beside once the list drops below it */
   .cms-split { grid-template-columns: 1fr; }
   .cms-aside { position: static; }
-  .cms-close { max-width: var(--measure); }
 }
 
 @media (max-width: 767px) {

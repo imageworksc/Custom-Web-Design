@@ -18,8 +18,9 @@ body {
   background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* clip, not hidden: hidden would make body a scroll container and break
-     the sticky nav */
+  /* The hero's washes are wider than the viewport by design. clip, not hidden:
+     hidden would make body a scroll container, which breaks position: sticky
+     for anything inside it. */
   overflow-x: clip;
 }
 
@@ -45,15 +46,6 @@ a { color: inherit; }
   outline: none;
   box-shadow: var(--ring);
   border-radius: var(--r);
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
@@ -150,26 +142,6 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    TYPE COMPONENTS
    -------------------------------------------------------------------------- */
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--green-ink);
-}
-.eyebrow::before {
-  content: '';
-  inline-size: 8px;
-  block-size: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  flex: none;
-}
-.band--cta .eyebrow { color: var(--green); }
-
 .sec-title {
   font-size: var(--step-3);
   letter-spacing: -.018em;
@@ -391,7 +363,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 .arrow-link .arrow { transition: transform .25s var(--ease); }
 .arrow-link:hover .arrow { transform: translateX(5px); }
-.arrow-link--green { color: var(--green-ink); }
 
 .skip-link {
   display: inline-flex;
@@ -451,8 +422,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   flex: none;
 }
 .chip svg { inline-size: 12px; block-size: 12px; }
-.chip--blue { background: var(--chip-blue); color: var(--navy); }
-.chip--navy { background: var(--chip-navy); color: var(--navy); }
 .chip--danger { background: var(--danger-soft); color: var(--danger-ink); }
 
 /* The counterpoint carries the same ✕ the comparison table uses for the
