@@ -4,11 +4,15 @@ Landing page de servicios de diseño web, construida sobre el sistema visual del
 home: <https://imageworksc.github.io/imageworks-home/>
 
 Página estática sin dependencias ni framework. El marcado, los estilos y el
-comportamiento van en tres archivos separados, y las imágenes y la tipografía
-como archivos propios junto a ellos.
+comportamiento van en tres archivos separados, con la tipografía junto a ellos.
 
 La página no trae nav ni footer: es sólo el contenido, pensada para montarse
 dentro del chrome del sitio.
+
+Los textos y las secciones son exactamente los del deck
+`custom-web-design-PREVIEW.html`: once secciones, sin nada de más ni de menos.
+Lo único que no sale del deck son las reseñas, que allí van como marcadores de
+posición y aquí llevan las ocho reales.
 
 ## Uso
 
@@ -21,21 +25,18 @@ Abre [`index.html`](index.html) en el navegador. No hay servidor ni dependencias
 ├── index.html           # Marcado — enlaza styles.css y app.js
 ├── styles.css           # Todos los estilos, en orden de cascada
 ├── app.js               # Todo el comportamiento
-├── assets/              # custom-shot.jpg + work-1..8.jpg
 ├── fonts/               # Plus Jakarta Sans (subconjunto latin, variable)
 ├── build.ps1            # Ensambla los tres archivos desde src/
 └── src/
     ├── head.html        # <head>: meta, Open Graph, JSON-LD
-    ├── body.html        # Marcado de la página
+    ├── body.html        # Marcado de la página — las 11 secciones
     ├── testimonials.html# Las 8 reseñas (el build las duplica para el carrusel)
-    ├── works.html       # Las 8 tarjetas de portfolio (ídem)
-    ├── app.js           # Reveals, riel del proceso, anclas, FAQ, contadores
+    ├── app.js           # Reveals, acordeón del FAQ, contadores
     └── css/
-        ├── 01-tokens.css      # Paleta y escalas, tomadas del home
-        ├── 02-base.css        # Reset, tipografía, botones, utilidades
-        ├── 03-components.css  # Hero, mockups, proceso, comparativa
-        ├── 04-sections.css    # Resto de secciones y responsive
-        └── 05-work.css        # Miniaturas de portfolio
+        ├── 01-tokens.css   # Paleta y escalas, tomadas del home
+        ├── 02-base.css     # Reset, tipografía, bandas, botones, utilidades
+        ├── 03-hero.css     # El hero y sus gradientes
+        └── 04-sections.css # Las demás secciones, responsive e impresión
 ```
 
 Los tres archivos de la raíz se generan: edita `src/`, no ellos.
@@ -43,6 +44,9 @@ Los tres archivos de la raíz se generan: edita `src/`, no ellos.
 Ninguna regla vive en el marcado — no hay atributos `style=` ni `<script>`
 en línea. Lo que en el HTML era un `style` puntual está ahora en las utilidades
 de espaciado de [`src/css/02-base.css`](src/css/02-base.css).
+
+El JavaScript es ES2020: `const`/`let`, funciones flecha, `for…of`, spread y
+`??`. No queda ningún `var`.
 
 ## Compilar
 
@@ -55,7 +59,7 @@ Genera:
 | Archivo | Para qué |
 |---|---|
 | `index.html` · `styles.css` · `app.js` | El entregable |
-| `preview.artifact.html` | La misma página en un solo archivo, con CSS, JS y assets incrustados, para el preview del artifact (no se versiona) |
+| `preview.artifact.html` | La misma página en un solo archivo, con el CSS, el JS y la tipografía incrustados, para el preview del artifact (no se versiona) |
 
 ## Sistema visual
 
@@ -83,9 +87,9 @@ saltar a su ancla — una para el navegador y otra para el scroll suave.
 
 ## Pendiente
 
-- Sustituir los tres huecos de portfolio por capturas reales y sus nombres de cliente
-- Apuntar los CTA (`#quote`) al formulario o página de contacto real
-- Confirmar la URL canónica en [`src/head.html`](src/head.html)
+- Confirmar la URL canónica en [`src/head.html`](src/head.html) — el deck la trae
+  como marcador de posición y aquí está puesta a `/custom-web-design/`
+- Añadir `og:image` cuando exista la imagen
 
 ## Licencia
 

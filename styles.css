@@ -204,16 +204,13 @@ a { color: inherit; }
   gap: 18px;
 }
 .stack > * { margin: 0; }
-.w-full { width: 100%; }
 
 /* Spacing utilities. A `.stack` sets the rhythm inside a group; these nudge a
    single child off it — a button row that needs a little more air than the
    paragraph above it. Kept here so no rule lives in the markup. */
 .mt-6 { margin-top: 6px; }
-.mt-8 { margin-top: 8px; }
 .mt-10 { margin-top: 10px; }
 .mt-12 { margin-top: 12px; }
-.mt-20 { margin-top: 20px; }
 .center { justify-content: center; }
 .measure-58 { max-width: 58ch; }
 
@@ -242,30 +239,6 @@ a { color: inherit; }
 .lead strong { color: var(--navy); font-weight: 700; }
 .lead em { font-style: italic; }
 
-/* Set to two balanced lines. The run measures 1860px at 18px, so each line
-   lands near 930px — the widened measure gives them room and `balance` evens
-   the break. Below 1024px it returns to the normal reading measure. */
-.lead--two { max-width: var(--measure); }
-
-@media (min-width: 1024px) {
-  .lead--two {
-    max-width: 1000px;
-    text-wrap: balance;
-  }
-}
-
-/* Held on one line at full size. Both runs are well inside the measure — the
-   heading is 791px at 44px and the paragraph 837px at 18px, against 944px of
-   room at this breakpoint — so nothing has to shrink to fit. Below it they
-   wrap at their normal measures. */
-@media (min-width: 1024px) {
-  .sec-title--one,
-  .lead--one,
-  .note--one {
-    max-width: none;
-    white-space: nowrap;
-  }
-}
 .band--cta .lead { color: rgba(226, 238, 252, .82); }
 .band--cta .lead strong { color: #fff; }
 
@@ -275,92 +248,6 @@ a { color: inherit; }
   color: var(--navy);
   max-width: var(--measure);
 }
-
-/* --------------------------------------------------------------------------
-   STATEMENT SECTION
-   Every other section on the page is built from cards and grids, so this one
-   earns its weight by being nothing but type.
-   -------------------------------------------------------------------------- */
-/* Claim on the left, argument on the right, a hairline between them. As one
-   long column it left half the band empty and read like a page of notes. */
-.stmt {
-  display: grid;
-  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-  gap: clamp(32px, 4.5vw, 68px);
-}
-/* Heading at the top, link at the foot — the column is anchored at both ends
-   instead of trailing off into white. */
-.stmt-head {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 32px;
-}
-.stmt-title {
-  font-size: clamp(30px, 2.6vw + 14px, 46px);
-  line-height: 1.08;
-  letter-spacing: -.03em;
-  max-width: 13ch;
-  text-wrap: balance;
-}
-.stmt-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
-  padding-left: clamp(24px, 3vw, 46px);
-  border-left: 1px solid var(--border);
-}
-.stmt-lead {
-  font-size: clamp(17px, .55vw + 15px, 20px);
-  line-height: 1.65;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-@media (max-width: 860px) {
-  .stmt { grid-template-columns: 1fr; }
-  .stmt-title { max-width: 18ch; }
-  .stmt-body { padding-left: 0; border-left: 0; }
-}
-
-/* A marker stroke drawn under each promise, one after the next, the first
-   time the section is read. Painted as a background so it survives a line
-   break instead of leaving a floating box behind the text. */
-.hl {
-  color: var(--navy);
-  font-weight: 700;
-  /* the inline box is only about 1.25em tall, so it needs padding below the
-     baseline for the stroke to sit under the text instead of through it */
-  padding: 0 .06em .16em;
-  background-image: linear-gradient(rgba(128, 195, 74, .42), rgba(128, 195, 74, .42));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 .34em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  transition: background-size .75s var(--ease);
-  /* Each stroke waits its turn, so the phrases are read in order. The delay
-     comes from the mark's position in its sentence, not from the markup. */
-  transition-delay: .3s;
-}
-.hl:nth-of-type(2) { transition-delay: .54s; }
-.hl:nth-of-type(3) { transition-delay: .78s; }
-.hl:nth-of-type(4) { transition-delay: 1.02s; }
-.is-revealed .hl { background-size: 100% .34em; }
-
-/* Without the reveal script there is nothing to trigger the sweep, so the
-   strokes are simply there from the start. */
-html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
-
-.stmt .counterpoint {
-  max-width: 52ch;
-  margin-top: 8px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-}
-
 /* --------------------------------------------------------------------------
    BUTTONS AND LINKS
    -------------------------------------------------------------------------- */
@@ -393,7 +280,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 .btn--solid:hover { filter: brightness(1.04); }
 
-
 /* The closing band's primary button matches the home's #cta button. */
 .band--cta .btn--solid {
   height: 58px;
@@ -401,123 +287,11 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   font-size: 17px;
   box-shadow: 0 1px 2px rgba(20, 40, 80, .14);
 }
-.band--cta .btn--quiet { height: 58px; padding-inline: 30px; font-size: 17px; }
-
-.btn--quiet {
-  background: transparent;
-  border-color: var(--border);
-  color: var(--navy);
-  font-weight: 600;
-}
-/* Was a jump straight to navy, which read louder than the green button next
-   to it. #c3d6ea is the ring the reached process step already uses. */
-.btn--quiet:hover { border-color: #c3d6ea; }
-.band--cta .btn--quiet { border-color: rgba(255, 255, 255, .34); color: #fff; }
-.band--cta .btn--quiet:hover { border-color: #fff; }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
 
-/* The home underlines its links with a rule that grows from the left. */
-.iw-link {
-  position: relative;
-  text-decoration: none;
-}
-.iw-link::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: -3px;
-  height: 1.5px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .3s var(--ease);
-}
-.iw-link:hover::after { transform: scaleX(1); }
-
-.arrow-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--blue);
-  text-decoration: none;
-}
-.arrow-link .arrow { transition: transform .25s var(--ease); }
-.arrow-link:hover .arrow { transform: translateX(5px); }
-
-.skip-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: .03em;
-  color: var(--faint);
-  text-decoration: none;
-  padding-block: 8px;
-  border-bottom: 1px solid var(--border);
-  transition: color .2s var(--ease), border-color .2s var(--ease);
-}
-.skip-link .arrow { transition: transform .25s var(--ease); }
-.skip-link:hover { color: var(--navy); border-color: var(--navy); }
-.skip-link:hover .arrow { transform: translateX(5px); }
-
-/* "Ready to discuss your project?" repeats seven times in the copy. One quiet
-   rail keeps the repetition reading as rhythm instead of clutter. */
-.quote-rail {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 12px;
-  width: 100%;
-  margin-top: 6px;
-  padding-top: 22px;
-  border-top: 1px solid var(--border);
-  font-size: var(--step-0);
-  font-weight: 600;
-  color: var(--muted);
-}
-.quote-rail a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--green-ink);
-  font-weight: 800;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.quote-rail a .arrow { transition: transform .25s var(--ease); }
-.quote-rail a:hover .arrow { transform: translateX(5px); }
-
 .icon { flex: none; }
 
-/* The home's 22px tinted circle, used wherever a check appears. */
-.chip {
-  inline-size: 22px;
-  block-size: 22px;
-  border-radius: 50%;
-  background: var(--chip-green);
-  color: var(--green-ink);
-  display: grid;
-  place-items: center;
-  flex: none;
-}
-.chip svg { inline-size: 12px; block-size: 12px; }
-.chip--danger { background: var(--danger-soft); color: var(--danger-ink); }
-
-/* The counterpoint carries the same ✕ the comparison table uses for the
-   shortcut, so the two arguments read as one vocabulary. */
-.counterpoint {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  max-width: var(--measure);
-  font-size: var(--step-1);
-  line-height: 1.7;
-  color: var(--muted);
-}
-.counterpoint .chip { margin-top: 4px; }
 
 /* --------------------------------------------------------------------------
    HERO — same construction as the home's, inverted to a light ground
@@ -681,31 +455,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   text-wrap: pretty;
 }
 
-/* The four credentials the pane used to hold, back as one ruled line under
-   the copy. The separator is a pseudo-element rather than a character in the
-   markup, so a screen reader reads four items and not four pipes. */
-.hero-points {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 0;
-  font-size: 14.5px;
-  font-weight: 600;
-  letter-spacing: .01em;
-  color: var(--muted);
-}
-.hero-points li + li::before {
-  content: '|';
-  margin-inline: 12px;
-  color: var(--border);
-  font-weight: 500;
-}
-
 .hero .btn-row { margin-top: 10px; }
-
-/* The quiet button is transparent everywhere else, which here would let the
-   weave run straight through it. Only the hero fills it. */
-.hero .btn--quiet { background: var(--white); }
 
 /* Staged entrance, built the way the home stages its own hero: each block
    lifts in on its own delay, and the green phrase lands last. `backwards`
@@ -713,11 +463,9 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 @media (prefers-reduced-motion: no-preference) {
   [data-hero-anim="on"] .hero h1,
   [data-hero-anim="on"] .hero-sub,
-  [data-hero-anim="on"] .hero-points,
   [data-hero-anim="on"] .hero .btn-row { animation: hero-in .8s var(--ease) backwards; }
   [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
   [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
-  [data-hero-anim="on"] .hero-points { animation-delay: .40s; }
   [data-hero-anim="on"] .hero .btn-row { animation-delay: .54s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
@@ -731,943 +479,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 
 @keyframes hero-in {
   from { opacity: 0; transform: translateY(14px); }
-}
-
-/* --------------------------------------------------------------------------
-   CARD — the home's recipe: 2px corner, white-to-#fcfdff, layered shadow
-   -------------------------------------------------------------------------- */
-.card {
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  border-radius: var(--r);
-  box-shadow: var(--shadow-card);
-}
-
-/* --------------------------------------------------------------------------
-   THE FIRST ARGUMENT
-   -------------------------------------------------------------------------- */
-.fa-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(36px, 5vw, 64px);
-  align-items: center;
-  width: 100%;
-}
-
-.signals { width: 100%; max-width: 46ch; }
-.signals li {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: var(--step-1);
-  line-height: 1.5;
-  padding-block: 16px;
-  border-bottom: 1px solid var(--border);
-  transition: background-color .3s var(--ease);
-}
-.signals li:first-child { border-top: 1px solid var(--border); }
-/* One flex item, not two — otherwise the row's 14px gap lands between the
-   sentence and its emphasis instead of a word space. */
-.signal-text { min-width: 0; }
-.signals strong { color: var(--navy); font-weight: 700; }
-.signals .chip { transition: background-color .3s var(--ease); }
-/* A whisper, not a move — five rows all shifting under the cursor was busier
-   than the content deserved. */
-.signals li:hover { background: rgba(128, 195, 74, .07); }
-.signals li:hover .chip { background: #d9ecc4; }
-
-/* The judgements land one after another — the section is about impressions
-   forming in order, not all at once. */
-@media (prefers-reduced-motion: no-preference) {
-  .is-revealed .signals li {
-    animation: signal-in .55s var(--ease) backwards;
-    animation-delay: calc((var(--signal-index, 0)) * .09s + .22s);
-  }
-  .signals li:nth-child(2) { --signal-index: 1; }
-  .signals li:nth-child(3) { --signal-index: 2; }
-  .signals li:nth-child(4) { --signal-index: 3; }
-  .signals li:nth-child(5) { --signal-index: 4; }
-}
-@keyframes signal-in {
-  from { opacity: 0; transform: translateX(-12px); }
-}
-
-/* Bigger than the list, well short of the heading — a closing beat, not a
-   second title. */
-.fa-split .note {
-  font-size: clamp(18px, .6vw + 16px, 21px);
-  font-weight: 800;
-  letter-spacing: -.015em;
-  color: var(--navy);
-  margin-top: 6px;
-}
-
-/* Stacked, each under its own label — side by side the two read as a pair of
-   options; stacked they read as before and after. */
-.fa-mockups {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-.mockup-item {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  margin: 0;
-}
-.mockup-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .17em;
-  text-transform: uppercase;
-  color: var(--grey-ink);
-}
-.mockup-label .dot {
-  inline-size: 8px;
-  block-size: 8px;
-  border-radius: 50%;
-  background: #c2ccd8;
-  flex: none;
-}
-/* the rule runs out to the edge, so the label reads as a caption on the work
-   rather than a chip floating above it */
-.mockup-label::after {
-  content: '';
-  flex: 1;
-  block-size: 1px;
-  background: var(--border);
-}
-.mockup-item--strong .mockup-label { color: var(--green-ink); }
-.mockup-item--strong .mockup-label .dot {
-  background: var(--green);
-  box-shadow: 0 0 0 3px rgba(128, 195, 74, .24);
-}
-
-.mockup {
-  position: relative;
-  background: #fff;
-  border-radius: var(--r);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-}
-.mockup--strong { box-shadow: 0 4px 12px rgba(20, 40, 80, .10), 0 22px 48px rgba(20, 40, 80, .16); }
-
-/* One sits inert while the other breathes. */
-@media (prefers-reduced-motion: no-preference) {
-  .mockup--strong { animation: mockup-float 7s ease-in-out infinite; }
-}
-@keyframes mockup-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
-}
-.mockup-chrome {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  height: 22px;
-  padding-inline: 10px;
-  background: #eef1f5;
-  border-bottom: 1px solid #dee3ea;
-}
-.mockup-chrome i {
-  inline-size: 8px; block-size: 8px;
-  border-radius: 50%;
-  background: #cdd5df;
-}
-/* The insides were drawn for a 260px card. Rather than re-tune forty values
-   for the wider stacked format, the whole content scales as one: the wrapper
-   is 1/1.62 of the width and scaled back up, so every bar, gap and label keeps
-   its designed proportion. */
-.mockup-body {
-  position: relative;
-  height: 352px;
-  overflow: hidden;
-  background: #fff;
-}
-.mockup-scale {
-  inline-size: 61.7%;
-  transform: scale(1.62);
-  transform-origin: top left;
-}
-
-/* The mc-* keyframes went with the drawing they animated: the custom mockup
-   is a photograph of the real site now, and a photograph holds still. The
-   frame it sits in still breathes — see .mockup--strong above. */
-/* The template. Not a skeleton of grey bars — that read as a page still
-   loading, and the argument is not that a template is unfinished. It is that
-   it is finished and nobody laid it out: a promo strip that runs off its own
-   edge, a nav whose links wrap into the logo, a headline the stock photograph
-   sits on top of, a paragraph that starts nowhere near it, two buttons that
-   agree on nothing, and three cards at three different heights, one of them
-   hanging off the side.
-
-   Every fault here is one a template actually commits. None of it is colour:
-   the whole argument has to survive in grey, because the point is the craft,
-   not the palette. */
-
-/* too much copy for the strip it was given, so it simply runs off the end */
-.mw-bar {
-  padding: 3px 8px;
-  background: #9ca2ac;
-  color: #f0f1f3;
-  font-size: 4.5px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* the links wrap onto a second line and come back into the logo */
-.mw-nav {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding: 5px 10px 4px; background: #fff; border-bottom: 2px solid #b9bfc8;
-}
-.mw-logo { display: flex; align-items: center; gap: 3px; margin-top: 5px; }
-/* squashed out of its own aspect, the way a logo dropped into a fixed slot is */
-.mw-logo i { inline-size: 16px; block-size: 9px; background: #b3b9c2; flex: none; }
-.mw-logo b {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 7.5px; font-weight: 700; color: #8f959f; letter-spacing: .02em;
-}
-.mw-links {
-  display: flex; flex-wrap: wrap; justify-content: flex-end;
-  gap: 2px 3px; inline-size: 74px;
-  font-size: 5px; color: #a7adb7; line-height: 1.9;
-}
-.mw-links span:nth-child(2) { margin-inline: 5px; }
-.mw-links span:nth-child(4) { margin-left: 7px; }
-.mw-links .is-bold { font-weight: 800; font-size: 5.6px; color: #7f858f; }
-
-.mw-hero {
-  position: relative;
-  padding: 12px 10px 14px;
-  /* the banding a cheap gradient leaves behind */
-  background: linear-gradient(#e7e9ed, #d9dce1 60%, #e4e6ea);
-}
-/* the stock photograph, stretched out of shape and dropped on the headline */
-.mw-photo {
-  position: absolute;
-  top: -4px; right: 24px;
-  inline-size: 84px; block-size: 78px;
-  opacity: .55;
-  z-index: 1;
-}
-.mw-photo svg { inline-size: 100%; block-size: 100%; fill: #c2c7ce; }
-.mw-head {
-  position: relative;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 12px; font-weight: 700; line-height: 1.1;
-  letter-spacing: .12em; color: #868c96;
-  /* centred by eye, which is to say not centred */
-  text-align: center;
-  margin: 0 0 6px 18px;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
-}
-/* and the paragraph starts nowhere near where the headline does */
-.mw-sub {
-  position: relative;
-  font-size: 5px; font-weight: 400; line-height: 1.35;
-  color: #9ba1ab; inline-size: 54%; margin-left: 6px;
-  /* justified into rivers, at a measure far too narrow for it */
-  text-align: justify;
-}
-/* two buttons that agree on nothing: not the height, not the corner, not the
-   case, not the baseline, and not how far apart they should sit */
-.mw-btns { position: relative; display: flex; align-items: flex-end; gap: 16px; margin: 9px 0 0 30px; }
-.mw-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  block-size: 15px; padding-inline: 10px;
-  border: 1px solid #7f858f;
-  border-radius: 7px;
-  background: linear-gradient(#c8cdd4, #a8aeb8);
-  font-size: 5.5px; font-weight: 800; letter-spacing: .06em; color: #fff;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
-}
-.mw-btn2 {
-  display: inline-flex; align-items: center; justify-content: center;
-  block-size: 10px; padding-inline: 6px;
-  margin-bottom: -7px;
-  border: 1px dashed #a7adb7;
-  background: #eceef1;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 5px; font-style: italic; color: #8f959f;
-}
-
-/* three cards at three heights, on gaps that do not match, and the last one
-   too wide for the room it was given — so the frame cuts it off */
-.mw-cards {
-  display: flex;
-  align-items: flex-start;
-  gap: 3px;
-  padding: 6px 0 10px 9px;
-}
-.mw-card { inline-size: 96px; padding: 7px 5px; background: #fff; border: 1px solid #c8cdd4; text-align: center; }
-.mw-card--b {
-  inline-size: 62px; margin-top: 13px; margin-left: 11px;
-  padding: 4px 4px 9px; border: 3px double #b9bfc8; text-align: left;
-}
-.mw-card--c {
-  inline-size: 118px; margin-top: -5px; margin-left: 5px;
-  padding: 9px 6px 5px; border: 1px solid #dfe2e7;
-  box-shadow: 3px 3px 0 #cfd3d9; text-align: right;
-}
-/* and icons that cannot agree on a size or a shape either */
-.mw-icon { inline-size: 13px; block-size: 13px; border-radius: 50%; background: #cdd2d8; margin: 0 auto 5px; }
-.mw-card--b .mw-icon { inline-size: 9px; block-size: 9px; border-radius: 0; margin: 0 0 4px; }
-.mw-card--c .mw-icon { inline-size: 16px; block-size: 11px; border-radius: 2px; margin: 0 0 5px auto; }
-.mw-ct { font-size: 5.5px; font-weight: 700; color: #9ba1ab; margin-bottom: 4px; }
-.mw-card--b .mw-ct { font-size: 6.5px; letter-spacing: .1em; }
-.mw-card--c .mw-ct { font-family: 'Times New Roman', Times, serif; font-size: 6px; font-weight: 400; }
-.mw-l { block-size: 2px; background: #e0e3e8; margin: 2px auto; inline-size: 88%; }
-.mw-l.is-short { inline-size: 52%; }
-.mw-card--b .mw-l { margin-inline: 0; }
-.mw-card--c .mw-l { margin-inline: auto 0; }
-
-/* -- custom mockup: a screenshot of the real site -- */
-/* It used to be drawn in divs. A drawing of a good website is still a
-   drawing, and next to a template that now looks like a template the honest
-   comparison is the site itself. The shot is inlined like the portfolio
-   thumbnails, so the page still makes no external request. */
-.mc-shot {
-  block-size: 100%;
-  background-image: url(assets/custom-shot.jpg);
-  background-size: cover;
-  background-position: 50% 0;
-  background-repeat: no-repeat;
-}
-
-/* --------------------------------------------------------------------------
-   PROCESS — the seven steps as a horizontal flow
-   -------------------------------------------------------------------------- */
-/* The run already reserves room under itself for the hover panel, so this
-   band does not need its full share of air at the bottom on top of that. */
-#how-we-build {
-  /* between band--snug and the full --band-y: the run needs a little more
-     room above the heading than the snug measure gave it */
-  padding-top: clamp(56px, 5.8vw, 84px);
-  /* the 22px the flow gained above its head comes off here, holding 680 */
-  padding-bottom: clamp(14px, 1.2vw, 16px);
-}
-/* The source document drew this as a run of seven columns under a band of
-   three phases, with a connector threaded behind the numbers. Same diagram
-   here, on our own type, radius and colour — and the connector fills as the
-   section is read instead of sitting there complete.
-
-   Stacked is the base case; the row takes over once there is width for it. */
-.flow {
-  position: relative;
-  width: 100%;
-  /* the run sits clear of the lead rather than right under it */
-  margin-top: 34px;
-  --num-size: 56px;
-  --track-h: 62px;
-  /* the three phases cover steps 1-2, 3-5 and 6-7 */
-  --ph-a: #94ca66;
-  --ph-b: #5a97cf;
-  --ph-c: #46688f;
-  --fill: 0;
-}
-
-/* The phase band. Hidden while stacked: with one step per row the spans
-   would be claiming a grouping the layout no longer shows. */
-.flow-phases { display: none; }
-.flow-phase {
-  margin: 0;
-  padding: 0 4px 9px;
-  border-bottom: 2px solid;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  text-align: center;
-}
-.flow-phase--a { color: var(--green-ink); border-color: var(--ph-a); }
-.flow-phase--b { color: var(--blue); border-color: var(--ph-b); }
-.flow-phase--c { color: var(--navy); border-color: var(--ph-c); }
-
-.flow-list {
-  position: relative;
-  list-style: none;
-  display: grid;
-  gap: 4px;
-}
-
-/* --------------------------- stacked (base) --------------------------- */
-.flow-list::before,
-.flow-list::after {
-  content: '';
-  position: absolute;
-  left: calc(var(--num-size) / 2);
-  top: var(--rail-top, 44px);
-  height: var(--rail-span, calc(100% - 88px));
-  inline-size: 2px;
-  border-radius: 2px;
-  transform: translateX(-50%);
-}
-.flow-list::before { background: var(--border); }
-.flow-list::after {
-  background: linear-gradient(180deg, var(--ph-a) 0%, var(--ph-b) 52%, var(--ph-c) 100%);
-  height: calc(var(--fill) * var(--rail-span, 100%));
-  transition: height .15s linear;
-}
-
-.step {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: clamp(18px, 3vw, 28px);
-  padding-block: 10px;
-}
-.step-body {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 7px;
-  padding: 22px 26px;
-  border-radius: var(--r);
-  box-shadow: inset 0 0 0 1px var(--border-soft);
-  transition: background .55s var(--ease), box-shadow .55s var(--ease),
-              transform .4s var(--ease);
-}
-.step[data-reached="true"] .step-body {
-  background: linear-gradient(180deg, #f8fafd, #f1f4f9);
-  box-shadow: var(--shadow-card);
-}
-.step:hover .step-body {
-  transform: translateY(-2px);
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 20px 44px rgba(20, 40, 80, .11);
-}
-
-/* ------------------------------- marker ------------------------------- */
-/* The stepper's markers. On the stack they are still discs on a rail; in the
-   row they sit inside the capsule track and the white thumb travels to them. */
-.step-num {
-  position: relative;
-  z-index: 2;
-  inline-size: var(--num-size);
-  block-size: var(--num-size);
-  border-radius: 50%;
-  flex: none;
-  display: grid;
-  place-items: center;
-  font-size: 15px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: .06em;
-  color: var(--faint);
-  background: #fff;
-  border: 6px solid var(--band-tint);
-  box-shadow: inset 0 0 0 1px var(--border);
-  transition: background-color .45s var(--ease), color .45s var(--ease),
-              box-shadow .45s var(--ease);
-}
-.step[data-reached="true"] .step-num {
-  background: #dee9f5;
-  color: var(--navy);
-  box-shadow: inset 0 0 0 1px transparent;
-}
-.step:not([data-reached="true"]):hover .step-num {
-  color: var(--navy);
-  box-shadow: inset 0 0 0 1px var(--navy);
-}
-
-/* Digit and tick occupy the same cell, so swapping them moves nothing. */
-.step-digit,
-.step-tick {
-  grid-area: 1 / 1;
-  transition: opacity .25s var(--ease), transform .25s var(--ease);
-}
-.step-tick {
-  inline-size: 15px;
-  block-size: 15px;
-  color: inherit;
-  opacity: 0;
-  transform: scale(.7);
-}
-
-/* Only the row uses the track; the stack keeps its rail. */
-.flow-thumb,
-.flow-progress { display: none; }
-
-/* The node rides the head of the fill. It only appears once the script is
-   driving it — parked at the end of a static rail it reads as a stray dot. */
-.steps-node {
-  position: absolute;
-  left: calc(var(--num-size) / 2);
-  top: calc(var(--rail-top, 44px) + var(--fill) * var(--rail-span, 100%));
-  inline-size: 13px;
-  block-size: 13px;
-  margin: -6.5px 0 0 -6.5px;
-  border-radius: 50%;
-  background: var(--ph-a);
-  box-shadow: 0 0 0 6px rgba(128, 195, 74, .15);
-  opacity: 0;
-  z-index: 1;
-  transition: top .15s linear, left .15s linear, opacity .4s var(--ease);
-}
-.flow[data-rail="live"] .steps-node { opacity: 1; }
-
-/* ------------------------------ type ---------------------------------- */
-.step-body h3 {
-  font-size: 19px;
-  line-height: 1.3;
-  letter-spacing: -.012em;
-  color: var(--muted);
-  transition: color .45s var(--ease);
-}
-.step[data-reached="true"] .step-body h3 { color: var(--navy); }
-.step-body p { font-size: 15px; line-height: 1.7; color: var(--muted); }
-
-/* Who does the work at this step — the section's whole argument is that the
-   process is human-led with AI where it earns its place. */
-.step-role {
-  flex: none;
-  padding: 3px 9px;
-  border-radius: var(--r);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.step-role--human { background: var(--chip-navy); color: var(--navy); }
-.step-role--both { background: var(--chip-blue); color: var(--navy); }
-.step-role--ai { background: var(--chip-green); color: var(--green-ink); }
-
-/* ---------------------------- the row --------------------------------- */
-@media (min-width: 1024px) {
-  /* Same seven columns as the run below, so each phase rule ends exactly
-     where its last step's column does. 2fr/3fr/2fr drifts: the band has two
-     gaps to the list's six. */
-  .flow-phases {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 6px;
-    margin-bottom: 30px;
-  }
-  .flow-phase--a { grid-column: span 2; }
-  .flow-phase--b { grid-column: span 3; }
-  .flow-phase--c { grid-column: span 2; }
-
-  .flow-list {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  /* ---- the capsule track ----
-     The two pseudo-elements stop being a hairline and become the stepper: a
-     pill holding the whole run, and a white thumb that slides to the step
-     under the pointer. The thumb is one column wide and moved by transform,
-     so it travels on the compositor rather than relaying out the row. */
-  .flow-list {
-    padding-top: var(--track-h);
-    /* the thumb has to match a column, and a column is not 100%/7 — the six
-       gaps come out of the total first */
-    --col: calc((100% - 6 * 6px) / 7);
-  }
-  .flow-list::before,
-  .flow-list::after {
-    left: 0;
-    top: 0;
-    inline-size: 100%;
-    block-size: var(--track-h);
-    border-radius: 999px;
-    transform: none;
-  }
-  .flow-list::before { background: rgba(20, 60, 102, .075); }
-  /* the fill line belongs to the stacked rail; the row has the thumb */
-  .flow-list::after { display: none; }
-
-  /* The thumb is a real element, placed in px by the script from the markers'
-     own measured positions. Driving it from a custom property meant its box
-     depended on a percentage resolving against something — the track for
-     `left`, itself for `translateX` — and the paint and the computed value
-     disagreed about where that put it. Measured px has nothing to resolve. */
-  /* What has been read already. It runs from the head of the track to the
-     left edge of the thumb, so it covers exactly the steps behind the one
-     you are on — and it travels on the same clock, so the two read as one
-     movement rather than two things chasing each other. */
-  .flow-progress {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    inline-size: 0;
-    block-size: var(--track-h);
-    border-radius: 999px;
-    background: var(--green);
-    transition: width .42s cubic-bezier(.34, .8, .3, 1);
-  }
-
-  .flow-thumb {
-    display: block;
-    position: absolute;
-    top: 0;
-    block-size: var(--track-h);
-    border-radius: 999px;
-    background: #fff;
-    box-shadow: inset 0 0 0 1px rgba(20, 60, 102, .05),
-                0 1px 2px rgba(20, 40, 80, .07), 0 10px 26px rgba(20, 40, 80, .13);
-    transition: left .42s cubic-bezier(.34, .8, .3, 1),
-                width .42s cubic-bezier(.34, .8, .3, 1);
-  }
-
-  .step {
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    padding-block: 0;
-    text-align: center;
-  }
-  /* The marker sits in the track, so it loses the disc it wore on the stack —
-     the thumb behind it is the surface now. */
-  .step-num {
-    position: absolute;
-    top: calc(var(--track-h) / -1);
-    inline-size: 100%;
-    block-size: var(--track-h);
-    border: 0;
-    border-radius: 999px;
-    background: none;
-    box-shadow: none;
-    font-size: 15px;
-    color: var(--faint);
-  }
-  /* data-reached drives the stacked layout's disc; in the row the thumb is
-     the only surface, so every state stays transparent. */
-  .step[data-reached="true"] .step-num,
-  .step[data-state="done"] .step-num { background: none; box-shadow: none; }
-  /* white on the strong green, the way a completed step reads */
-  .step[data-state="done"] .step-num { color: #fff; }  /* Only the row swaps the number for a tick. The stack rests with every step
-     done, and seven ticks and no numbers is not a numbered process. */
-  .step[data-state="done"] .step-digit { opacity: 0; transform: scale(.7); }
-  .step[data-state="done"] .step-tick { opacity: 1; transform: scale(1); }
-  .step[data-state="active"] .step-num { color: var(--navy); font-weight: 800; }
-  .step:not([data-state="active"]):hover .step-num { color: var(--muted); box-shadow: none; }
-
-  .step-body {
-    flex: 1;
-    align-items: center;
-    gap: 8px;
-    padding: 18px 10px 0;
-    box-shadow: none;
-    background: none;
-  }
-  /* the card treatment belongs to the stacked layout; in the row the marker
-     and the rule under the phase carry the structure instead */
-  .step[data-reached="true"] .step-body,
-  .step:hover .step-body {
-    background: none;
-    box-shadow: none;
-    transform: none;
-  }
-  .step-body h3 {
-    color: var(--muted);
-    font-size: 15.5px;
-    font-weight: 700;
-    line-height: 1.3;
-    min-height: 2.6em;
-  }
-  .step-role { font-size: 10px; padding: 3px 7px; }
-  .step[data-state="active"] .step-body h3 { color: var(--navy); }
-
-  /* The description waits under its own step and comes up on hover or focus,
-     the way the source document had it. Opacity only — visibility:hidden or
-     display:none would take the text out of the accessibility tree, and a
-     screen reader has no hover to give. */
-  .step-body p {
-    position: absolute;
-    top: calc(100% + 28px);
-    left: 50%;
-    z-index: 5;
-    inline-size: 236px;
-    padding: 14px 16px;
-    border-radius: var(--r);
-    background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-    box-shadow: inset 0 0 0 1px var(--border), var(--shadow-card);
-    font-size: 13.5px;
-    line-height: 1.6;
-    text-align: left;
-    opacity: 0;
-    pointer-events: none;
-    transform: translate(-50%, 6px);
-    transition: opacity .28s var(--ease), transform .28s var(--ease);
-  }
-  /* The end columns would hang off the measure if they stayed centred. */
-  .step:first-of-type .step-body p {
-    left: 0;
-    transform: translate(0, 6px);
-  }
-  .step:last-of-type .step-body p {
-    left: auto;
-    right: 0;
-    transform: translate(0, 6px);
-  }
-  .step:hover .step-body p,
-  .step:focus-visible .step-body p {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  .step:first-of-type:hover .step-body p,
-  .step:first-of-type:focus-visible .step-body p,
-  .step:last-of-type:hover .step-body p,
-  .step:last-of-type:focus-visible .step-body p {
-    transform: translate(0, 0);
-  }
-
-  /* room for the panel, so it never lands on the band below — the reserve
-     tracks the drop above it */
-  .flow-list { padding-bottom: 164px; }
-  .step:focus { outline: none; }
-  .step:focus-visible .step-num {
-    outline: 2px solid var(--blue);
-    outline-offset: 3px;
-  }
-
-  /* the node rode the head of a fill line; the track has no fill to ride */
-  .steps-node { display: none; }
-}
-
-/* --------------------------------------------------------------------------
-   COMPARE
-   -------------------------------------------------------------------------- */
-.compare {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-  width: 100%;
-  align-items: start;
-}
-.compare-col {
-  border-radius: var(--r);
-  padding: clamp(26px, 3vw, 34px) clamp(24px, 2.6vw, 30px);
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-/* The shortcut column is argued down by being grey, not by being alarming.
-   The tint stays barely there — the rule is what defines the panel, so the
-   chips inside still have something to sit against. */
-.compare-col--shortcut {
-  background: linear-gradient(180deg, #fbfcfe, #f6f8fb);
-  box-shadow: inset 0 0 0 1px #e4eaf1;
-}
-.compare-col--custom {
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card), inset 0 0 0 2px var(--green);
-}
-.compare-head { display: flex; flex-direction: column; gap: 13px; align-items: flex-start; }
-.compare-mark {
-  display: grid;
-  place-items: center;
-  inline-size: 42px;
-  block-size: 42px;
-  border-radius: 50%;
-  margin-bottom: 2px;
-}
-.compare-mark--neutral { background: var(--grey-soft); color: var(--grey-ink); }
-.compare-mark--green { background: var(--tint-green); color: var(--green-ink); }
-.compare-tag {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: var(--r);
-}
-.tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
-.tag-green { background: var(--tint-green); color: var(--green-ink); }
-.compare-head h3 { font-size: var(--step-2); }
-
-.compare-list { display: flex; flex-direction: column; gap: 0; }
-.compare-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 15px;
-  line-height: 1.55;
-  padding-block: 13px;
-  border-top: 1px solid var(--border-soft);
-}
-.compare-list li:first-child { border-top: none; padding-top: 0; }
-.compare-list li em { font-style: italic; }
-.compare-list .mark { margin-top: 3px; flex: none; }
-.mark-x { color: var(--grey-ink); opacity: .8; }
-.mark-check { color: var(--green-ink); }
-
-/* --------------------------------------------------------------------------
-   PORTFOLIO
-   -------------------------------------------------------------------------- */
-/* The home's Our Work card: a browser frame with traffic lights, a fixed
-   192px screenshot area, and a name-plus-tag caption. Run as one self-
-   advancing row rather than the home's two scroll-driven ones. */
-.work-item { display: flex; }
-.work {
-  flex: none;
-  width: 300px;
-  border-radius: var(--r);
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .08), 0 10px 26px rgba(20, 40, 80, .1);
-  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
-}
-.work:hover { transform: translateY(-8px); box-shadow: 0 14px 36px rgba(20, 40, 80, .16); }
-
-.work-chrome {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 30px;
-  padding-inline: 14px;
-  background: #f3f6fb;
-  border-bottom: 1px solid #eaeff6;
-}
-.work-chrome i { inline-size: 9px; block-size: 9px; border-radius: 50%; }
-.work-chrome i:nth-child(1) { background: #ff6058; }
-.work-chrome i:nth-child(2) { background: #ffbd2e; }
-.work-chrome i:nth-child(3) { background: #28c840; }
-
-.work-shot {
-  block-size: 192px;
-  background-color: #f3f6fb;
-  background-size: cover;
-  background-position: 50% 0;
-  background-repeat: no-repeat;
-  transition: transform .55s var(--ease);
-}
-.work:hover .work-shot { transform: scale(1.05); }
-
-.work-cap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 13px 16px;
-}
-.work-label { font-size: 15px; font-weight: 700; color: var(--navy); }
-.work-tag {
-  flex: none;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .5px;
-  padding: 4px 9px;
-  border-radius: var(--r);
-  background: #eef7e4;
-  /* the home sets this in #80c34a, which lands at 1.9:1 on its own tint —
-     darkened to clear AA at 11px */
-  color: #41701e;
-  white-space: nowrap;
-}
-
-.work-more { width: 100%; margin-top: 34px; text-align: center; }
-
-/* --------------------------------------------------------------------------
-   CHECKLIST
-   -------------------------------------------------------------------------- */
-/* Four facets of one thing, so they get four equal tiles rather than a ruled
-   list — the section is about control, and a row reads as coverage.
-
-   This band is white, unlike the ones the page's other cards sit on, so a
-   white card with only a shadow under it had almost nothing to read as an
-   edge. These carry a hairline instead, and the shadow only does the lifting. */
-.win-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  width: 100%;
-  margin-top: 6px;
-}
-.win-tile {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  /* tighter than the three-up version was: four columns leave less room */
-  padding: 30px 24px 28px;
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: inset 0 0 0 1px var(--border), 0 1px 2px rgba(20, 40, 80, .04);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
-}
-
-/* The rule wipes in from the left — the same gesture the CMS rows and the
-   home's links use, rather than a coloured edge that is simply always on. */
-.win-tile::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  inset-inline: 0;
-  block-size: 3px;
-  background: var(--green);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--ease);
-}
-.win-tile:hover::before { transform: scaleX(1); }
-
-.win-tile:hover {
-  transform: translateY(-4px);
-  box-shadow: inset 0 0 0 1px var(--border),
-              0 1px 3px rgba(20, 40, 80, .06),
-              0 18px 40px rgba(20, 40, 80, .13);
-}
-.win-tile p {
-  font-size: 15.5px;
-  font-weight: 500;
-  line-height: 1.6;
-  color: var(--ink);
-  transition: color .35s var(--ease);
-}
-.win-tile:hover p { color: var(--navy); }
-
-.win-icon {
-  display: grid;
-  place-items: center;
-  inline-size: 54px;
-  block-size: 54px;
-  border-radius: 50%;
-  background: var(--tint-green);
-  color: var(--green-ink);
-  /* a ring, so the disc reads as a mark rather than a flat blob of tint */
-  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, .30);
-  transition: background-color .4s var(--ease), color .4s var(--ease),
-              box-shadow .4s var(--ease), transform .4s var(--ease);
-}
-.win-tile:hover .win-icon {
-  background: var(--green);
-  color: #14300a;
-  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, 0),
-              0 6px 16px rgba(128, 195, 74, .38);
-  transform: scale(1.06);
-}
-
-/* Every path carries pathLength="1", so one dash value covers all of them and
-   the mark redraws itself on hover. At rest the offset is 0 — a browser that
-   ignores the animation still shows a complete icon. */
-.win-icon svg {
-  inline-size: 26px;
-  block-size: 26px;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-.win-tile:hover .win-icon svg { animation: icon-draw .85s var(--ease); }
-
-@keyframes icon-draw {
-  from { stroke-dashoffset: 1; }
-}
-
-/* Four across needs the full measure; below it they pair off. */
-@media (max-width: 1024px) {
-  .win-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 620px) {
-  .win-grid { grid-template-columns: 1fr; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1698,9 +509,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 .platform-half h3 { font-size: var(--step-2); }
 .platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
 .platform-half p em { font-style: italic; }
-.platform-half .arrow-link { margin-top: 6px; }
-/* the link follows its own card rather than staying blue on the green one */
-.platform-half--wp .arrow-link { color: var(--green-ink); }
 
 /* The marks are still the official Drupal and WordPress logos; only the
    colour they are set in follows the card now. */
@@ -1729,95 +537,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   color: var(--blue);
 }
 .platform-half--wp .split-badge { background: var(--tint-green); color: var(--green-ink); }
-
-/* --------------------------------------------------------------------------
-   UNDER THE HOOD
-   The argument sits still on the left while the five capabilities scroll past
-   it on the right — the section reads as one thought instead of a table
-   floating under a paragraph.
-   -------------------------------------------------------------------------- */
-.cms-split {
-  display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-  gap: clamp(36px, 5vw, 72px);
-  align-items: start;
-}
-.cms-aside {
-  position: sticky;
-  top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-}
-.cms-list {
-  width: 100%;
-  border-radius: var(--r);
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-}
-.cms-row {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 24px clamp(22px, 2.4vw, 30px);
-  border-top: 1px solid var(--border-soft);
-  transition: background-color .35s var(--ease);
-}
-.cms-row:first-child { border-top: 0; }
-.cms-row:hover { background: var(--tint-blue); }
-
-/* The rule wipes in from the left — the same mechanic the home gives its
-   links, rather than a decorative bar that is simply always there. */
-.cms-row::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  block-size: 2px;
-  background: var(--green);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--ease);
-}
-.cms-row:hover::after { transform: scaleX(1); }
-
-.cms-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 48px;
-  block-size: 48px;
-  border-radius: 50%;
-  background: var(--tint-blue);
-  color: var(--blue);
-  transition: background-color .35s var(--ease), color .35s var(--ease),
-              transform .35s var(--ease);
-}
-.cms-icon svg { inline-size: 22px; block-size: 22px; }
-.cms-row:hover .cms-icon {
-  background: var(--navy);
-  color: #fff;
-  transform: scale(1.08);
-}
-
-.cms-body { display: flex; flex-direction: column; gap: 5px; }
-.cms-body dt {
-  font-size: var(--step-1);
-  font-weight: 800;
-  color: var(--navy);
-  letter-spacing: -.01em;
-  transition: transform .35s var(--ease);
-}
-.cms-row:hover .cms-body dt { transform: translateX(4px); }
-.cms-body dd {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--muted);
-}
 
 /* --------------------------------------------------------------------------
    CREDIBILITY STATS
@@ -1877,37 +596,11 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 .stat:hover .stat-label { color: #fff; }
 
-/* The human + AI line is a claim, not a metric, so it sits on its own. */
-.signature {
-  display: inline-flex;
-  align-items: center;
-  gap: 13px;
-  padding: 15px 24px;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  background: rgba(255, 255, 255, .06);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--heading);
-}
-.signature-icons { display: flex; align-items: center; gap: 7px; color: var(--green); }
-.signature-icons .plus { font-size: 15px; font-weight: 700; opacity: .55; }
-
 /* --------------------------------------------------------------------------
-   INVESTMENT
+   THE TWO STAGES
    -------------------------------------------------------------------------- */
-/* The copy names two distinct ways to engage, so they get two cards instead of
-   one tinted paragraph with an accent bar down the side. */
-.plans-label {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--navy);
-  /* pulled toward the cards it labels, away from the paragraph above */
-  margin-top: 16px;
-  margin-bottom: -6px;
-}
+/* Plan, then design: two steps of one job, so they get two cards that read
+   left to right, blue then green, rather than a numbered list. */
 .plans {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1939,24 +632,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 .plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
 .plan h3 { font-size: var(--step-2); }
 .plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
-
-/* Same size as the lead above it — no viewport scaling, so the two really do
-   match. The line measures 901px at 18px, so it holds on one line from 1024px
-   up (944px of room) and wraps normally below that. */
-.invest-note {
-  width: 100%;
-  max-width: var(--measure);
-  font-size: var(--step-1);
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-@media (min-width: 1024px) {
-  .invest-note {
-    max-width: none;
-    white-space: nowrap;
-  }
-}
 
 /* --------------------------------------------------------------------------
    TESTIMONIALS
@@ -1999,7 +674,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
 
 /* eight 300px cards plus their 24px gaps make a 2592px loop */
-.marquee--work .marquee-track { animation-duration: 60s; }
 
 @keyframes marquee-run {
   from { transform: translate3d(0, 0, 0); }
@@ -2169,13 +843,8 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
-  .fa-split { grid-template-columns: 1fr; }
-  .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .plans { grid-template-columns: 1fr; }
-  /* the aside has nothing to stay beside once the list drops below it */
-  .cms-split { grid-template-columns: 1fr; }
-  .cms-aside { position: static; }
 }
 
 @media (max-width: 767px) {
@@ -2187,12 +856,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   .stats { grid-template-columns: 1fr; }
   .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
   .stat:first-child { border-top: 0; }
-  .signature { width: 100%; }
-  /* --rail-x follows --num-size, so the rail re-centres on its own */
-  .flow { --num-size: 46px; }
-  .step-num { font-size: 13px; border-width: 4px; }
-  .step-body { padding: 17px 19px; }
-  .step-body h3 { font-size: 17px; }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
 }
@@ -2207,9 +870,6 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     scroll-behavior: auto !important;
   }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
-  .mockup--weak { filter: none; }
-  .is-revealed .mockup--strong { transform: none; }
-  .flow-list::after { height: var(--rail-span, calc(100% - 88px)); inline-size: var(--rail-span, 86%); }
 
   /* The blanket rule above would snap the marquee to its end frame, so stop it
      outright and hand the row over to the reader as a scrollable strip. */
@@ -2219,20 +879,7 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
     mask-image: none;
     -webkit-mask-image: none;
   }
-  .work:hover { transform: none; }
-  /* the CMS rows keep their colour change and drop the movement */
-  .cms-row::after { display: none; }
-  .cms-row:hover .cms-icon { transform: none; }
-  .cms-row:hover .cms-body dt { transform: none; }
   .stat:hover .stat-num { transform: none; }
-  .win-tile:hover { transform: none; }
-  .win-tile:hover .win-icon svg { animation: none; }
-  /* the strokes stay, they just stop being drawn */
-  .hl { background-size: 100% .34em; transition: none; }
-  .step[data-reached="true"] .step-num { animation: none; }
-  .step:hover .step-body { transform: none; }
-  /* the rail is static, so a node parked at its end would read as a stray dot */
-  .steps-node { display: none; }
 }
 
 @media print {
@@ -2334,6 +981,19 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
 }
 .page-kind h3 { font-size: var(--step-2); }
 .page-kind p { font-size: 16px; line-height: 1.7; color: var(--muted); }
+
+/* The small uppercase label each card is headed with. */
+.compare-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--r);
+}
+.tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
+.tag-green { background: var(--tint-green); color: var(--green-ink); }
+
 /* the pages that carry the revenue get the surface that carries the weight */
 .page-kind--custom {
   background: linear-gradient(160deg, #205fa6 0%, #16447c 55%, #0d2748 100%);
@@ -2391,18 +1051,3 @@ html:not([data-anim="on"]) .hl { background-size: 100% .34em; }
   .evolve-step { text-align: center; }
   .evolve-step + .evolve-step::before { position: static; transform: none; display: block; margin: 0 0 10px; }
 }
-
-/* --------------------------------------------------------------------------
-   WORK THUMBNAILS
-   The marquee holds the set twice so the loop closes seamlessly. Keeping the
-   images here rather than on the elements means the duplicated half reuses
-   these declarations instead of carrying a second copy of every data URI.
-   -------------------------------------------------------------------------- */
-.work-shot--1 { background-image: url(assets/work-1.jpg); }
-.work-shot--2 { background-image: url(assets/work-2.jpg); }
-.work-shot--3 { background-image: url(assets/work-3.jpg); }
-.work-shot--4 { background-image: url(assets/work-4.jpg); }
-.work-shot--5 { background-image: url(assets/work-5.jpg); }
-.work-shot--6 { background-image: url(assets/work-6.jpg); }
-.work-shot--7 { background-image: url(assets/work-7.jpg); }
-.work-shot--8 { background-image: url(assets/work-8.jpg); }

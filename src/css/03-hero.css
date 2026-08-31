@@ -1,0 +1,187 @@
+/* --------------------------------------------------------------------------
+   HERO — same construction as the home's, inverted to a light ground
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* enough height to hold the fold without pushing the next band off it */
+  min-height: min(76vh, 620px);
+  padding-block: clamp(56px, 6vw, 84px);
+  /* No rule at the foot and no flat white: the ground runs into the tint of
+     the band below, which starts on exactly the colour this ends on. */
+  background: linear-gradient(180deg,
+    var(--white) 0%,
+    var(--white) 56%,
+    var(--band-tint) 100%);
+}
+
+/* ---------- the ground: washes of brand colour, each on its own heading ----
+   One element per wash, moved by transform: separate clocks and separate
+   directions, so they drift apart and come back together rather than sliding
+   as one sheet. Pale on purpose — on a light ground anything stronger stops
+   reading as light and starts reading as decoration.
+
+   The layer is the height of the hero and its mask is in percentages, not
+   pixels. It used to be a fixed 1040px box fading from 330 to 600, and against
+   a hero of a different height the washes reached the bottom edge still
+   carrying colour and were cut off square. That cut was the line that showed
+   between the hero and the section under it. They now go out entirely a
+   little before the end, so the hero finishes on the same flat tint the band
+   below begins with. */
+.hero-wash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  block-size: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
+}
+.hero-wash span {
+  position: absolute;
+  left: 50%;
+  will-change: transform;
+}
+/* green: opens top-left over the headline and runs down to the right */
+.hero-wash__g {
+  inline-size: 1015px;
+  block-size: 830px;
+  margin-left: -987px;
+  top: -315px;
+  background: radial-gradient(closest-side ellipse at center, rgba(128, 195, 74, .24), rgba(128, 195, 74, 0) 100%);
+  animation: washG 71s linear infinite;
+}
+/* brand blue: opens top-right and runs the other way */
+.hero-wash__b {
+  inline-size: 1090px;
+  block-size: 910px;
+  margin-left: -75px;
+  top: -295px;
+  background: radial-gradient(closest-side ellipse at center, rgba(18, 102, 181, .21), rgba(18, 102, 181, 0) 100%);
+  animation: washB 97s linear infinite;
+}
+/* sky: the low one, parked under the call. Slowest and widest. */
+.hero-wash__s {
+  inline-size: 1170px;
+  block-size: 860px;
+  margin-left: -545px;
+  top: 200px;
+  background: radial-gradient(closest-side ellipse at center, rgba(46, 140, 214, .21), rgba(46, 140, 214, 0) 100%);
+  animation: washS 127s linear infinite;
+}
+
+/* A sheen crossing the surface, the way light moves over one. It rides inside
+   the wash layer rather than on the hero, so it fades out under the same mask
+   as everything else instead of cutting a diagonal across the seam. */
+.hero-wash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(102deg,
+    rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .34) 50%, rgba(255, 255, 255, 0) 70%);
+  background-repeat: no-repeat;
+  background-size: 260% 100%;
+  animation: heroSheen 47s ease-in-out infinite;
+}
+
+/* Vertical only. The Y values are the original ones, one for one; X is held at
+   zero, so each wash rises and falls in its own place and none of them travels
+   across the one beside it. Four waypoints that come back round read as
+   something wandering; two on an ease would decelerate, stop and reverse,
+   which reads as an animation looping. The periods share no useful factor. */
+@keyframes washG {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(0, 22%, 0); }
+  50%  { transform: translate3d(0, 6%, 0); }
+  75%  { transform: translate3d(0, -14%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes washB {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(0, 26%, 0); }
+  50%  { transform: translate3d(0, -8%, 0); }
+  75%  { transform: translate3d(0, -24%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes washS {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(0, -18%, 0); }
+  50%  { transform: translate3d(0, 10%, 0); }
+  75%  { transform: translate3d(0, 20%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes heroSheen {
+  0%, 100% { background-position: 124% 0; }
+  50%      { background-position: -24% 0; }
+}
+
+/* One column now that the credentials pane is gone. The washes carry the
+   right-hand side, so the band does not read as half empty. */
+.hero-inner {
+  position: relative;
+  text-align: left;
+}
+.hero-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.hero h1 {
+  /* The floor scales below 400px instead of sitting flat at 36px. Pinned
+     there, "Custom Web Design" no longer fitted the measure on a 320-360px
+     phone and the headline broke to four and five lines. min() leaves every
+     width from 400px up exactly as it was — 9vw only undercuts 36px below
+     that — and the largest size that still holds three lines measured 29.5px
+     at 320 and 33.5px at 360, so 9vw (28.8 and 32.4) clears both. */
+  font-size: clamp(min(9vw, 36px), 4.2vw + 8px, 64px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  /* a ragged left column reads faster than a wide centred block */
+  max-width: 16ch;
+  text-wrap: balance;
+}
+.hero h1 .accent { color: var(--green-ink); }
+
+.hero-sub {
+  font-size: clamp(16.5px, .55vw + 15px, 18.5px);
+  line-height: 1.65;
+  font-weight: 500;
+  max-width: 52ch;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.hero .btn-row { margin-top: 10px; }
+
+/* Staged entrance, built the way the home stages its own hero: each block
+   lifts in on its own delay, and the green phrase lands last. `backwards`
+   drops the fill afterwards so hover states still win. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-hero-anim="on"] .hero h1,
+  [data-hero-anim="on"] .hero-sub,
+  [data-hero-anim="on"] .hero .btn-row { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
+  [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
+  [data-hero-anim="on"] .hero .btn-row { animation-delay: .54s; }
+
+  /* inline-block only where the phrase can't be pushed off the measure */
+  @media (min-width: 640px) {
+    [data-hero-anim="on"] .hero h1 .accent {
+      display: inline-block;
+      animation: hero-in .8s var(--ease) .34s backwards;
+    }
+  }
+}
+
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(14px); }
+}

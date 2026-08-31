@@ -2,11 +2,11 @@
 #
 #   index.html              the markup — links the stylesheet and the script
 #   styles.css              every rule, in source order (tokens → base →
-#                           components → sections → work)
+#                           components → sections)
 #   app.js                  the behaviour
 #
-# assets/ and fonts/ already sit beside those three and are not generated; the
-# stylesheet points at them where they stand.
+# fonts/ already sits beside those three and is not generated; the stylesheet
+# points at it where it stands.
 #
 #   preview.artifact.html   the same page as one self-contained fragment, with
 #                           the CSS, the JS and every asset inlined. Gitignored;
@@ -38,20 +38,15 @@ function Read-B64([string]$relative) {
 # baked into it.
 # --------------------------------------------------------------------------
 $assets = [ordered]@{
-    '__ASSET_FONT__'       = @{ Path = 'fonts/plus-jakarta-sans-latin.woff2'; Mime = 'font/woff2' }
-    '__ASSET_CUSTOMSHOT__' = @{ Path = 'assets/custom-shot.jpg';              Mime = 'image/jpeg' }
-}
-for ($i = 1; $i -le 8; $i++) {
-    $assets["__ASSET_WORK${i}__"] = @{ Path = "assets/work-$i.jpg"; Mime = 'image/jpeg' }
+    '__ASSET_FONT__' = @{ Path = 'fonts/plus-jakarta-sans-latin.woff2'; Mime = 'font/woff2' }
 }
 
 # --- the stylesheet, in cascade order -------------------------------------
 $css = @(
     Read-Src 'css/01-tokens.css'
     Read-Src 'css/02-base.css'
-    Read-Src 'css/03-components.css'
+    Read-Src 'css/03-hero.css'
     Read-Src 'css/04-sections.css'
-    Read-Src 'css/05-work.css'
 ) -join "`n"
 
 $cssLinked = $css
@@ -63,19 +58,13 @@ foreach ($token in $assets.Keys) {
 }
 
 # --- the markup -----------------------------------------------------------
-# Both marquees loop by translating -50%, so each track holds its set twice.
-# The second pass is duplicate content and is hidden from assistive tech.
+# The marquee loops by translating -50%, so the track holds the set twice. The
+# second pass is duplicate content and is hidden from assistive tech.
 $testimonials = Read-Src 'testimonials.html'
 $testimonialTrack = $testimonials + "`n" +
     $testimonials.Replace('<li class="testi-item">', '<li class="testi-item" aria-hidden="true">')
 
-$works = Read-Src 'works.html'
-$worksTrack = $works + "`n" +
-    $works.Replace('<li class="work-item">', '<li class="work-item" aria-hidden="true">')
-
-$body = (Read-Src 'body.html').
-    Replace('__TESTIMONIALS__', $testimonialTrack).
-    Replace('__WORKS__',        $worksTrack)
+$body = (Read-Src 'body.html').Replace('__TESTIMONIALS__', $testimonialTrack)
 
 $js   = Read-Src 'app.js'
 $head = Read-Src 'head.html'

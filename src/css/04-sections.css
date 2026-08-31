@@ -1,108 +1,4 @@
 /* --------------------------------------------------------------------------
-   CHECKLIST
-   -------------------------------------------------------------------------- */
-/* Four facets of one thing, so they get four equal tiles rather than a ruled
-   list — the section is about control, and a row reads as coverage.
-
-   This band is white, unlike the ones the page's other cards sit on, so a
-   white card with only a shadow under it had almost nothing to read as an
-   edge. These carry a hairline instead, and the shadow only does the lifting. */
-.win-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  width: 100%;
-  margin-top: 6px;
-}
-.win-tile {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  /* tighter than the three-up version was: four columns leave less room */
-  padding: 30px 24px 28px;
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: inset 0 0 0 1px var(--border), 0 1px 2px rgba(20, 40, 80, .04);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
-}
-
-/* The rule wipes in from the left — the same gesture the CMS rows and the
-   home's links use, rather than a coloured edge that is simply always on. */
-.win-tile::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  inset-inline: 0;
-  block-size: 3px;
-  background: var(--green);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--ease);
-}
-.win-tile:hover::before { transform: scaleX(1); }
-
-.win-tile:hover {
-  transform: translateY(-4px);
-  box-shadow: inset 0 0 0 1px var(--border),
-              0 1px 3px rgba(20, 40, 80, .06),
-              0 18px 40px rgba(20, 40, 80, .13);
-}
-.win-tile p {
-  font-size: 15.5px;
-  font-weight: 500;
-  line-height: 1.6;
-  color: var(--ink);
-  transition: color .35s var(--ease);
-}
-.win-tile:hover p { color: var(--navy); }
-
-.win-icon {
-  display: grid;
-  place-items: center;
-  inline-size: 54px;
-  block-size: 54px;
-  border-radius: 50%;
-  background: var(--tint-green);
-  color: var(--green-ink);
-  /* a ring, so the disc reads as a mark rather than a flat blob of tint */
-  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, .30);
-  transition: background-color .4s var(--ease), color .4s var(--ease),
-              box-shadow .4s var(--ease), transform .4s var(--ease);
-}
-.win-tile:hover .win-icon {
-  background: var(--green);
-  color: #14300a;
-  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, 0),
-              0 6px 16px rgba(128, 195, 74, .38);
-  transform: scale(1.06);
-}
-
-/* Every path carries pathLength="1", so one dash value covers all of them and
-   the mark redraws itself on hover. At rest the offset is 0 — a browser that
-   ignores the animation still shows a complete icon. */
-.win-icon svg {
-  inline-size: 26px;
-  block-size: 26px;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-.win-tile:hover .win-icon svg { animation: icon-draw .85s var(--ease); }
-
-@keyframes icon-draw {
-  from { stroke-dashoffset: 1; }
-}
-
-/* Four across needs the full measure; below it they pair off. */
-@media (max-width: 1024px) {
-  .win-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 620px) {
-  .win-grid { grid-template-columns: 1fr; }
-}
-
-/* --------------------------------------------------------------------------
    PLATFORM SPLIT
    -------------------------------------------------------------------------- */
 /* Two cards, built like the pricing pair: same shell, same 3px accent on the
@@ -130,9 +26,6 @@
 .platform-half h3 { font-size: var(--step-2); }
 .platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
 .platform-half p em { font-style: italic; }
-.platform-half .arrow-link { margin-top: 6px; }
-/* the link follows its own card rather than staying blue on the green one */
-.platform-half--wp .arrow-link { color: var(--green-ink); }
 
 /* The marks are still the official Drupal and WordPress logos; only the
    colour they are set in follows the card now. */
@@ -161,95 +54,6 @@
   color: var(--blue);
 }
 .platform-half--wp .split-badge { background: var(--tint-green); color: var(--green-ink); }
-
-/* --------------------------------------------------------------------------
-   UNDER THE HOOD
-   The argument sits still on the left while the five capabilities scroll past
-   it on the right — the section reads as one thought instead of a table
-   floating under a paragraph.
-   -------------------------------------------------------------------------- */
-.cms-split {
-  display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-  gap: clamp(36px, 5vw, 72px);
-  align-items: start;
-}
-.cms-aside {
-  position: sticky;
-  top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-}
-.cms-list {
-  width: 100%;
-  border-radius: var(--r);
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-}
-.cms-row {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 24px clamp(22px, 2.4vw, 30px);
-  border-top: 1px solid var(--border-soft);
-  transition: background-color .35s var(--ease);
-}
-.cms-row:first-child { border-top: 0; }
-.cms-row:hover { background: var(--tint-blue); }
-
-/* The rule wipes in from the left — the same mechanic the home gives its
-   links, rather than a decorative bar that is simply always there. */
-.cms-row::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  block-size: 2px;
-  background: var(--green);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--ease);
-}
-.cms-row:hover::after { transform: scaleX(1); }
-
-.cms-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 48px;
-  block-size: 48px;
-  border-radius: 50%;
-  background: var(--tint-blue);
-  color: var(--blue);
-  transition: background-color .35s var(--ease), color .35s var(--ease),
-              transform .35s var(--ease);
-}
-.cms-icon svg { inline-size: 22px; block-size: 22px; }
-.cms-row:hover .cms-icon {
-  background: var(--navy);
-  color: #fff;
-  transform: scale(1.08);
-}
-
-.cms-body { display: flex; flex-direction: column; gap: 5px; }
-.cms-body dt {
-  font-size: var(--step-1);
-  font-weight: 800;
-  color: var(--navy);
-  letter-spacing: -.01em;
-  transition: transform .35s var(--ease);
-}
-.cms-row:hover .cms-body dt { transform: translateX(4px); }
-.cms-body dd {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--muted);
-}
 
 /* --------------------------------------------------------------------------
    CREDIBILITY STATS
@@ -309,37 +113,11 @@
 }
 .stat:hover .stat-label { color: #fff; }
 
-/* The human + AI line is a claim, not a metric, so it sits on its own. */
-.signature {
-  display: inline-flex;
-  align-items: center;
-  gap: 13px;
-  padding: 15px 24px;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  background: rgba(255, 255, 255, .06);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--heading);
-}
-.signature-icons { display: flex; align-items: center; gap: 7px; color: var(--green); }
-.signature-icons .plus { font-size: 15px; font-weight: 700; opacity: .55; }
-
 /* --------------------------------------------------------------------------
-   INVESTMENT
+   THE TWO STAGES
    -------------------------------------------------------------------------- */
-/* The copy names two distinct ways to engage, so they get two cards instead of
-   one tinted paragraph with an accent bar down the side. */
-.plans-label {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--navy);
-  /* pulled toward the cards it labels, away from the paragraph above */
-  margin-top: 16px;
-  margin-bottom: -6px;
-}
+/* Plan, then design: two steps of one job, so they get two cards that read
+   left to right, blue then green, rather than a numbered list. */
 .plans {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -371,24 +149,6 @@
 .plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
 .plan h3 { font-size: var(--step-2); }
 .plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
-
-/* Same size as the lead above it — no viewport scaling, so the two really do
-   match. The line measures 901px at 18px, so it holds on one line from 1024px
-   up (944px of room) and wraps normally below that. */
-.invest-note {
-  width: 100%;
-  max-width: var(--measure);
-  font-size: var(--step-1);
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-@media (min-width: 1024px) {
-  .invest-note {
-    max-width: none;
-    white-space: nowrap;
-  }
-}
 
 /* --------------------------------------------------------------------------
    TESTIMONIALS
@@ -431,7 +191,6 @@
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
 
 /* eight 300px cards plus their 24px gaps make a 2592px loop */
-.marquee--work .marquee-track { animation-duration: 60s; }
 
 @keyframes marquee-run {
   from { transform: translate3d(0, 0, 0); }
@@ -601,13 +360,8 @@
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
-  .fa-split { grid-template-columns: 1fr; }
-  .compare { grid-template-columns: 1fr; }
   .platform-split { grid-template-columns: 1fr; }
   .plans { grid-template-columns: 1fr; }
-  /* the aside has nothing to stay beside once the list drops below it */
-  .cms-split { grid-template-columns: 1fr; }
-  .cms-aside { position: static; }
 }
 
 @media (max-width: 767px) {
@@ -619,12 +373,6 @@
   .stats { grid-template-columns: 1fr; }
   .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
   .stat:first-child { border-top: 0; }
-  .signature { width: 100%; }
-  /* --rail-x follows --num-size, so the rail re-centres on its own */
-  .flow { --num-size: 46px; }
-  .step-num { font-size: 13px; border-width: 4px; }
-  .step-body { padding: 17px 19px; }
-  .step-body h3 { font-size: 17px; }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
 }
@@ -639,9 +387,6 @@
     scroll-behavior: auto !important;
   }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
-  .mockup--weak { filter: none; }
-  .is-revealed .mockup--strong { transform: none; }
-  .flow-list::after { height: var(--rail-span, calc(100% - 88px)); inline-size: var(--rail-span, 86%); }
 
   /* The blanket rule above would snap the marquee to its end frame, so stop it
      outright and hand the row over to the reader as a scrollable strip. */
@@ -651,20 +396,7 @@
     mask-image: none;
     -webkit-mask-image: none;
   }
-  .work:hover { transform: none; }
-  /* the CMS rows keep their colour change and drop the movement */
-  .cms-row::after { display: none; }
-  .cms-row:hover .cms-icon { transform: none; }
-  .cms-row:hover .cms-body dt { transform: none; }
   .stat:hover .stat-num { transform: none; }
-  .win-tile:hover { transform: none; }
-  .win-tile:hover .win-icon svg { animation: none; }
-  /* the strokes stay, they just stop being drawn */
-  .hl { background-size: 100% .34em; transition: none; }
-  .step[data-reached="true"] .step-num { animation: none; }
-  .step:hover .step-body { transform: none; }
-  /* the rail is static, so a node parked at its end would read as a stray dot */
-  .steps-node { display: none; }
 }
 
 @media print {
@@ -766,6 +498,19 @@
 }
 .page-kind h3 { font-size: var(--step-2); }
 .page-kind p { font-size: 16px; line-height: 1.7; color: var(--muted); }
+
+/* The small uppercase label each card is headed with. */
+.compare-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--r);
+}
+.tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
+.tag-green { background: var(--tint-green); color: var(--green-ink); }
+
 /* the pages that carry the revenue get the surface that carries the weight */
 .page-kind--custom {
   background: linear-gradient(160deg, #205fa6 0%, #16447c 55%, #0d2748 100%);
