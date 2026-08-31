@@ -1457,131 +1457,75 @@ a { color: inherit; }
   .pages-split { grid-template-columns: 1fr; }
 }
 
-/* --- the loop after launch ----------------------------------------------- */
 /* --------------------------------------------------------------------------
-   THE STAKES — Your Website Is Your #1 Brand Asset
-   Four stacked paragraphs on a tint made the page's opening claim read like a
-   preamble. The two sentences under the heading are really the two sides of one
-   bet — what the website earns when it works, and what it costs when it does
-   not — so they are set as a pair and given the colours that argument implies.
-   Nothing is added: the same two sentences, told apart.
+   THE ANSWER CARD — Your Website Is Your #1 Brand Asset
+   Built to the pattern the blog-writing page uses for its own opening claim: a
+   heading, then everything under it inside one card ruled in green, with the
+   phrases the argument turns on underlined in the same green.
+
+   The short sentence that used to sit above as a standfirst is the bold lead-in
+   at the head of the text, which is the job the "Answer:" label does there.
+
+   Corners stay at --r. Every other card on this page is squared off at 2px, and
+   a single rounded one would read as a component from somewhere else.
    -------------------------------------------------------------------------- */
-/* Both #1s are marked in the heading. It is the claim the section is making,
-   and it was passing by unlit in a line of forty words.
-
-   Painted as a background band rather than a filled box: an inline box is the
-   full height of the type, and at 38px a solid rectangle behind two characters
-   read as a stray block rather than as a mark someone made. */
-.sec-title em {
-  padding: 0 .1em .04em;
-  background-image: linear-gradient(rgba(128, 195, 74, .34), rgba(128, 195, 74, .34));
-  background-repeat: no-repeat;
-  background-position: 0 92%;
-  background-size: 100% .56em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-.stakes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+.answer {
   width: 100%;
-  margin-top: 10px;
-}
-.stake {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: clamp(26px, 3vw, 34px);
+  margin-top: 6px;
+  padding: clamp(28px, 3.2vw, 40px) clamp(26px, 3vw, 44px);
+  /* 2, not 1.5: a half pixel is rounded down at 1x and the rule that makes this
+     card what it is came out a hairline */
+  border: 2px solid var(--green);
   border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  background: var(--white);
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .04), 0 12px 30px rgba(20, 40, 80, .05);
 }
-/* the edge is the whole tell: which way this one goes */
-.stake::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  inline-size: 4px;
-  background: var(--green);
-}
-.stake--down::before { background: var(--danger-ink); }
-
-.stake:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
-}
-.stake p {
+.answer p {
   font-size: var(--step-1);
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--muted);
+  max-width: 78ch;
+}
+.answer p + p { margin-top: 14px; }
+
+.answer-lead {
+  font-weight: 800;
+  color: var(--navy);
 }
 
-.stake-ico {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 52px;
-  block-size: 52px;
-  border-radius: 50%;
-  background: var(--tint-green);
-  color: var(--green-ink);
-  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, .3);
-  transition: background-color .4s var(--ease), color .4s var(--ease),
-              box-shadow .4s var(--ease), transform .4s var(--ease);
+/* Bold navy on a green rule. text-decoration rather than a border, so a phrase
+   that breaks across two lines keeps its underline on both. */
+.phrase {
+  font-weight: 700;
+  color: var(--navy);
+  text-decoration: underline;
+  text-decoration-color: var(--green);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-skip-ink: none;
+  transition: text-decoration-color .35s var(--ease), color .35s var(--ease);
 }
-.stake--down .stake-ico {
-  background: var(--danger-soft);
-  color: var(--danger-ink);
-  box-shadow: inset 0 0 0 1px rgba(178, 59, 59, .22);
-}
-.stake:hover .stake-ico {
-  transform: scale(1.07);
-  background: var(--green);
-  color: #14300a;
-  box-shadow: 0 8px 20px rgba(128, 195, 74, .38);
-}
-.stake--down:hover .stake-ico {
-  background: var(--danger-ink);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(178, 59, 59, .3);
-}
+.answer:hover .phrase { text-decoration-color: var(--green-ink); }
 
-/* The two arrows are the argument, so they arrive as one: the good one lifts
-   into place and the bad one drops, each from the direction it points. */
+/* The rules draw themselves in, left to right and one after another, the first
+   time the card is read — the same gesture the cards further down use on their
+   top edge, turned into something type can carry. */
 @media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .stakes.is-revealed .stake { animation: stake-in .6s var(--ease) backwards; }
-  [data-anim="on"] .stakes.is-revealed .stake--up { animation-delay: .1s; }
-  [data-anim="on"] .stakes.is-revealed .stake--down { animation-delay: .26s; }
-
-  [data-anim="on"] .stakes.is-revealed .stake--up .stake-ico svg {
-    animation: ico-rise .7s var(--ease) .34s backwards;
+  [data-anim="on"] .answer .phrase { text-decoration-color: transparent; }
+  [data-anim="on"] .answer.is-revealed .phrase {
+    animation: phrase-in .55s var(--ease) forwards;
   }
-  [data-anim="on"] .stakes.is-revealed .stake--down .stake-ico svg {
-    animation: ico-fall .7s var(--ease) .5s backwards;
-  }
+  [data-anim="on"] .answer.is-revealed .phrase:nth-of-type(1) { animation-delay: .35s; }
+  [data-anim="on"] .answer.is-revealed p + p .phrase:nth-of-type(1) { animation-delay: .59s; }
+  [data-anim="on"] .answer.is-revealed p + p .phrase:nth-of-type(2) { animation-delay: .83s; }
+  [data-anim="on"] .answer.is-revealed p + p .phrase:nth-of-type(3) { animation-delay: 1.07s; }
 }
-@keyframes stake-in {
-  from { opacity: 0; transform: translateY(18px); }
-}
-@keyframes ico-rise {
-  from { opacity: 0; transform: translateY(9px); }
-}
-@keyframes ico-fall {
-  from { opacity: 0; transform: translateY(-9px); }
+@keyframes phrase-in {
+  to { text-decoration-color: var(--green); }
 }
 
-@media (max-width: 860px) {
-  .stakes { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-  .stake { flex-direction: column; gap: 16px; }
+@media (max-width: 620px) {
+  .answer p { max-width: none; }
 }
 
 /* --------------------------------------------------------------------------
