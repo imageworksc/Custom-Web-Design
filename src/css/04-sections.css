@@ -23,8 +23,7 @@
   box-shadow: var(--shadow-card);
 }
 .platform-half--wp { border-top-color: var(--green); }
-.platform-half h3 { font-size: var(--step-2); }
-.platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+.platform-half p { font-size: 15.5px; line-height: 1.65; color: var(--muted); }
 .platform-half p em { font-style: italic; }
 
 /* The marks are still the official Drupal and WordPress logos; only the
@@ -92,10 +91,10 @@
 
 .stat-num {
   position: relative;
-  font-size: clamp(42px, 5vw, 66px);
+  font-size: 44px;
   font-weight: 800;
-  line-height: .92;
-  letter-spacing: -.045em;
+  line-height: 1;
+  letter-spacing: -.034em;
   font-variant-numeric: tabular-nums;
   color: var(--heading);
   transition: transform .4s var(--ease), color .4s var(--ease);
@@ -104,9 +103,9 @@
 
 .stat-label {
   position: relative;
-  font-size: 14.5px;
+  font-size: var(--step--1);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--muted);
   max-width: 26ch;
   transition: color .4s var(--ease);
@@ -137,9 +136,9 @@
 }
 .plan--monthly { border-top-color: var(--green); }
 .plan-tag {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: .14em;
+  letter-spacing: .11em;
   text-transform: uppercase;
   padding: 5px 12px;
   border-radius: var(--r);
@@ -147,8 +146,8 @@
   color: var(--blue);
 }
 .plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
-.plan h3 { font-size: var(--step-2); }
-.plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+.plan h3 { font-size: 21px; line-height: 1.25; letter-spacing: -.019em; }
+.plan p { font-size: var(--step-1); line-height: 1.7; color: var(--muted); }
 
 /* --------------------------------------------------------------------------
    TESTIMONIALS
@@ -161,13 +160,6 @@
   padding-inline: var(--gutter);
 }
 .sec-head h2 { max-width: none; }
-.sec-head p {
-  margin-top: 14px;
-  font-size: clamp(17px, 1.4vw, 20px);
-  font-weight: 500;
-  color: var(--muted);
-}
-.sec-head strong { color: var(--green); font-weight: 800; }
 
 .marquee {
   width: 100%;
@@ -212,11 +204,11 @@
 /* line-height 1.25 rather than the body's 1.65: the home leaves this row at the
    browser default, and inheriting 1.65 made every card 13px taller */
 .testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; line-height: 1.25; }
-.testi-score b { font-size: 16px; font-weight: 800; color: var(--blue); }
+.testi-score b { font-size: var(--step--1); font-weight: 800; color: var(--blue); }
 /* the home sets these as text glyphs, not icons */
 .testi-stars { color: #ffa733; font-size: 15px; letter-spacing: 1px; }
-.testi blockquote { flex: 1; margin-bottom: 18px; font-size: 16px; line-height: 1.6; color: var(--nav-ink); }
-.testi figcaption { font-size: 16px; font-weight: 700; color: var(--blue); }
+.testi blockquote { flex: 1; margin-bottom: 18px; font-size: 15px; line-height: 1.65; color: var(--nav-ink); }
+.testi figcaption { font-size: var(--step--1); font-weight: 700; color: var(--blue); }
 
 /* --------------------------------------------------------------------------
    FAQ
@@ -334,7 +326,7 @@
 .final .sec-title {
   max-width: none;
   white-space: nowrap;
-  font-size: clamp(19px, 3.62vw, 44px);
+  font-size: clamp(19px, 3.1vw, 38px);
 }
 
 @media (max-width: 560px) {
@@ -442,9 +434,9 @@
   border-radius: var(--r);
   background: var(--green);
   color: #fff;
-  font-size: 9.5px;
+  font-size: 10.5px;
   font-style: normal;
-  letter-spacing: .1em;
+  letter-spacing: .08em;
 }
 .platform-note {
   width: 100%;
@@ -496,14 +488,14 @@
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: inset 0 0 0 1px var(--border);
 }
-.page-kind h3 { font-size: var(--step-2); }
+.page-kind h3 { font-size: var(--step-2); line-height: 1.25; letter-spacing: -.015em; }
 .page-kind p { font-size: 16px; line-height: 1.7; color: var(--muted); }
 
 /* The small uppercase label each card is headed with. */
 .compare-tag {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: .14em;
+  letter-spacing: .11em;
   text-transform: uppercase;
   padding: 5px 12px;
   border-radius: var(--r);
@@ -554,6 +546,7 @@
   top: 50%;
   transform: translateY(-50%);
   color: var(--green-ink);
+  font-size: 18px;
   font-weight: 800;
 }
 /* the last one is where the loop is going, so it is the one that is filled */

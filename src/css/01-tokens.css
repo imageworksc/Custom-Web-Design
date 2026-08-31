@@ -69,13 +69,22 @@
      for a fixed bar — raise it if the host site adds a sticky header. */
   --anchor-offset: 24px;
 
-  /* ---- type scale, anchored on the home's 46px h1 / 44px h2 ---- */
-  --step--1: clamp(12.5px, .18vw + 12px, 13.5px);
-  --step-0: clamp(15.5px, .25vw + 15px, 17px);
-  --step-1: clamp(16.5px, .4vw + 15.5px, 18px);
-  --step-2: clamp(19px, .9vw + 17px, 23px);
-  --step-3: clamp(28px, 2.6vw + 18px, 44px);
-  --step-4: clamp(34px, 3vw + 20px, 46px);
+  /* ---- type scale, taken from the copy deck ----
+     The deck sets flat pixel sizes and clamps only the two headings, so the
+     scale does the same: every step below is a size the deck names, and the
+     two clamps are its own, verbatim.
+       --step--1  13px    stat labels
+       --step-0   16px    body, and the deck's default
+       --step-1   17px    leads, FAQ questions
+       --step-2   20px    card headings
+       --step-3   h2
+       --step-4   h1                                                       */
+  --step--1: 13px;
+  --step-0: 16px;
+  --step-1: 17px;
+  --step-2: 20px;
+  --step-3: clamp(26px, 3vw, 38px);
+  --step-4: clamp(34px, 5vw, 56px);
 
   --ease: cubic-bezier(.16, .84, .44, 1);
 }

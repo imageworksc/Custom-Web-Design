@@ -69,13 +69,22 @@
      for a fixed bar — raise it if the host site adds a sticky header. */
   --anchor-offset: 24px;
 
-  /* ---- type scale, anchored on the home's 46px h1 / 44px h2 ---- */
-  --step--1: clamp(12.5px, .18vw + 12px, 13.5px);
-  --step-0: clamp(15.5px, .25vw + 15px, 17px);
-  --step-1: clamp(16.5px, .4vw + 15.5px, 18px);
-  --step-2: clamp(19px, .9vw + 17px, 23px);
-  --step-3: clamp(28px, 2.6vw + 18px, 44px);
-  --step-4: clamp(34px, 3vw + 20px, 46px);
+  /* ---- type scale, taken from the copy deck ----
+     The deck sets flat pixel sizes and clamps only the two headings, so the
+     scale does the same: every step below is a size the deck names, and the
+     two clamps are its own, verbatim.
+       --step--1  13px    stat labels
+       --step-0   16px    body, and the deck's default
+       --step-1   17px    leads, FAQ questions
+       --step-2   20px    card headings
+       --step-3   h2
+       --step-4   h1                                                       */
+  --step--1: 13px;
+  --step-0: 16px;
+  --step-1: 17px;
+  --step-2: 20px;
+  --step-3: clamp(26px, 3vw, 38px);
+  --step-4: clamp(34px, 5vw, 56px);
 
   --ease: cubic-bezier(.16, .84, .44, 1);
 }
@@ -110,8 +119,9 @@ h1, h2, h3, h4 {
   margin: 0;
   color: var(--navy);
   font-weight: 800;
+  /* the deck's h2 metrics: 1.15 and -0.6px, which at its 38px cap is -.016em */
   line-height: 1.15;
-  letter-spacing: -.018em;
+  letter-spacing: -.016em;
   text-wrap: balance;
 }
 
@@ -223,7 +233,6 @@ a { color: inherit; }
    -------------------------------------------------------------------------- */
 .sec-title {
   font-size: var(--step-3);
-  letter-spacing: -.018em;
   max-width: 21ch;
 }
 .sec-title--wide { max-width: 27ch; }
@@ -232,22 +241,23 @@ a { color: inherit; }
 
 .lead {
   font-size: var(--step-1);
-  line-height: 1.7;
+  line-height: 1.75;
   max-width: var(--measure);
   color: var(--muted);
 }
 .lead strong { color: var(--navy); font-weight: 700; }
 .lead em { font-style: italic; }
 
-.band--cta .lead { color: rgba(226, 238, 252, .82); }
+.band--cta .lead { font-size: 18px; color: rgba(226, 238, 252, .82); }
 .band--cta .lead strong { color: #fff; }
 
 .note {
-  font-size: var(--step-1);
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--navy);
   max-width: var(--measure);
 }
+
 /* --------------------------------------------------------------------------
    BUTTONS AND LINKS
    -------------------------------------------------------------------------- */
@@ -261,7 +271,7 @@ a { color: inherit; }
   border-radius: var(--r);
   border: 1.5px solid transparent;
   font: inherit;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
@@ -280,11 +290,11 @@ a { color: inherit; }
 }
 .btn--solid:hover { filter: brightness(1.04); }
 
-/* The closing band's primary button matches the home's #cta button. */
+/* The closing band's primary button is the same type at more width — the deck
+   sets every button at one size. */
 .band--cta .btn--solid {
   height: 58px;
   padding-inline: 36px;
-  font-size: 17px;
   box-shadow: 0 1px 2px rgba(20, 40, 80, .14);
 }
 
@@ -417,11 +427,17 @@ a { color: inherit; }
   50%      { background-position: -24% 0; }
 }
 
-/* One column now that the credentials pane is gone. The washes carry the
-   right-hand side, so the band does not read as half empty. */
+/* Copy on the left, the kit beside it — the deck's own hero proportions. */
 .hero-inner {
   position: relative;
   text-align: left;
+}
+.cw-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: clamp(36px, 4.6vw, 60px);
+  align-items: center;
+  width: 100%;
 }
 .hero-main {
   display: flex;
@@ -430,24 +446,23 @@ a { color: inherit; }
   gap: 24px;
 }
 
+/* The deck's own h1: clamp(34px, 5vw, 56px) at 1.08 and -1.2px, which at the
+   56px cap is -.021em. The floor is the deck's 34px rather than the 9vw the
+   headline used to fall to on a narrow phone, so below about 400px it now
+   runs to four lines instead of three. */
 .hero h1 {
-  /* The floor scales below 400px instead of sitting flat at 36px. Pinned
-     there, "Custom Web Design" no longer fitted the measure on a 320-360px
-     phone and the headline broke to four and five lines. min() leaves every
-     width from 400px up exactly as it was — 9vw only undercuts 36px below
-     that — and the largest size that still holds three lines measured 29.5px
-     at 320 and 33.5px at 360, so 9vw (28.8 and 32.4) clears both. */
-  font-size: clamp(min(9vw, 36px), 4.2vw + 8px, 64px);
+  font-size: var(--step-4);
   line-height: 1.08;
-  letter-spacing: -.035em;
+  letter-spacing: -.021em;
   /* a ragged left column reads faster than a wide centred block */
   max-width: 16ch;
   text-wrap: balance;
 }
 .hero h1 .accent { color: var(--green-ink); }
 
+/* the deck's hero paragraph: 19px at 1.65, a step above the body */
 .hero-sub {
-  font-size: clamp(16.5px, .55vw + 15px, 18.5px);
+  font-size: 19px;
   line-height: 1.65;
   font-weight: 500;
   max-width: 52ch;
@@ -463,10 +478,14 @@ a { color: inherit; }
 @media (prefers-reduced-motion: no-preference) {
   [data-hero-anim="on"] .hero h1,
   [data-hero-anim="on"] .hero-sub,
-  [data-hero-anim="on"] .hero .btn-row { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero .btn-row,
+  [data-hero-anim="on"] .kit { animation: hero-in .8s var(--ease) backwards; }
   [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
   [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
   [data-hero-anim="on"] .hero .btn-row { animation-delay: .54s; }
+  /* the kit comes in with the headline, not after the call — it is the other
+     half of the fold, not a footnote to it */
+  [data-hero-anim="on"] .kit { animation-delay: .18s; }
 
   /* inline-block only where the phrase can't be pushed off the measure */
   @media (min-width: 640px) {
@@ -479,6 +498,278 @@ a { color: inherit; }
 
 @keyframes hero-in {
   from { opacity: 0; transform: translateY(14px); }
+}
+
+/* --------------------------------------------------------------------------
+   THE KIT — what a custom build hands over
+   Five tiles on the deck's two-column grid: the structure on the left, tall,
+   because it is what comes first and takes the longest; then the typeface, the
+   components, the palette, and the line naming who made it. Each tile lifts
+   and takes the green rule under the cursor, and each has one small thing of
+   its own to do underneath, on its own clock.
+   -------------------------------------------------------------------------- */
+.kit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 460px;
+  margin-inline: auto;
+}
+
+/* ---- the shared tile ---- */
+.kit-t {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 16px;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 12px 28px rgba(20, 40, 80, .10);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.kit-t::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  z-index: 3;
+  block-size: 3px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.kit-t:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .08), 0 20px 40px rgba(20, 40, 80, .16);
+}
+.kit-t:hover::before { transform: scaleX(1); }
+
+.kit-label {
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--faint);
+  transition: color .35s var(--ease);
+}
+.kit-t:hover .kit-label { color: var(--navy); }
+
+/* ---- 1 · the structure, drawn on the grid it was planned on ---- */
+.kit-plan {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  min-block-size: 210px;
+  /* the ruling goes first: in background-image the earlier layer paints on
+     top, and behind the card gradient it was invisible */
+  background-image:
+    linear-gradient(to right, rgba(20, 60, 102, .055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 60, 102, .055) 1px, transparent 1px),
+    linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  background-size: 20px 20px, 20px 20px, 100% 100%;
+}
+/* A wireframe, not a screenshot: at this stage the page is still a plan. The
+   blocks land in reading order, top to bottom, the way the structure is
+   settled before anything is designed. */
+.kit-plan__wire {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: center;
+  gap: 6px;
+  margin-block: 12px 10px;
+}
+.kit-plan__wire i {
+  display: block;
+  border-radius: 1px;
+  background: var(--chip-blue);
+  animation: kitDraw 14s var(--ease) infinite;
+}
+.k-nav  { grid-column: 1 / -1; block-size: 8px; background: var(--navy); --at: .32; }
+.k-hero { grid-column: 1 / -1; block-size: 40px; --at: .62; animation-delay: -13.1s; }
+.k-c    { block-size: 26px; --at: .44; }
+.k-c:nth-of-type(3) { animation-delay: -12.5s; }
+.k-c:nth-of-type(4) { animation-delay: -12.2s; }
+.k-c:nth-of-type(5) { animation-delay: -11.9s; }
+.k-line { grid-column: 1 / -1; block-size: 4px; --at: .34; animation-delay: -11.4s; }
+.k-line--short { inline-size: 58%; animation-delay: -11.1s; }
+/* pointing at the tile stops the run and brings the head up to full strength */
+.kit-plan:hover .kit-plan__wire i { animation-play-state: paused; }
+.kit-plan:hover .k-hero { opacity: .9; }
+.kit-plan__note {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--faint);
+  transition: color .35s var(--ease);
+}
+.kit-plan:hover .kit-plan__note { color: var(--green-ink); }
+
+/* ---- 2 · the specimen ---- */
+.kit-type { grid-column: 2; grid-row: 1; }
+.kit-type__aa {
+  display: block;
+  margin-top: 2px;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -.05em;
+  color: var(--navy);
+  animation: kitWeight 23s ease-in-out -7s infinite;
+  transform-origin: left center;
+  transition: transform .4s var(--ease);
+}
+.kit-type:hover .kit-type__aa { animation-play-state: paused; transform: scale(1.06); }
+.kit-type__name { font-size: 10px; font-weight: 700; color: var(--ink); }
+
+/* ---- 3 · the components the styles get applied to ---- */
+.kit-parts { grid-column: 2; grid-row: 2; }
+.kit-parts__set {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 11px;
+}
+.kit-parts__set li {
+  position: relative;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  border-radius: 1px;
+  transition: transform .3s var(--ease);
+}
+.k-btn { padding: 7px 11px; background: var(--green); color: #fff; }
+.k-tag {
+  padding: 6px 9px;
+  background: var(--tint-blue);
+  color: var(--blue);
+  text-transform: uppercase;
+}
+/* the field is the one with nothing written in it yet */
+.k-field {
+  flex: 1;
+  block-size: 24px;
+  box-shadow: inset 0 0 0 1.5px var(--border);
+}
+.kit-parts__set li::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1.5px rgba(128, 195, 74, .65);
+  opacity: 0;
+  animation: kitRing 13.5s var(--ease) .5s infinite;
+}
+.k-tag::after { animation-delay: -8.5s; }
+.k-field::after { animation-delay: -4s; }
+/* pointing at one takes the turn off the cycle and gives it to that one */
+.kit-parts__set:hover li::after { animation: none; }
+.kit-parts__set li:hover { transform: translateY(-2px); }
+
+/* ---- 4 · the palette ---- */
+.kit-pal { grid-column: 1; grid-row: 3; padding-bottom: 16px; }
+.kit-pal__set { display: flex; gap: 6px; margin-top: 10px; }
+.kit-pal__set li {
+  flex: 1;
+  block-size: 40px;
+  border-radius: var(--r);
+  box-shadow: inset 0 0 0 1px rgba(20, 40, 80, .07);
+  transition: flex-grow .45s var(--ease);
+  animation: kitChip 17s ease-in-out infinite;
+}
+.k-sw-n { background: var(--navy); }
+.k-sw-b { background: var(--blue); animation-delay: -12.75s; }
+.k-sw-g { background: var(--green); animation-delay: -8.5s; }
+.k-sw-l { background: var(--tint-blue); animation-delay: -4.25s; }
+.kit-pal__set li:hover { flex-grow: 2.2; }
+
+/* ---- 5 · who made it — the split the copy argues for ---- */
+.kit-made { grid-column: 2; grid-row: 3; display: flex; flex-direction: column; }
+.kit-made__edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  inline-size: 4px;
+  background: var(--green);
+}
+.kit-made__word { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+.kit-made__word b {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -.025em;
+  line-height: 1;
+  color: var(--navy);
+}
+.kit-made__word span {
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--green-ink);
+}
+/* The proportion, not a decoration: most of the bar is the team's and the tail
+   is the part AI does, which is the sentence the hero opens with. */
+.kit-made__bar {
+  display: block;
+  block-size: 5px;
+  inline-size: 62%;
+  margin-top: 12px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--navy);
+  transition: inline-size .45s var(--ease);
+}
+.kit-made__bar i {
+  display: block;
+  margin-left: auto;
+  inline-size: 32%;
+  block-size: 100%;
+  background: var(--green);
+}
+.kit-made:hover .kit-made__bar { inline-size: 100%; }
+
+/* Four clocks — 14, 23, 13.5 and 17 seconds — so the tiles never come back
+   round together, each opening part-way in so the kit is already moving when
+   the page arrives. Each block keeps its own resting opacity in --at, or the
+   wireframe would flatten to one tone every time the run came round. */
+@keyframes kitDraw {
+  0%       { opacity: 0; transform: translateY(3px); }
+  8%, 100% { opacity: var(--at); transform: translateY(0); }
+}
+/* Plus Jakarta Sans is one variable face, so the specimen runs its own axis. */
+@keyframes kitWeight {
+  0%, 7%    { font-weight: 300; }
+  43%, 57%  { font-weight: 800; }
+  93%, 100% { font-weight: 300; }
+}
+@keyframes kitRing {
+  0%        { opacity: 0; transform: scale(.94); }
+  4%, 14%   { opacity: 1; transform: scale(1); }
+  28%, 100% { opacity: 0; transform: scale(1.1); }
+}
+@keyframes kitChip {
+  0%, 5%    { filter: brightness(1.16); }
+  18%, 100% { filter: brightness(1); }
+}
+
+/* The tints, the rings and the widths all still read without the travel. */
+@media (prefers-reduced-motion: reduce) {
+  .kit-plan__wire i,
+  .kit-type__aa,
+  .kit-parts__set li::after,
+  .kit-pal__set li { animation: none; }
+  .kit-plan__wire i { opacity: var(--at); }
+  .kit-t,
+  .kit-parts__set li { transition: none; }
+  .kit-t:hover { transform: none; }
+  .kit-parts__set li:hover { transform: none; }
+}
+
+@media (max-width: 900px) {
+  .cw-hero { grid-template-columns: 1fr; }
+  .kit { max-width: 400px; margin-inline: 0; }
 }
 
 /* --------------------------------------------------------------------------
@@ -506,8 +797,7 @@ a { color: inherit; }
   box-shadow: var(--shadow-card);
 }
 .platform-half--wp { border-top-color: var(--green); }
-.platform-half h3 { font-size: var(--step-2); }
-.platform-half p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+.platform-half p { font-size: 15.5px; line-height: 1.65; color: var(--muted); }
 .platform-half p em { font-style: italic; }
 
 /* The marks are still the official Drupal and WordPress logos; only the
@@ -575,10 +865,10 @@ a { color: inherit; }
 
 .stat-num {
   position: relative;
-  font-size: clamp(42px, 5vw, 66px);
+  font-size: 44px;
   font-weight: 800;
-  line-height: .92;
-  letter-spacing: -.045em;
+  line-height: 1;
+  letter-spacing: -.034em;
   font-variant-numeric: tabular-nums;
   color: var(--heading);
   transition: transform .4s var(--ease), color .4s var(--ease);
@@ -587,9 +877,9 @@ a { color: inherit; }
 
 .stat-label {
   position: relative;
-  font-size: 14.5px;
+  font-size: var(--step--1);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--muted);
   max-width: 26ch;
   transition: color .4s var(--ease);
@@ -620,9 +910,9 @@ a { color: inherit; }
 }
 .plan--monthly { border-top-color: var(--green); }
 .plan-tag {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: .14em;
+  letter-spacing: .11em;
   text-transform: uppercase;
   padding: 5px 12px;
   border-radius: var(--r);
@@ -630,8 +920,8 @@ a { color: inherit; }
   color: var(--blue);
 }
 .plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
-.plan h3 { font-size: var(--step-2); }
-.plan p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+.plan h3 { font-size: 21px; line-height: 1.25; letter-spacing: -.019em; }
+.plan p { font-size: var(--step-1); line-height: 1.7; color: var(--muted); }
 
 /* --------------------------------------------------------------------------
    TESTIMONIALS
@@ -644,13 +934,6 @@ a { color: inherit; }
   padding-inline: var(--gutter);
 }
 .sec-head h2 { max-width: none; }
-.sec-head p {
-  margin-top: 14px;
-  font-size: clamp(17px, 1.4vw, 20px);
-  font-weight: 500;
-  color: var(--muted);
-}
-.sec-head strong { color: var(--green); font-weight: 800; }
 
 .marquee {
   width: 100%;
@@ -695,11 +978,11 @@ a { color: inherit; }
 /* line-height 1.25 rather than the body's 1.65: the home leaves this row at the
    browser default, and inheriting 1.65 made every card 13px taller */
 .testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; line-height: 1.25; }
-.testi-score b { font-size: 16px; font-weight: 800; color: var(--blue); }
+.testi-score b { font-size: var(--step--1); font-weight: 800; color: var(--blue); }
 /* the home sets these as text glyphs, not icons */
 .testi-stars { color: #ffa733; font-size: 15px; letter-spacing: 1px; }
-.testi blockquote { flex: 1; margin-bottom: 18px; font-size: 16px; line-height: 1.6; color: var(--nav-ink); }
-.testi figcaption { font-size: 16px; font-weight: 700; color: var(--blue); }
+.testi blockquote { flex: 1; margin-bottom: 18px; font-size: 15px; line-height: 1.65; color: var(--nav-ink); }
+.testi figcaption { font-size: var(--step--1); font-weight: 700; color: var(--blue); }
 
 /* --------------------------------------------------------------------------
    FAQ
@@ -817,7 +1100,7 @@ a { color: inherit; }
 .final .sec-title {
   max-width: none;
   white-space: nowrap;
-  font-size: clamp(19px, 3.62vw, 44px);
+  font-size: clamp(19px, 3.1vw, 38px);
 }
 
 @media (max-width: 560px) {
@@ -925,9 +1208,9 @@ a { color: inherit; }
   border-radius: var(--r);
   background: var(--green);
   color: #fff;
-  font-size: 9.5px;
+  font-size: 10.5px;
   font-style: normal;
-  letter-spacing: .1em;
+  letter-spacing: .08em;
 }
 .platform-note {
   width: 100%;
@@ -979,14 +1262,14 @@ a { color: inherit; }
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: inset 0 0 0 1px var(--border);
 }
-.page-kind h3 { font-size: var(--step-2); }
+.page-kind h3 { font-size: var(--step-2); line-height: 1.25; letter-spacing: -.015em; }
 .page-kind p { font-size: 16px; line-height: 1.7; color: var(--muted); }
 
 /* The small uppercase label each card is headed with. */
 .compare-tag {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: .14em;
+  letter-spacing: .11em;
   text-transform: uppercase;
   padding: 5px 12px;
   border-radius: var(--r);
@@ -1037,6 +1320,7 @@ a { color: inherit; }
   top: 50%;
   transform: translateY(-50%);
   color: var(--green-ink);
+  font-size: 18px;
   font-weight: 800;
 }
 /* the last one is where the loop is going, so it is the one that is filled */

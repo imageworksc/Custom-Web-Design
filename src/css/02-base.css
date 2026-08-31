@@ -28,8 +28,9 @@ h1, h2, h3, h4 {
   margin: 0;
   color: var(--navy);
   font-weight: 800;
+  /* the deck's h2 metrics: 1.15 and -0.6px, which at its 38px cap is -.016em */
   line-height: 1.15;
-  letter-spacing: -.018em;
+  letter-spacing: -.016em;
   text-wrap: balance;
 }
 
@@ -141,7 +142,6 @@ a { color: inherit; }
    -------------------------------------------------------------------------- */
 .sec-title {
   font-size: var(--step-3);
-  letter-spacing: -.018em;
   max-width: 21ch;
 }
 .sec-title--wide { max-width: 27ch; }
@@ -150,22 +150,23 @@ a { color: inherit; }
 
 .lead {
   font-size: var(--step-1);
-  line-height: 1.7;
+  line-height: 1.75;
   max-width: var(--measure);
   color: var(--muted);
 }
 .lead strong { color: var(--navy); font-weight: 700; }
 .lead em { font-style: italic; }
 
-.band--cta .lead { color: rgba(226, 238, 252, .82); }
+.band--cta .lead { font-size: 18px; color: rgba(226, 238, 252, .82); }
 .band--cta .lead strong { color: #fff; }
 
 .note {
-  font-size: var(--step-1);
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--navy);
   max-width: var(--measure);
 }
+
 /* --------------------------------------------------------------------------
    BUTTONS AND LINKS
    -------------------------------------------------------------------------- */
@@ -179,7 +180,7 @@ a { color: inherit; }
   border-radius: var(--r);
   border: 1.5px solid transparent;
   font: inherit;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
@@ -198,11 +199,11 @@ a { color: inherit; }
 }
 .btn--solid:hover { filter: brightness(1.04); }
 
-/* The closing band's primary button matches the home's #cta button. */
+/* The closing band's primary button is the same type at more width — the deck
+   sets every button at one size. */
 .band--cta .btn--solid {
   height: 58px;
   padding-inline: 36px;
-  font-size: 17px;
   box-shadow: 0 1px 2px rgba(20, 40, 80, .14);
 }
 
