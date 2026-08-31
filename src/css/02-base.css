@@ -116,7 +116,6 @@ a { color: inherit; }
     #113659 65%, #0d2748 83%, #0a1c38 100%);
 
   --heading: #ffffff;
-  --text: rgba(226, 238, 252, .82);
   --muted: rgba(226, 238, 252, .70);
   --border: rgba(255, 255, 255, .16);
   --navy: #ffffff;
@@ -216,6 +215,22 @@ a { color: inherit; }
 }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* On a 320px screen the gutters leave 276px and "Let's Build Something
+   Amazing" needs about 288 on one line, so nowrap made the button — and with
+   it the whole hero column — 21px wider than the viewport. It was invisible:
+   body clips its overflow, so scrollWidth stayed honest while the right of the
+   hero was quietly cut off. Below 380px the label is allowed to wrap and the
+   fixed height becomes a floor. */
+@media (max-width: 380px) {
+  .btn {
+    white-space: normal;
+    height: auto;
+    min-height: 54px;
+    padding-block: 15px;
+    text-align: center;
+  }
+}
 
 .icon { flex: none; }
 

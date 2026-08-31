@@ -18,9 +18,7 @@
 
   /* ---- brand, taken verbatim from the home stylesheet ---- */
   --navy: #143c66;
-  --navy-deep: #0a2c4d;
   --blue: #1266b5;
-  --blue-bright: #1e6bb0;
   --green: #80c34a;
   --green-ink: #5c9a2e;          /* the home's green for text and links */
   --ink: #1f2b3e;                /* body copy */
@@ -37,14 +35,11 @@
   --border: #e3eaf3;
   --border-soft: #eef2f7;
   --chip-blue: #c1daff;
-  --chip-green: #eaf6dd;
   --chip-navy: rgba(24, 73, 125, .14);
   --tint-green: #eef6e6;
   --tint-blue: #e5edf7;
-  --danger-soft: #fbe9e9;
-  --danger-ink: #b23b3b;
-  /* Neutral pair for the shortcut column: 5.3:1, so the 10px uppercase tag
-     still clears AA. */
+  /* Neutral pair for the Standard Pages tag: 5.3:1, so the 12px uppercase
+     label still clears AA. */
   --grey-soft: #e8edf4;
   --grey-ink: #4f5f77;
 
@@ -55,7 +50,6 @@
   --r: 2px;
 
   --shadow-card: 0 1px 3px rgba(20, 40, 80, .08), 0 14px 34px rgba(20, 40, 80, .1);
-  --shadow-flat: 0 1px 3px rgba(20, 40, 80, .07);
   --shadow-lift: 0 4px 12px rgba(20, 40, 80, .18);
   --ring: 0 0 0 3px rgba(128, 195, 74, .5), 0 0 0 1px rgba(20, 60, 102, .55);
 
@@ -75,16 +69,16 @@
      two clamps are its own, verbatim.
        --step--1  13px    stat labels
        --step-0   16px    body, and the deck's default
-       --step-1   17px    leads, FAQ questions
-       --step-2   20px    card headings
+       --step-1   17px    leads, FAQ questions, list terms
        --step-3   h2
-       --step-4   h1                                                       */
+   The scale skips a step: 2 and 4 were the deck's card and hero sizes, and
+   nothing reaches for either any more — the cards that used 20px are the
+   branding split's terms now, and the headline carries the branding page's own
+   clamp, written where the comment explaining it is. */
   --step--1: 13px;
   --step-0: 16px;
   --step-1: 17px;
-  --step-2: 20px;
   --step-3: clamp(26px, 3vw, 38px);
-  --step-4: clamp(34px, 5vw, 56px);
 
   --ease: cubic-bezier(.16, .84, .44, 1);
 }
@@ -207,7 +201,6 @@ a { color: inherit; }
     #113659 65%, #0d2748 83%, #0a1c38 100%);
 
   --heading: #ffffff;
-  --text: rgba(226, 238, 252, .82);
   --muted: rgba(226, 238, 252, .70);
   --border: rgba(255, 255, 255, .16);
   --navy: #ffffff;
@@ -308,6 +301,22 @@ a { color: inherit; }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
 
+/* On a 320px screen the gutters leave 276px and "Let's Build Something
+   Amazing" needs about 288 on one line, so nowrap made the button — and with
+   it the whole hero column — 21px wider than the viewport. It was invisible:
+   body clips its overflow, so scrollWidth stayed honest while the right of the
+   hero was quietly cut off. Below 380px the label is allowed to wrap and the
+   fixed height becomes a floor. */
+@media (max-width: 380px) {
+  .btn {
+    white-space: normal;
+    height: auto;
+    min-height: 54px;
+    padding-block: 15px;
+    text-align: center;
+  }
+}
+
 .icon { flex: none; }
 
 
@@ -361,29 +370,37 @@ a { color: inherit; }
   left: 50%;
   will-change: transform;
 }
+/* The three sizes and offsets are the ones the source hero sets, and they hold
+   exactly as written up to 1900px. Past that they are allowed to open out with
+   the viewport: at 5120 the fixed boxes covered barely a third of the band and
+   the hero read as a coloured rectangle pasted into a white field. Each vw
+   value is the px value at 1900px, so below that width max() and min() both
+   return the original number and nothing moves — measured, not assumed. The
+   vertical geometry is untouched; only the spread changes. */
+
 /* green: opens top-left over the headline and runs down to the right */
 .hero-wash__g {
-  inline-size: 1015px;
+  inline-size: max(1015px, 53.4vw);
   block-size: 830px;
-  margin-left: -987px;
+  margin-left: min(-987px, -51.9vw);
   top: -315px;
   background: radial-gradient(closest-side ellipse at center, rgba(128, 195, 74, .24), rgba(128, 195, 74, 0) 100%);
   animation: washG 71s linear infinite;
 }
 /* brand blue: opens top-right and runs the other way */
 .hero-wash__b {
-  inline-size: 1090px;
+  inline-size: max(1090px, 57.4vw);
   block-size: 910px;
-  margin-left: -75px;
+  margin-left: min(-75px, -3.9vw);
   top: -295px;
   background: radial-gradient(closest-side ellipse at center, rgba(18, 102, 181, .21), rgba(18, 102, 181, 0) 100%);
   animation: washB 97s linear infinite;
 }
 /* sky: the low one, parked under the call. Slowest and widest. */
 .hero-wash__s {
-  inline-size: 1170px;
+  inline-size: max(1170px, 61.6vw);
   block-size: 860px;
-  margin-left: -545px;
+  margin-left: min(-545px, -28.7vw);
   top: 200px;
   background: radial-gradient(closest-side ellipse at center, rgba(46, 140, 214, .21), rgba(46, 140, 214, 0) 100%);
   animation: washS 127s linear infinite;
@@ -776,7 +793,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 900px) {
-  .cw-hero { grid-template-columns: 1fr; }
+  .cw-hero { grid-template-columns: minmax(0, 1fr); }
   .kit { max-width: 400px; margin-inline: 0; }
 }
 
@@ -967,8 +984,6 @@ a { color: inherit; }
   transform: translateY(-5px);
   box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
 }
-.plan-tag { transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
-.plan:hover .plan-tag { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(20, 40, 80, .12); }
 .plan-tag {
   font-size: 12px;
   font-weight: 800;
@@ -978,7 +993,9 @@ a { color: inherit; }
   border-radius: var(--r);
   background: var(--tint-blue);
   color: var(--blue);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
 }
+.plan:hover .plan-tag { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(20, 40, 80, .12); }
 .plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
 .plan h3 { font-size: 21px; line-height: 1.25; letter-spacing: -.019em; }
 .plan p { font-size: var(--step-1); line-height: 1.7; color: var(--muted); }
@@ -1278,8 +1295,8 @@ a { color: inherit; }
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
-  .platform-split { grid-template-columns: 1fr; }
-  .plans { grid-template-columns: 1fr; }
+  .platform-split { grid-template-columns: minmax(0, 1fr); }
+  .plans { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 767px) {
@@ -1288,7 +1305,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 640px) {
-  .stats { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: minmax(0, 1fr); }
   .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
   .stat:first-child { border-top: 0; }
   .btn-row { width: 100%; }
@@ -1382,7 +1399,7 @@ a { color: inherit; }
 .platform-note strong { font-weight: 700; }
 
 @media (max-width: 1024px) {
-  .platform-split--three { grid-template-columns: 1fr; }
+  .platform-split--three { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* --- the callout on the deep band --------------------------------------- */
@@ -1517,7 +1534,7 @@ a { color: inherit; }
 
 @media (max-width: 900px) {
   /* the aside has nothing to stay beside once the list drops below it */
-  .cms-split { grid-template-columns: 1fr; }
+  .cms-split { grid-template-columns: minmax(0, 1fr); }
   .cms-aside { position: static; }
 }
 @media (max-width: 520px) {
@@ -1706,7 +1723,7 @@ a { color: inherit; }
 /* Stacked, the rule would run down the middle of the band, so the source's
    own answer applies: it moves to the top of the list. */
 @media (max-width: 900px) {
-  .evolve-split { grid-template-columns: 1fr; align-items: start; }
+  .evolve-split { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .cycle {
     grid-template-columns: 1fr 1fr;
     column-gap: 10px;
@@ -1718,5 +1735,5 @@ a { color: inherit; }
   }
 }
 @media (max-width: 520px) {
-  .cycle { grid-template-columns: 1fr; }
+  .cycle { grid-template-columns: minmax(0, 1fr); }
 }

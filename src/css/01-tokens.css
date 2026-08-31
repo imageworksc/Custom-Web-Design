@@ -18,9 +18,7 @@
 
   /* ---- brand, taken verbatim from the home stylesheet ---- */
   --navy: #143c66;
-  --navy-deep: #0a2c4d;
   --blue: #1266b5;
-  --blue-bright: #1e6bb0;
   --green: #80c34a;
   --green-ink: #5c9a2e;          /* the home's green for text and links */
   --ink: #1f2b3e;                /* body copy */
@@ -37,14 +35,11 @@
   --border: #e3eaf3;
   --border-soft: #eef2f7;
   --chip-blue: #c1daff;
-  --chip-green: #eaf6dd;
   --chip-navy: rgba(24, 73, 125, .14);
   --tint-green: #eef6e6;
   --tint-blue: #e5edf7;
-  --danger-soft: #fbe9e9;
-  --danger-ink: #b23b3b;
-  /* Neutral pair for the shortcut column: 5.3:1, so the 10px uppercase tag
-     still clears AA. */
+  /* Neutral pair for the Standard Pages tag: 5.3:1, so the 12px uppercase
+     label still clears AA. */
   --grey-soft: #e8edf4;
   --grey-ink: #4f5f77;
 
@@ -55,7 +50,6 @@
   --r: 2px;
 
   --shadow-card: 0 1px 3px rgba(20, 40, 80, .08), 0 14px 34px rgba(20, 40, 80, .1);
-  --shadow-flat: 0 1px 3px rgba(20, 40, 80, .07);
   --shadow-lift: 0 4px 12px rgba(20, 40, 80, .18);
   --ring: 0 0 0 3px rgba(128, 195, 74, .5), 0 0 0 1px rgba(20, 60, 102, .55);
 
@@ -75,16 +69,16 @@
      two clamps are its own, verbatim.
        --step--1  13px    stat labels
        --step-0   16px    body, and the deck's default
-       --step-1   17px    leads, FAQ questions
-       --step-2   20px    card headings
+       --step-1   17px    leads, FAQ questions, list terms
        --step-3   h2
-       --step-4   h1                                                       */
+   The scale skips a step: 2 and 4 were the deck's card and hero sizes, and
+   nothing reaches for either any more — the cards that used 20px are the
+   branding split's terms now, and the headline carries the branding page's own
+   clamp, written where the comment explaining it is. */
   --step--1: 13px;
   --step-0: 16px;
   --step-1: 17px;
-  --step-2: 20px;
   --step-3: clamp(26px, 3vw, 38px);
-  --step-4: clamp(34px, 5vw, 56px);
 
   --ease: cubic-bezier(.16, .84, .44, 1);
 }

@@ -48,29 +48,37 @@
   left: 50%;
   will-change: transform;
 }
+/* The three sizes and offsets are the ones the source hero sets, and they hold
+   exactly as written up to 1900px. Past that they are allowed to open out with
+   the viewport: at 5120 the fixed boxes covered barely a third of the band and
+   the hero read as a coloured rectangle pasted into a white field. Each vw
+   value is the px value at 1900px, so below that width max() and min() both
+   return the original number and nothing moves — measured, not assumed. The
+   vertical geometry is untouched; only the spread changes. */
+
 /* green: opens top-left over the headline and runs down to the right */
 .hero-wash__g {
-  inline-size: 1015px;
+  inline-size: max(1015px, 53.4vw);
   block-size: 830px;
-  margin-left: -987px;
+  margin-left: min(-987px, -51.9vw);
   top: -315px;
   background: radial-gradient(closest-side ellipse at center, rgba(128, 195, 74, .24), rgba(128, 195, 74, 0) 100%);
   animation: washG 71s linear infinite;
 }
 /* brand blue: opens top-right and runs the other way */
 .hero-wash__b {
-  inline-size: 1090px;
+  inline-size: max(1090px, 57.4vw);
   block-size: 910px;
-  margin-left: -75px;
+  margin-left: min(-75px, -3.9vw);
   top: -295px;
   background: radial-gradient(closest-side ellipse at center, rgba(18, 102, 181, .21), rgba(18, 102, 181, 0) 100%);
   animation: washB 97s linear infinite;
 }
 /* sky: the low one, parked under the call. Slowest and widest. */
 .hero-wash__s {
-  inline-size: 1170px;
+  inline-size: max(1170px, 61.6vw);
   block-size: 860px;
-  margin-left: -545px;
+  margin-left: min(-545px, -28.7vw);
   top: 200px;
   background: radial-gradient(closest-side ellipse at center, rgba(46, 140, 214, .21), rgba(46, 140, 214, 0) 100%);
   animation: washS 127s linear infinite;
@@ -463,6 +471,6 @@
 }
 
 @media (max-width: 900px) {
-  .cw-hero { grid-template-columns: 1fr; }
+  .cw-hero { grid-template-columns: minmax(0, 1fr); }
   .kit { max-width: 400px; margin-inline: 0; }
 }
