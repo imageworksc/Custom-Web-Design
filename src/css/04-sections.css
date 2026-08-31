@@ -758,7 +758,9 @@
   padding: 32px 26px;
   border: 2px solid var(--green);
   border-radius: 10px;
-  background: var(--white);
+  /* Transparent rather than the band's colour written out again: the card then
+     takes whatever ground it is put on, and the two cannot drift apart. */
+  background: transparent;
 }
 .answer p {
   font-size: 18px;
@@ -809,75 +811,57 @@
 }
 /* --------------------------------------------------------------------------
    THE CYCLE — Launch Is Version One, Not the Finish Line
-   Six marked tiles. The order is carried by the numbers and by the sequence
-   they arrive in rather than by a line drawn between them; that the work goes
-   on is carried by the ring that opens off each mark in turn, on a slow clock
-   that never stops, and by the last tile, which is the one that is filled.
+   Not cards. One ruled row, the construction the credibility figures already
+   use on this page: a hairline above and below, the six steps divided by
+   hairlines between them, and nothing boxed. The marks sit straight on the
+   band.
+
+   Order is carried by the numbers. That the work does not stop is carried by a
+   green rule that lights along the foot of one step at a time, round and round
+   on a 15s clock, and by Improve, whose mark is already green because that is
+   where the run turns back on itself.
    -------------------------------------------------------------------------- */
 .cycle {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 14px;
   width: 100%;
-  margin-top: 14px;
+  margin-top: 20px;
+  border-block: 1px solid var(--border);
 }
 .cycle-step {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
-  padding: 24px 20px 22px;
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: inset 0 0 0 1px var(--border), 0 1px 3px rgba(20, 40, 80, .05);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  gap: 15px;
+  padding: clamp(28px, 3vw, 38px) clamp(16px, 1.8vw, 26px);
+  border-left: 1px solid var(--border);
 }
-/* the same rule the deploy lanes and the two stages carry, so the page has one
-   way of marking the head of a card and not three */
-.cycle-step::before {
+/* the first column lines up with the type above it rather than sitting in from
+   the margin by a padding it does not need */
+.cycle-step:first-child { border-left: 0; padding-left: 0; }
+
+/* The rule that travels: it lights along the foot of each step in turn. */
+.cycle-step::after {
   content: '';
   position: absolute;
-  top: 0;
-  inset-inline: 0;
-  block-size: 3px;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  block-size: 2px;
   background: var(--green);
+  transform: scaleX(0);
   transform-origin: left;
+  transition: transform .45s var(--ease);
 }
-.cycle-step:hover {
-  transform: translateY(-5px);
-  box-shadow: inset 0 0 0 1px var(--border), 0 1px 3px rgba(20, 40, 80, .06),
-              0 20px 40px rgba(20, 40, 80, .13);
-}
+.cycle-step:hover::after { transform: scaleX(1); }
 
 .cycle-ico {
-  position: relative;
-  display: grid;
-  place-items: center;
-  inline-size: 46px;
-  block-size: 46px;
-  border-radius: 50%;
-  background: var(--tint-blue);
   color: var(--blue);
-  transition: background-color .4s var(--ease), color .4s var(--ease),
-              transform .4s var(--ease), box-shadow .4s var(--ease);
+  transition: color .4s var(--ease), transform .4s var(--ease);
 }
-.cycle-ico svg { inline-size: 24px; block-size: 24px; }
-/* the ring that opens off each mark in turn */
-.cycle-ico::after {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(128, 195, 74, .6);
-  opacity: 0;
-}
-.cycle-step:hover .cycle-ico {
-  transform: scale(1.07);
-  background: var(--green);
-  color: #14300a;
-  box-shadow: 0 8px 20px rgba(128, 195, 74, .38);
-}
+.cycle-ico svg { inline-size: 30px; block-size: 30px; }
+.cycle-step:hover .cycle-ico { color: var(--green-ink); transform: translateY(-3px); }
 
 .cycle-n {
   font-size: 11px;
@@ -891,74 +875,63 @@
   font-size: 15px;
   font-weight: 700;
   color: var(--navy);
-  /* the number sits directly over the name */
-  margin-top: -8px;
+  /* the number sits directly over the name it belongs to */
+  margin-top: -9px;
 }
 
-/* Improve is where the work turns back on itself, so it is the filled one —
-   the same emphasis the row of pills used to give it. */
-.cycle-step--last {
-  background: linear-gradient(160deg, #205fa6 0%, #16447c 55%, #0d2748 100%);
-  box-shadow: var(--shadow-card);
-}
-.cycle-step--last .cycle-ico {
-  background: rgba(255, 255, 255, .12);
-  color: #fff;
-}
-.cycle-step--last .cycle-n { color: rgba(226, 238, 252, .66); }
-.cycle-step--last .cycle-name { color: #fff; }
-.cycle-step--last:hover .cycle-ico { background: var(--green); color: #14300a; }
-.cycle-step--last:hover .cycle-n { color: var(--green); }
+/* Improve is where the work turns back on itself, so its mark is green from
+   the start — the emphasis the filled tile used to carry, without the tile. */
+.cycle-step--last .cycle-ico { color: var(--green-ink); }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Arriving: the tiles come in left to right, .07s apart, and each rule draws
-     once the tile it belongs to has landed. */
+  /* Arriving: the steps come in left to right, .07s apart. */
   [data-anim="on"] .cycle.is-revealed .cycle-step { animation: cycle-in .55s var(--ease) backwards; }
-  [data-anim="on"] .cycle .cycle-step::before { transform: scaleX(0); }
-  [data-anim="on"] .cycle.is-revealed .cycle-step::before { animation: rule-draw .45s var(--ease) forwards; }
-
   [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(1) { animation-delay: .05s; }
   [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(2) { animation-delay: .12s; }
   [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(3) { animation-delay: .19s; }
   [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(4) { animation-delay: .26s; }
   [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(5) { animation-delay: .33s; }
   [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(6) { animation-delay: .40s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(1)::before { animation-delay: .30s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(2)::before { animation-delay: .37s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(3)::before { animation-delay: .44s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(4)::before { animation-delay: .51s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(5)::before { animation-delay: .58s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(6)::before { animation-delay: .65s; }
 
-  /* Afterwards: a ring opens off one mark at a time, round and round on a 15s
-     clock. It is the only thing left saying the work does not stop. */
-  .cycle-ico::after { animation: cycle-ring 15s var(--ease) infinite; }
-  .cycle-step:nth-child(2) .cycle-ico::after { animation-delay: 2.5s; }
-  .cycle-step:nth-child(3) .cycle-ico::after { animation-delay: 5s; }
-  .cycle-step:nth-child(4) .cycle-ico::after { animation-delay: 7.5s; }
-  .cycle-step:nth-child(5) .cycle-ico::after { animation-delay: 10s; }
-  .cycle-step:nth-child(6) .cycle-ico::after { animation-delay: 12.5s; }
-  /* pointing at the row hands the turn to whichever tile is under the cursor */
-  .cycle:hover .cycle-ico::after { animation-play-state: paused; }
+  /* Afterwards: the green rule runs the row, one step at a time, and comes
+     back round to the first. */
+  .cycle-step::after { animation: cycle-run 15s var(--ease) infinite; }
+  .cycle-step:nth-child(2)::after { animation-delay: 2.5s; }
+  .cycle-step:nth-child(3)::after { animation-delay: 5s; }
+  .cycle-step:nth-child(4)::after { animation-delay: 7.5s; }
+  .cycle-step:nth-child(5)::after { animation-delay: 10s; }
+  .cycle-step:nth-child(6)::after { animation-delay: 12.5s; }
+  /* pointing at the row hands the rule to whichever step is under the cursor */
+  .cycle:hover .cycle-step::after { animation: none; }
 }
 
 @keyframes cycle-in {
   from { opacity: 0; transform: translateY(16px); }
 }
-@keyframes cycle-ring {
-  0%       { opacity: 0; transform: scale(.9); }
-  2%, 8%   { opacity: 1; transform: scale(1); }
-  16%, 100% { opacity: 0; transform: scale(1.12); }
+@keyframes cycle-run {
+  0%        { transform: scaleX(0); transform-origin: left; }
+  4%, 13%   { transform: scaleX(1); transform-origin: left; }
+  20%       { transform: scaleX(0); transform-origin: right; }
+  20.01%, 100% { transform: scaleX(0); transform-origin: left; }
 }
 
+/* Reflowing the row means the dividers have to move with it: the left rule
+   belongs to whichever step no longer starts a line, and every step below the
+   first line picks up a rule above it. */
 @media (max-width: 1024px) {
   .cycle { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cycle-step:first-child { border-left: 1px solid var(--border); padding-left: clamp(16px, 1.8vw, 26px); }
+  .cycle-step:nth-child(3n+1) { border-left: 0; padding-left: 0; }
+  .cycle-step:nth-child(n+4) { border-top: 1px solid var(--border); }
 }
 @media (max-width: 620px) {
   .cycle { grid-template-columns: 1fr 1fr; }
+  .cycle-step:nth-child(3n+1) { border-left: 1px solid var(--border); padding-left: clamp(16px, 1.8vw, 26px); }
+  .cycle-step:nth-child(2n+1) { border-left: 0; padding-left: 0; }
+  .cycle-step:nth-child(n+3) { border-top: 1px solid var(--border); }
 }
 @media (max-width: 380px) {
   .cycle { grid-template-columns: 1fr; }
-  .cycle-step { flex-direction: row; align-items: center; gap: 16px; }
-  .cycle-name { margin-top: 0; }
+  .cycle-step { border-left: 0; padding-left: 0; }
+  .cycle-step:nth-child(n+2) { border-top: 1px solid var(--border); }
 }
