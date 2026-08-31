@@ -52,6 +52,9 @@ $RECYCLE.BIN/
 # Salida de build solo para el preview del artifact (regenerable con build.ps1)
 preview.artifact.html
 
+# Copias instrumentadas de index.html usadas para medir y capturar
+_probe*.html
+
 # Editores e IDEs
 .vscode/*
 !.vscode/extensions.json
