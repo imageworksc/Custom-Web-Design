@@ -446,14 +446,14 @@ a { color: inherit; }
   gap: 24px;
 }
 
-/* The deck's own h1: clamp(34px, 5vw, 56px) at 1.08 and -1.2px, which at the
-   56px cap is -.021em. The floor is the deck's 34px rather than the 9vw the
-   headline used to fall to on a narrow phone, so below about 400px it now
-   runs to four lines instead of three. */
+/* The branding page's headline, value for value: clamp(32px, 4.2vw, 48px) at
+   1.12 and -.8px. At 48px the line fits the narrowed copy column in three,
+   which the deck's own 56px could not — that needed about 640px of measure
+   against the 562 this column has. */
 .hero h1 {
-  font-size: var(--step-4);
-  line-height: 1.08;
-  letter-spacing: -.021em;
+  font-size: clamp(32px, 4.2vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -.8px;
   /* a ragged left column reads faster than a wide centred block */
   max-width: 16ch;
   text-wrap: balance;
@@ -786,17 +786,35 @@ a { color: inherit; }
   width: 100%;
 }
 .platform-half {
+  position: relative;
   padding: clamp(28px, 3.2vw, 42px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
   border-radius: var(--r);
-  border-top: 3px solid var(--blue);
+  /* A grey track with the lane's colour drawn over it, rather than a coloured
+     border — the colour is then something that can arrive. */
+  border-top: 3px solid var(--border-soft);
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: var(--shadow-card);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
-.platform-half--wp { border-top-color: var(--green); }
+.platform-half::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  inset-inline: 0;
+  block-size: 3px;
+  background: var(--blue);
+  transform-origin: left;
+}
+.platform-half--wp::before { background: var(--green); }
+
+.platform-half:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
+}
 .platform-half p { font-size: 15.5px; line-height: 1.65; color: var(--muted); }
 .platform-half p em { font-style: italic; }
 
@@ -811,9 +829,24 @@ a { color: inherit; }
   margin-bottom: 6px;
   background: var(--tint-blue);
   color: var(--blue);
+  transition: background-color .4s var(--ease), color .4s var(--ease),
+              transform .4s var(--ease), box-shadow .4s var(--ease);
 }
 .platform-half--wp .platform-mark { background: var(--tint-green); color: var(--green-ink); }
 .platform-mark svg { inline-size: 26px; block-size: 26px; }
+
+/* the tint fills in with the lane's own colour, the way the figures light */
+.platform-half:hover .platform-mark {
+  transform: scale(1.07);
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(18, 102, 181, .32);
+}
+.platform-half--wp:hover .platform-mark {
+  background: var(--green);
+  color: #14300a;
+  box-shadow: 0 8px 20px rgba(128, 195, 74, .38);
+}
 
 .split-badge {
   font-size: 11px;
@@ -898,17 +931,36 @@ a { color: inherit; }
   width: 100%;
 }
 .plan {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
   padding: clamp(26px, 3vw, 34px);
   border-radius: var(--r);
-  border-top: 3px solid var(--blue);
+  /* the same track-and-fill the lanes use, so the two sections animate in one
+     vocabulary rather than two */
+  border-top: 3px solid var(--border-soft);
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: var(--shadow-card);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
-.plan--monthly { border-top-color: var(--green); }
+.plan::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  inset-inline: 0;
+  block-size: 3px;
+  background: var(--blue);
+  transform-origin: left;
+}
+.plan--monthly::before { background: var(--green); }
+.plan:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
+}
+.plan-tag { transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
+.plan:hover .plan-tag { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(20, 40, 80, .12); }
 .plan-tag {
   font-size: 12px;
   font-weight: 800;
@@ -1123,6 +1175,98 @@ a { color: inherit; }
 [data-anim="on"] .reveal.is-revealed { opacity: 1; transform: none; }
 
 /* --------------------------------------------------------------------------
+   THE TWO SEQUENCED SECTIONS
+   Both are groups of cards, and both say something about order that a single
+   fade cannot: the stages are one after the other, the lanes are three of the
+   same thing. So the stages arrive in sequence with a clear beat between them
+   and their rules draw one after the other; the lanes arrive as a quick
+   cascade, close enough together to read as a set.
+
+   The rule is the carrier in both. At rest it is simply painted, so a visitor
+   without the script or with reduced motion sees the finished card. Only with
+   [data-anim="on"] does it start at nothing and get drawn.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---- Structure First. Then the Custom Design. ---- */
+  /* .28s apart: far enough that the second card reads as following the first
+     rather than arriving with it. */
+  [data-anim="on"] .plans .plan { opacity: 0; }
+  [data-anim="on"] .plans.is-revealed .plan {
+    opacity: 1;
+    animation: card-rise .62s var(--ease) backwards;
+  }
+  [data-anim="on"] .plans.is-revealed .plan:nth-child(1) { animation-delay: .08s; }
+  [data-anim="on"] .plans.is-revealed .plan:nth-child(2) { animation-delay: .36s; }
+
+  [data-anim="on"] .plans .plan::before { transform: scaleX(0); }
+  [data-anim="on"] .plans.is-revealed .plan::before {
+    animation: rule-draw .5s var(--ease) forwards;
+  }
+  [data-anim="on"] .plans.is-revealed .plan:nth-child(1)::before { animation-delay: .34s; }
+  [data-anim="on"] .plans.is-revealed .plan:nth-child(2)::before { animation-delay: .62s; }
+
+  /* the step tag is the thing that names the order, so it lands last and on
+     its own — a small beat after the card it belongs to */
+  [data-anim="on"] .plans.is-revealed .plan-tag {
+    animation: tag-in .5s var(--ease) backwards;
+  }
+  [data-anim="on"] .plans.is-revealed .plan:nth-child(1) .plan-tag { animation-delay: .42s; }
+  [data-anim="on"] .plans.is-revealed .plan:nth-child(2) .plan-tag { animation-delay: .70s; }
+
+  /* ---- Same Custom Website. Three Ways to Deploy and Manage It. ---- */
+  /* .09s apart, a third of the stages' beat: a cascade, not a sequence. */
+  [data-anim="on"] .platform-split .platform-half { opacity: 0; }
+  [data-anim="on"] .platform-split.is-revealed .platform-half {
+    opacity: 1;
+    animation: card-rise .6s var(--ease) backwards;
+  }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(1) { animation-delay: .06s; }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(2) { animation-delay: .15s; }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(3) { animation-delay: .24s; }
+
+  [data-anim="on"] .platform-split .platform-half::before { transform: scaleX(0); }
+  [data-anim="on"] .platform-split.is-revealed .platform-half::before {
+    animation: rule-draw .52s var(--ease) forwards;
+  }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(1)::before { animation-delay: .30s; }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(2)::before { animation-delay: .39s; }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(3)::before { animation-delay: .48s; }
+
+  /* Each mark drops into its disc after the card it sits in has landed. */
+  [data-anim="on"] .platform-split.is-revealed .platform-mark {
+    animation: mark-in .55s var(--ease) backwards;
+  }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(1) .platform-mark { animation-delay: .30s; }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(2) .platform-mark { animation-delay: .39s; }
+  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(3) .platform-mark { animation-delay: .48s; }
+
+  /* The third lane is the new one. A ring opens off the "Newer" pill once
+     every nine seconds — long enough that it reads as a note and not a
+     notification. */
+  .split-badge__new { animation: newer-ring 9s var(--ease) 1.6s infinite; }
+}
+
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(18px); }
+}
+@keyframes rule-draw {
+  to { transform: scaleX(1); }
+}
+@keyframes tag-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes mark-in {
+  from { opacity: 0; transform: scale(.72); }
+}
+@keyframes newer-ring {
+  0%, 84%, 100% { box-shadow: 0 0 0 0 rgba(128, 195, 74, 0); }
+  88%           { box-shadow: 0 0 0 4px rgba(128, 195, 74, .34); }
+  96%           { box-shadow: 0 0 0 8px rgba(128, 195, 74, 0); }
+}
+
+
+/* --------------------------------------------------------------------------
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
@@ -1197,8 +1341,13 @@ a { color: inherit; }
 
 /* --- three deploy lanes ------------------------------------------------- */
 .platform-split--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.platform-half--ai { border-top-color: var(--navy); }
+.platform-half--ai::before { background: var(--navy); }
 .platform-half--ai .platform-mark { background: var(--chip-navy); color: var(--navy); }
+.platform-half--ai:hover .platform-mark {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(20, 60, 102, .34);
+}
 .platform-half--ai .split-badge { background: var(--chip-navy); color: var(--navy); }
 /* the badge carries its own smaller badge, so "Newer" reads as a note on the
    name rather than as part of it */

@@ -141,14 +141,14 @@
   gap: 24px;
 }
 
-/* The deck's own h1: clamp(34px, 5vw, 56px) at 1.08 and -1.2px, which at the
-   56px cap is -.021em. The floor is the deck's 34px rather than the 9vw the
-   headline used to fall to on a narrow phone, so below about 400px it now
-   runs to four lines instead of three. */
+/* The branding page's headline, value for value: clamp(32px, 4.2vw, 48px) at
+   1.12 and -.8px. At 48px the line fits the narrowed copy column in three,
+   which the deck's own 56px could not — that needed about 640px of measure
+   against the 562 this column has. */
 .hero h1 {
-  font-size: var(--step-4);
-  line-height: 1.08;
-  letter-spacing: -.021em;
+  font-size: clamp(32px, 4.2vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -.8px;
   /* a ragged left column reads faster than a wide centred block */
   max-width: 16ch;
   text-wrap: balance;
