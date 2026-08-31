@@ -668,253 +668,283 @@
 
 /* --- the loop after launch ----------------------------------------------- */
 /* --------------------------------------------------------------------------
-   THE LOOP — Launch Is Version One, Not the Finish Line
-   The six steps used to be a row of pills with arrows between them, which draws
-   a line that stops. The heading says the opposite, so they are a circuit now:
-   a rail with six stations, and a return path that comes back under the row
-   into the first one. A light runs the whole way round on a single 15s clock —
-   across the rail, back along the return, away, and again — because a process
-   that does not finish is the thing the section is claiming.
-
-   It sits on its own card. The band around it holds three paragraphs of type
-   and nothing else, and a diagram drawn straight onto that ground read as a
-   loose sketch rather than the section's subject.
-
-   Everything is anchored from the bottom of the figure, so the geometry never
-   depends on how tall a label happens to set: the node row is the last thing in
-   the track, the rail is centred on it, and the return hangs off it.
+   THE STAKES — Your Website Is Your #1 Brand Asset
+   Four stacked paragraphs on a tint made the page's opening claim read like a
+   preamble. The two sentences under the heading are really the two sides of one
+   bet — what the website earns when it works, and what it costs when it does
+   not — so they are set as a pair and given the colours that argument implies.
+   Nothing is added: the same two sentences, told apart.
    -------------------------------------------------------------------------- */
-.loop {
+/* Both #1s are marked in the heading. It is the claim the section is making,
+   and it was passing by unlit in a line of forty words.
+
+   Painted as a background band rather than a filled box: an inline box is the
+   full height of the type, and at 38px a solid rectangle behind two characters
+   read as a stray block rather than as a mark someone made. */
+.sec-title em {
+  padding: 0 .1em .04em;
+  background-image: linear-gradient(rgba(128, 195, 74, .34), rgba(128, 195, 74, .34));
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  background-size: 100% .56em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.stakes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   width: 100%;
-  margin-top: 12px;
-  padding: clamp(30px, 3.4vw, 44px) clamp(24px, 3vw, 40px) clamp(26px, 3vw, 36px);
+  margin-top: 10px;
+}
+.stake {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: clamp(26px, 3vw, 34px);
   border-radius: var(--r);
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: inset 0 0 0 1px var(--border), 0 1px 3px rgba(20, 40, 80, .05),
-              0 14px 34px rgba(20, 40, 80, .07);
+  box-shadow: var(--shadow-card);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+/* the edge is the whole tell: which way this one goes */
+.stake::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  inline-size: 4px;
+  background: var(--green);
+}
+.stake--down::before { background: var(--danger-ink); }
+
+.stake:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
+}
+.stake p {
+  font-size: var(--step-1);
+  line-height: 1.7;
+  color: var(--muted);
 }
 
-.loop-fig {
-  position: relative;
-  /* the room the return path travels back through */
-  padding-bottom: 52px;
+.stake-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 52px;
+  block-size: 52px;
+  border-radius: 50%;
+  background: var(--tint-green);
+  color: var(--green-ink);
+  box-shadow: inset 0 0 0 1px rgba(128, 195, 74, .3);
+  transition: background-color .4s var(--ease), color .4s var(--ease),
+              box-shadow .4s var(--ease), transform .4s var(--ease);
+}
+.stake--down .stake-ico {
+  background: var(--danger-soft);
+  color: var(--danger-ink);
+  box-shadow: inset 0 0 0 1px rgba(178, 59, 59, .22);
+}
+.stake:hover .stake-ico {
+  transform: scale(1.07);
+  background: var(--green);
+  color: #14300a;
+  box-shadow: 0 8px 20px rgba(128, 195, 74, .38);
+}
+.stake--down:hover .stake-ico {
+  background: var(--danger-ink);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(178, 59, 59, .3);
 }
 
-/* ---- the stations: name above, node below, so the return has clear ground -- */
-.loop-track {
-  position: relative;
-  z-index: 1;
+/* The two arrows are the argument, so they arrive as one: the good one lifts
+   into place and the bad one drops, each from the direction it points. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="on"] .stakes.is-revealed .stake { animation: stake-in .6s var(--ease) backwards; }
+  [data-anim="on"] .stakes.is-revealed .stake--up { animation-delay: .1s; }
+  [data-anim="on"] .stakes.is-revealed .stake--down { animation-delay: .26s; }
+
+  [data-anim="on"] .stakes.is-revealed .stake--up .stake-ico svg {
+    animation: ico-rise .7s var(--ease) .34s backwards;
+  }
+  [data-anim="on"] .stakes.is-revealed .stake--down .stake-ico svg {
+    animation: ico-fall .7s var(--ease) .5s backwards;
+  }
+}
+@keyframes stake-in {
+  from { opacity: 0; transform: translateY(18px); }
+}
+@keyframes ico-rise {
+  from { opacity: 0; transform: translateY(9px); }
+}
+@keyframes ico-fall {
+  from { opacity: 0; transform: translateY(-9px); }
+}
+
+@media (max-width: 860px) {
+  .stakes { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .stake { flex-direction: column; gap: 16px; }
+}
+
+/* --------------------------------------------------------------------------
+   THE CYCLE — Launch Is Version One, Not the Finish Line
+   Six marked tiles. The order is carried by the numbers and by the sequence
+   they arrive in rather than by a line drawn between them; that the work goes
+   on is carried by the ring that opens off each mark in turn, on a slow clock
+   that never stops, and by the last tile, which is the one that is filled.
+   -------------------------------------------------------------------------- */
+.cycle {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  align-items: end;
+  gap: 14px;
+  width: 100%;
+  margin-top: 14px;
 }
-.loop-step {
+.cycle-step {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--muted);
-  text-align: center;
-  transition: color .35s var(--ease);
+  align-items: flex-start;
+  gap: 14px;
+  padding: 24px 20px 22px;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: inset 0 0 0 1px var(--border), 0 1px 3px rgba(20, 40, 80, .05);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
-.loop-node {
-  inline-size: 18px;
-  block-size: 18px;
-  border-radius: 50%;
-  background: var(--white);
-  box-shadow: inset 0 0 0 2.5px var(--border);
-  transition: background-color .35s var(--ease), box-shadow .35s var(--ease),
-              transform .35s var(--ease);
-}
-/* Improve is where the circuit turns, so it is the one that is filled — the
-   same emphasis the old row gave it. */
-.loop-step--last { color: var(--navy); }
-.loop-step--last .loop-node {
-  background: var(--green);
-  box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42);
-}
-
-/* ---- the rail, and the return under it ----
-   Both are a grey track with a green fill inside, so the light reads as one
-   thing travelling rather than two effects that happen to look alike.
-
-   The geometry is in twelfths: six equal columns put a node at 1/12, 3/12 …
-   11/12, so pinning the ends to 1/12 lands them on the first and last node at
-   every width without a measurement. */
-.loop-rail,
-.loop-return {
+/* the same rule the deploy lanes and the two stages carry, so the page has one
+   way of marking the head of a card and not three */
+.cycle-step::before {
+  content: '';
   position: absolute;
-  left: calc(100% / 12);
-  right: calc(100% / 12);
-  pointer-events: none;
-}
-/* the node row is the last thing in the track and the padding below it is 52px,
-   so the node centre sits 61px up from the foot of the figure */
-.loop-rail {
-  bottom: 59px;
-  block-size: 4px;
-  border-radius: 2px;
-  background: var(--border);
-  overflow: hidden;
-}
-.loop-rail i {
-  display: block;
-  block-size: 100%;
+  top: 0;
+  inset-inline: 0;
+  block-size: 3px;
   background: var(--green);
-  transform: scaleX(0);
   transform-origin: left;
 }
-
-/* three sides of a rounded box: down from Improve, back under the row, up into
-   Strategy */
-.loop-return {
-  bottom: 9px;
-  block-size: 52px;
-  border: 4px solid var(--border);
-  border-top: 0;
-  border-radius: 0 0 28px 28px;
+.cycle-step:hover {
+  transform: translateY(-5px);
+  box-shadow: inset 0 0 0 1px var(--border), 0 1px 3px rgba(20, 40, 80, .06),
+              0 20px 40px rgba(20, 40, 80, .13);
 }
-.loop-return i {
+
+.cycle-ico {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 46px;
+  block-size: 46px;
+  border-radius: 50%;
+  background: var(--tint-blue);
+  color: var(--blue);
+  transition: background-color .4s var(--ease), color .4s var(--ease),
+              transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.cycle-ico svg { inline-size: 24px; block-size: 24px; }
+/* the ring that opens off each mark in turn */
+.cycle-ico::after {
+  content: '';
   position: absolute;
-  inset: -4px;
-  border: 4px solid var(--green);
-  border-top: 0;
-  border-radius: 0 0 28px 28px;
-  /* covered from the left, so the fill uncovers itself right to left — the
-     direction the return actually travels */
-  clip-path: inset(0 0 0 100%);
+  inset: -5px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(128, 195, 74, .6);
+  opacity: 0;
 }
-
-/* --------------------------------------------------------------------------
-   The circuit, on one 15s clock:
-      0 – 44%   the rail fills, left to right
-     44 – 62%   the return draws back under the row
-     62 – 72%   the head at Strategy lights
-     72 – 88%   everything clears
-     88 – 100%  a beat of rest before it goes round again
-   Each station lights as the fill reaches it, at its own share of that first
-   44% — 0, 1.32, 2.64, 3.96, 5.28 and 6.6 seconds in.
-   -------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: no-preference) {
-  .loop-rail i { animation: loop-run 15s var(--ease) infinite; }
-  .loop-return i { animation: loop-back 15s var(--ease) infinite; }
-
-  .loop-step .loop-node { animation: loop-lit 15s var(--ease) infinite; }
-  /* Strategy lights twice: once as the run sets off, and again when the
-     return reaches it — which is the whole claim the section is making. */
-  .loop-step:nth-child(1) .loop-node { animation-name: loop-lit-first; }
-  .loop-step:nth-child(2) .loop-node { animation-delay: -13.68s; }
-  .loop-step:nth-child(3) .loop-node { animation-delay: -12.36s; }
-  .loop-step:nth-child(4) .loop-node { animation-delay: -11.04s; }
-  .loop-step:nth-child(5) .loop-node { animation-delay: -9.72s; }
-  .loop-step:nth-child(6) .loop-node { animation-delay: -8.40s; }
-
-  /* Pointing anywhere on the card stops the run, so the six names can be read
-     without something moving underneath them. */
-  .loop:hover .loop-rail i,
-  .loop:hover .loop-return i,
-  .loop:hover .loop-node { animation-play-state: paused; }
-}
-
-/* Pointing at one station brings it forward, run or no run. */
-.loop-step:hover { color: var(--navy); }
-.loop-step:hover .loop-node {
-  transform: scale(1.3);
+.cycle-step:hover .cycle-ico {
+  transform: scale(1.07);
   background: var(--green);
-  box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 14px rgba(128, 195, 74, .45);
+  color: #14300a;
+  box-shadow: 0 8px 20px rgba(128, 195, 74, .38);
 }
 
-@keyframes loop-run {
-  0%        { transform: scaleX(0); }
-  44%, 72%  { transform: scaleX(1); }
-  88%, 100% { transform: scaleX(0); }
+.cycle-n {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: var(--faint);
+  transition: color .35s var(--ease);
 }
-@keyframes loop-back {
-  0%, 44%   { clip-path: inset(0 0 0 100%); }
-  62%, 72%  { clip-path: inset(0 0 0 0); }
-  88%, 100% { clip-path: inset(0 100% 0 0); }
-}
-
-@keyframes loop-lit {
-  0%        { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
-  3%, 44%   { background: var(--green); box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42); }
-  56%, 100% { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
-}
-@keyframes loop-lit-first {
-  0%        { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
-  3%, 44%   { background: var(--green); box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42); }
-  56%, 60%  { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
-  /* the return has arrived and the run is about to set off again */
-  64%, 80%  { background: var(--green); box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42); }
-  90%, 100% { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
+.cycle-step:hover .cycle-n { color: var(--green-ink); }
+.cycle-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  /* the number sits directly over the name */
+  margin-top: -8px;
 }
 
-/* --------------------------------------------------------------------------
-   Narrow: the same circuit stood on its end. Six columns stop fitting well
-   before the names do, so the rail runs down the left, the stations sit beside
-   it, and the return comes back up the outside. It is still a loop.
-   -------------------------------------------------------------------------- */
-@media (max-width: 720px) {
-  .loop { padding-left: 46px; }
-  .loop-fig { padding-bottom: 0; }
-
-  .loop-track { grid-template-columns: 1fr; align-items: stretch; }
-  .loop-step {
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 18px;
-    /* a fixed row so the first and last node centres are a known 27px in from
-       the ends, which is what the return is pinned to */
-    block-size: 54px;
-    text-align: left;
-  }
-
-  .loop-rail,
-  .loop-return {
-    left: 7px;
-    right: auto;
-    top: 27px;
-    bottom: 27px;
-  }
-  .loop-rail {
-    inline-size: 4px;
-    block-size: auto;
-  }
-  .loop-rail i {
-    inline-size: 100%;
-    block-size: 100%;
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-  .loop-return {
-    left: -25px;
-    inline-size: 32px;
-    block-size: auto;
-    border: 4px solid var(--border);
-    border-right: 0;
-    border-radius: 22px 0 0 22px;
-  }
-  .loop-return i {
-    border: 4px solid var(--green);
-    border-right: 0;
-    border-radius: 22px 0 0 22px;
-    clip-path: inset(100% 0 0 0);
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .loop-rail i { animation-name: loop-run-v; }
-    .loop-return i { animation-name: loop-back-v; }
-  }
+/* Improve is where the work turns back on itself, so it is the filled one —
+   the same emphasis the row of pills used to give it. */
+.cycle-step--last {
+  background: linear-gradient(160deg, #205fa6 0%, #16447c 55%, #0d2748 100%);
+  box-shadow: var(--shadow-card);
 }
-@keyframes loop-run-v {
-  0%        { transform: scaleY(0); }
-  44%, 72%  { transform: scaleY(1); }
-  88%, 100% { transform: scaleY(0); }
+.cycle-step--last .cycle-ico {
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
 }
-@keyframes loop-back-v {
-  0%, 44%   { clip-path: inset(100% 0 0 0); }
-  62%, 72%  { clip-path: inset(0 0 0 0); }
-  88%, 100% { clip-path: inset(0 0 100% 0); }
+.cycle-step--last .cycle-n { color: rgba(226, 238, 252, .66); }
+.cycle-step--last .cycle-name { color: #fff; }
+.cycle-step--last:hover .cycle-ico { background: var(--green); color: #14300a; }
+.cycle-step--last:hover .cycle-n { color: var(--green); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Arriving: the tiles come in left to right, .07s apart, and each rule draws
+     once the tile it belongs to has landed. */
+  [data-anim="on"] .cycle.is-revealed .cycle-step { animation: cycle-in .55s var(--ease) backwards; }
+  [data-anim="on"] .cycle .cycle-step::before { transform: scaleX(0); }
+  [data-anim="on"] .cycle.is-revealed .cycle-step::before { animation: rule-draw .45s var(--ease) forwards; }
+
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(1) { animation-delay: .05s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(2) { animation-delay: .12s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(3) { animation-delay: .19s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(4) { animation-delay: .26s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(5) { animation-delay: .33s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(6) { animation-delay: .40s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(1)::before { animation-delay: .30s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(2)::before { animation-delay: .37s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(3)::before { animation-delay: .44s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(4)::before { animation-delay: .51s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(5)::before { animation-delay: .58s; }
+  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(6)::before { animation-delay: .65s; }
+
+  /* Afterwards: a ring opens off one mark at a time, round and round on a 15s
+     clock. It is the only thing left saying the work does not stop. */
+  .cycle-ico::after { animation: cycle-ring 15s var(--ease) infinite; }
+  .cycle-step:nth-child(2) .cycle-ico::after { animation-delay: 2.5s; }
+  .cycle-step:nth-child(3) .cycle-ico::after { animation-delay: 5s; }
+  .cycle-step:nth-child(4) .cycle-ico::after { animation-delay: 7.5s; }
+  .cycle-step:nth-child(5) .cycle-ico::after { animation-delay: 10s; }
+  .cycle-step:nth-child(6) .cycle-ico::after { animation-delay: 12.5s; }
+  /* pointing at the row hands the turn to whichever tile is under the cursor */
+  .cycle:hover .cycle-ico::after { animation-play-state: paused; }
+}
+
+@keyframes cycle-in {
+  from { opacity: 0; transform: translateY(16px); }
+}
+@keyframes cycle-ring {
+  0%       { opacity: 0; transform: scale(.9); }
+  2%, 8%   { opacity: 1; transform: scale(1); }
+  16%, 100% { opacity: 0; transform: scale(1.12); }
+}
+
+@media (max-width: 1024px) {
+  .cycle { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .cycle { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 380px) {
+  .cycle { grid-template-columns: 1fr; }
+  .cycle-step { flex-direction: row; align-items: center; gap: 16px; }
+  .cycle-name { margin-top: 0; }
 }
