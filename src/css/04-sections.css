@@ -667,46 +667,254 @@
 }
 
 /* --- the loop after launch ----------------------------------------------- */
-/* Chips with an arrow drawn between them by the pseudo-element, so the marks
-   are never read out as content and never wrap onto a line of their own. */
-.evolve {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  /* the column gap is where the arrows live */
-  gap: 12px 30px;
+/* --------------------------------------------------------------------------
+   THE LOOP — Launch Is Version One, Not the Finish Line
+   The six steps used to be a row of pills with arrows between them, which draws
+   a line that stops. The heading says the opposite, so they are a circuit now:
+   a rail with six stations, and a return path that comes back under the row
+   into the first one. A light runs the whole way round on a single 15s clock —
+   across the rail, back along the return, away, and again — because a process
+   that does not finish is the thing the section is claiming.
+
+   It sits on its own card. The band around it holds three paragraphs of type
+   and nothing else, and a diagram drawn straight onto that ground read as a
+   loose sketch rather than the section's subject.
+
+   Everything is anchored from the bottom of the figure, so the geometry never
+   depends on how tall a label happens to set: the node row is the last thing in
+   the track, the rail is centred on it, and the return hangs off it.
+   -------------------------------------------------------------------------- */
+.loop {
   width: 100%;
-  margin-top: 10px;
-}
-.evolve-step {
-  position: relative;
-  padding: 12px 20px;
+  margin-top: 12px;
+  padding: clamp(30px, 3.4vw, 44px) clamp(24px, 3vw, 40px) clamp(26px, 3vw, 36px);
   border-radius: var(--r);
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: inset 0 0 0 1px var(--border);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--navy);
-}
-.evolve-step + .evolve-step::before {
-  content: '→';
-  position: absolute;
-  left: -21px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--green-ink);
-  font-size: 18px;
-  font-weight: 800;
-}
-/* the last one is where the loop is going, so it is the one that is filled */
-.evolve-step.is-last {
-  background: var(--green);
-  box-shadow: none;
-  color: #fff;
+  box-shadow: inset 0 0 0 1px var(--border), 0 1px 3px rgba(20, 40, 80, .05),
+              0 14px 34px rgba(20, 40, 80, .07);
 }
 
-@media (max-width: 620px) {
-  .evolve { flex-direction: column; align-items: stretch; }
-  .evolve-step { text-align: center; }
-  .evolve-step + .evolve-step::before { position: static; transform: none; display: block; margin: 0 0 10px; }
+.loop-fig {
+  position: relative;
+  /* the room the return path travels back through */
+  padding-bottom: 52px;
+}
+
+/* ---- the stations: name above, node below, so the return has clear ground -- */
+.loop-track {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: end;
+}
+.loop-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: center;
+  transition: color .35s var(--ease);
+}
+.loop-node {
+  inline-size: 18px;
+  block-size: 18px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: inset 0 0 0 2.5px var(--border);
+  transition: background-color .35s var(--ease), box-shadow .35s var(--ease),
+              transform .35s var(--ease);
+}
+/* Improve is where the circuit turns, so it is the one that is filled — the
+   same emphasis the old row gave it. */
+.loop-step--last { color: var(--navy); }
+.loop-step--last .loop-node {
+  background: var(--green);
+  box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42);
+}
+
+/* ---- the rail, and the return under it ----
+   Both are a grey track with a green fill inside, so the light reads as one
+   thing travelling rather than two effects that happen to look alike.
+
+   The geometry is in twelfths: six equal columns put a node at 1/12, 3/12 …
+   11/12, so pinning the ends to 1/12 lands them on the first and last node at
+   every width without a measurement. */
+.loop-rail,
+.loop-return {
+  position: absolute;
+  left: calc(100% / 12);
+  right: calc(100% / 12);
+  pointer-events: none;
+}
+/* the node row is the last thing in the track and the padding below it is 52px,
+   so the node centre sits 61px up from the foot of the figure */
+.loop-rail {
+  bottom: 59px;
+  block-size: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
+}
+.loop-rail i {
+  display: block;
+  block-size: 100%;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* three sides of a rounded box: down from Improve, back under the row, up into
+   Strategy */
+.loop-return {
+  bottom: 9px;
+  block-size: 52px;
+  border: 4px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 28px 28px;
+}
+.loop-return i {
+  position: absolute;
+  inset: -4px;
+  border: 4px solid var(--green);
+  border-top: 0;
+  border-radius: 0 0 28px 28px;
+  /* covered from the left, so the fill uncovers itself right to left — the
+     direction the return actually travels */
+  clip-path: inset(0 0 0 100%);
+}
+
+/* --------------------------------------------------------------------------
+   The circuit, on one 15s clock:
+      0 – 44%   the rail fills, left to right
+     44 – 62%   the return draws back under the row
+     62 – 72%   the head at Strategy lights
+     72 – 88%   everything clears
+     88 – 100%  a beat of rest before it goes round again
+   Each station lights as the fill reaches it, at its own share of that first
+   44% — 0, 1.32, 2.64, 3.96, 5.28 and 6.6 seconds in.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .loop-rail i { animation: loop-run 15s var(--ease) infinite; }
+  .loop-return i { animation: loop-back 15s var(--ease) infinite; }
+
+  .loop-step .loop-node { animation: loop-lit 15s var(--ease) infinite; }
+  /* Strategy lights twice: once as the run sets off, and again when the
+     return reaches it — which is the whole claim the section is making. */
+  .loop-step:nth-child(1) .loop-node { animation-name: loop-lit-first; }
+  .loop-step:nth-child(2) .loop-node { animation-delay: -13.68s; }
+  .loop-step:nth-child(3) .loop-node { animation-delay: -12.36s; }
+  .loop-step:nth-child(4) .loop-node { animation-delay: -11.04s; }
+  .loop-step:nth-child(5) .loop-node { animation-delay: -9.72s; }
+  .loop-step:nth-child(6) .loop-node { animation-delay: -8.40s; }
+
+  /* Pointing anywhere on the card stops the run, so the six names can be read
+     without something moving underneath them. */
+  .loop:hover .loop-rail i,
+  .loop:hover .loop-return i,
+  .loop:hover .loop-node { animation-play-state: paused; }
+}
+
+/* Pointing at one station brings it forward, run or no run. */
+.loop-step:hover { color: var(--navy); }
+.loop-step:hover .loop-node {
+  transform: scale(1.3);
+  background: var(--green);
+  box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 14px rgba(128, 195, 74, .45);
+}
+
+@keyframes loop-run {
+  0%        { transform: scaleX(0); }
+  44%, 72%  { transform: scaleX(1); }
+  88%, 100% { transform: scaleX(0); }
+}
+@keyframes loop-back {
+  0%, 44%   { clip-path: inset(0 0 0 100%); }
+  62%, 72%  { clip-path: inset(0 0 0 0); }
+  88%, 100% { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes loop-lit {
+  0%        { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
+  3%, 44%   { background: var(--green); box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42); }
+  56%, 100% { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
+}
+@keyframes loop-lit-first {
+  0%        { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
+  3%, 44%   { background: var(--green); box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42); }
+  56%, 60%  { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
+  /* the return has arrived and the run is about to set off again */
+  64%, 80%  { background: var(--green); box-shadow: inset 0 0 0 2.5px var(--green), 0 4px 12px rgba(128, 195, 74, .42); }
+  90%, 100% { background: var(--white); box-shadow: inset 0 0 0 2.5px var(--border); }
+}
+
+/* --------------------------------------------------------------------------
+   Narrow: the same circuit stood on its end. Six columns stop fitting well
+   before the names do, so the rail runs down the left, the stations sit beside
+   it, and the return comes back up the outside. It is still a loop.
+   -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .loop { padding-left: 46px; }
+  .loop-fig { padding-bottom: 0; }
+
+  .loop-track { grid-template-columns: 1fr; align-items: stretch; }
+  .loop-step {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    /* a fixed row so the first and last node centres are a known 27px in from
+       the ends, which is what the return is pinned to */
+    block-size: 54px;
+    text-align: left;
+  }
+
+  .loop-rail,
+  .loop-return {
+    left: 7px;
+    right: auto;
+    top: 27px;
+    bottom: 27px;
+  }
+  .loop-rail {
+    inline-size: 4px;
+    block-size: auto;
+  }
+  .loop-rail i {
+    inline-size: 100%;
+    block-size: 100%;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  .loop-return {
+    left: -25px;
+    inline-size: 32px;
+    block-size: auto;
+    border: 4px solid var(--border);
+    border-right: 0;
+    border-radius: 22px 0 0 22px;
+  }
+  .loop-return i {
+    border: 4px solid var(--green);
+    border-right: 0;
+    border-radius: 22px 0 0 22px;
+    clip-path: inset(100% 0 0 0);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .loop-rail i { animation-name: loop-run-v; }
+    .loop-return i { animation-name: loop-back-v; }
+  }
+}
+@keyframes loop-run-v {
+  0%        { transform: scaleY(0); }
+  44%, 72%  { transform: scaleY(1); }
+  88%, 100% { transform: scaleY(0); }
+}
+@keyframes loop-back-v {
+  0%, 44%   { clip-path: inset(100% 0 0 0); }
+  62%, 72%  { clip-path: inset(0 0 0 0); }
+  88%, 100% { clip-path: inset(0 0 100% 0); }
 }

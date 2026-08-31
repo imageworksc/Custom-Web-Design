@@ -68,6 +68,23 @@ a { color: inherit; }
 /* for sections whose own content already carries plenty of vertical air */
 .band--snug { padding-block: clamp(44px, 4.6vw, 64px); }
 
+/* Where one section ends and the next begins, ruled the way the deck rules its
+   own bands. The grounds already alternate, so this is the crisp edge on top of
+   the tone change rather than the only thing carrying it — 3% of lightness
+   between white and the tint is a boundary you infer, not one you see.
+
+   A change of ground does the job on its own, so the rule is dropped either
+   side of the dark bands and the closing call, and never drawn under the hero,
+   which is meant to run into the band below it without a seam. */
+.band + .band { border-top: 1px solid var(--border); }
+/* Doubled up on purpose: `.band + .band` is two classes, so a bare
+   `.band--deep` loses to it and the dark bands were being ruled in a light
+   hairline across their tops. */
+.band.band--deep,
+.band.band--cta,
+.band--deep + .band,
+.band--cta + .band { border-top: 0; }
+
 /* The closing call to action is the home's #cta band: the same gradient with
    the same dot field laid over it. */
 .band--cta {
