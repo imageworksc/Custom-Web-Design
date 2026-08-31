@@ -1459,61 +1459,56 @@ a { color: inherit; }
 
 /* --------------------------------------------------------------------------
    THE ANSWER CARD — Your Website Is Your #1 Brand Asset
-   Built to the pattern the blog-writing page uses for its own opening claim: a
-   heading, then everything under it inside one card ruled in green, with the
-   phrases the argument turns on underlined in the same green.
-
-   The short sentence that used to sit above as a standfirst is the bold lead-in
-   at the head of the text, which is the job the "Answer:" label does there.
-
-   Corners stay at --r. Every other card on this page is squared off at 2px, and
-   a single rounded one would read as a component from somewhere else.
+   The .lb-answer block from the SEO blogging page, value for value:
+   https://imageworksc.github.io/seo-blogging/  →  assets/page.css
+   2px green rule, 10px corner, 32/26 padding, 1020px measure, 18px at 1.65,
+   and the emphasis painted as a 3px green band under navy bold rather than as
+   an underline. Where the source writes "Answer:" in bold at the head of the
+   text, this writes the short sentence that used to sit above the card.
    -------------------------------------------------------------------------- */
 .answer {
   width: 100%;
+  max-width: 1020px;
   margin-top: 6px;
-  padding: clamp(28px, 3.2vw, 40px) clamp(26px, 3vw, 44px);
-  /* 2, not 1.5: a half pixel is rounded down at 1x and the rule that makes this
-     card what it is came out a hairline */
+  padding: 32px 26px;
   border: 2px solid var(--green);
-  border-radius: var(--r);
+  border-radius: 10px;
   background: var(--white);
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .04), 0 12px 30px rgba(20, 40, 80, .05);
 }
 .answer p {
-  font-size: var(--step-1);
-  line-height: 1.75;
+  font-size: 18px;
+  line-height: 1.65;
   color: var(--muted);
-  max-width: 78ch;
+  /* The source is explicit about this: no balancing. Evening the lines out
+     shortens all of them, which inside a bordered box reads as the box standing
+     off its own text — the gap lands on the right of every line, not just the
+     last. The page sets text-wrap: pretty on every p, so it is turned off here
+     and each line fills the measure. `wrap`, not `normal` — normal is not one
+     of the keywords and the declaration is simply dropped. */
+  text-wrap: wrap;
 }
-.answer p + p { margin-top: 14px; }
+.answer p + p { margin-top: 16px; }
+.answer-lead { color: var(--navy); font-weight: 800; }
 
-.answer-lead {
-  font-weight: 800;
-  color: var(--navy);
-}
-
-/* Bold navy on a green rule. text-decoration rather than a border, so a phrase
-   that breaks across two lines keeps its underline on both. */
+/* Navy bold on a 3px green rule, painted as a background rather than an
+   underline so it sits tight under the type and wraps across lines. */
 .phrase {
   font-weight: 700;
   color: var(--navy);
-  text-decoration: underline;
-  text-decoration-color: var(--green);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
-  text-decoration-skip-ink: none;
-  transition: text-decoration-color .35s var(--ease), color .35s var(--ease);
+  background-image: linear-gradient(var(--green), var(--green));
+  background-size: 100% 3px;
+  background-position: 0 calc(100% - 1px);
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
 }
-.answer:hover .phrase { text-decoration-color: var(--green-ink); }
 
-/* The rules draw themselves in, left to right and one after another, the first
-   time the card is read — the same gesture the cards further down use on their
-   top edge, turned into something type can carry. */
+/* The rules draw themselves in, one after another, the first time the card is
+   read — the same gesture the cards further down use on their top edge, here
+   carried by the type. */
 @media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .answer .phrase { text-decoration-color: transparent; }
+  [data-anim="on"] .answer .phrase { background-size: 0 3px; }
   [data-anim="on"] .answer.is-revealed .phrase {
-    animation: phrase-in .55s var(--ease) forwards;
+    animation: phrase-in .5s var(--ease) forwards;
   }
   [data-anim="on"] .answer.is-revealed .phrase:nth-of-type(1) { animation-delay: .35s; }
   [data-anim="on"] .answer.is-revealed p + p .phrase:nth-of-type(1) { animation-delay: .59s; }
@@ -1521,13 +1516,12 @@ a { color: inherit; }
   [data-anim="on"] .answer.is-revealed p + p .phrase:nth-of-type(3) { animation-delay: 1.07s; }
 }
 @keyframes phrase-in {
-  to { text-decoration-color: var(--green); }
+  to { background-size: 100% 3px; }
 }
 
-@media (max-width: 620px) {
-  .answer p { max-width: none; }
+@media (max-width: 700px) {
+  .answer { padding: 24px 22px; }
 }
-
 /* --------------------------------------------------------------------------
    THE CYCLE — Launch Is Version One, Not the Finish Line
    Six marked tiles. The order is carried by the numbers and by the sequence
