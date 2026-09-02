@@ -174,6 +174,40 @@ a { color: inherit; }
 .band--cta .lead { font-size: 18px; color: rgba(226, 238, 252, .82); }
 .band--cta .lead strong { color: #fff; }
 
+/* The line the deck sets under a heading — its .section-head > p. */
+.sub-head {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--muted);
+  max-width: var(--measure);
+}
+
+/* Outlined tags. Where the copy names a run of things, the deck sets them out
+   as pills rather than leaving them buried in the sentence. */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.pill {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 9px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--green);
+  background: var(--white);
+  color: var(--green-ink);
+}
+/* On the dark band the green ink loses its contrast, so the deck's own
+   light-on-dark variant applies. */
+.band--deep .pill {
+  border-color: rgba(128, 195, 74, .9);
+  background: rgba(255, 255, 255, .04);
+  color: #d7efc1;
+}
+
 /* --------------------------------------------------------------------------
    BUTTONS AND LINKS
    -------------------------------------------------------------------------- */
