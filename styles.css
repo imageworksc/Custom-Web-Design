@@ -937,27 +937,16 @@ a { color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
-   TRY BEFORE YOU BUY — the offer card
+   TRY BEFORE YOU BUY — full width, no card
    -------------------------------------------------------------------------- */
-/* The page's card at full width: copy on the left, the photograph on the
-   right, a green rule across the top. The light tokens are stated here so the
-   card reads the same on any ground it is moved to. */
+/* The band carries no padding of its own: the photograph fills the right half
+   from top to bottom and out to the edge of the screen, and the copy on the
+   left keeps the page's own margin. */
+.band.band--offer { padding-block: 0; }
 .offer {
-  --navy: #143c66;
-  --heading: #143c66;
-  --muted: #5a6b82;
-  --border: #e3eaf3;
-
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
-  max-width: 1000px;
-  margin-inline: auto;
-  overflow: hidden;
-  border-top: 3px solid var(--green);
-  border-radius: var(--r);
-  background: #fff;
-  color: var(--ink);
-  box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .1);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-block-size: clamp(480px, 42vw, 620px);
 }
 .offer-copy {
   display: flex;
@@ -965,19 +954,20 @@ a { color: inherit; }
   align-items: flex-start;
   justify-content: center;
   gap: 20px;
-  padding: clamp(30px, 4vw, 52px);
+  padding-block: var(--band-y);
+  /* the left edge lines up with every other band's text */
+  padding-left: max(var(--gutter), calc((100vw - var(--shell)) / 2 + var(--gutter)));
+  padding-right: clamp(32px, 5vw, 72px);
 }
 .offer .sec-title { max-width: 16ch; }
-/* the band sets its leads in pale ink; inside the white card they go back */
-.offer .lead { color: var(--muted); }
 .offer .lead em { font-style: normal; color: var(--green-ink); }
 .offer .btn-row { margin-top: 6px; }
 
 .offer-shot {
   position: relative;
-  min-block-size: 360px;
-  background: var(--tint-blue);
+  margin: 0;
   overflow: hidden;
+  background: var(--tint-blue);
 }
 .offer-shot img {
   position: absolute;
@@ -986,24 +976,40 @@ a { color: inherit; }
   block-size: 100%;
   object-fit: cover;
   object-position: center 22%;
-  transition: transform 1.2s var(--ease);
+  transition: transform 1.6s var(--ease);
+}
+/* the photograph's white wall runs into the band rather than stopping on a
+   hard edge */
+.offer-shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, .6) 7%, rgba(255, 255, 255, 0) 22%);
+  pointer-events: none;
 }
 .offer:hover .offer-shot img { transform: scale(1.03); }
 
-@media (min-width: 861px) {
+/* The photograph settles in as the band arrives. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="on"] .offer-shot img { transform: scale(1.08); opacity: 0; transition: transform 1.6s var(--ease), opacity 1s var(--ease); }
+  [data-anim="on"] .offer:has(.offer-copy.is-revealed) .offer-shot img { transform: scale(1); opacity: 1; }
+  [data-anim="on"] .offer:has(.offer-copy.is-revealed):hover .offer-shot img { transform: scale(1.03); }
+}
+
+@media (min-width: 1101px) {
   .offer .btn-row { flex-wrap: nowrap; }
   .offer .btn { padding-inline: 22px; }
 }
 @media (max-width: 860px) {
-  .offer { grid-template-columns: minmax(0, 1fr); }
-  .offer-shot { order: -1; min-block-size: 300px; }
+  .offer { grid-template-columns: minmax(0, 1fr); min-block-size: 0; }
+  .offer-shot { order: -1; min-block-size: 340px; }
   .offer-shot img { object-position: center 18%; }
+  .offer-shot::after { background: linear-gradient(0deg, #fff 0%, rgba(255, 255, 255, 0) 20%); }
+  .offer-copy { padding: 36px var(--gutter) var(--band-y); }
 }
-/* "Request Your Homepage Preview" needs about 320px on one line, more than
-   the card leaves on a phone, so the label wraps and the height becomes a
-   floor — the same answer the base gives every button under 380px. */
+/* "Request Your Homepage Preview" needs about 320px on one line, more than a
+   phone leaves, so the label wraps and the height becomes a floor. */
 @media (max-width: 560px) {
-  .offer-copy { padding: 28px 22px 30px; }
   .offer .btn {
     white-space: normal;
     height: auto;
