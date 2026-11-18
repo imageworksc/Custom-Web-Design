@@ -31,11 +31,6 @@
       <path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
       <path d="M12 11.3l1.1 2.35 2.5.3-1.85 1.75.5 2.5L12 16.95l-2.25 1.25.5-2.5L8.4 13.95l2.5-.3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
     </symbol>
-    <symbol id="i-gauge" viewBox="0 0 24 24">
-      <path d="M3.6 17.2a8.4 8.4 0 1116.8 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-      <line x1="12" y1="17.2" x2="15.6" y2="11.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-      <circle cx="12" cy="17.2" r="1.5" fill="currentColor"/>
-    </symbol>
     <!-- The four monthly moves, on the same 24 box and 1.7 stroke. -->
     <symbol id="i-browser" viewBox="0 0 24 24">
       <rect x="3.5" y="5" width="17" height="14" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/>
@@ -282,9 +277,10 @@
 
   <!-- 7 · DIFFERENT BUSINESSES SHOULD LOOK DIFFERENT ------------------------ -->
   <section class="band band--tint" aria-labelledby="different-title">
-    <div class="wrap duo">
+    <div class="wrap stack">
+      <h2 class="sec-title duo-title reveal" id="different-title">Different Businesses Should Actually<br> <span class="spectrum">Look Different.</span></h2>
+      <div class="duo">
       <div class="duo-copy">
-        <h2 class="sec-title sec-title--wide reveal" id="different-title">Different Businesses Should Actually <span class="spectrum">Look Different.</span></h2>
         <p class="lead reveal">A healthcare company shouldn't look like a contractor. A technology company shouldn't look like a law firm. And your website shouldn't look like something generated from the same prompt your competitors used.</p>
         <p class="lead reveal">Custom website design means creating a visual language and digital experience that actually belongs to your business — not another variation of the same layouts showing up everywhere.</p>
         <div class="btn-row reveal mt-6">
@@ -293,52 +289,74 @@
         </div>
       </div>
       <div class="duo-art reveal">
-      <!-- Three identical generated sites, then one that belongs to someone. -->
-      <figure class="diffviz" role="img" aria-label="Three identical template websites beside one custom-designed site that stands out">
-        <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="dv-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1266b5"/><stop offset=".5" stop-color="#1f8fb0"/><stop offset="1" stop-color="#5c9a2e"/></linearGradient>
-            <g id="dv-same">
-              <rect width="150" height="196" rx="2" fill="#e5edf7" stroke="#c1daff" stroke-width="1.5"/>
-              <rect x="16" y="18" width="60" height="9" rx="2" fill="#c1daff"/>
-              <rect x="16" y="40" width="118" height="44" rx="2" fill="#d4e3f6"/>
-              <rect x="16" y="96" width="34" height="34" rx="2" fill="#d4e3f6"/>
-              <rect x="58" y="96" width="34" height="34" rx="2" fill="#d4e3f6"/>
-              <rect x="100" y="96" width="34" height="34" rx="2" fill="#d4e3f6"/>
-              <rect x="16" y="144" width="118" height="9" rx="2" fill="#d4e3f6"/>
-              <rect x="16" y="162" width="88" height="9" rx="2" fill="#d4e3f6"/>
+        <!-- Three copies of one generated site, then one that belongs to
+             someone. The copies are drawn in greys, chrome and all; the custom
+             one carries the brand sweep, its own shapes and a tick. -->
+        <figure class="diffviz" role="img" aria-label="Three identical AI-generated websites beside one custom-designed site that stands out">
+          <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="dv-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1266b5"/><stop offset=".55" stop-color="#1f8fb0"/><stop offset="1" stop-color="#5c9a2e"/></linearGradient>
+              <filter id="dv-lift" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#143c66" flood-opacity=".18"/></filter>
+              <filter id="dv-soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#143c66" flood-opacity=".08"/></filter>
+              <g id="dv-copy">
+                <rect width="140" height="204" rx="6" fill="#f4f7fb" stroke="#d8e2ee" filter="url(#dv-soft)"/>
+                <path d="M0 6a6 6 0 016-6h128a6 6 0 016 6v10H0z" fill="#e6ecf4"/>
+                <circle cx="10" cy="8" r="2.2" fill="#c6d2e0"/><circle cx="17" cy="8" r="2.2" fill="#c6d2e0"/><circle cx="24" cy="8" r="2.2" fill="#c6d2e0"/>
+                <rect x="14" y="27" width="30" height="6" rx="2" fill="#c9d6e6"/><rect x="92" y="27" width="34" height="6" rx="2" fill="#dbe4ef"/>
+                <rect x="14" y="42" width="112" height="50" rx="3" fill="#dfe7f1"/>
+                <rect x="24" y="54" width="62" height="7" rx="2" fill="#c3d1e3"/><rect x="24" y="66" width="44" height="7" rx="2" fill="#cdd9e8"/>
+                <rect x="24" y="78" width="26" height="8" rx="2" fill="#c3d1e3"/>
+                <rect x="14" y="102" width="34" height="34" rx="3" fill="#e3eaf3"/><rect x="53" y="102" width="34" height="34" rx="3" fill="#e3eaf3"/><rect x="92" y="102" width="34" height="34" rx="3" fill="#e3eaf3"/>
+                <rect x="14" y="148" width="112" height="5" rx="2" fill="#e0e8f1"/><rect x="14" y="159" width="86" height="5" rx="2" fill="#e0e8f1"/><rect x="14" y="170" width="96" height="5" rx="2" fill="#e0e8f1"/>
+                <rect x="14" y="184" width="40" height="10" rx="2" fill="#d2ddea"/>
+              </g>
+            </defs>
+            <g font-family="Plus Jakarta Sans, sans-serif">
+              <use href="#dv-copy" class="dv-same" x="10" y="40"/>
+              <use href="#dv-copy" class="dv-same" x="168" y="40"/>
+              <use href="#dv-copy" class="dv-same" x="326" y="40"/>
+              <text x="238" y="286" text-anchor="middle" font-size="17" font-weight="700" fill="#5a6b82">Same prompt. Same AI engine. Same result.</text>
+
+              <line x1="500" y1="40" x2="500" y2="250" stroke="#cbd8e8" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
+
+              <g class="dv-own">
+                <g transform="translate(524,18)">
+                  <rect width="224" height="250" rx="8" fill="#fff" filter="url(#dv-lift)"/>
+                  <path d="M0 8a8 8 0 018-8h208a8 8 0 018 8v10H0z" fill="#eef2f7"/>
+                  <circle cx="12" cy="9" r="2.6" fill="#143c66"/><circle cx="20" cy="9" r="2.6" fill="#1266b5"/><circle cx="28" cy="9" r="2.6" fill="#80c34a"/>
+                  <rect y="18" width="224" height="112" fill="url(#dv-bg)"/>
+                  <circle cx="186" cy="92" r="40" fill="#80c34a" opacity=".9"/>
+                  <circle cx="186" cy="92" r="52" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+                  <path d="M150 130l40-46 34 46z" fill="#fff" opacity=".14"/>
+                  <circle cx="22" cy="34" r="6" fill="#fff"/>
+                  <rect x="140" y="31" width="20" height="5" rx="2" fill="#fff" opacity=".7"/><rect x="166" y="31" width="20" height="5" rx="2" fill="#fff" opacity=".7"/><rect x="192" y="31" width="18" height="5" rx="2" fill="#fff" opacity=".7"/>
+                  <rect x="16" y="54" width="116" height="12" rx="3" fill="#fff"/>
+                  <rect x="16" y="71" width="86" height="12" rx="3" fill="#fff" opacity=".85"/>
+                  <rect x="16" y="98" width="54" height="18" rx="3" fill="#80c34a"/>
+                  <rect x="76" y="98" width="54" height="18" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/>
+                  <rect x="16" y="142" width="94" height="52" rx="4" fill="#e5edf7"/>
+                  <circle cx="32" cy="158" r="7" fill="#1266b5"/><rect x="44" y="154" width="54" height="5" rx="2" fill="#a9c3e2"/><rect x="26" y="174" width="72" height="5" rx="2" fill="#c7d8ec"/>
+                  <rect x="116" y="142" width="92" height="52" rx="4" fill="#eef6e6"/>
+                  <circle cx="132" cy="158" r="7" fill="#5c9a2e"/><rect x="144" y="154" width="52" height="5" rx="2" fill="#b9dba0"/><rect x="126" y="174" width="70" height="5" rx="2" fill="#d3eac2"/>
+                  <rect x="16" y="208" width="150" height="6" rx="2" fill="#e3eaf3"/><rect x="16" y="221" width="112" height="6" rx="2" fill="#e3eaf3"/>
+                  <g transform="translate(218,6)">
+                    <circle r="17" fill="#80c34a" stroke="#fff" stroke-width="3"/>
+                    <path d="M-7 0l5 5 9-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                </g>
+                <text x="636" y="300" text-anchor="middle" font-size="18" font-weight="800" fill="#5c9a2e">Actually yours.</text>
+              </g>
             </g>
-          </defs>
-          <g font-family="Plus Jakarta Sans, sans-serif">
-            <use href="#dv-same" class="dv-same" x="0" y="46"/>
-            <use href="#dv-same" class="dv-same" x="166" y="46"/>
-            <use href="#dv-same" class="dv-same" x="332" y="46"/>
-            <text x="241" y="282" text-anchor="middle" font-size="20" font-weight="700" fill="#5a6b82">Same prompt. Same AI engine. Same result.</text>
-            <line x1="516" y1="36" x2="516" y2="252" stroke="#c1daff" stroke-width="1.5" stroke-dasharray="3 5"/>
-            <g class="dv-own" transform="translate(556,20)">
-              <rect width="188" height="248" rx="2" fill="url(#dv-bg)"/>
-              <rect x="20" y="24" width="46" height="10" rx="2" fill="#fff" opacity=".9"/>
-              <rect x="20" y="48" width="104" height="14" rx="2" fill="#fff"/>
-              <rect x="20" y="70" width="80" height="14" rx="2" fill="#fff" opacity=".85"/>
-              <circle cx="150" cy="60" r="20" fill="#80c34a"/>
-              <rect x="20" y="104" width="148" height="58" rx="2" fill="#fff" opacity=".16"/>
-              <rect x="34" y="120" width="70" height="9" rx="2" fill="#fff" opacity=".9"/>
-              <rect x="34" y="136" width="100" height="9" rx="2" fill="#fff" opacity=".6"/>
-              <rect x="20" y="178" width="60" height="26" rx="2" fill="#80c34a"/>
-              <rect x="92" y="178" width="60" height="26" rx="2" fill="#fff" opacity=".25"/>
-            </g>
-            <text x="650" y="294" text-anchor="middle" font-size="20" font-weight="800" fill="#5c9a2e">Actually yours.</text>
-          </g>
-        </svg>
-      </figure>
+          </svg>
+        </figure>
+      </div>
       </div>
     </div>
   </section>
 
   <!-- 8 · WEBSITE EVOLUTION ------------------------------------------------- -->
   <section class="band" aria-labelledby="evolve-title">
-    <!-- The copy holds the left; the four monthly moves run down the right as
-         the marked list, under the line that says what picks them. -->
+    <!-- The copy holds the left; the monthly cycle is drawn on the right. -->
     <div class="wrap evolve-split">
       <div class="evolve-copy reveal">
         <h2 class="sec-title sec-title--wide" id="evolve-title">Website Evolution: <em>Launch Is Version One.</em></h2>
@@ -348,19 +366,58 @@
           <a class="btn btn--outline" href="https://www.imageworkscreative.com/lets-grow-your-brand">Talk With Our Team</a>
         </div>
       </div>
-      <div class="cycle-wrap reveal">
-        <div class="cycle-head">
-          <span class="cycle-head__ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-gauge"/></svg></span>
-          <p><b>Data decides</b><span>analytics · heatmaps · search · behavior</span></p>
-        </div>
-        <ol class="cycle">
-          <li class="cycle-step"><span class="cycle-ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-browser"/></svg></span><span>Refine the homepage</span></li>
-          <li class="cycle-step"><span class="cycle-ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-page"/></svg></span><span>Rework a subpage</span></li>
-          <li class="cycle-step"><span class="cycle-ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span><span>Add a new page</span></li>
-          <li class="cycle-step"><span class="cycle-ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-menu"/></svg></span><span>Rethink the menu</span></li>
-        </ol>
-        <p class="cycle-foot">Every month, one focused improvement.</p>
-      </div>
+      <!-- Four monthly moves round the data that picks them. The labels sit
+           outside the ring so the arcs never cross them; the arcs fade as they
+           go round, and a single point travels the loop. -->
+      <figure class="evocycle reveal">
+        <svg viewBox="10 20 660 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A monthly improvement cycle driven by data: 1, refine the homepage; 2, rework a subpage; 3, add a new page; 4, rethink the menu">
+          <defs>
+            <marker id="evo-ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#80c34a"/></marker>
+            <filter id="evo-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#143c66" flood-opacity=".14"/></filter>
+            <radialGradient id="evo-hub" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#205fa6"/><stop offset="1" stop-color="#0d2748"/></radialGradient>
+          </defs>
+          <circle cx="340" cy="240" r="140" fill="none" stroke="#e3eaf3" stroke-width="2" stroke-dasharray="3 8" stroke-linecap="round"/>
+          <g class="evo-arcs" fill="none" stroke="#80c34a" stroke-width="3.5" stroke-linecap="round" marker-end="url(#evo-ah)">
+            <path d="M380.9 106.1A140 140 0 0 1 473.9 199.1"/>
+            <path d="M473.9 280.9A140 140 0 0 1 380.9 373.9" opacity=".8"/>
+            <path d="M299.1 373.9A140 140 0 0 1 206.1 280.9" opacity=".6"/>
+            <path d="M206.1 199.1A140 140 0 0 1 299.1 106.1" opacity=".42"/>
+          </g>
+          <g class="evo-orbit"><circle cx="340" cy="100" r="6" fill="#80c34a" stroke="#fff" stroke-width="2.5"/></g>
+          <g font-family="Plus Jakarta Sans, sans-serif">
+            <circle class="evo-pulse" cx="340" cy="240" r="86" fill="#80c34a" opacity=".12"/>
+            <circle cx="340" cy="240" r="74" fill="url(#evo-hub)"/>
+            <text x="340" y="234" text-anchor="middle" font-size="19" font-weight="800" fill="#fff">Data decides</text>
+            <text x="340" y="256" text-anchor="middle" font-size="12" font-weight="600" fill="#c1daff">analytics · heatmaps</text>
+            <text x="340" y="273" text-anchor="middle" font-size="12" font-weight="600" fill="#c1daff">search · behavior</text>
+            <g class="evo-node" transform="translate(340,100)">
+              <circle r="34" fill="#fff" stroke="#80c34a" stroke-width="2.5" filter="url(#evo-shadow)"/>
+              <use href="#i-browser" x="-14" y="-14" width="28" height="28" color="#1266b5"/>
+              <g transform="translate(25,-25)"><circle r="13" fill="#143c66" stroke="#fff" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">1</text></g>
+              <text x="0" y="-50" text-anchor="middle" font-size="19" font-weight="700" fill="#143c66">Refine the homepage</text>
+            </g>
+            <g class="evo-node" transform="translate(480,240)">
+              <circle r="34" fill="#fff" stroke="#80c34a" stroke-width="2.5" filter="url(#evo-shadow)"/>
+              <use href="#i-page" x="-14" y="-14" width="28" height="28" color="#1266b5"/>
+              <g transform="translate(25,-25)"><circle r="13" fill="#143c66" stroke="#fff" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">2</text></g>
+              <text x="46" y="7" text-anchor="start" font-size="19" font-weight="700" fill="#143c66">Rework a subpage</text>
+            </g>
+            <g class="evo-node" transform="translate(340,380)">
+              <circle r="34" fill="#fff" stroke="#80c34a" stroke-width="2.5" filter="url(#evo-shadow)"/>
+              <use href="#i-plus" x="-14" y="-14" width="28" height="28" color="#1266b5"/>
+              <g transform="translate(25,-25)"><circle r="13" fill="#143c66" stroke="#fff" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">3</text></g>
+              <text x="0" y="62" text-anchor="middle" font-size="19" font-weight="700" fill="#143c66">Add a new page</text>
+            </g>
+            <g class="evo-node" transform="translate(200,240)">
+              <circle r="34" fill="#fff" stroke="#80c34a" stroke-width="2.5" filter="url(#evo-shadow)"/>
+              <use href="#i-menu" x="-14" y="-14" width="28" height="28" color="#1266b5"/>
+              <g transform="translate(25,-25)"><circle r="13" fill="#143c66" stroke="#fff" stroke-width="2.5"/><text y="4.5" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">4</text></g>
+              <text x="-46" y="7" text-anchor="end" font-size="19" font-weight="700" fill="#143c66">Rethink the menu</text>
+            </g>
+          </g>
+        </svg>
+        <figcaption>Every month, one focused improvement.</figcaption>
+      </figure>
     </div>
   </section>
 

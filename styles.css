@@ -1364,16 +1364,20 @@ a { color: inherit; }
 
 .duo {
   display: grid;
-  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
   gap: clamp(32px, 4.5vw, 64px);
   align-items: center;
 }
 .duo-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; min-width: 0; }
+/* The heading runs the full width above the split, so its second line is
+   the phrase on its own. */
+.duo-title { max-width: none; }
+.duo { width: 100%; margin-top: 8px; }
 .duo-art {
-  padding: clamp(20px, 2.6vw, 34px);
-  border-radius: var(--r);
-  border-top: 3px solid var(--green);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  padding: clamp(18px, 2.4vw, 30px) clamp(16px, 2vw, 26px) clamp(12px, 1.6vw, 20px);
+  border-radius: 10px;
+  background: radial-gradient(120% 90% at 85% 10%, #eef6e6 0%, rgba(238, 246, 230, 0) 55%),
+              linear-gradient(180deg, #ffffff, #f7faff);
   box-shadow: var(--shadow-card);
 }
 .diffviz { width: 100%; margin: 0; }
@@ -1393,23 +1397,12 @@ a { color: inherit; }
 @keyframes dv-in { to { opacity: 1; } }
 
 /* --------------------------------------------------------------------------
-   THE CYCLE — Website Evolution: Launch Is Version One
-   The "what you get" list from the home, value for value:
-   https://imageworksc.github.io/imageworks-home-2/  →  styles.css,
-   .iw-steps-out / .iw-steps-list / .iw-steps-ic
-
-   Quiet boxes rather than plain lines: a 1px border on a barely-off-white
-   ground, a 12px corner, and a 34px rounded tile holding the mark. The copy
-   holds the left of the band and the six steps run down the right behind a
-   hairline, which is how the source hangs the list off its step.
-
-   Green throughout, as the source has it: there the green says outcome rather
-   than step, and these six are the work that keeps going after launch.
+   WEBSITE EVOLUTION — the monthly cycle
    -------------------------------------------------------------------------- */
 .evolve-split {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
-  gap: clamp(32px, 4.5vw, 66px);
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: clamp(32px, 4.5vw, 64px);
   align-items: center;
 }
 .evolve-copy {
@@ -1417,142 +1410,57 @@ a { color: inherit; }
   flex-direction: column;
   align-items: flex-start;
   gap: 18px;
+  min-width: 0;
 }
 
-/* the rule the list hangs off — .iw-steps-out */
-.cycle {
-  display: grid;
-  gap: 10px;
+/* The drawing: four numbered moves round a navy hub, labels outside the ring
+   so nothing crosses them. Three things move, each on its own clock: the arcs
+   draw in once, a single point travels the loop, and the hub breathes. */
+.evocycle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   width: 100%;
-  padding-left: clamp(24px, 3vw, 40px);
-  /* --border, not --border-soft: the source rules its list against a white
-     panel, and on this band's tint the softer hairline disappeared. */
-  border-left: 1px solid var(--border);
+  margin: 0;
 }
-
-.cycle-step {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card-bottom);
-  font-size: 14.5px;
-  line-height: 1.4;
-  font-weight: 600;
-  color: var(--navy);
-  transition: border-color .3s ease, background-color .3s ease,
-              box-shadow .3s ease, transform .35s cubic-bezier(.2, .8, .3, 1);
-}
-.cycle-step:hover {
-  border-color: var(--chip-blue);
-  background: var(--white);
-  box-shadow: 0 8px 20px rgba(20, 40, 80, .08);
-  transform: translateX(3px);
-}
-
-/* Each step carries its own glyph — the mark should say something the line
-   does not have to repeat, so a row of identical checks would be no use. */
-.cycle-ico {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 34px;
-  block-size: 34px;
-  border-radius: 9px;
-  background: var(--tint-green);
-  color: var(--green-ink);
-  transition: background-color .3s ease, transform .35s cubic-bezier(.2, .8, .3, 1);
-}
-.cycle-ico svg { inline-size: 18px; block-size: 18px; }
-.cycle-step:hover .cycle-ico { background: #e2f0d3; transform: scale(1.07); }
-
-
-@media (prefers-reduced-motion: no-preference) {
-  /* Arriving: the boxes come down the list, .07s apart, from the side the rule
-     is on. */
-  [data-anim="on"] .cycle.is-revealed .cycle-step { animation: cycle-in .55s var(--ease) backwards; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(1) { animation-delay: .05s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(2) { animation-delay: .12s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(3) { animation-delay: .19s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(4) { animation-delay: .26s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(5) { animation-delay: .33s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(6) { animation-delay: .40s; }
-
-  /* Afterwards: one tile deepens at a time, down the list and round again on a
-     15s clock. It is the only thing left saying the work does not stop. */
-  .cycle-ico { animation: cycle-lit 12s var(--ease) infinite; }
-  .cycle-step:nth-child(2) .cycle-ico { animation-delay: 3s; }
-  .cycle-step:nth-child(3) .cycle-ico { animation-delay: 6s; }
-  .cycle-step:nth-child(4) .cycle-ico { animation-delay: 9s; }
-
-  /* pointing at the list hands the turn to whichever box is under the cursor */
-  .cycle:hover .cycle-ico { animation-play-state: paused; }
-}
-
-@keyframes cycle-in {
-  from { opacity: 0; transform: translateX(-14px); }
-}
-@keyframes cycle-lit {
-  0%        { background: var(--tint-green); }
-  4%, 18%   { background: #d5ecc0; }
-  27%, 100% { background: var(--tint-green); }
-}
-
-/* Stacked, the rule would run down the middle of the band, so the source's
-   own answer applies: it moves to the top of the list. */
-@media (max-width: 900px) {
-  .evolve-split { grid-template-columns: minmax(0, 1fr); align-items: start; }
-  .cycle {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
-    margin-top: 8px;
-    padding-left: 0;
-    padding-top: 26px;
-    border-left: 0;
-    border-top: 1px solid var(--border);
-  }
-}
-@media (max-width: 520px) {
-  .cycle { grid-template-columns: minmax(0, 1fr); }
-}
-
-/* What picks the month's move: a navy head over the list, and the line the
-   list adds up to under it. */
-.cycle-wrap { display: flex; flex-direction: column; gap: 14px; width: 100%; }
-.cycle-head {
-  margin-left: clamp(24px, 3vw, 40px);
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: var(--navy);
-  color: #fff;
-}
-.cycle-head__ico {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 34px;
-  block-size: 34px;
-  border-radius: 9px;
-  background: rgba(255, 255, 255, .12);
-  color: var(--green);
-}
-.cycle-head p { display: flex; flex-direction: column; line-height: 1.3; }
-.cycle-head b { font-size: 15px; font-weight: 800; }
-.cycle-head p span { font-size: 12.5px; font-weight: 600; color: rgba(226, 238, 252, .75); }
-.cycle-foot {
-  padding-left: clamp(24px, 3vw, 40px);
-  font-size: 14.5px;
+.evocycle svg { inline-size: 100%; max-inline-size: 660px; block-size: auto; overflow: visible; }
+.evocycle figcaption {
+  font-size: 15px;
   font-weight: 800;
   color: var(--green-ink);
 }
+
+.evo-orbit,
+.evo-pulse {
+  transform-box: view-box;
+  transform-origin: 340px 240px;
+}
+.evo-node circle:first-child { transition: fill .3s var(--ease), stroke-width .3s var(--ease); }
+.evo-node:hover circle:first-child { fill: var(--tint-green); stroke-width: 3.5; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .evo-orbit { animation: evo-turn 12s linear infinite; }
+  .evo-pulse { animation: evo-pulse 4s var(--ease) infinite; }
+  .evocycle:hover .evo-orbit,
+  .evocycle:hover .evo-pulse { animation-play-state: paused; }
+
+  /* the arcs draw themselves round the ring the first time it is seen */
+  [data-anim="on"] .evocycle .evo-arcs path { stroke-dasharray: 200; stroke-dashoffset: 200; }
+  [data-anim="on"] .evocycle.is-revealed .evo-arcs path { animation: evo-draw .7s var(--ease) forwards; }
+  [data-anim="on"] .evocycle.is-revealed .evo-arcs path:nth-child(2) { animation-delay: .25s; }
+  [data-anim="on"] .evocycle.is-revealed .evo-arcs path:nth-child(3) { animation-delay: .5s; }
+  [data-anim="on"] .evocycle.is-revealed .evo-arcs path:nth-child(4) { animation-delay: .75s; }
+}
+@keyframes evo-turn { to { transform: rotate(360deg); } }
+@keyframes evo-pulse {
+  0%, 100% { transform: scale(1); opacity: .12; }
+  50%      { transform: scale(1.1); opacity: .2; }
+}
+@keyframes evo-draw { to { stroke-dashoffset: 0; } }
+
 @media (max-width: 900px) {
-  .cycle-foot { padding-left: 0; }
-  .cycle-head { margin-left: 0; }
+  .evolve-split { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* --------------------------------------------------------------------------
