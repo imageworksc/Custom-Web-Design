@@ -107,7 +107,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=bf109e51">
+<link rel="stylesheet" href="styles.css?v=c1712e33">
 <script src="app.js?v=8037369b"></script>
 </head>
 <body>
@@ -457,12 +457,114 @@
     <div class="wrap stack">
       <h2 class="sec-title sec-title--wide reveal" id="work-title">See What Custom Looks Like.</h2>
       <p class="lead reveal">Different industries. Different audiences. Different brands. Different websites. That's the point.</p>
-      <!-- PENDING: the deck leaves this as a slot. It takes 4–6 ImageWorks
-           projects — desktop and mobile, the client, the industry, and one line
-           on what made each distinctive. -->
-      <div class="slot reveal">
-        <p>4–6 ImageWorks projects — desktop + mobile, client, industry, one line on what made each distinctive</p>
-      </div>
+      <!-- Six real homepages, each from a different industry, set the way the
+           individual portfolio sets its projects: a browser frame with the desktop
+           build and a phone with the mobile one. Pointing at a card runs both
+           frames down the page; the link opens the project's live page there. -->
+      <ul class="works reveal">
+        <li class="work">
+          <div class="work-stage">
+            <div class="work-browser" aria-hidden="true">
+              <div class="work-bar"><i></i><i></i><i></i><span>caseymargenau.com</span></div>
+              <div class="work-view"><img src="images/work/casey-desktop.jpg" width="640" height="1600" loading="lazy" decoding="async" alt=""></div>
+            </div>
+            <div class="work-phone" aria-hidden="true">
+              <div class="work-view"><img src="images/work/casey-mobile.jpg" width="220" height="1903" loading="lazy" decoding="async" alt=""></div>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-tag">Luxury real estate</span>
+            <h3>Casey Margenau Fine Homes &amp; Estates</h3>
+            <p>Twilight photography, light type and the numbers up front, for Northern Virginia's top-producing team.</p>
+            <a class="work-link" href="https://imageworksc.github.io/individual-portfolio/casey-margenau.html" target="_blank" rel="noopener">Try it live<span class="sr-only"> — Casey Margenau Fine Homes &amp; Estates homepage (opens in a new tab)</span><svg class="icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </li>
+        <li class="work">
+          <div class="work-stage">
+            <div class="work-browser" aria-hidden="true">
+              <div class="work-bar"><i></i><i></i><i></i><span>barrgroup.com</span></div>
+              <div class="work-view"><img src="images/work/barrgroup-desktop.jpg" width="640" height="1600" loading="lazy" decoding="async" alt=""></div>
+            </div>
+            <div class="work-phone" aria-hidden="true">
+              <div class="work-view"><img src="images/work/barrgroup-mobile.jpg" width="220" height="1903" loading="lazy" decoding="async" alt=""></div>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-tag">Litigation support</span>
+            <h3>Barr Group</h3>
+            <p>A navy-and-teal system that walks attorneys through a technical expert-witness search, step by step.</p>
+            <a class="work-link" href="https://imageworksc.github.io/individual-portfolio/barr-group.html" target="_blank" rel="noopener">Try it live<span class="sr-only"> — Barr Group homepage (opens in a new tab)</span><svg class="icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </li>
+        <li class="work">
+          <div class="work-stage">
+            <div class="work-browser" aria-hidden="true">
+              <div class="work-bar"><i></i><i></i><i></i><span>masondixonveter.com</span></div>
+              <div class="work-view"><img src="images/work/masondixon-desktop.jpg" width="640" height="1600" loading="lazy" decoding="async" alt=""></div>
+            </div>
+            <div class="work-phone" aria-hidden="true">
+              <div class="work-view"><img src="images/work/masondixon-mobile.jpg" width="220" height="1903" loading="lazy" decoding="async" alt=""></div>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-tag">Emergency veterinary</span>
+            <h3>Mason Dixon Animal Emergency Hospital</h3>
+            <p>24/7 emergency care with the phone number and the warning signs a single tap away.</p>
+            <a class="work-link" href="https://imageworksc.github.io/individual-portfolio/mason-dixon.html" target="_blank" rel="noopener">Try it live<span class="sr-only"> — Mason Dixon Animal Emergency Hospital homepage (opens in a new tab)</span><svg class="icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </li>
+        <li class="work">
+          <div class="work-stage">
+            <div class="work-browser" aria-hidden="true">
+              <div class="work-bar"><i></i><i></i><i></i><span>wssa.com</span></div>
+              <div class="work-view"><img src="images/work/wssa-desktop.jpg" width="640" height="1600" loading="lazy" decoding="async" alt=""></div>
+            </div>
+            <div class="work-phone" aria-hidden="true">
+              <div class="work-view"><img src="images/work/wssa-mobile.jpg" width="220" height="1903" loading="lazy" decoding="async" alt=""></div>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-tag">Trade association</span>
+            <h3>Wine &amp; Spirits Shippers Association</h3>
+            <p>North America's oldest shippers' association, set among the ports and ships its members move through.</p>
+            <a class="work-link" href="https://imageworksc.github.io/individual-portfolio/wssa.html" target="_blank" rel="noopener">Try it live<span class="sr-only"> — Wine &amp; Spirits Shippers Association homepage (opens in a new tab)</span><svg class="icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </li>
+        <li class="work">
+          <div class="work-stage">
+            <div class="work-browser" aria-hidden="true">
+              <div class="work-bar"><i></i><i></i><i></i><span>stmichaelsinc.com</span></div>
+              <div class="work-view"><img src="images/work/stmichaels-desktop.jpg" width="640" height="1600" loading="lazy" decoding="async" alt=""></div>
+            </div>
+            <div class="work-phone" aria-hidden="true">
+              <div class="work-view"><img src="images/work/stmichaels-mobile.jpg" width="220" height="1903" loading="lazy" decoding="async" alt=""></div>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-tag">Government services</span>
+            <h3>St. Michael's</h3>
+            <p>Serif type and Capitol photography for a veteran-owned firm that sells to federal agencies.</p>
+            <a class="work-link" href="https://imageworksc.github.io/individual-portfolio/st-michaels.html" target="_blank" rel="noopener">Try it live<span class="sr-only"> — St. Michael's homepage (opens in a new tab)</span><svg class="icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </li>
+        <li class="work">
+          <div class="work-stage">
+            <div class="work-browser" aria-hidden="true">
+              <div class="work-bar"><i></i><i></i><i></i><span>atlanticsun.net</span></div>
+              <div class="work-view"><img src="images/work/asc-desktop.jpg" width="640" height="1600" loading="lazy" decoding="async" alt=""></div>
+            </div>
+            <div class="work-phone" aria-hidden="true">
+              <div class="work-view"><img src="images/work/asc-mobile.jpg" width="220" height="1903" loading="lazy" decoding="async" alt=""></div>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-tag">Window film contractor</span>
+            <h3>Atlantic Sun Control</h3>
+            <p>Window film explained in plain terms, with a selector that matches the film to the problem.</p>
+            <a class="work-link" href="https://imageworksc.github.io/individual-portfolio/atlantic-sun-control.html" target="_blank" rel="noopener">Try it live<span class="sr-only"> — Atlantic Sun Control homepage (opens in a new tab)</span><svg class="icon" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </li>
+      </ul>
       <div class="btn-row reveal mt-6">
         <a class="btn btn--solid" href="https://www.imageworkscreative.com/lets-grow-your-brand">Book a Call About Your Website<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--outline" href="#tbyb">Let Us Mock Up Yours</a>

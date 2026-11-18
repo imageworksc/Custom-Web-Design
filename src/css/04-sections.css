@@ -393,28 +393,189 @@
 @keyframes dv-in { to { opacity: 1; } }
 
 /* --------------------------------------------------------------------------
-   SEE WHAT CUSTOM LOOKS LIKE — the slot for the work
+   SEE WHAT CUSTOM LOOKS LIKE — six real homepages
+   Set the way the individual portfolio sets a project
+   (imageworksc/individual-portfolio → css/styles.css, .ip-browser, .ip-phone,
+   .ip-scroller): the desktop build in a browser frame with three dots and an
+   address pill, the mobile build in a navy phone laid over its corner. On a
+   fine pointer, resting on a card runs both captures down their pages — the
+   portfolio's 9s scroll out, 1.2s back — so the depth of the work shows, not
+   just the hero.
    -------------------------------------------------------------------------- */
-/* Marked as a slot on purpose: it waits for real projects, not stand-ins. */
-.slot {
+.works {
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
   width: 100%;
-  min-block-size: 260px;
-  padding: 26px;
-  border: 1px dashed var(--blue);
-  border-radius: var(--r);
-  background: linear-gradient(160deg, #fff, var(--tint-blue));
-  text-align: center;
+  margin-top: 10px;
 }
-.slot p {
-  max-width: 46ch;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: .04em;
-  line-height: 1.7;
+.work {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.work:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
+}
+
+/* The stage: a tinted ground the two frames sit on, with room at the right
+   and the foot for the phone to hang over the browser's corner. */
+.work-stage {
+  position: relative;
+  padding: 22px 22px 30px;
+  background: linear-gradient(160deg, var(--tint-blue), #f6f9fd);
+}
+
+.work-browser {
+  overflow: hidden;
+  margin-right: 14%;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(20, 60, 102, .06), 0 6px 20px rgba(9, 40, 80, .1);
+}
+.work-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  block-size: 24px;
+  padding-inline: 10px;
+  background: #f1f4f8;
+  border-bottom: 1px solid rgba(20, 60, 102, .08);
+}
+.work-bar i {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: #cfd8e3;
+}
+.work-bar span {
+  flex: 1;
+  margin-left: 8px;
+  overflow: hidden;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--faint);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* The window onto a full-height capture. The image sits at the top; the
+   hover moves it up by its own height less the window's. */
+.work-view {
+  position: relative;
+  overflow: hidden;
+  /* a size container, so the image can be moved by exactly its own height
+     less the window's (100cqh) */
+  container-type: size;
+}
+.work-browser .work-view { aspect-ratio: 16 / 10.5; }
+.work-view img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  transform: translateY(0);
+  transition: transform 1.2s var(--ease);
+}
+
+.work-phone {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  inline-size: 24%;
+  padding: 4px;
+  border-radius: 14px;
+  background: #0f2e4f;
+  box-shadow: 0 10px 26px rgba(9, 40, 80, .28);
+}
+.work-phone .work-view {
+  aspect-ratio: 390 / 844;
+  border-radius: 10px;
+  background: #fff;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .work:hover .work-view img {
+    transform: translateY(calc(-100% + 100cqh));
+    transition: transform 9s linear;
+  }
+}
+
+.work-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1;
+  padding: 22px 24px 24px;
+}
+.work-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--blue);
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: var(--r);
+  background: var(--tint-green);
+  color: var(--green-ink);
+}
+.work-meta h3 {
+  font-size: 19px;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+}
+.work-meta p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.work-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--green-ink);
+  text-decoration: none;
+  transition: gap .25s var(--ease), color .25s var(--ease);
+}
+.work-link:hover { gap: 12px; color: var(--navy); }
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="on"] .works.is-revealed .work { animation: card-rise .6s var(--ease) backwards; }
+  [data-anim="on"] .works.is-revealed .work:nth-child(1) { animation-delay: .04s; }
+  [data-anim="on"] .works.is-revealed .work:nth-child(2) { animation-delay: .13s; }
+  [data-anim="on"] .works.is-revealed .work:nth-child(3) { animation-delay: .22s; }
+  [data-anim="on"] .works.is-revealed .work:nth-child(4) { animation-delay: .31s; }
+  [data-anim="on"] .works.is-revealed .work:nth-child(5) { animation-delay: .40s; }
+  [data-anim="on"] .works.is-revealed .work:nth-child(6) { animation-delay: .49s; }
+}
+
+@media (max-width: 1100px) {
+  .works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .works { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* --------------------------------------------------------------------------
