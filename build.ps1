@@ -62,19 +62,6 @@ foreach ($token in $assets.Keys) {
 # path in index.html, a data URI in the single-file preview.
 $bodyAssets = [ordered]@{
     '__ASSET_TBYB__' = @{ Path = 'images/try-before-you-buy.jpg'; Mime = 'image/jpeg' }
-    # the six homepages in the portfolio band, desktop and mobile
-    '__ASSET_W_CASEY_D__' = @{ Path = 'images/work/casey-desktop.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_CASEY_M__' = @{ Path = 'images/work/casey-mobile.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_BARRGROUP_D__' = @{ Path = 'images/work/barrgroup-desktop.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_BARRGROUP_M__' = @{ Path = 'images/work/barrgroup-mobile.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_MASONDIXON_D__' = @{ Path = 'images/work/masondixon-desktop.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_MASONDIXON_M__' = @{ Path = 'images/work/masondixon-mobile.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_WSSA_D__' = @{ Path = 'images/work/wssa-desktop.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_WSSA_M__' = @{ Path = 'images/work/wssa-mobile.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_STMICHAELS_D__' = @{ Path = 'images/work/stmichaels-desktop.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_STMICHAELS_M__' = @{ Path = 'images/work/stmichaels-mobile.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_ASC_D__' = @{ Path = 'images/work/asc-desktop.jpg'; Mime = 'image/jpeg' }
-    '__ASSET_W_ASC_M__' = @{ Path = 'images/work/asc-mobile.jpg'; Mime = 'image/jpeg' }
 }
 
 $body = Read-Src 'body.html'

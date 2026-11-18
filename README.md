@@ -18,12 +18,8 @@ Dos cosas no salen del deck tal cual:
 
 - El hero conserva el kit (estructura, tipografía, componentes, paleta) donde
   el deck deja el marcador "PORTRAIT MONTAGE", hasta que exista ese montaje.
-- El portafolio ("See What Custom Looks Like") lleva seis homepages reales,
-  presentados como en el portfolio individual
-  (`imageworksc/individual-portfolio`): navegador con la versión de
-  escritorio, teléfono con la móvil, sector, una línea y enlace a su página
-  en vivo. Las capturas (`images/work/`) se sacaron de los builds que esas
-  páginas llevan incrustados; si un sitio cambia, hay que volver a capturarlo.
+- La v2 del deck quita el portafolio ("See What Custom Looks Like"); la página
+  ya no lo lleva.
 
 ## Uso
 
@@ -38,7 +34,6 @@ Abre [`index.html`](index.html) en el navegador. No hay servidor ni dependencias
 ├── app.js               # Todo el comportamiento
 ├── fonts/               # Plus Jakarta Sans (subconjunto latin, variable)
 ├── images/              # La foto de Try Before You Buy (sacada del deck)
-│   └── work/            # Capturas de escritorio y móvil de los seis proyectos
 ├── build.ps1            # Ensambla los tres archivos desde src/
 └── src/
     ├── head.html        # <head>: meta, Open Graph, JSON-LD
@@ -102,8 +97,6 @@ saltar a su ancla — una para el navegador y otra para el scroll suave.
 - Confirmar la URL canónica en [`src/head.html`](src/head.html) — el deck la trae
   como marcador de posición y aquí está puesta a `/custom-web-design/`
 - Añadir `og:image` cuando exista la imagen
-- Revisar las líneas de cada proyecto del portafolio (redactadas a partir de
-  cada página y de su diseño visible)
 - El montaje vertical de un sitio real para el hero, si se quiere sustituir el kit
 
 ## Licencia
