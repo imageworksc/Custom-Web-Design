@@ -308,18 +308,9 @@
 .tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
 .tag-green { background: var(--tint-green); color: var(--green-ink); }
 
-/* The recommended row holds the green: ruled down its edge and tinted, so the
-   eye lands where the argument does. */
+/* The recommended row holds the green: tinted, so the eye lands where the
+   argument does. */
 .cms-row--best { background: #f3faec; }
-.cms-row--best::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  inline-size: 3px;
-  background: var(--green);
-}
 .cms-row--best .cms-icon { background: var(--green); color: #143c1f; }
 .cms-row--best .compare-tag { background: var(--green); color: #14300a; }
 .cms-row--best:hover { background: #eaf5df; }
