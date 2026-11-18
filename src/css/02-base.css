@@ -141,11 +141,6 @@ a { color: inherit; }
 /* Spacing utilities. A `.stack` sets the rhythm inside a group; these nudge a
    single child off it — a button row that needs a little more air than the
    paragraph above it. Kept here so no rule lives in the markup. */
-.stack--loose { gap: 24px; }
-/* A reading column: the deck's calm prose blocks hold to 64ch, and the wide
-   one opens to 760px to give its illustration room. */
-.stack--prose { max-width: 64ch; gap: 20px; }
-.stack--prose.stack--wide { max-width: 760px; }
 
 /* A short slim band — one line on the deep ground. */
 .band.band--slim { padding-block: clamp(40px, 4.5vw, 64px); }
