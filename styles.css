@@ -946,15 +946,15 @@ a { color: inherit; }
 .offer {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  min-block-size: clamp(480px, 42vw, 620px);
+  min-block-size: clamp(320px, 27vw, 400px);
 }
 .offer-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 20px;
-  padding-block: var(--band-y);
+  gap: 16px;
+  padding-block: clamp(36px, 4vw, 56px);
   /* the left edge lines up with every other band's text */
   padding-left: max(var(--gutter), calc((100vw - var(--shell)) / 2 + var(--gutter)));
   padding-right: clamp(32px, 5vw, 72px);
@@ -1002,10 +1002,10 @@ a { color: inherit; }
 }
 @media (max-width: 860px) {
   .offer { grid-template-columns: minmax(0, 1fr); min-block-size: 0; }
-  .offer-shot { order: -1; min-block-size: 340px; }
+  .offer-shot { order: -1; min-block-size: 240px; }
   .offer-shot img { object-position: center 18%; }
   .offer-shot::after { background: linear-gradient(0deg, #fff 0%, rgba(255, 255, 255, 0) 20%); }
-  .offer-copy { padding: 36px var(--gutter) var(--band-y); }
+  .offer-copy { padding: 28px var(--gutter) 44px; }
 }
 /* "Request Your Homepage Preview" needs about 320px on one line, more than a
    phone leaves, so the label wraps and the height becomes a floor. */
