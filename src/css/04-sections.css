@@ -35,25 +35,28 @@
 .cta-aside a:hover { gap: 12px; color: var(--navy); }
 
 /* --------------------------------------------------------------------------
-   DIRECTION IS THE DIFFERENCE — two names for one loop
+   DIRECTION IS THE DIFFERENCE — three names for one loop
    -------------------------------------------------------------------------- */
-/* The first line holds one of three names at a time and rolls to the next, filled with
-   the brand's blue-to-green sweep. Held long enough to read, with a quick
-   eased move between. The track ends on a repeat of its first line, so the
-   loop closes without a jump — and a browser that never runs the animation
-   simply shows "Creative Direction". */
+/* Centred on the deep band and set larger than the other section heads: the
+   rolling name is the section. A row of dots underneath follows the roll. */
+.band--direction .stack { align-items: center; text-align: center; gap: 22px; }
+
 .dirhead {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 4px;
   max-width: none;
-  line-height: 1.16;
+  font-size: clamp(32px, 4.6vw, 58px);
+  line-height: 1.12;
+  letter-spacing: -.025em;
 }
 .dirroll {
   display: block;
   position: relative;
   overflow: hidden;
   block-size: 1.16em;
+  text-align: center;
 }
 .dirroll__track { display: flex; flex-direction: column; }
 .dirroll__track > span {
@@ -61,20 +64,59 @@
   block-size: 1.16em;
   line-height: 1.16em;
   white-space: nowrap;
+  /* a light sweep, so the blue end still reads on the deep ground */
   background: linear-gradient(100deg, #9fcbf5 0%, #7fd3d8 50%, var(--green) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+
+/* one dot per name, the current one stretched and green */
+.dirdots { display: flex; gap: 8px; margin-top: -4px; }
+.dirdots i {
+  display: block;
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, .28);
+}
+.dirdots i:first-child { inline-size: 26px; background: var(--green); }
+
+.dir-lead {
+  max-width: 56ch;
+  font-size: clamp(17px, 1.5vw, 19px);
+  color: rgba(226, 238, 252, .9);
+}
+.dir-loop {
+  max-width: 62ch;
+  font-size: var(--step-1);
+  line-height: 1.75;
+  color: rgba(226, 238, 252, .7);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .dirroll__track { animation: dirroll 11s cubic-bezier(.76, 0, .24, 1) infinite; }
+  .dirdots i { animation: dirdot 11s cubic-bezier(.76, 0, .24, 1) infinite; }
+  .dirdots i:first-child { animation-name: dirdot-first; }
+  .dirdots i:nth-child(2) { animation-delay: 3.63s; }
+  .dirdots i:nth-child(3) { animation-delay: 7.26s; }
 }
 @keyframes dirroll {
   0%, 26%  { transform: translateY(0); }
   33%, 59% { transform: translateY(-1.16em); }
   66%, 92% { transform: translateY(-2.32em); }
   100%     { transform: translateY(-3.48em); }
+}
+/* each dot is lit for its third of the 11s loop, in step with the roll */
+@keyframes dirdot {
+  0%, 26%   { inline-size: 26px; background: var(--green); }
+  33%, 100% { inline-size: 8px; background: rgba(255, 255, 255, .28); }
+}
+@keyframes dirdot-first {
+  0%, 26%   { inline-size: 26px; background: var(--green); }
+  33%, 92%  { inline-size: 8px; background: rgba(255, 255, 255, .28); }
+  100%      { inline-size: 26px; background: var(--green); }
 }
 
 /* --------------------------------------------------------------------------
@@ -460,26 +502,6 @@
   .process-n { inline-size: 48px; block-size: 48px; font-size: 15px; }
   .process::before { left: 23px; top: 30px; bottom: 30px; }
   .process-step + .process-step::before { left: 66px; }
-}
-
-/* --------------------------------------------------------------------------
-   DIRECTION — the loop, set as the deep band's callout
-   -------------------------------------------------------------------------- */
-/* --- the callout on the deep band --------------------------------------- */
-/* The band re-points --navy to white, so this cannot lean on the tokens the
-   way the light sections do: it states its own surface. */
-.callout {
-  width: 100%;
-  max-width: 62ch;
-  margin-top: 6px;
-  padding: 22px 26px;
-  border-left: 4px solid var(--green);
-  border-radius: 0 var(--r) var(--r) 0;
-  background: rgba(255, 255, 255, .07);
-  font-size: var(--step-1);
-  font-weight: 600;
-  line-height: 1.7;
-  color: #fff;
 }
 
 /* --------------------------------------------------------------------------
