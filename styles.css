@@ -897,7 +897,8 @@ a { color: inherit; }
    DIRECTION IS THE DIFFERENCE — three names for one loop
    -------------------------------------------------------------------------- */
 /* Centred on the deep band, at the same size as every other section head. */
-.band--direction .stack { align-items: center; text-align: center; gap: 20px; }
+.band.band--direction { padding-block: clamp(48px, 5vw, 72px); }
+.band--direction .stack { align-items: center; text-align: center; gap: 16px; }
 
 .dirhead {
   display: flex;
