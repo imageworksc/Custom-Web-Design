@@ -1373,28 +1373,50 @@ a { color: inherit; }
    the phrase on its own. */
 .duo-title { max-width: none; }
 .duo { width: 100%; margin-top: 8px; }
-.duo-art {
-  padding: clamp(18px, 2.4vw, 30px) clamp(16px, 2vw, 26px) clamp(12px, 1.6vw, 20px);
-  border-radius: 10px;
-  background: radial-gradient(120% 90% at 85% 10%, #eef6e6 0%, rgba(238, 246, 230, 0) 55%),
-              linear-gradient(180deg, #ffffff, #f7faff);
-  box-shadow: var(--shadow-card);
-}
+.duo-art { min-width: 0; }
 .diffviz { width: 100%; margin: 0; }
 @media (max-width: 900px) {
   .duo { grid-template-columns: minmax(0, 1fr); }
 }
 .diffviz svg { inline-size: 100%; block-size: auto; }
 
-/* The three copies arrive together and dimly; the one that belongs to someone
-   comes in after them, at full strength. */
+/* The three copies bob as one, on the same beat, so they read as the same
+   site; the custom one floats on its own longer clock, a shine crosses its
+   hero, its green shape breathes and the tick pulses. */
+.dv-blob, .dv-ring, .dv-tick { transform-box: fill-box; transform-origin: center; }
 @media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .diffviz .dv-same,
-  [data-anim="on"] .diffviz .dv-own { opacity: 0; }
-  [data-anim="on"] .duo-art.is-revealed .dv-same { animation: dv-in .6s var(--ease) .15s forwards; }
-  [data-anim="on"] .duo-art.is-revealed .dv-own { animation: dv-in .7s var(--ease) .75s forwards; }
+  .diffviz .dv-same { animation: dv-bob 3.2s ease-in-out infinite; }
+  .diffviz .dv-own { animation: dv-float 6s ease-in-out infinite; }
+  .diffviz .dv-blob { animation: dv-breathe 5s ease-in-out infinite; }
+  .diffviz .dv-ring { animation: dv-ring 5s ease-in-out infinite; }
+  .diffviz .dv-tick { animation: dv-tick 3s var(--ease) infinite; }
+  .diffviz .dv-shine { animation: dv-shine 4.5s ease-in-out infinite; }
 }
-@keyframes dv-in { to { opacity: 1; } }
+@keyframes dv-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+@keyframes dv-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes dv-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+@keyframes dv-ring {
+  0%, 100% { transform: scale(1); opacity: .9; }
+  50%      { transform: scale(1.22); opacity: .3; }
+}
+@keyframes dv-tick {
+  0%, 70%, 100% { transform: scale(1); }
+  80%           { transform: scale(1.22); }
+  90%           { transform: scale(.96); }
+}
+@keyframes dv-shine {
+  0%, 35%  { transform: translateX(0); }
+  75%, 100% { transform: translateX(330px); }
+}
 
 /* --------------------------------------------------------------------------
    WEBSITE EVOLUTION — the monthly cycle
