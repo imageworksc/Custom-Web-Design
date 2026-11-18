@@ -1077,48 +1077,30 @@ a { color: inherit; }
    AI, TEMPLATE, OR CUSTOM-BUILT
    -------------------------------------------------------------------------- */
 /* --- AI, Template, or Custom-Built: the three ways beside their heading -- */
-/* The branding page's split, value for value:
-   https://imageworksc.github.io/branding-page/  →  styles.css, .cms-split
-   The heading holds still on the left while the list passes it on the right,
-   so the section reads as one thought rather than a table sitting under a
-   paragraph. Only the sticky offset differs: the source clears a fixed nav
-   that this page does not carry. */
-.cms-split {
-  display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-  gap: clamp(36px, 5vw, 72px);
-  align-items: start;
-}
-.cms-aside {
-  position: sticky;
-  top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-}
-
 .cms-list {
   width: 100%;
+  margin-top: 10px;
   border-radius: var(--r);
   overflow: hidden;
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: var(--shadow-card);
 }
+
+/* Each way is a long row: the name and its tag hold a fixed column on the
+   left, the case for and against reads across the rest. */
 .cms-row {
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 24px clamp(22px, 2.4vw, 30px);
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(24px, 2.8vw, 34px) clamp(22px, 3vw, 40px);
   border-top: 1px solid var(--border-soft);
   transition: background-color .35s var(--ease);
 }
 .cms-row:first-child { border-top: 0; }
 .cms-row:hover { background: var(--tint-blue); }
 
-/* The rule wipes in from the left — the same mechanic the home gives its
-   links, rather than a decorative bar that is simply always there. */
+/* The rule wipes in from the left, the mechanic the home gives its links. */
 .cms-row::after {
   content: '';
   position: absolute;
@@ -1133,42 +1115,41 @@ a { color: inherit; }
 }
 .cms-row:hover::after { transform: scaleX(1); }
 
+.cms-name { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .cms-icon {
   flex: none;
   display: grid;
   place-items: center;
   inline-size: 48px;
   block-size: 48px;
+  margin-bottom: 4px;
   border-radius: 50%;
   background: var(--tint-blue);
   color: var(--blue);
-  transition: background-color .35s var(--ease), color .35s var(--ease),
-              transform .35s var(--ease);
+  transition: background-color .35s var(--ease), color .35s var(--ease), transform .35s var(--ease);
 }
 .cms-icon svg { inline-size: 22px; block-size: 22px; }
-.cms-row:hover .cms-icon {
-  background: var(--navy);
-  color: #fff;
-  transform: scale(1.08);
-}
-
-.cms-body { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
-.cms-body dt {
-  font-size: var(--step-1);
-  font-weight: 800;
-  color: var(--navy);
-  letter-spacing: -.01em;
+.cms-row:hover .cms-icon { background: var(--navy); color: #fff; transform: scale(1.08); }
+.cms-name h3 {
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -.015em;
   transition: transform .35s var(--ease);
 }
-.cms-row:hover .cms-body dt { transform: translateX(4px); }
-.cms-body dd {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--muted);
+.cms-row:hover .cms-name h3 { transform: translateX(4px); }
+.cms-sub { font-size: 14px; font-weight: 600; line-height: 1.45; color: var(--faint); }
+
+.cms-text { display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.cms-text p { font-size: 15.5px; line-height: 1.65; color: var(--muted); }
+.cms-text strong { color: var(--navy); font-weight: 700; }
+.cms-text .cms-punch {
+  margin-top: 4px;
+  padding-left: 14px;
+  border-left: 3px solid var(--green);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
 }
-.cms-body dd strong { color: var(--navy); font-weight: 700; }
-/* the label sits above the term it heads, with its own air under it */
-.cms-body .compare-tag { margin-bottom: 7px; }
 
 /* The small uppercase label each row is headed with. */
 .compare-tag {
@@ -1176,40 +1157,14 @@ a { color: inherit; }
   font-weight: 800;
   letter-spacing: .11em;
   text-transform: uppercase;
+  line-height: 1.3;
   padding: 5px 12px;
   border-radius: var(--r);
+  white-space: nowrap;
 }
 .tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
 .tag-green { background: var(--tint-green); color: var(--green-ink); }
 
-/* The rows arrive one after the other, the same beat the deploy lanes use. */
-@media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .cms-list.is-revealed .cms-row { animation: card-rise .55s var(--ease) backwards; }
-  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(1) { animation-delay: .08s; }
-  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(2) { animation-delay: .2s; }
-}
-
-@media (max-width: 900px) {
-  /* the aside has nothing to stay beside once the list drops below it */
-  .cms-split { grid-template-columns: minmax(0, 1fr); }
-  .cms-aside { position: static; }
-}
-@media (max-width: 520px) {
-  .cms-row { flex-direction: column; gap: 14px; }
-}
-
-/* The extra lines the three ways carry: a second paragraph, the line under
-   the recommended name, and the sentence the comparison ends on. */
-.cms-body dd + dd { margin-top: 6px; }
-.cms-body dd.cms-sub { font-size: 14px; font-weight: 600; color: var(--faint); margin-top: 0; }
-.cms-body dd.cms-punch {
-  margin-top: 10px;
-  padding-left: 14px;
-  border-left: 3px solid var(--green);
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--navy);
-}
 /* The recommended row holds the green: ruled down its edge and tinted, so the
    eye lands where the argument does. */
 .cms-row--best { background: #f3faec; }
@@ -1225,8 +1180,19 @@ a { color: inherit; }
 .cms-row--best .cms-icon { background: var(--green); color: #143c1f; }
 .cms-row--best .compare-tag { background: var(--green); color: #14300a; }
 .cms-row--best:hover { background: #eaf5df; }
-.cms-list.is-revealed .cms-row:nth-child(3) { animation-delay: .32s; }
-.cms-aside .lead { font-size: 16px; }
+
+/* The rows arrive one after the other. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="on"] .cms-list.is-revealed .cms-row { animation: card-rise .55s var(--ease) backwards; }
+  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(1) { animation-delay: .08s; }
+  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(2) { animation-delay: .2s; }
+  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(3) { animation-delay: .32s; }
+}
+
+@media (max-width: 760px) {
+  .cms-row { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .compare-tag { white-space: normal; }
+}
 
 /* --------------------------------------------------------------------------
    HOW IMAGEWORKS BUILDS — the plan cards, six of them
