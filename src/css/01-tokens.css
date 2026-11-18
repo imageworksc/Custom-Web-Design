@@ -43,6 +43,15 @@
   --grey-soft: #e8edf4;
   --grey-ink: #4f5f77;
 
+  /* ---- from the Nov 17 deck ----
+     The midpoint of its blue-to-green sweep (the "Look Different." headline
+     and the custom site in the illustration), and the red of the two "no"
+     verdicts on the ways to build. The red is the deck's #d32f2f taken down a
+     touch so it sits with the navy instead of shouting over it. */
+  --teal: #1f8fb0;
+  --spectrum: linear-gradient(100deg, var(--blue) 0%, var(--teal) 50%, var(--green-ink) 100%);
+  --no: #c8372d;
+
   /* ---- the CTA band, matching the home's #cta section ---- */
   --cta-band: linear-gradient(135deg, #1266b5, #0a2c4d);
 

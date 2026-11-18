@@ -1,266 +1,494 @@
 /* --------------------------------------------------------------------------
-   PLATFORM SPLIT
+   THE SECTIONS — from the Nov 17 deck
+   Twelve bands, in page order. Everything is built from the tokens already in
+   use; where a band is dark and the tokens are re-pointed, a component that
+   needs the light values states them for itself.
    -------------------------------------------------------------------------- */
-/* Two cards, built like the pricing pair: same shell, same 3px accent on the
-   head, and the same blue-then-green reading. They used to be two halves of
-   one shell divided by a rule, which made the platforms look like two parts
-   of a single offer rather than two ways to work. */
-.platform-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  width: 100%;
+
+/* --------------------------------------------------------------------------
+   YOUR #1 BRAND ASSET — the call, with the offer beside it
+   -------------------------------------------------------------------------- */
+/* The primary button and a quieter line pointing at the offer further down,
+   on one row: the same band, not a bolt-on bar. */
+.cta-pair {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 26px;
+  margin-top: 8px;
 }
-.platform-half {
-  position: relative;
-  padding: clamp(28px, 3.2vw, 42px);
+.cta-aside {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(226, 238, 252, .78);
+}
+.cta-aside a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 800;
+  color: var(--green);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: gap .25s var(--ease);
+}
+.cta-aside a:hover { gap: 12px; }
+
+/* --------------------------------------------------------------------------
+   AI, TEMPLATE, OR CUSTOM-BUILT
+   -------------------------------------------------------------------------- */
+/* Three rows on one recipe: the name and its verdict hold the left, the case
+   for and against reads on the right. The one the page recommends takes the
+   navy ground and a green edge; the other two stay as plain cards so the eye
+   lands where the argument does. */
+.ways {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
+  width: 100%;
+  margin-top: 10px;
+}
+.way {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+  gap: clamp(22px, 4vw, 56px);
+  padding: clamp(26px, 3vw, 38px);
   border-radius: var(--r);
-  /* A grey track with the lane's colour drawn over it, rather than a coloured
-     border — the colour is then something that can arrive. */
-  border-top: 3px solid var(--border-soft);
   background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
   box-shadow: var(--shadow-card);
   transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
-.platform-half::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  inset-inline: 0;
-  block-size: 3px;
-  background: var(--blue);
-  transform-origin: left;
-}
-.platform-half--wp::before { background: var(--green); }
-
-.platform-half:hover {
-  transform: translateY(-5px);
+.way:hover {
+  transform: translateY(-4px);
   box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
 }
-.platform-half p { font-size: 15.5px; line-height: 1.65; color: var(--muted); }
-.platform-half p em { font-style: italic; }
 
-/* The marks are still the official Drupal and WordPress logos; only the
-   colour they are set in follows the card now. */
-.platform-mark {
+.way-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+.way-name h3 {
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.way-name p {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--faint);
+}
+
+.way-mark {
   display: grid;
   place-items: center;
-  inline-size: 46px;
-  block-size: 46px;
+  inline-size: 48px;
+  block-size: 48px;
+  margin-bottom: 8px;
   border-radius: 50%;
-  margin-bottom: 6px;
-  background: var(--tint-blue);
-  color: var(--blue);
-  transition: background-color .4s var(--ease), color .4s var(--ease),
-              transform .4s var(--ease), box-shadow .4s var(--ease);
+  transition: transform .4s var(--ease);
 }
-.platform-half--wp .platform-mark { background: var(--tint-green); color: var(--green-ink); }
-.platform-mark svg { inline-size: 26px; block-size: 26px; }
+.way-mark svg { inline-size: 28px; block-size: 28px; }
+.way-mark--no { background: var(--no); color: #fff; }
+.way-mark--yes { background: var(--green); color: #143c1f; }
+.way:hover .way-mark { transform: scale(1.07); }
 
-/* the tint fills in with the lane's own colour, the way the figures light */
-.platform-half:hover .platform-mark {
-  transform: scale(1.07);
-  background: var(--blue);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(18, 102, 181, .32);
-}
-.platform-half--wp:hover .platform-mark {
-  background: var(--green);
-  color: #14300a;
-  box-shadow: 0 8px 20px rgba(128, 195, 74, .38);
-}
-
-.split-badge {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  padding: 6px 13px;
-  border-radius: var(--r);
-  margin-bottom: 4px;
-  background: var(--tint-blue);
-  color: var(--blue);
-}
-.platform-half--wp .split-badge { background: var(--tint-green); color: var(--green-ink); }
-
-/* --------------------------------------------------------------------------
-   CREDIBILITY STATS
-   -------------------------------------------------------------------------- */
-/* Three figures on one ruled row, the way the home sets its "Why ImageWorks"
-   band — boxes with an arbitrary coloured top edge made these read as four
-   equivalent things, and the fourth was never a number at all. */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: 100%;
-  margin-top: 12px;
-  border-block: 1px solid var(--border);
-}
-.stat {
-  position: relative;
+.way-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: clamp(30px, 3.2vw, 42px) clamp(20px, 2.4vw, 34px);
-  border-left: 1px solid var(--border);
+  justify-content: center;
+  gap: 13px;
 }
-.stat:first-child { border-left: 0; padding-left: 0; }
+.way-body p { font-size: 15.5px; line-height: 1.65; color: var(--muted); }
+.way-body strong { font-weight: 700; color: var(--green-ink); }
 
-/* A pool of green light rises behind the figure you are looking at. */
-.stat::before {
+/* ---- the recommended one ---- */
+.way--best { background: var(--navy); box-shadow: 0 2px 6px rgba(20, 40, 80, .1), 0 22px 48px rgba(20, 40, 80, .2); }
+.way--best::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: radial-gradient(76% 72% at 50% 34%, rgba(128, 195, 74, .30), transparent 74%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .45s var(--ease);
+  left: 0;
+  top: 18px;
+  bottom: 18px;
+  inline-size: 4px;
+  background: var(--green);
+  transform-origin: top;
 }
-.stat:hover::before { opacity: 1; }
+.way--best h3 { color: #fff; }
+.way--best .way-name p { color: rgba(255, 255, 255, .62); }
+.way--best .way-body p { color: rgba(255, 255, 255, .85); }
+.way--best .way-body strong { color: var(--green); }
 
-.stat-num {
-  position: relative;
-  font-size: 44px;
+.way-badge {
+  font-size: 11px;
   font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
   line-height: 1;
-  letter-spacing: -.034em;
-  font-variant-numeric: tabular-nums;
-  color: var(--heading);
-  transition: transform .4s var(--ease), color .4s var(--ease);
+  padding: 6px 11px;
+  border-radius: var(--r);
+  background: var(--green);
+  color: #14300a;
 }
-.stat:hover .stat-num { transform: translateY(-5px); color: var(--green); }
+/* The sentence the comparison ends on, ruled off from the case above it. */
+.way-body .way-punch {
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, .15);
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #fff;
+}
 
-.stat-label {
-  position: relative;
-  font-size: var(--step--1);
-  font-weight: 500;
-  line-height: 1.45;
-  color: var(--muted);
-  max-width: 26ch;
-  transition: color .4s var(--ease);
+@media (max-width: 760px) {
+  .way { grid-template-columns: minmax(0, 1fr); gap: 14px; }
 }
-.stat:hover .stat-label { color: #fff; }
 
 /* --------------------------------------------------------------------------
-   THE TWO STAGES
+   HOW IMAGEWORKS BUILDS — six stages, one open at a time
    -------------------------------------------------------------------------- */
-/* Plan, then design: two steps of one job, so they get two cards that read
-   left to right, blue then green, rather than a numbered list. */
-.plans {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   width: 100%;
+  max-width: 860px;
+  margin-top: 10px;
 }
-.plan {
+.step {
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--r);
+  transition: background-color .3s var(--ease);
+}
+.step:last-child { border-bottom: 0; }
+/* The design system is where the work turns custom, so it keeps the green
+   ground whether it is open or not. */
+.step--feature { background: var(--tint-green); border-bottom-color: transparent; }
+
+.step summary {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 30px;
+  align-items: center;
+  gap: 0 16px;
+  padding: 16px 16px 16px 14px;
+  list-style: none;
+  cursor: pointer;
+}
+.step summary::-webkit-details-marker { display: none; }
+
+/* the number on the brand's square corner */
+.step-n {
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border-radius: var(--r);
+  background: var(--navy);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform .35s var(--ease), background-color .3s var(--ease);
+}
+.step--feature .step-n { background: var(--green); color: #143c1f; }
+.step summary:hover .step-n { transform: scale(1.06); }
+
+.step summary h3 {
+  font-size: 18.5px;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  transition: color .2s var(--ease), transform .35s var(--ease);
+}
+.step summary:hover h3 { color: var(--blue); transform: translateX(3px); }
+
+/* the FAQ's chevron, a size down */
+.step-mark {
+  justify-self: end;
+  display: grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  color: var(--green-ink);
+  transition: transform .35s var(--ease), background-color .25s var(--ease),
+              border-color .25s var(--ease), color .25s var(--ease);
+}
+.step summary:hover .step-mark { border-color: var(--green); background: #fff; }
+.step[open] .step-mark {
+  transform: rotate(180deg);
+  background: var(--green);
+  border-color: var(--green);
+  color: #143c1f;
+}
+
+.step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 0 16px 18px 64px;
+}
+.step-body p { font-size: 15.5px; line-height: 1.65; color: var(--muted); max-width: 74ch; }
+.step-body strong { font-weight: 700; color: var(--navy); }
+.step[open] .step-body { animation: faq-in .42s var(--ease) both; }
+
+@media (max-width: 600px) {
+  .step summary { grid-template-columns: 30px minmax(0, 1fr) 26px; gap: 0 12px; padding: 14px 10px; }
+  .step-n { inline-size: 30px; block-size: 30px; font-size: 14px; }
+  .step-body { padding: 0 10px 16px; }
+}
+
+/* --------------------------------------------------------------------------
+   DIRECTION IS THE DIFFERENCE — two names for one loop
+   -------------------------------------------------------------------------- */
+/* The first line holds one name at a time and rolls to the next, filled with
+   the brand's blue-to-green sweep. Held long enough to read, with a quick
+   eased move between. The track ends on a repeat of its first line, so the
+   loop closes without a jump — and a browser that never runs the animation
+   simply shows "Creative Direction". */
+.dirhead {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: none;
+  line-height: 1.16;
+}
+.dirroll {
+  display: block;
   position: relative;
+  overflow: hidden;
+  block-size: 1.16em;
+}
+.dirroll__track { display: flex; flex-direction: column; }
+.dirroll__track > span {
+  display: block;
+  block-size: 1.16em;
+  line-height: 1.16em;
+  white-space: nowrap;
+  background: var(--spectrum);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dirroll__track { animation: dirroll 7.5s cubic-bezier(.76, 0, .24, 1) infinite; }
+}
+@keyframes dirroll {
+  0%, 40%  { transform: translateY(0); }
+  50%, 90% { transform: translateY(-1.16em); }
+  100%     { transform: translateY(-2.32em); }
+}
+
+/* --------------------------------------------------------------------------
+   TRY BEFORE YOU BUY — the offer card
+   -------------------------------------------------------------------------- */
+/* A white card on the deep band: copy on the left, the photograph on the
+   right, a green rule across the top. The band re-points the type tokens to
+   white, so the card puts the light values back for everything inside it. */
+.offer {
+  --navy: #143c66;
+  --heading: #143c66;
+  --muted: #5a6b82;
+  --border: #e3eaf3;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  max-width: 1000px;
+  margin-inline: auto;
+  overflow: hidden;
+  border-top: 3px solid var(--green);
+  border-radius: var(--r);
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 30px 70px rgba(8, 24, 48, .38);
+}
+.offer-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
-  padding: clamp(26px, 3vw, 34px);
-  border-radius: var(--r);
-  /* the same track-and-fill the lanes use, so the two sections animate in one
-     vocabulary rather than two */
-  border-top: 3px solid var(--border-soft);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  justify-content: center;
+  gap: 20px;
+  padding: clamp(30px, 4vw, 52px);
 }
-.plan::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  inset-inline: 0;
-  block-size: 3px;
-  background: var(--blue);
-  transform-origin: left;
+.offer .sec-title { max-width: 16ch; }
+.offer-deck {
+  font-size: clamp(17px, 1.7vw, 20px);
+  font-weight: 600;
+  line-height: 1.45;
+  max-width: 40ch;
+  color: var(--navy);
 }
-.plan--monthly::before { background: var(--green); }
-.plan:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-card), 0 22px 44px rgba(20, 40, 80, .13);
-}
-.plan-tag {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .11em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: var(--r);
+.offer-deck em { font-style: normal; color: var(--green-ink); }
+.offer .btn-row { margin-top: 6px; }
+
+.offer-shot {
+  position: relative;
+  min-block-size: 360px;
   background: var(--tint-blue);
-  color: var(--blue);
-  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+  overflow: hidden;
 }
-.plan:hover .plan-tag { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(20, 40, 80, .12); }
-.plan--monthly .plan-tag { background: var(--tint-green); color: var(--green-ink); }
-.plan h3 { font-size: 21px; line-height: 1.25; letter-spacing: -.019em; }
-.plan p { font-size: var(--step-1); line-height: 1.7; color: var(--muted); }
+.offer-shot img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  transition: transform 1.2s var(--ease);
+}
+.offer:hover .offer-shot img { transform: scale(1.03); }
+
+@media (min-width: 861px) {
+  .offer .btn-row { flex-wrap: nowrap; }
+  .offer .btn { padding-inline: 22px; }
+}
+@media (max-width: 860px) {
+  .offer { grid-template-columns: minmax(0, 1fr); }
+  .offer-shot { order: -1; min-block-size: 300px; }
+  .offer-shot img { object-position: center 18%; }
+}
+/* "Request Your Homepage Preview" needs about 320px on one line, more than
+   the card leaves on a phone, so the label wraps and the height becomes a
+   floor — the same answer the base gives every button under 380px. */
+@media (max-width: 560px) {
+  .offer-copy { padding: 28px 22px 30px; }
+  .offer .btn {
+    white-space: normal;
+    height: auto;
+    min-height: 54px;
+    padding-block: 15px;
+    text-align: center;
+  }
+}
 
 /* --------------------------------------------------------------------------
-   TESTIMONIALS
+   DIFFERENT BUSINESSES SHOULD LOOK DIFFERENT
    -------------------------------------------------------------------------- */
-/* Centred section header — the home's testimonial band header, reused. */
+/* The deck's one flourish in type: the phrase the section turns on, in the
+   blue-to-green sweep and set italic, so it reads as a different voice. */
+.spectrum {
+  font-style: italic;
+  padding-right: .08em; /* the italic's overhang, or the clip cuts the last letter */
+  background: var(--spectrum);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.diffviz {
+  width: 100%;
+  max-width: 720px;
+  margin-block: 6px 4px;
+}
+.diffviz svg { inline-size: 100%; block-size: auto; }
+
+/* The three copies arrive together and dimly; the one that belongs to someone
+   comes in after them, at full strength. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="on"] .diffviz .dv-same,
+  [data-anim="on"] .diffviz .dv-own { opacity: 0; }
+  [data-anim="on"] .diffviz.is-revealed .dv-same { animation: dv-in .6s var(--ease) .15s forwards; }
+  [data-anim="on"] .diffviz.is-revealed .dv-own { animation: dv-in .7s var(--ease) .75s forwards; }
+}
+@keyframes dv-in { to { opacity: 1; } }
+
+/* --------------------------------------------------------------------------
+   SEE WHAT CUSTOM LOOKS LIKE — the slot for the work
+   -------------------------------------------------------------------------- */
+/* Marked as a slot on purpose: it waits for real projects, not stand-ins. */
+.slot {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-block-size: 260px;
+  padding: 26px;
+  border: 1px dashed var(--blue);
+  border-radius: var(--r);
+  background: linear-gradient(160deg, #fff, var(--tint-blue));
+  text-align: center;
+}
+.slot p {
+  max-width: 46ch;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.7;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+/* --------------------------------------------------------------------------
+   WEBSITE EVOLUTION — the monthly cycle
+   -------------------------------------------------------------------------- */
+.evolve-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: clamp(30px, 4vw, 56px);
+  align-items: center;
+}
+.evolve-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  min-width: 0;
+}
+.evocycle {
+  width: 100%;
+  max-width: 460px;
+  margin-inline: auto;
+}
+.evocycle svg { inline-size: 100%; block-size: auto; }
+
+/* The arcs travel round the ring, so the cycle reads as one rather than as a
+   diagram of one. Slow — a month is not a spinner. */
+.evo-arcs {
+  transform-box: view-box;
+  transform-origin: 250px 240px;
+}
+/* the ring runs behind the side labels, so each carries a halo of the ground */
+.evo-node text {
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+.evo-node circle { transition: fill .3s var(--ease); }
+.evo-node:hover circle:first-child { fill: var(--tint-green); }
+@media (prefers-reduced-motion: no-preference) {
+  .evo-arcs { animation: evo-turn 48s linear infinite; }
+  .evocycle:hover .evo-arcs { animation-play-state: paused; }
+}
+@keyframes evo-turn { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .evolve-split { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* --------------------------------------------------------------------------
+   CREDIBILITY — one line on the deep band
+   -------------------------------------------------------------------------- */
+.credline {
+  max-width: none;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION HEAD — centred, as the home sets its own
+   -------------------------------------------------------------------------- */
 .sec-head {
   text-align: center;
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto 50px;
   padding-inline: var(--gutter);
 }
 .sec-head h2 { max-width: none; }
-
-.marquee {
-  width: 100%;
-  overflow: hidden;
-  /* The shadow needs its full offset + blur of room inside the clip, or
-     overflow:hidden cuts it mid-gradient and draws a hard line under the row. */
-  padding-block: 44px;
-  margin-block: -44px;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee-run 72s linear infinite;
-}
-/* The spacing lives on the items rather than in `gap`, so the duplicated half
-   is exactly 50% of the track and the loop closes without a jump. */
-.marquee-track > * { margin-right: 24px; }
-.marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track { animation-play-state: paused; }
-
-/* eight 300px cards plus their 24px gaps make a 2592px loop */
-
-@keyframes marquee-run {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
-.testi {
-  display: flex;
-  flex-direction: column;
-  width: 380px;
-  height: 100%;
-  padding: 28px;
-  border-radius: var(--r);
-  background: #fff;
-  /* lighter than the home's 0 12px 30px /.12 — a soft lift, not a drop */
-  box-shadow: 0 1px 2px rgba(20, 40, 80, .05), 0 6px 18px rgba(20, 40, 80, .06);
-}
-.testi-item { display: flex; }
-/* line-height 1.25 rather than the body's 1.65: the home leaves this row at the
-   browser default, and inheriting 1.65 made every card 13px taller */
-.testi-score { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; line-height: 1.25; }
-.testi-score b { font-size: var(--step--1); font-weight: 800; color: var(--blue); }
-/* the home sets these as text glyphs, not icons */
-.testi-stars { color: #ffa733; font-size: 15px; letter-spacing: 1px; }
-.testi blockquote { flex: 1; margin-bottom: 18px; font-size: 15px; line-height: 1.65; color: var(--nav-ink); }
-.testi figcaption { font-size: var(--step--1); font-weight: 700; color: var(--blue); }
 
 /* --------------------------------------------------------------------------
    FAQ
@@ -363,30 +591,26 @@
   .faq-item[open]::details-content { block-size: auto; }
 }
 
+/* The build stages share the FAQ's height transition. */
+@supports (interpolate-size: allow-keywords) {
+  .step::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size .34s var(--ease),
+                content-visibility .34s allow-discrete;
+    transition-behavior: allow-discrete;
+  }
+  .step[open]::details-content { block-size: auto; }
+}
+
 /* --------------------------------------------------------------------------
    CLOSING CTA
    -------------------------------------------------------------------------- */
 .final { text-align: center; }
-.final .wrap { max-width: 1340px; }
 .final .stack { align-items: center; }
-.final .lead { margin-inline: auto; }
-
-/* The closing headline is set to hold on a single line. The size is tied to
-   the viewport so the line shrinks to fit rather than breaking; below 560px it
-   is allowed to wrap, because holding one line there would drop it under
-   15px. */
 .final .sec-title {
   max-width: none;
-  white-space: nowrap;
-  font-size: clamp(19px, 3.1vw, 38px);
-}
-
-@media (max-width: 560px) {
-  .final .sec-title {
-    white-space: normal;
-    font-size: var(--step-3);
-    max-width: 23ch;
-  }
+  font-size: clamp(30px, 4.2vw, 48px);
 }
 
 /* --------------------------------------------------------------------------
@@ -400,117 +624,60 @@
 }
 [data-anim="on"] .reveal.is-revealed { opacity: 1; transform: none; }
 
-/* --------------------------------------------------------------------------
-   THE TWO SEQUENCED SECTIONS
-   Both are groups of cards, and both say something about order that a single
-   fade cannot: the stages are one after the other, the lanes are three of the
-   same thing. So the stages arrive in sequence with a clear beat between them
-   and their rules draw one after the other; the lanes arrive as a quick
-   cascade, close enough together to read as a set.
-
-   The rule is the carrier in both. At rest it is simply painted, so a visitor
-   without the script or with reduced motion sees the finished card. Only with
-   [data-anim="on"] does it start at nothing and get drawn.
-   -------------------------------------------------------------------------- */
+/* The three ways arrive one after the other, and the recommended one's green
+   edge draws down once it has landed. The six stages come down the list in a
+   quicker cascade. At rest everything is simply painted: only with
+   [data-anim="on"] does any of it start hidden. */
 @media (prefers-reduced-motion: no-preference) {
-
-  /* ---- Structure First. Then the Custom Design. ---- */
-  /* .28s apart: far enough that the second card reads as following the first
-     rather than arriving with it. */
-  [data-anim="on"] .plans .plan { opacity: 0; }
-  [data-anim="on"] .plans.is-revealed .plan {
+  [data-anim="on"] .ways .way { opacity: 0; }
+  [data-anim="on"] .ways.is-revealed .way {
     opacity: 1;
     animation: card-rise .62s var(--ease) backwards;
   }
-  [data-anim="on"] .plans.is-revealed .plan:nth-child(1) { animation-delay: .08s; }
-  [data-anim="on"] .plans.is-revealed .plan:nth-child(2) { animation-delay: .36s; }
+  [data-anim="on"] .ways.is-revealed .way:nth-child(1) { animation-delay: .06s; }
+  [data-anim="on"] .ways.is-revealed .way:nth-child(2) { animation-delay: .2s; }
+  [data-anim="on"] .ways.is-revealed .way:nth-child(3) { animation-delay: .34s; }
 
-  [data-anim="on"] .plans .plan::before { transform: scaleX(0); }
-  [data-anim="on"] .plans.is-revealed .plan::before {
-    animation: rule-draw .5s var(--ease) forwards;
+  [data-anim="on"] .ways .way--best::before { transform: scaleY(0); }
+  [data-anim="on"] .ways.is-revealed .way--best::before {
+    animation: rule-draw-y .5s var(--ease) .8s forwards;
   }
-  [data-anim="on"] .plans.is-revealed .plan:nth-child(1)::before { animation-delay: .34s; }
-  [data-anim="on"] .plans.is-revealed .plan:nth-child(2)::before { animation-delay: .62s; }
-
-  /* the step tag is the thing that names the order, so it lands last and on
-     its own — a small beat after the card it belongs to */
-  [data-anim="on"] .plans.is-revealed .plan-tag {
-    animation: tag-in .5s var(--ease) backwards;
-  }
-  [data-anim="on"] .plans.is-revealed .plan:nth-child(1) .plan-tag { animation-delay: .42s; }
-  [data-anim="on"] .plans.is-revealed .plan:nth-child(2) .plan-tag { animation-delay: .70s; }
-
-  /* ---- Same Custom Website. Three Ways to Deploy and Manage It. ---- */
-  /* .09s apart, a third of the stages' beat: a cascade, not a sequence. */
-  [data-anim="on"] .platform-split .platform-half { opacity: 0; }
-  [data-anim="on"] .platform-split.is-revealed .platform-half {
-    opacity: 1;
-    animation: card-rise .6s var(--ease) backwards;
-  }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(1) { animation-delay: .06s; }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(2) { animation-delay: .15s; }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(3) { animation-delay: .24s; }
-
-  [data-anim="on"] .platform-split .platform-half::before { transform: scaleX(0); }
-  [data-anim="on"] .platform-split.is-revealed .platform-half::before {
-    animation: rule-draw .52s var(--ease) forwards;
-  }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(1)::before { animation-delay: .30s; }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(2)::before { animation-delay: .39s; }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(3)::before { animation-delay: .48s; }
-
-  /* Each mark drops into its disc after the card it sits in has landed. */
-  [data-anim="on"] .platform-split.is-revealed .platform-mark {
+  [data-anim="on"] .ways.is-revealed .way-mark {
     animation: mark-in .55s var(--ease) backwards;
   }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(1) .platform-mark { animation-delay: .30s; }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(2) .platform-mark { animation-delay: .39s; }
-  [data-anim="on"] .platform-split.is-revealed .platform-half:nth-child(3) .platform-mark { animation-delay: .48s; }
+  [data-anim="on"] .ways.is-revealed .way:nth-child(1) .way-mark { animation-delay: .3s; }
+  [data-anim="on"] .ways.is-revealed .way:nth-child(2) .way-mark { animation-delay: .44s; }
+  [data-anim="on"] .ways.is-revealed .way:nth-child(3) .way-mark { animation-delay: .58s; }
 
-  /* The third lane is the new one. A ring opens off the "Newer" pill once
-     every nine seconds — long enough that it reads as a note and not a
-     notification. */
-  .split-badge__new { animation: newer-ring 9s var(--ease) 1.6s infinite; }
+  [data-anim="on"] .steps.is-revealed .step { animation: step-in .5s var(--ease) backwards; }
+  [data-anim="on"] .steps.is-revealed .step:nth-child(1) { animation-delay: .04s; }
+  [data-anim="on"] .steps.is-revealed .step:nth-child(2) { animation-delay: .1s; }
+  [data-anim="on"] .steps.is-revealed .step:nth-child(3) { animation-delay: .16s; }
+  [data-anim="on"] .steps.is-revealed .step:nth-child(4) { animation-delay: .22s; }
+  [data-anim="on"] .steps.is-revealed .step:nth-child(5) { animation-delay: .28s; }
+  [data-anim="on"] .steps.is-revealed .step:nth-child(6) { animation-delay: .34s; }
 }
 
 @keyframes card-rise {
   from { opacity: 0; transform: translateY(18px); }
 }
-@keyframes rule-draw {
-  to { transform: scaleX(1); }
-}
-@keyframes tag-in {
-  from { opacity: 0; transform: translateY(-6px); }
+@keyframes rule-draw-y {
+  to { transform: scaleY(1); }
 }
 @keyframes mark-in {
   from { opacity: 0; transform: scale(.72); }
 }
-@keyframes newer-ring {
-  0%, 84%, 100% { box-shadow: 0 0 0 0 rgba(128, 195, 74, 0); }
-  88%           { box-shadow: 0 0 0 4px rgba(128, 195, 74, .34); }
-  96%           { box-shadow: 0 0 0 8px rgba(128, 195, 74, 0); }
+@keyframes step-in {
+  from { opacity: 0; transform: translateX(-12px); }
 }
-
 
 /* --------------------------------------------------------------------------
    RESPONSIVE
    -------------------------------------------------------------------------- */
-@media (max-width: 900px) {
-  .platform-split { grid-template-columns: minmax(0, 1fr); }
-  .plans { grid-template-columns: minmax(0, 1fr); }
-}
-
-@media (max-width: 767px) {
-  .testi { width: 84vw; max-width: 330px; }
-  .marquee-track { animation-duration: 46s; }
-}
-
 @media (max-width: 640px) {
-  .stats { grid-template-columns: minmax(0, 1fr); }
-  .stat { border-left: 0; border-top: 1px solid var(--border); padding-inline: 0; }
-  .stat:first-child { border-top: 0; }
   .btn-row { width: 100%; }
   .btn-row .btn { flex: 1 1 100%; }
+  .cta-pair .btn { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -523,413 +690,10 @@
     scroll-behavior: auto !important;
   }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
-
-  /* The blanket rule above would snap the marquee to its end frame, so stop it
-     outright and hand the row over to the reader as a scrollable strip. */
-  .marquee-track { animation: none !important; transform: none !important; }
-  .marquee {
-    overflow-x: auto;
-    mask-image: none;
-    -webkit-mask-image: none;
-  }
-  .stat:hover .stat-num { transform: none; }
+  .way:hover { transform: none; }
 }
 
 @media print {
   .band { padding-block: 24px; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
-}
-
-/* --------------------------------------------------------------------------
-   THE COPY DECK'S OWN COMPONENTS
-   Five sections came in with the new text that the page had no home for, plus
-   a third deploy lane and a fourth figure. Everything below is built from the
-   tokens already in use — no new colour, no new radius, no new shadow.
-   -------------------------------------------------------------------------- */
-
-/* the line under the hero's buttons */
-.hero-note {
-  margin-top: 4px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--faint);
-}
-
-/* Four figures where there were three. The row still divides evenly, and the
-   fourth is a percentage rather than a count, so it carries no data-count and
-   simply prints. */
-.stats--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-@media (max-width: 1024px) {
-  .stats--four { grid-template-columns: 1fr 1fr; }
-  .stats--four .stat:nth-child(-n+2) { border-top: 0; }
-  .stats--four .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
-}
-
-/* --- three deploy lanes ------------------------------------------------- */
-.platform-split--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.platform-half--ai::before { background: var(--navy); }
-.platform-half--ai .platform-mark { background: var(--chip-navy); color: var(--navy); }
-.platform-half--ai:hover .platform-mark {
-  background: var(--navy);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(20, 60, 102, .34);
-}
-.platform-half--ai .split-badge { background: var(--chip-navy); color: var(--navy); }
-/* the badge carries its own smaller badge, so "Newer" reads as a note on the
-   name rather than as part of it */
-.split-badge__new {
-  margin-left: 7px;
-  padding: 2px 6px;
-  border-radius: var(--r);
-  background: var(--green);
-  color: #fff;
-  font-size: 10.5px;
-  font-style: normal;
-  letter-spacing: .08em;
-}
-.platform-note {
-  width: 100%;
-  margin-top: 6px;
-  padding: 20px 24px;
-  border-radius: var(--r);
-  background: var(--tint-blue);
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: var(--navy);
-}
-.platform-note strong { font-weight: 700; }
-
-@media (max-width: 1024px) {
-  .platform-split--three { grid-template-columns: minmax(0, 1fr); }
-}
-
-/* --- the callout on the deep band --------------------------------------- */
-/* The band re-points --navy to white, so this cannot lean on the tokens the
-   way the light sections do: it states its own surface. */
-.callout {
-  width: 100%;
-  max-width: 62ch;
-  margin-top: 6px;
-  padding: 22px 26px;
-  border-left: 4px solid var(--green);
-  border-radius: 0 var(--r) var(--r) 0;
-  background: rgba(255, 255, 255, .07);
-  font-size: var(--step-1);
-  font-weight: 600;
-  line-height: 1.7;
-  color: #fff;
-}
-
-/* --- standard pages beside custom pages ---------------------------------- */
-/* The branding page's split, value for value:
-   https://imageworksc.github.io/branding-page/  →  styles.css, .cms-split
-   The heading holds still on the left while the list passes it on the right,
-   so the section reads as one thought rather than a table sitting under a
-   paragraph. Only the sticky offset differs: the source clears a fixed nav
-   that this page does not carry. */
-.cms-split {
-  display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-  gap: clamp(36px, 5vw, 72px);
-  align-items: start;
-}
-.cms-aside {
-  position: sticky;
-  top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-}
-
-.cms-list {
-  width: 100%;
-  border-radius: var(--r);
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: var(--shadow-card);
-}
-.cms-row {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 24px clamp(22px, 2.4vw, 30px);
-  border-top: 1px solid var(--border-soft);
-  transition: background-color .35s var(--ease);
-}
-.cms-row:first-child { border-top: 0; }
-.cms-row:hover { background: var(--tint-blue); }
-
-/* The rule wipes in from the left — the same mechanic the home gives its
-   links, rather than a decorative bar that is simply always there. */
-.cms-row::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  block-size: 2px;
-  background: var(--green);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--ease);
-}
-.cms-row:hover::after { transform: scaleX(1); }
-
-.cms-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 48px;
-  block-size: 48px;
-  border-radius: 50%;
-  background: var(--tint-blue);
-  color: var(--blue);
-  transition: background-color .35s var(--ease), color .35s var(--ease),
-              transform .35s var(--ease);
-}
-.cms-icon svg { inline-size: 22px; block-size: 22px; }
-.cms-row:hover .cms-icon {
-  background: var(--navy);
-  color: #fff;
-  transform: scale(1.08);
-}
-
-.cms-body { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
-.cms-body dt {
-  font-size: var(--step-1);
-  font-weight: 800;
-  color: var(--navy);
-  letter-spacing: -.01em;
-  transition: transform .35s var(--ease);
-}
-.cms-row:hover .cms-body dt { transform: translateX(4px); }
-.cms-body dd {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-.cms-body dd strong { color: var(--navy); font-weight: 700; }
-/* the label sits above the term it heads, with its own air under it */
-.cms-body .compare-tag { margin-bottom: 7px; }
-
-/* The small uppercase label each row is headed with. */
-.compare-tag {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .11em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: var(--r);
-}
-.tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
-.tag-green { background: var(--tint-green); color: var(--green-ink); }
-
-/* The rows arrive one after the other, the same beat the deploy lanes use. */
-@media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .cms-list.is-revealed .cms-row { animation: card-rise .55s var(--ease) backwards; }
-  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(1) { animation-delay: .08s; }
-  [data-anim="on"] .cms-list.is-revealed .cms-row:nth-child(2) { animation-delay: .2s; }
-}
-
-@media (max-width: 900px) {
-  /* the aside has nothing to stay beside once the list drops below it */
-  .cms-split { grid-template-columns: minmax(0, 1fr); }
-  .cms-aside { position: static; }
-}
-@media (max-width: 520px) {
-  .cms-row { flex-direction: column; gap: 14px; }
-}
-
-/* --------------------------------------------------------------------------
-   THE ANSWER CARD — Your Website Is Your #1 Brand Asset
-   The .lb-answer block from the SEO blogging page, value for value:
-   https://imageworksc.github.io/seo-blogging/  →  assets/page.css
-   2px green rule, 10px corner, 32/26 padding, 1020px measure, 18px at 1.65,
-   and the emphasis painted as a 3px green band under navy bold rather than as
-   an underline. Where the source writes "Answer:" in bold at the head of the
-   text, this writes the short sentence that used to sit above the card.
-   -------------------------------------------------------------------------- */
-.answer {
-  width: 100%;
-  max-width: 1020px;
-  margin-top: 6px;
-  padding: 32px 26px;
-  border: 2px solid var(--green);
-  border-radius: 10px;
-  /* Transparent rather than the band's colour written out again: the card then
-     takes whatever ground it is put on, and the two cannot drift apart. */
-  background: transparent;
-}
-.answer p {
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--muted);
-  /* The source is explicit about this: no balancing. Evening the lines out
-     shortens all of them, which inside a bordered box reads as the box standing
-     off its own text — the gap lands on the right of every line, not just the
-     last. The page sets text-wrap: pretty on every p, so it is turned off here
-     and each line fills the measure. `wrap`, not `normal` — normal is not one
-     of the keywords and the declaration is simply dropped. */
-  text-wrap: wrap;
-}
-.answer p + p { margin-top: 16px; }
-
-/* Navy bold on a 3px green rule, painted as a background rather than an
-   underline so it sits tight under the type and wraps across lines. */
-.phrase {
-  font-weight: 700;
-  color: var(--navy);
-  background-image: linear-gradient(var(--green), var(--green));
-  background-size: 100% 3px;
-  background-position: 0 calc(100% - 1px);
-  background-repeat: no-repeat;
-  padding-bottom: 3px;
-}
-
-/* The rule draws itself in the first time the card is read — the same gesture
-   the cards further down use on their top edge, here carried by the type. */
-@media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .answer .phrase { background-size: 0 3px; }
-  [data-anim="on"] .answer.is-revealed .phrase {
-    animation: phrase-in .5s var(--ease) forwards;
-  }
-  [data-anim="on"] .answer.is-revealed .phrase { animation-delay: .35s; }
-}
-@keyframes phrase-in {
-  to { background-size: 100% 3px; }
-}
-
-@media (max-width: 700px) {
-  .answer { padding: 24px 22px; }
-}
-/* --------------------------------------------------------------------------
-   THE CYCLE — Launch Is Version One, Not the Finish Line
-   The "what you get" list from the home, value for value:
-   https://imageworksc.github.io/imageworks-home-2/  →  styles.css,
-   .iw-steps-out / .iw-steps-list / .iw-steps-ic
-
-   Quiet boxes rather than plain lines: a 1px border on a barely-off-white
-   ground, a 12px corner, and a 34px rounded tile holding the mark. The copy
-   holds the left of the band and the six steps run down the right behind a
-   hairline, which is how the source hangs the list off its step.
-
-   Green throughout, as the source has it: there the green says outcome rather
-   than step, and these six are the work that keeps going after launch.
-   -------------------------------------------------------------------------- */
-.evolve-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
-  gap: clamp(32px, 4.5vw, 66px);
-  align-items: center;
-}
-.evolve-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-}
-
-/* the rule the list hangs off — .iw-steps-out */
-.cycle {
-  display: grid;
-  gap: 10px;
-  width: 100%;
-  padding-left: clamp(24px, 3vw, 40px);
-  /* --border, not --border-soft: the source rules its list against a white
-     panel, and on this band's tint the softer hairline disappeared. */
-  border-left: 1px solid var(--border);
-}
-
-.cycle-step {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card-bottom);
-  font-size: 14.5px;
-  line-height: 1.4;
-  font-weight: 600;
-  color: var(--navy);
-  transition: border-color .3s ease, background-color .3s ease,
-              box-shadow .3s ease, transform .35s cubic-bezier(.2, .8, .3, 1);
-}
-.cycle-step:hover {
-  border-color: var(--chip-blue);
-  background: var(--white);
-  box-shadow: 0 8px 20px rgba(20, 40, 80, .08);
-  transform: translateX(3px);
-}
-
-/* Each step carries its own glyph — the mark should say something the line
-   does not have to repeat, so a row of identical checks would be no use. */
-.cycle-ico {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 34px;
-  block-size: 34px;
-  border-radius: 9px;
-  background: var(--tint-green);
-  color: var(--green-ink);
-  transition: background-color .3s ease, transform .35s cubic-bezier(.2, .8, .3, 1);
-}
-.cycle-ico svg { inline-size: 18px; block-size: 18px; }
-.cycle-step:hover .cycle-ico { background: #e2f0d3; transform: scale(1.07); }
-
-/* Improve is where the work turns back on itself, so its tile is already at
-   the deeper tint the others only reach under the cursor. */
-.cycle-step--last .cycle-ico { background: #e2f0d3; }
-
-@media (prefers-reduced-motion: no-preference) {
-  /* Arriving: the boxes come down the list, .07s apart, from the side the rule
-     is on. */
-  [data-anim="on"] .cycle.is-revealed .cycle-step { animation: cycle-in .55s var(--ease) backwards; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(1) { animation-delay: .05s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(2) { animation-delay: .12s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(3) { animation-delay: .19s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(4) { animation-delay: .26s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(5) { animation-delay: .33s; }
-  [data-anim="on"] .cycle.is-revealed .cycle-step:nth-child(6) { animation-delay: .40s; }
-
-  /* Afterwards: one tile deepens at a time, down the list and round again on a
-     15s clock. It is the only thing left saying the work does not stop. */
-  .cycle-ico { animation: cycle-lit 15s var(--ease) infinite; }
-  .cycle-step:nth-child(2) .cycle-ico { animation-delay: 2.5s; }
-  .cycle-step:nth-child(3) .cycle-ico { animation-delay: 5s; }
-  .cycle-step:nth-child(4) .cycle-ico { animation-delay: 7.5s; }
-  .cycle-step:nth-child(5) .cycle-ico { animation-delay: 10s; }
-  .cycle-step:nth-child(6) .cycle-ico { animation-delay: 12.5s; }
-  /* pointing at the list hands the turn to whichever box is under the cursor */
-  .cycle:hover .cycle-ico { animation-play-state: paused; }
-}
-
-@keyframes cycle-in {
-  from { opacity: 0; transform: translateX(-14px); }
-}
-@keyframes cycle-lit {
-  0%        { background: var(--tint-green); }
-  3%, 14%   { background: #d5ecc0; }
-  22%, 100% { background: var(--tint-green); }
-}
-
-/* Stacked, the rule would run down the middle of the band, so the source's
-   own answer applies: it moves to the top of the list. */
-@media (max-width: 900px) {
-  .evolve-split { grid-template-columns: minmax(0, 1fr); align-items: start; }
-  .cycle {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
-    margin-top: 8px;
-    padding-left: 0;
-    padding-top: 26px;
-    border-left: 0;
-    border-top: 1px solid var(--border);
-  }
-}
-@media (max-width: 520px) {
-  .cycle { grid-template-columns: minmax(0, 1fr); }
 }

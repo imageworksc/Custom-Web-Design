@@ -9,10 +9,17 @@ comportamiento van en tres archivos separados, con la tipografía junto a ellos.
 La página no trae nav ni footer: es sólo el contenido, pensada para montarse
 dentro del chrome del sitio.
 
-Los textos y las secciones son exactamente los del deck
-`custom-web-design-PREVIEW.html`: once secciones, sin nada de más ni de menos.
-Lo único que no sale del deck son las reseñas, que allí van como marcadores de
-posición y aquí llevan las ocho reales.
+Los textos y las secciones son exactamente los del deck del 17 de noviembre
+(`custom web nov 17.html`): doce bandas, sin nada de más ni de menos. El deck
+trae su propio CSS; aquí se reconstruye sobre el sistema de esta página
+(tokens, esquina de 2px, bandas), no se copia.
+
+Dos cosas no salen del deck tal cual:
+
+- El hero conserva el kit (estructura, tipografía, componentes, paleta) donde
+  el deck deja el marcador "PORTRAIT MONTAGE", hasta que exista ese montaje.
+- El portafolio ("See What Custom Looks Like") se muestra como hueco marcado,
+  igual que en el deck, a la espera de 4–6 proyectos reales.
 
 ## Uso
 
@@ -26,12 +33,12 @@ Abre [`index.html`](index.html) en el navegador. No hay servidor ni dependencias
 ├── styles.css           # Todos los estilos, en orden de cascada
 ├── app.js               # Todo el comportamiento
 ├── fonts/               # Plus Jakarta Sans (subconjunto latin, variable)
+├── images/              # La foto de Try Before You Buy (sacada del deck)
 ├── build.ps1            # Ensambla los tres archivos desde src/
 └── src/
     ├── head.html        # <head>: meta, Open Graph, JSON-LD
-    ├── body.html        # Marcado de la página — las 11 secciones
-    ├── testimonials.html# Las 8 reseñas (el build las duplica para el carrusel)
-    ├── app.js           # Reveals, acordeón del FAQ, contadores
+    ├── body.html        # Marcado de la página — las 12 secciones
+    ├── app.js           # Reveals y los dos acordeones (etapas y FAQ)
     └── css/
         ├── 01-tokens.css   # Paleta y escalas, tomadas del home
         ├── 02-base.css     # Reset, tipografía, bandas, botones, utilidades
@@ -90,6 +97,9 @@ saltar a su ancla — una para el navegador y otra para el scroll suave.
 - Confirmar la URL canónica en [`src/head.html`](src/head.html) — el deck la trae
   como marcador de posición y aquí está puesta a `/custom-web-design/`
 - Añadir `og:image` cuando exista la imagen
+- Sustituir el hueco del portafolio por 4–6 proyectos (desktop + móvil,
+  cliente, sector y una línea sobre qué los hizo distintos)
+- El montaje vertical de un sitio real para el hero, si se quiere sustituir el kit
 
 ## Licencia
 

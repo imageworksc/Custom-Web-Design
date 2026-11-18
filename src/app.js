@@ -66,17 +66,22 @@
   }
 
   /* ------------------------------------------------------------------
-     The accordion is exclusive, so opening one answer closes another and
-     the page can shift under the reader. After an answer settles, bring
-     it back into view if it ended up above the top edge or past the fold.
+     Both accordions — the six build stages and the FAQ — are exclusive,
+     so opening one item closes another and the page can shift under the
+     reader. After an item settles, bring it back into view if it ended
+     up above the top edge or past the fold.
      ------------------------------------------------------------------ */
-  function setupFaq() {
-    const faq = document.querySelector('[data-faq]');
-    if (!faq) return;
+  function setupAccordions() {
+    for (const item of document.querySelectorAll('[data-accordion] > details')) {
+      /* A <details> that is open in the markup fires its own toggle once the
+         page has loaded, and the stage that starts open sits below the fold —
+         so only an open the reader asked for is followed. */
+      let asked = false;
+      item.querySelector('summary')?.addEventListener('click', () => { asked = true; });
 
-    for (const item of faq.querySelectorAll('details')) {
       item.addEventListener('toggle', () => {
-        if (!item.open) return;
+        if (!item.open || !asked) return;
+        asked = false;
 
         const settle = () => {
           const box = item.getBoundingClientRect();
@@ -98,56 +103,9 @@
     }
   }
 
-  /* ------------------------------------------------------------------
-     The figures count up once, the first time the row is reached.
-     Without JS — or with reduced motion — the markup already holds the
-     final value, so nothing is lost.
-     ------------------------------------------------------------------ */
-  function setupCounts() {
-    const nums = [...document.querySelectorAll('[data-count]')];
-    if (!nums.length || reduced.matches || !('IntersectionObserver' in window)) return;
-
-    /* grouped, or the thousand lands as 1000 and the markup that says 1,000
-       is overwritten by the count the moment it starts */
-    const render = (el, value) =>
-      { el.textContent = value.toLocaleString('en-US') + (el.dataset.suffix ?? ''); };
-
-    const run = (el) => {
-      const target = Number.parseInt(el.dataset.count, 10);
-      if (Number.isNaN(target)) return;
-
-      const duration = 1100;
-      let started = null;
-
-      const step = (now) => {
-        started ??= now;
-        const progress = Math.min(1, (now - started) / duration);
-        const eased = 1 - (1 - progress) ** 3;
-        render(el, Math.round(target * eased));
-        if (progress < 1) window.requestAnimationFrame(step);
-      };
-
-      window.requestAnimationFrame(step);
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        observer.unobserve(entry.target);
-        run(entry.target);
-      }
-    }, { threshold: 0.6 });
-
-    for (const el of nums) {
-      render(el, 0);
-      observer.observe(el);
-    }
-  }
-
   function init() {
     setupReveals();
-    setupFaq();
-    setupCounts();
+    setupAccordions();
   }
 
   if (document.readyState === 'loading') {

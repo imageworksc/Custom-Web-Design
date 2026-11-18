@@ -58,13 +58,20 @@ foreach ($token in $assets.Keys) {
 }
 
 # --- the markup -----------------------------------------------------------
-# The marquee loops by translating -50%, so the track holds the set twice. The
-# second pass is duplicate content and is hidden from assistive tech.
-$testimonials = Read-Src 'testimonials.html'
-$testimonialTrack = $testimonials + "`n" +
-    $testimonials.Replace('<li class="testi-item">', '<li class="testi-item" aria-hidden="true">')
+# The images the markup points at, handled the way the font is: a relative
+# path in index.html, a data URI in the single-file preview.
+$bodyAssets = [ordered]@{
+    '__ASSET_TBYB__' = @{ Path = 'images/try-before-you-buy.jpg'; Mime = 'image/jpeg' }
+}
 
-$body = (Read-Src 'body.html').Replace('__TESTIMONIALS__', $testimonialTrack)
+$body = Read-Src 'body.html'
+$bodyLinked = $body
+$bodyInline = $body
+foreach ($token in $bodyAssets.Keys) {
+    $asset = $bodyAssets[$token]
+    $bodyLinked = $bodyLinked.Replace($token, $asset.Path)
+    $bodyInline = $bodyInline.Replace($token, "data:$($asset.Mime);base64,$(Read-B64 $asset.Path)")
+}
 
 $js   = Read-Src 'app.js'
 $head = Read-Src 'head.html'
@@ -98,7 +105,7 @@ $head
 <script src="app.js?v=$jsStamp"></script>
 </head>
 <body>
-$body
+$bodyLinked
 </body>
 </html>
 "@
@@ -119,7 +126,7 @@ $fragment = @"
 $cssInline
 </style>
 <script>document.documentElement.setAttribute('data-hero-anim', 'on');</script>
-$body
+$bodyInline
 <script>
 $js
 </script>

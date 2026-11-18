@@ -173,19 +173,38 @@
   text-wrap: pretty;
 }
 
-.hero .btn-row { margin-top: 10px; }
+/* The deck's line under the headline: the claim in navy, a size up from the
+   paragraph that explains it. */
+.hero-deck {
+  font-size: clamp(18px, 1.7vw, 22px);
+  line-height: 1.4;
+  font-weight: 600;
+  max-width: 44ch;
+  color: var(--navy);
+}
+/* the paragraph comes in close under it, the two read as one block */
+.hero-deck + .hero-sub { margin-top: -6px; font-size: 17px; }
+.hero-eyebrow { margin-bottom: -8px; }
+
+.hero .btn-row { margin-top: 4px; }
 
 /* Staged entrance, built the way the home stages its own hero: each block
    lifts in on its own delay, and the green phrase lands last. `backwards`
    drops the fill afterwards so hover states still win. */
 @media (prefers-reduced-motion: no-preference) {
+  [data-hero-anim="on"] .hero-eyebrow,
   [data-hero-anim="on"] .hero h1,
+  [data-hero-anim="on"] .hero-deck,
   [data-hero-anim="on"] .hero-sub,
   [data-hero-anim="on"] .hero .btn-row,
+  [data-hero-anim="on"] .hero-note,
   [data-hero-anim="on"] .kit { animation: hero-in .8s var(--ease) backwards; }
+  [data-hero-anim="on"] .hero-eyebrow { animation-delay: 0s; }
   [data-hero-anim="on"] .hero h1 { animation-delay: .06s; }
-  [data-hero-anim="on"] .hero-sub { animation-delay: .26s; }
+  [data-hero-anim="on"] .hero-deck { animation-delay: .2s; }
+  [data-hero-anim="on"] .hero-sub { animation-delay: .3s; }
   [data-hero-anim="on"] .hero .btn-row { animation-delay: .54s; }
+  [data-hero-anim="on"] .hero-note { animation-delay: .66s; }
   /* the kit comes in with the headline, not after the call — it is the other
      half of the fold, not a footnote to it */
   [data-hero-anim="on"] .kit { animation-delay: .18s; }
