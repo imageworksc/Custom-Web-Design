@@ -8,13 +8,13 @@
 /* --------------------------------------------------------------------------
    WHY YOUR WEBSITE DESIGN MATTERS — the call, with the offer beside it
    -------------------------------------------------------------------------- */
-/* The primary button and a quieter line pointing at the offer further down,
-   on one row: the same band, not a bolt-on bar. */
+/* A quieter line pointing at the offer further down, set over the primary
+   button: the same band, not a bolt-on bar. */
 .cta-pair {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px 26px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
   margin-top: 8px;
 }
 .cta-aside {
