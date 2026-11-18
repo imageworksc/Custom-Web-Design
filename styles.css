@@ -896,9 +896,8 @@ a { color: inherit; }
 /* --------------------------------------------------------------------------
    DIRECTION IS THE DIFFERENCE — three names for one loop
    -------------------------------------------------------------------------- */
-/* Centred on the deep band and set larger than the other section heads: the
-   rolling name is the section. A row of dots underneath follows the roll. */
-.band--direction .stack { align-items: center; text-align: center; gap: 22px; }
+/* Centred on the deep band, at the same size as every other section head. */
+.band--direction .stack { align-items: center; text-align: center; gap: 20px; }
 
 .dirhead {
   display: flex;
@@ -906,9 +905,8 @@ a { color: inherit; }
   align-items: center;
   gap: 4px;
   max-width: none;
-  font-size: clamp(32px, 4.6vw, 58px);
-  line-height: 1.12;
-  letter-spacing: -.025em;
+  font-size: var(--step-3);
+  line-height: 1.15;
 }
 .dirroll {
   display: block;
@@ -931,17 +929,6 @@ a { color: inherit; }
   color: transparent;
 }
 
-/* one dot per name, the current one stretched and green */
-.dirdots { display: flex; gap: 8px; margin-top: -4px; }
-.dirdots i {
-  display: block;
-  inline-size: 8px;
-  block-size: 8px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, .28);
-}
-.dirdots i:first-child { inline-size: 26px; background: var(--green); }
-
 .dir-lead {
   max-width: 56ch;
   font-size: clamp(17px, 1.5vw, 19px);
@@ -956,26 +943,12 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: no-preference) {
   .dirroll__track { animation: dirroll 11s cubic-bezier(.76, 0, .24, 1) infinite; }
-  .dirdots i { animation: dirdot 11s cubic-bezier(.76, 0, .24, 1) infinite; }
-  .dirdots i:first-child { animation-name: dirdot-first; }
-  .dirdots i:nth-child(2) { animation-delay: 3.63s; }
-  .dirdots i:nth-child(3) { animation-delay: 7.26s; }
 }
 @keyframes dirroll {
   0%, 26%  { transform: translateY(0); }
   33%, 59% { transform: translateY(-1.16em); }
   66%, 92% { transform: translateY(-2.32em); }
   100%     { transform: translateY(-3.48em); }
-}
-/* each dot is lit for its third of the 11s loop, in step with the roll */
-@keyframes dirdot {
-  0%, 26%   { inline-size: 26px; background: var(--green); }
-  33%, 100% { inline-size: 8px; background: rgba(255, 255, 255, .28); }
-}
-@keyframes dirdot-first {
-  0%, 26%   { inline-size: 26px; background: var(--green); }
-  33%, 92%  { inline-size: 8px; background: rgba(255, 255, 255, .28); }
-  100%      { inline-size: 26px; background: var(--green); }
 }
 
 /* --------------------------------------------------------------------------
