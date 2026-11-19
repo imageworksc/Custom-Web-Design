@@ -275,7 +275,7 @@
 
   <!-- 6 · TRY BEFORE YOU BUY ------------------------------------------------ -->
   <!-- Full width, no card: the copy holds the left on the page's own
-       measure, the photograph runs the right half to the edge of the screen. -->
+       measure, the drawing fills the right half to the edge of the screen. -->
   <section class="band band--offer" id="tbyb" aria-labelledby="tbyb-title">
       <div class="offer">
         <div class="offer-copy reveal">
@@ -286,8 +286,98 @@
             <a class="btn btn--outline" href="https://www.imageworkscreative.com/lets-grow-your-brand">Book a Call First</a>
           </div>
         </div>
-        <figure class="offer-shot">
-          <img src="__ASSET_TBYB__" width="900" height="1200" loading="lazy" decoding="async" alt="A designer holding a paintbrush, considering five brand-colored swatches painted on a wall">
+        <!-- What the offer is, drawn rather than photographed: a homepage in a
+             browser, turning from grey wireframe into finished design as a
+             green line passes over it, with the palette and typeface the design
+             was built from floating beside it. -->
+        <figure class="offer-art" role="img" aria-label="A homepage preview turning from a grey wireframe into a finished custom design, with its color palette and typeface beside it">
+          <svg viewBox="0 0 600 430" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="tb-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#143c66"/><stop offset=".55" stop-color="#1266b5"/><stop offset="1" stop-color="#1f8fb0"/></linearGradient>
+              <filter id="tb-lift" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#143c66" flood-opacity=".18"/></filter>
+              <filter id="tb-soft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#143c66" flood-opacity=".16"/></filter>
+              <clipPath id="tb-view"><rect x="70" y="86" width="440" height="284"/></clipPath>
+              <clipPath id="tb-reveal"><rect class="tb-wipe" x="70" y="86" width="440" height="284"/></clipPath>
+            </defs>
+
+            <!-- the browser -->
+            <g filter="url(#tb-lift)">
+              <rect x="70" y="56" width="440" height="314" rx="10" fill="#fff"/>
+            </g>
+            <path d="M70 66a10 10 0 0110-10h420a10 10 0 0110 10v20H70z" fill="#eef2f7"/>
+            <circle cx="88" cy="71" r="3.5" fill="#cfd8e3"/><circle cx="100" cy="71" r="3.5" fill="#cfd8e3"/><circle cx="112" cy="71" r="3.5" fill="#cfd8e3"/>
+            <rect x="200" y="63" width="180" height="16" rx="8" fill="#fff"/>
+            <rect x="250" y="69" width="80" height="4" rx="2" fill="#c1d0e2"/>
+
+            <g clip-path="url(#tb-view)">
+              <!-- 1 · the wireframe, in greys -->
+              <g class="tb-wire">
+                <rect x="70" y="86" width="440" height="284" fill="#f7f9fc"/>
+                <rect x="92" y="100" width="44" height="8" rx="2" fill="#d5deea"/>
+                <rect x="380" y="101" width="26" height="6" rx="2" fill="#dfe6f0"/><rect x="414" y="101" width="26" height="6" rx="2" fill="#dfe6f0"/><rect x="448" y="101" width="40" height="6" rx="2" fill="#dfe6f0"/>
+                <rect x="92" y="124" width="396" height="128" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <rect x="112" y="150" width="170" height="14" rx="3" fill="#d5deea"/>
+                <rect x="112" y="172" width="130" height="14" rx="3" fill="#dfe6f0"/>
+                <rect x="112" y="204" width="70" height="22" rx="3" fill="#d5deea"/>
+                <rect x="330" y="140" width="138" height="96" rx="3" fill="#eef2f7" stroke="#cdd8e6" stroke-width="1.5"/>
+                <path d="M330 140l138 96M468 140l-138 96" stroke="#cdd8e6" stroke-width="1.5"/>
+                <rect x="92" y="268" width="122" height="80" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <rect x="229" y="268" width="122" height="80" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <rect x="366" y="268" width="122" height="80" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
+              </g>
+
+              <!-- 2 · the finished design, revealed over it -->
+              <g clip-path="url(#tb-reveal)">
+                <rect x="70" y="86" width="440" height="284" fill="#fff"/>
+                <circle cx="100" cy="104" r="7" fill="#80c34a"/>
+                <rect x="112" y="100" width="40" height="8" rx="2" fill="#143c66"/>
+                <rect x="380" y="101" width="26" height="6" rx="2" fill="#5a6b82"/><rect x="414" y="101" width="26" height="6" rx="2" fill="#5a6b82"/>
+                <rect x="448" y="97" width="40" height="14" rx="2" fill="#80c34a"/>
+                <rect x="92" y="124" width="396" height="128" rx="4" fill="url(#tb-hero)"/>
+                <circle cx="420" cy="188" r="58" fill="#80c34a" opacity=".85"/>
+                <circle cx="420" cy="188" r="74" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="1.5"/>
+                <path d="M362 252l60-70 66 70z" fill="#fff" opacity=".12"/>
+                <rect x="112" y="150" width="170" height="14" rx="3" fill="#fff"/>
+                <rect x="112" y="172" width="130" height="14" rx="3" fill="#fff" opacity=".85"/>
+                <rect x="112" y="204" width="70" height="22" rx="3" fill="#80c34a"/>
+                <rect x="190" y="204" width="70" height="22" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/>
+                <rect x="92" y="268" width="122" height="80" rx="4" fill="#e5edf7"/>
+                <circle cx="112" cy="288" r="8" fill="#1266b5"/><rect x="104" y="306" width="90" height="6" rx="2" fill="#a9c3e2"/><rect x="104" y="318" width="70" height="6" rx="2" fill="#c7d8ec"/>
+                <rect x="229" y="268" width="122" height="80" rx="4" fill="#eef6e6"/>
+                <circle cx="249" cy="288" r="8" fill="#5c9a2e"/><rect x="241" y="306" width="90" height="6" rx="2" fill="#b9dba0"/><rect x="241" y="318" width="70" height="6" rx="2" fill="#d3eac2"/>
+                <rect x="366" y="268" width="122" height="80" rx="4" fill="#143c66"/>
+                <circle cx="386" cy="288" r="8" fill="#80c34a"/><rect x="378" y="306" width="90" height="6" rx="2" fill="#4e7aa6"/><rect x="378" y="318" width="70" height="6" rx="2" fill="#35618f"/>
+              </g>
+
+              <!-- the line the change happens at -->
+              <g class="tb-scan">
+                <rect x="507" y="86" width="3" height="284" fill="#80c34a"/>
+                <rect x="487" y="86" width="20" height="284" fill="#80c34a" opacity=".12"/>
+              </g>
+            </g>
+
+            <!-- what the design was built from -->
+            <g class="tb-float tb-float--a">
+              <g filter="url(#tb-soft)"><rect x="18" y="292" width="156" height="78" rx="10" fill="#fff"/></g>
+              <text x="34" y="314" font-family="Plus Jakarta Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#7d8ea1">PALETTE</text>
+              <rect x="34" y="326" width="26" height="28" rx="4" fill="#143c66"/>
+              <rect x="66" y="326" width="26" height="28" rx="4" fill="#1266b5"/>
+              <rect x="98" y="326" width="26" height="28" rx="4" fill="#80c34a"/>
+              <rect x="130" y="326" width="26" height="28" rx="4" fill="#e5edf7"/>
+            </g>
+            <g class="tb-float tb-float--b">
+              <g filter="url(#tb-soft)"><rect x="468" y="22" width="114" height="88" rx="10" fill="#fff"/></g>
+              <text x="484" y="44" font-family="Plus Jakarta Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#7d8ea1">TYPEFACE</text>
+              <text x="482" y="88" font-family="Plus Jakarta Sans, sans-serif" font-size="40" font-weight="800" fill="#143c66">Aa</text>
+              <circle cx="560" cy="76" r="9" fill="#80c34a"/>
+            </g>
+            <g class="tb-float tb-float--c">
+              <g filter="url(#tb-soft)"><rect x="392" y="382" width="176" height="36" rx="18" fill="#143c66"/></g>
+              <circle cx="412" cy="400" r="10" fill="#80c34a"/>
+              <path d="M407 400l3.5 3.5 6-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="430" y="405" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" fill="#fff">Homepage preview</text>
+            </g>
+          </svg>
         </figure>
       </div>
   </section>

@@ -61,7 +61,6 @@ foreach ($token in $assets.Keys) {
 # The images the markup points at, handled the way the font is: a relative
 # path in index.html, a data URI in the single-file preview.
 $bodyAssets = [ordered]@{
-    '__ASSET_TBYB__' = @{ Path = 'images/try-before-you-buy.jpg'; Mime = 'image/jpeg' }
 }
 
 $body = Read-Src 'body.html'

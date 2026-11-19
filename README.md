@@ -33,7 +33,6 @@ Abre [`index.html`](index.html) en el navegador. No hay servidor ni dependencias
 ├── styles.css           # Todos los estilos, en orden de cascada
 ├── app.js               # Todo el comportamiento
 ├── fonts/               # Plus Jakarta Sans (subconjunto latin, variable)
-├── images/              # La foto de Try Before You Buy (sacada del deck)
 ├── build.ps1            # Ensambla los tres archivos desde src/
 └── src/
     ├── head.html        # <head>: meta, Open Graph, JSON-LD

@@ -120,37 +120,58 @@
 .offer .lead em { font-style: normal; color: var(--green-ink); }
 .offer .btn-row { margin-top: 6px; }
 
-.offer-shot {
+/* The right half: a soft brand wash with the page's dot field, and the
+   drawing centred on it. */
+.offer-art {
   position: relative;
+  display: grid;
+  place-items: center;
   margin: 0;
+  padding: clamp(24px, 3vw, 44px);
   overflow: hidden;
-  background: var(--tint-blue);
+  background:
+    radial-gradient(60% 70% at 85% 15%, rgba(128, 195, 74, .18), transparent 70%),
+    radial-gradient(70% 80% at 10% 90%, rgba(18, 102, 181, .14), transparent 70%),
+    linear-gradient(160deg, #f4f8fd, #e9f1fa);
 }
-.offer-shot img {
-  position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
-  object-position: center 22%;
-  transition: transform 1.6s var(--ease);
-}
-/* the photograph's white wall runs into the band rather than stopping on a
-   hard edge */
-.offer-shot::after {
+.offer-art::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, .6) 7%, rgba(255, 255, 255, 0) 22%);
+  background-image: radial-gradient(rgba(20, 60, 102, .09) 1px, transparent 1px);
+  background-size: 22px 22px;
   pointer-events: none;
 }
-.offer:hover .offer-shot img { transform: scale(1.03); }
+.offer-art svg { position: relative; inline-size: 100%; max-inline-size: 520px; block-size: auto; overflow: visible; }
 
-/* The photograph settles in as the band arrives. */
+/* Motion: the green line sweeps across and the finished design follows it,
+   holds, then the wireframe comes back for the next pass; the three cards
+   drift on their own clocks. */
+.tb-wipe { transform-box: view-box; transform-origin: 70px 0; }
 @media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .offer-shot img { transform: scale(1.08); opacity: 0; transition: transform 1.6s var(--ease), opacity 1s var(--ease); }
-  [data-anim="on"] .offer:has(.offer-copy.is-revealed) .offer-shot img { transform: scale(1); opacity: 1; }
-  [data-anim="on"] .offer:has(.offer-copy.is-revealed):hover .offer-shot img { transform: scale(1.03); }
+  .tb-wipe { animation: tb-wipe 8s cubic-bezier(.65, 0, .35, 1) infinite; }
+  .tb-scan { animation: tb-scan 8s cubic-bezier(.65, 0, .35, 1) infinite; }
+  .tb-float { animation: tb-float 6s ease-in-out infinite; }
+  .tb-float--b { animation-duration: 7s; animation-delay: -2s; }
+  .tb-float--c { animation-duration: 5.5s; animation-delay: -3.5s; }
+  .offer-art:hover .tb-wipe,
+  .offer-art:hover .tb-scan,
+  .offer-art:hover .tb-float { animation-play-state: paused; }
+}
+@keyframes tb-wipe {
+  0%, 8%    { transform: scaleX(0); }
+  45%, 88%  { transform: scaleX(1); }
+  100%      { transform: scaleX(0); }
+}
+@keyframes tb-scan {
+  0%, 8%    { transform: translateX(-440px); opacity: 1; }
+  45%       { transform: translateX(0); opacity: 1; }
+  52%, 88%  { transform: translateX(0); opacity: 0; }
+  100%      { transform: translateX(-440px); opacity: 0; }
+}
+@keyframes tb-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
 }
 
 @media (min-width: 1101px) {
@@ -159,9 +180,7 @@
 }
 @media (max-width: 860px) {
   .offer { grid-template-columns: minmax(0, 1fr); min-block-size: 0; }
-  .offer-shot { order: -1; min-block-size: 240px; }
-  .offer-shot img { object-position: center 18%; }
-  .offer-shot::after { background: linear-gradient(0deg, #fff 0%, rgba(255, 255, 255, 0) 20%); }
+  .offer-art { order: -1; }
   .offer-copy { padding: 28px var(--gutter) 44px; }
 }
 /* "Request Your Homepage Preview" needs about 320px on one line, more than a
