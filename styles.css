@@ -1003,49 +1003,29 @@ a { color: inherit; }
 }
 .offer-art svg { position: relative; inline-size: 100%; block-size: auto; overflow: visible; }
 
-/* Motion: the four planes stack into one page, pull apart so each can be
-   named, hold, and stack again. Each has its own stacked and spread height;
-   the labels show only while the planes are apart. */
 /* held to the band's slim height; the drawing scales inside the box */
-.offer-art svg { max-inline-size: 560px; max-block-size: 360px; }
-.lyr--1 { transform: translateY(156px); }
-.lyr--2 { transform: translateY(150px); }
-.lyr--3 { transform: translateY(144px); }
-.lyr--4 { transform: translateY(138px); }
-.lyr-label { opacity: 0; }
-.lyr-spark path { transform-box: fill-box; transform-origin: center; }
+.offer-art svg { max-inline-size: 600px; max-block-size: 380px; }
 
+/* The one moment of motion on the band: the pen marks draw themselves in
+   order, as a director would make them, hold, clear and start again. At rest
+   (no motion) they are simply there. */
+.mk { stroke-dasharray: 1; stroke-dashoffset: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .lyr--1 { animation: lyr-1 9s cubic-bezier(.65, 0, .35, 1) infinite; }
-  .lyr--2 { animation: lyr-2 9s cubic-bezier(.65, 0, .35, 1) infinite; }
-  .lyr--3 { animation: lyr-3 9s cubic-bezier(.65, 0, .35, 1) infinite; }
-  .lyr--4 { animation: lyr-4 9s cubic-bezier(.65, 0, .35, 1) infinite; }
-  .lyr-label { animation: lyr-label 9s ease-in-out infinite; }
-  .lyr-shadow { transform-box: fill-box; transform-origin: center; animation: lyr-shadow 9s cubic-bezier(.65, 0, .35, 1) infinite; }
-  .lyr-spark path { animation: lyr-spark 3s ease-in-out infinite; }
-  .lyr-spark path:nth-child(2) { animation-delay: -1s; }
-  .lyr-spark path:nth-child(3) { animation-delay: -2s; }
-  .offer-art:hover .lyr--1, .offer-art:hover .lyr--2, .offer-art:hover .lyr--3,
-  .offer-art:hover .lyr--4, .offer-art:hover .lyr-label, .offer-art:hover .lyr-shadow { animation-play-state: paused; }
+  .mk { animation: mk-draw 10s cubic-bezier(.45, 0, .2, 1) infinite; }
+  .mk--2 { animation-name: mk-draw-2; }
+  .mk--3 { animation-name: mk-draw-3; }
+  .mk--4 { animation-name: mk-draw-4; }
+  .mk--5 { animation-name: mk-draw-5; }
+  .mk--6 { animation-name: mk-draw-6; }
+  .offer-art:hover .mk { animation-play-state: paused; }
 }
-/* stacked 0-18% (6px apart, so the page reads as one), spread 38-74%,
-   stacked again by 92% */
-@keyframes lyr-1 { 0%, 18%, 92%, 100% { transform: translateY(156px); } 38%, 74% { transform: translateY(248px); } }
-@keyframes lyr-2 { 0%, 18%, 92%, 100% { transform: translateY(150px); } 38%, 74% { transform: translateY(176px); } }
-@keyframes lyr-3 { 0%, 18%, 92%, 100% { transform: translateY(144px); } 38%, 74% { transform: translateY(104px); } }
-@keyframes lyr-4 { 0%, 18%, 92%, 100% { transform: translateY(138px); } 38%, 74% { transform: translateY(32px); } }
-@keyframes lyr-label { 0%, 30% { opacity: 0; } 42%, 70% { opacity: 1; } 82%, 100% { opacity: 0; } }
-@keyframes lyr-shadow { 0%, 18%, 92%, 100% { transform: scale(1); opacity: 1; } 38%, 74% { transform: scale(1.15); opacity: .7; } }
-@keyframes lyr-spark { 0%, 100% { transform: scale(.6); opacity: .4; } 50% { transform: scale(1.15); opacity: 1; } }
-
-/* without motion the planes rest spread, with their names showing */
-@media (prefers-reduced-motion: reduce) {
-  .lyr--1 { transform: translateY(248px); }
-  .lyr--2 { transform: translateY(176px); }
-  .lyr--3 { transform: translateY(104px); }
-  .lyr--4 { transform: translateY(32px); }
-  .lyr-label { opacity: 1; }
-}
+/* each mark: hidden, drawn in its slot, held, faded out together at 90% */
+@keyframes mk-draw   { 0%, 3%  { stroke-dashoffset: 1; opacity: 1; } 15%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes mk-draw-2 { 0%, 15% { stroke-dashoffset: 1; opacity: 1; } 23%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes mk-draw-3 { 0%, 23% { stroke-dashoffset: 1; opacity: 1; } 26%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes mk-draw-4 { 0%, 27% { stroke-dashoffset: 1; opacity: 1; } 40%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes mk-draw-5 { 0%, 42% { stroke-dashoffset: 1; opacity: 1; } 48%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes mk-draw-6 { 0%, 51% { stroke-dashoffset: 1; opacity: 1; } 56%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
 
 @media (min-width: 1101px) {
   .offer .btn-row { flex-wrap: nowrap; }
