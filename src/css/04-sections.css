@@ -156,16 +156,17 @@
 /* held to the band's slim height; the drawing scales inside the box */
 .offer-art svg { max-inline-size: 600px; max-block-size: 380px; }
 
-/* The person: one outfit at a time, a new one every three seconds. Each
+/* The cast: one character at a time, a new one every three seconds. Each
    change lands with a squash, a hop and a puff; between changes they blink,
    nod and the tag they hold up swings. Without motion they stand still in
    the first outfit. */
 .ch-fit { opacity: 0; }
 .ch-fit--1 { opacity: 1; }
-.ch-hop, .ch-head, .ch-eyes, .ch-puff { transform-box: view-box; }
+.ch-hop, .ch-puff { transform-box: view-box; }
+.ch-head, .ch-eyes { transform-box: fill-box; }
 .ch-hop  { transform-origin: 292px 398px; }
-.ch-head { transform-origin: 292px 204px; }
-.ch-eyes { transform-origin: 293px 150px; }
+.ch-head { transform-origin: 50% 100%; }
+.ch-eyes { transform-origin: center; }
 .ch-puff { transform-origin: 292px 230px; opacity: 0; }
 
 @media (prefers-reduced-motion: no-preference) {
