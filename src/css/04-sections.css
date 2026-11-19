@@ -147,26 +147,32 @@
 /* held to the band's slim height; the drawing scales inside the box */
 .offer-art svg { max-inline-size: 600px; max-block-size: 380px; }
 
-/* The one moment of motion on the band: the pen marks draw themselves in
-   order, as a director would make them, hold, clear and start again. At rest
-   (no motion) they are simply there. */
-.mk { stroke-dasharray: 1; stroke-dashoffset: 0; }
+/* The tag sways on its string, and the business it is designed for changes
+   every three seconds, its type and palette with it. Without motion it rests
+   still on the first. */
+.tg-swing { transform-box: view-box; transform-origin: 300px 70px; }
+.tg-state { opacity: 0; }
+.tg-state--1 { opacity: 1; }
 @media (prefers-reduced-motion: no-preference) {
-  .mk { animation: mk-draw 10s cubic-bezier(.45, 0, .2, 1) infinite; }
-  .mk--2 { animation-name: mk-draw-2; }
-  .mk--3 { animation-name: mk-draw-3; }
-  .mk--4 { animation-name: mk-draw-4; }
-  .mk--5 { animation-name: mk-draw-5; }
-  .mk--6 { animation-name: mk-draw-6; }
-  .offer-art:hover .mk { animation-play-state: paused; }
+  .tg-swing { animation: tg-swing 6s ease-in-out infinite alternate; }
+  .tg-state { animation: tg-state 12s ease-in-out infinite; opacity: 0; }
+  .tg-state--1 { animation-delay: -1s; }
+  .tg-state--2 { animation-delay: 2s; }
+  .tg-state--3 { animation-delay: 5s; }
+  .tg-state--4 { animation-delay: 8s; }
+  .offer-art:hover .tg-swing,
+  .offer-art:hover .tg-state { animation-play-state: paused; }
 }
-/* each mark: hidden, drawn in its slot, held, faded out together at 90% */
-@keyframes mk-draw   { 0%, 3%  { stroke-dashoffset: 1; opacity: 1; } 15%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
-@keyframes mk-draw-2 { 0%, 15% { stroke-dashoffset: 1; opacity: 1; } 23%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
-@keyframes mk-draw-3 { 0%, 23% { stroke-dashoffset: 1; opacity: 1; } 26%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
-@keyframes mk-draw-4 { 0%, 27% { stroke-dashoffset: 1; opacity: 1; } 40%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
-@keyframes mk-draw-5 { 0%, 42% { stroke-dashoffset: 1; opacity: 1; } 48%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
-@keyframes mk-draw-6 { 0%, 51% { stroke-dashoffset: 1; opacity: 1; } 56%, 88% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes tg-swing {
+  from { transform: rotate(-3deg); }
+  to   { transform: rotate(3deg); }
+}
+/* each business holds a quarter of the 12s loop, crossfading at the edges */
+@keyframes tg-state {
+  0%       { opacity: 0; transform: translateY(8px); }
+  4%, 22%  { opacity: 1; transform: translateY(0); }
+  26%, 100% { opacity: 0; transform: translateY(-8px); }
+}
 
 @media (min-width: 1101px) {
   .offer .btn-row { flex-wrap: nowrap; }
