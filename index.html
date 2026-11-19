@@ -107,7 +107,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=f989e8c5">
+<link rel="stylesheet" href="styles.css?v=d818fe36">
 <script src="app.js?v=8037369b"></script>
 </head>
 <body>
@@ -399,96 +399,87 @@
             <a class="btn btn--outline" href="https://www.imageworkscreative.com/lets-grow-your-brand">Book a Call First</a>
           </div>
         </div>
-        <!-- What the offer is, drawn rather than photographed: a homepage in a
-             browser, turning from grey wireframe into finished design as a
-             green line passes over it, with the palette and typeface the design
-             was built from floating beside it. -->
-        <figure class="offer-art" role="img" aria-label="A homepage preview turning from a grey wireframe into a finished custom design, with its color palette and typeface beside it">
-          <svg viewBox="0 0 600 430" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- A homepage taken apart: four glass planes in isometric, the
+             structure, the color, the type and the finished page, which pull
+             apart so each layer can be named and then stack back into one
+             design. It is the offer in one picture: a real design, built in
+             layers, before you commit. -->
+        <figure class="offer-art" role="img" aria-label="A custom homepage shown as four stacked layers, structure, color, type and the finished page, separating and coming back together">
+          <svg viewBox="0 0 620 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
-              <linearGradient id="tb-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#143c66"/><stop offset=".55" stop-color="#1266b5"/><stop offset="1" stop-color="#1f8fb0"/></linearGradient>
-              <filter id="tb-lift" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#143c66" flood-opacity=".18"/></filter>
-              <filter id="tb-soft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#143c66" flood-opacity=".16"/></filter>
-              <clipPath id="tb-view"><rect x="70" y="86" width="440" height="284"/></clipPath>
-              <clipPath id="tb-reveal"><rect class="tb-wipe" x="70" y="86" width="440" height="284"/></clipPath>
+              <linearGradient id="ly-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#143c66"/><stop offset=".6" stop-color="#1266b5"/><stop offset="1" stop-color="#1f8fb0"/></linearGradient>
+              <radialGradient id="ly-shadow"><stop offset="0" stop-color="#143c66" stop-opacity=".28"/><stop offset="1" stop-color="#143c66" stop-opacity="0"/></radialGradient>
+              <filter id="ly-glow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#143c66" flood-opacity=".16"/></filter>
             </defs>
-
-            <!-- the browser -->
-            <g filter="url(#tb-lift)">
-              <rect x="70" y="56" width="440" height="314" rx="10" fill="#fff"/>
-            </g>
-            <path d="M70 66a10 10 0 0110-10h420a10 10 0 0110 10v20H70z" fill="#eef2f7"/>
-            <circle cx="88" cy="71" r="3.5" fill="#cfd8e3"/><circle cx="100" cy="71" r="3.5" fill="#cfd8e3"/><circle cx="112" cy="71" r="3.5" fill="#cfd8e3"/>
-            <rect x="200" y="63" width="180" height="16" rx="8" fill="#fff"/>
-            <rect x="250" y="69" width="80" height="4" rx="2" fill="#c1d0e2"/>
-
-            <g clip-path="url(#tb-view)">
-              <!-- 1 · the wireframe, in greys -->
-              <g class="tb-wire">
-                <rect x="70" y="86" width="440" height="284" fill="#f7f9fc"/>
-                <rect x="92" y="100" width="44" height="8" rx="2" fill="#d5deea"/>
-                <rect x="380" y="101" width="26" height="6" rx="2" fill="#dfe6f0"/><rect x="414" y="101" width="26" height="6" rx="2" fill="#dfe6f0"/><rect x="448" y="101" width="40" height="6" rx="2" fill="#dfe6f0"/>
-                <rect x="92" y="124" width="396" height="128" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
-                <rect x="112" y="150" width="170" height="14" rx="3" fill="#d5deea"/>
-                <rect x="112" y="172" width="130" height="14" rx="3" fill="#dfe6f0"/>
-                <rect x="112" y="204" width="70" height="22" rx="3" fill="#d5deea"/>
-                <rect x="330" y="140" width="138" height="96" rx="3" fill="#eef2f7" stroke="#cdd8e6" stroke-width="1.5"/>
-                <path d="M330 140l138 96M468 140l-138 96" stroke="#cdd8e6" stroke-width="1.5"/>
-                <rect x="92" y="268" width="122" height="80" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
-                <rect x="229" y="268" width="122" height="80" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
-                <rect x="366" y="268" width="122" height="80" rx="4" fill="none" stroke="#cdd8e6" stroke-width="1.5" stroke-dasharray="5 5"/>
+            <ellipse class="lyr-shadow" cx="280" cy="400" rx="200" ry="32" fill="url(#ly-shadow)"/>
+            <g filter="url(#ly-glow)">
+            <g class="lyr lyr--1">
+              <g transform="matrix(.866 .5 -.866 .5 241 0)">
+                  <rect width="260" height="170" rx="12" fill="#ffffff" stroke="#d5dfeb" stroke-width="1.5"/>
+                  <rect x="16" y="14" width="40" height="8" rx="3" fill="#d5deea"/><rect x="190" y="15" width="54" height="6" rx="3" fill="#dfe6f0"/>
+                  <rect x="16" y="34" width="228" height="64" rx="6" fill="none" stroke="#c3d0e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+                  <rect x="16" y="110" width="68" height="46" rx="5" fill="none" stroke="#c3d0e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+                  <rect x="96" y="110" width="68" height="46" rx="5" fill="none" stroke="#c3d0e0" stroke-width="1.5" stroke-dasharray="5 4"/>
+                  <rect x="176" y="110" width="68" height="46" rx="5" fill="none" stroke="#c3d0e0" stroke-width="1.5" stroke-dasharray="5 4"/>
               </g>
-
-              <!-- 2 · the finished design, revealed over it -->
-              <g clip-path="url(#tb-reveal)">
-                <rect x="70" y="86" width="440" height="284" fill="#fff"/>
-                <circle cx="100" cy="104" r="7" fill="#80c34a"/>
-                <rect x="112" y="100" width="40" height="8" rx="2" fill="#143c66"/>
-                <rect x="380" y="101" width="26" height="6" rx="2" fill="#5a6b82"/><rect x="414" y="101" width="26" height="6" rx="2" fill="#5a6b82"/>
-                <rect x="448" y="97" width="40" height="14" rx="2" fill="#80c34a"/>
-                <rect x="92" y="124" width="396" height="128" rx="4" fill="url(#tb-hero)"/>
-                <circle cx="420" cy="188" r="58" fill="#80c34a" opacity=".85"/>
-                <circle cx="420" cy="188" r="74" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="1.5"/>
-                <path d="M362 252l60-70 66 70z" fill="#fff" opacity=".12"/>
-                <rect x="112" y="150" width="170" height="14" rx="3" fill="#fff"/>
-                <rect x="112" y="172" width="130" height="14" rx="3" fill="#fff" opacity=".85"/>
-                <rect x="112" y="204" width="70" height="22" rx="3" fill="#80c34a"/>
-                <rect x="190" y="204" width="70" height="22" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/>
-                <rect x="92" y="268" width="122" height="80" rx="4" fill="#e5edf7"/>
-                <circle cx="112" cy="288" r="8" fill="#1266b5"/><rect x="104" y="306" width="90" height="6" rx="2" fill="#a9c3e2"/><rect x="104" y="318" width="70" height="6" rx="2" fill="#c7d8ec"/>
-                <rect x="229" y="268" width="122" height="80" rx="4" fill="#eef6e6"/>
-                <circle cx="249" cy="288" r="8" fill="#5c9a2e"/><rect x="241" y="306" width="90" height="6" rx="2" fill="#b9dba0"/><rect x="241" y="318" width="70" height="6" rx="2" fill="#d3eac2"/>
-                <rect x="366" y="268" width="122" height="80" rx="4" fill="#143c66"/>
-                <circle cx="386" cy="288" r="8" fill="#80c34a"/><rect x="378" y="306" width="90" height="6" rx="2" fill="#4e7aa6"/><rect x="378" y="318" width="70" height="6" rx="2" fill="#35618f"/>
-              </g>
-
-              <!-- the line the change happens at -->
-              <g class="tb-scan">
-                <rect x="507" y="86" width="3" height="284" fill="#80c34a"/>
-                <rect x="487" y="86" width="20" height="284" fill="#80c34a" opacity=".12"/>
+              <g class="lyr-label">
+                <line x1="470" y1="130" x2="498" y2="130" stroke="#1266b5" stroke-width="1.5" stroke-dasharray="2 3"/>
+                <circle cx="470" cy="130" r="3.5" fill="#1266b5"/>
+                <text x="506" y="135" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#143c66">Structure</text>
               </g>
             </g>
-
-            <!-- what the design was built from -->
-            <g class="tb-float tb-float--a">
-              <g filter="url(#tb-soft)"><rect x="18" y="292" width="156" height="78" rx="10" fill="#fff"/></g>
-              <text x="34" y="314" font-family="Plus Jakarta Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#7d8ea1">PALETTE</text>
-              <rect x="34" y="326" width="26" height="28" rx="4" fill="#143c66"/>
-              <rect x="66" y="326" width="26" height="28" rx="4" fill="#1266b5"/>
-              <rect x="98" y="326" width="26" height="28" rx="4" fill="#80c34a"/>
-              <rect x="130" y="326" width="26" height="28" rx="4" fill="#e5edf7"/>
+            <g class="lyr lyr--2">
+              <g transform="matrix(.866 .5 -.866 .5 241 0)">
+                  <rect width="260" height="170" rx="12" fill="rgba(255,255,255,.35)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/>
+                  <rect x="16" y="34" width="228" height="64" rx="6" fill="url(#ly-hero)"/>
+                  <rect x="16" y="110" width="68" height="46" rx="5" fill="#cfe0f5"/>
+                  <rect x="96" y="110" width="68" height="46" rx="5" fill="#dcefc9"/>
+                  <rect x="176" y="110" width="68" height="46" rx="5" fill="#143c66"/>
+              </g>
+              <g class="lyr-label">
+                <line x1="470" y1="130" x2="498" y2="130" stroke="#1266b5" stroke-width="1.5" stroke-dasharray="2 3"/>
+                <circle cx="470" cy="130" r="3.5" fill="#1266b5"/>
+                <text x="506" y="135" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#143c66">Color</text>
+              </g>
             </g>
-            <g class="tb-float tb-float--b">
-              <g filter="url(#tb-soft)"><rect x="468" y="22" width="114" height="88" rx="10" fill="#fff"/></g>
-              <text x="484" y="44" font-family="Plus Jakarta Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#7d8ea1">TYPEFACE</text>
-              <text x="482" y="88" font-family="Plus Jakarta Sans, sans-serif" font-size="40" font-weight="800" fill="#143c66">Aa</text>
-              <circle cx="560" cy="76" r="9" fill="#80c34a"/>
+            <g class="lyr lyr--3">
+              <g transform="matrix(.866 .5 -.866 .5 241 0)">
+                  <rect width="260" height="170" rx="12" fill="rgba(255,255,255,.25)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/>
+                  <rect x="16" y="14" width="40" height="8" rx="3" fill="#143c66"/>
+                  <rect x="30" y="48" width="104" height="10" rx="3" fill="#fff"/>
+                  <rect x="30" y="64" width="76" height="10" rx="3" fill="#fff" opacity=".85"/>
+                  <rect x="26" y="124" width="46" height="5" rx="2" fill="#1266b5"/><rect x="26" y="135" width="36" height="5" rx="2" fill="#7fa6cf"/>
+                  <rect x="106" y="124" width="46" height="5" rx="2" fill="#5c9a2e"/><rect x="106" y="135" width="36" height="5" rx="2" fill="#9cc77a"/>
+                  <rect x="186" y="124" width="46" height="5" rx="2" fill="#80c34a"/><rect x="186" y="135" width="36" height="5" rx="2" fill="#5a83ad"/>
+              </g>
+              <g class="lyr-label">
+                <line x1="470" y1="130" x2="498" y2="130" stroke="#1266b5" stroke-width="1.5" stroke-dasharray="2 3"/>
+                <circle cx="470" cy="130" r="3.5" fill="#1266b5"/>
+                <text x="506" y="135" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#143c66">Type</text>
+              </g>
             </g>
-            <g class="tb-float tb-float--c">
-              <g filter="url(#tb-soft)"><rect x="392" y="382" width="176" height="36" rx="18" fill="#143c66"/></g>
-              <circle cx="412" cy="400" r="10" fill="#80c34a"/>
-              <path d="M407 400l3.5 3.5 6-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-              <text x="430" y="405" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" fill="#fff">Homepage preview</text>
+            <g class="lyr lyr--4">
+              <g transform="matrix(.866 .5 -.866 .5 241 0)">
+                  <rect width="260" height="170" rx="12" fill="rgba(255,255,255,.18)" stroke="#80c34a" stroke-width="1.5" stroke-opacity=".9"/>
+                  <circle cx="22" cy="18" r="5" fill="#80c34a"/>
+                  <rect x="190" y="12" width="54" height="12" rx="3" fill="#80c34a"/>
+                  <circle cx="204" cy="66" r="26" fill="#80c34a" opacity=".9"/>
+                  <circle cx="204" cy="66" r="34" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/>
+                  <rect x="30" y="80" width="40" height="12" rx="3" fill="#80c34a"/>
+                  <rect x="76" y="80" width="40" height="12" rx="3" fill="none" stroke="#fff" stroke-width="1.2"/>
+                  <circle cx="30" cy="122" r="6" fill="#1266b5"/><circle cx="110" cy="122" r="6" fill="#5c9a2e"/><circle cx="190" cy="122" r="6" fill="#80c34a"/>
+              </g>
+              <g class="lyr-label">
+                <line x1="470" y1="130" x2="498" y2="130" stroke="#80c34a" stroke-width="1.5" stroke-dasharray="2 3"/>
+                <circle cx="470" cy="130" r="3.5" fill="#80c34a"/>
+                <text x="506" y="135" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#5c9a2e">Your homepage</text>
+              </g>
+            </g>
+            </g>
+            <g class="lyr-spark" fill="#80c34a">
+              <path d="M150 70l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+              <path d="M548 60l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#1266b5"/>
+              <path d="M74 300l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z"/>
             </g>
           </svg>
         </figure>
