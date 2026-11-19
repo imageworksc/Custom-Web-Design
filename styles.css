@@ -1006,31 +1006,50 @@ a { color: inherit; }
 /* held to the band's slim height; the drawing scales inside the box */
 .offer-art svg { max-inline-size: 600px; max-block-size: 380px; }
 
-/* The tag sways on its string, and the business it is designed for changes
-   every three seconds, its type and palette with it. Without motion it rests
-   still on the first. */
-.tg-swing { transform-box: view-box; transform-origin: 300px 70px; }
-.tg-state { opacity: 0; }
-.tg-state--1 { opacity: 1; }
+/* The character: one outfit at a time, a new one every three seconds. Each
+   change lands with a squash, a hop and a puff; between changes the
+   character blinks, waves and the tag swings. Without motion it stands still
+   in the first outfit. */
+.ch-fit { opacity: 0; }
+.ch-fit--1 { opacity: 1; }
+.ch-hop, .ch-tag, .ch-wave, .ch-eyes, .ch-puff, .ch-puff * { transform-box: view-box; }
+.ch-hop  { transform-origin: 300px 396px; }
+.ch-wave { transform-origin: 350px 248px; }
+.ch-eyes { transform-origin: 300px 166px; }
+.ch-puff { transform-origin: 300px 230px; opacity: 0; }
+
 @media (prefers-reduced-motion: no-preference) {
-  .tg-swing { animation: tg-swing 6s ease-in-out infinite alternate; }
-  .tg-state { animation: tg-state 12s ease-in-out infinite; opacity: 0; }
-  .tg-state--1 { animation-delay: -1s; }
-  .tg-state--2 { animation-delay: 2s; }
-  .tg-state--3 { animation-delay: 5s; }
-  .tg-state--4 { animation-delay: 8s; }
-  .offer-art:hover .tg-swing,
-  .offer-art:hover .tg-state { animation-play-state: paused; }
+  .ch-fit { animation: ch-fit 12s steps(1, end) infinite; opacity: 0; }
+  .ch-fit--1 { animation-delay: 0s; }
+  .ch-fit--2 { animation-delay: 3s; }
+  .ch-fit--3 { animation-delay: 6s; }
+  .ch-fit--4 { animation-delay: 9s; }
+  .ch-hop  { animation: ch-hop 3s cubic-bezier(.3, .7, .4, 1) infinite; }
+  .ch-puff { animation: ch-puff 3s ease-out infinite; }
+  .ch-wave { animation: ch-wave 1.5s ease-in-out infinite alternate; }
+  .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
+  .ch-tag  { animation: ch-tag 3s ease-in-out infinite; }
+  .offer-art:hover * { animation-play-state: paused; }
 }
-@keyframes tg-swing {
-  from { transform: rotate(-3deg); }
-  to   { transform: rotate(3deg); }
+/* shown for its quarter of the loop, swapped in an instant (the puff covers it) */
+@keyframes ch-fit { 0% { opacity: 1; } 25%, 100% { opacity: 0; } }
+@keyframes ch-hop {
+  0%   { transform: translateY(0) scale(1, 1); }
+  5%   { transform: translateY(0) scale(1.06, .9); }
+  14%  { transform: translateY(-22px) scale(.96, 1.05); }
+  24%  { transform: translateY(0) scale(1.04, .95); }
+  32%, 100% { transform: translateY(0) scale(1, 1); }
 }
-/* each business holds a quarter of the 12s loop, crossfading at the edges */
-@keyframes tg-state {
-  0%       { opacity: 0; transform: translateY(8px); }
-  4%, 22%  { opacity: 1; transform: translateY(0); }
-  26%, 100% { opacity: 0; transform: translateY(-8px); }
+@keyframes ch-puff {
+  0%   { opacity: 0; transform: scale(.6); }
+  6%   { opacity: 1; transform: scale(1); }
+  22%, 100% { opacity: 0; transform: scale(1.25); }
+}
+@keyframes ch-wave { from { transform: rotate(-6deg); } to { transform: rotate(10deg); } }
+@keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
+@keyframes ch-tag {
+  0%, 100% { transform: translate(388px, 328px) rotate(-4deg); }
+  50%      { transform: translate(388px, 328px) rotate(5deg); }
 }
 
 @media (min-width: 1101px) {

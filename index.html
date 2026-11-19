@@ -107,7 +107,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=51d3aa78">
+<link rel="stylesheet" href="styles.css?v=a272a385">
 <script src="app.js?v=8037369b"></script>
 </head>
 <body>
@@ -399,67 +399,112 @@
             <a class="btn btn--outline" href="https://www.imageworkscreative.com/lets-grow-your-brand">Book a Call First</a>
           </div>
         </div>
-        <!-- "Try before you buy" taken at its word: a hang tag, the kind you
-             turn over in a fitting room. It reads "Designed for", and the
-             business it names keeps changing, a healthcare company, a
-             contractor, a tech company, a law firm, each with its own type
-             and palette, because each gets its own direction. It sways on its
-             string while it changes. -->
-        <figure class="offer-art" role="img" aria-label="A hang tag that reads Designed for, cycling through a healthcare company, a contractor, a tech company and a law firm, each with its own typeface and colors">
+        <!-- A fitting room. A character tries on outfit after outfit, scrubs,
+             a hi-vis vest and hard hat, a hoodie, a suit, and the hang tag on
+             each says who it was designed for: a healthcare company, a
+             contractor, a tech company, a law firm. Every change lands with a
+             little hop and a puff, the way you would try a design on before
+             you buy it. -->
+        <figure class="offer-art" role="img" aria-label="A cartoon character in a fitting room trying on outfits; the hang tag on each reads Designed for a healthcare company, a contractor, a tech company and a law firm">
           <svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <radialGradient id="tg-glow"><stop offset="0" stop-color="#80c34a" stop-opacity=".2"/><stop offset="1" stop-color="#80c34a" stop-opacity="0"/></radialGradient>
-              <filter id="tg-shadow" x="-30%" y="-20%" width="160%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#143c66" flood-opacity=".2"/></filter>
-              <clipPath id="tg-clip"><path d="M224 68H376L432 112V378Q432 390 420 390H180Q168 390 168 378V112Z"/></clipPath>
-            </defs>
-            <circle cx="300" cy="230" r="210" fill="url(#tg-glow)"/>
+            <!-- the fitting room: a rail, a curtain pulled back, a mirror -->
+            <rect x="40" y="38" width="530" height="8" rx="4" fill="#143c66"/>
+            <g class="ch-curtain">
+              <path d="M58 46h96c-8 60 10 120 -6 180c-12 50 6 100 -2 156h-88z" fill="#80c34a"/>
+              <path d="M80 46c-4 110 6 220 -2 336M106 46c4 110 -8 220 0 336M130 46c-6 110 8 220 -4 336" fill="none" stroke="#6aab37" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="66" cy="42" r="6" fill="#143c66"/><circle cx="96" cy="42" r="6" fill="#143c66"/><circle cx="126" cy="42" r="6" fill="#143c66"/>
+            </g>
+            <g>
+              <rect x="482" y="96" width="82" height="250" rx="41" fill="#dbe7f4" stroke="#143c66" stroke-width="6"/>
+              <path d="M500 140l28-20M502 176l44-30" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+              <rect x="505" y="346" width="36" height="40" rx="4" fill="#143c66"/>
+            </g>
+            <ellipse cx="300" cy="396" rx="86" ry="11" fill="#143c66" opacity=".12"/>
 
-            <!-- a second tag behind, turned away -->
-            <g transform="rotate(14 300 96)" opacity=".55">
-              <path d="M224 68H376L432 112V378Q432 390 420 390H180Q168 390 168 378V112Z" fill="#e5edf7" transform="translate(70 18) scale(.86)"/>
+            <!-- the character -->
+            <g class="ch-hop">
+              <!-- shoes -->
+              <rect x="262" y="378" width="38" height="18" rx="9" fill="#143c66"/><rect x="300" y="378" width="38" height="18" rx="9" fill="#143c66"/>
+              <!-- hands; the sleeves come with each outfit -->
+              <circle cx="240" cy="314" r="15" fill="#f2c4a0"/>
+              <circle class="ch-wave" cx="384" cy="206" r="15" fill="#f2c4a0"/>
+              <!-- the outfit, swapped -->
+                <g class="ch-fit ch-fit--1">
+                  <path d="M250 248L240 306" stroke="#0f8b8d" stroke-width="28" stroke-linecap="round"/>
+                  <path class="ch-wave" d="M350 248L380 214" stroke="#0f8b8d" stroke-width="28" stroke-linecap="round"/>
+                  <rect x="270" y="318" width="26" height="70" rx="12" fill="#0b7375"/><rect x="304" y="318" width="26" height="70" rx="12" fill="#0b7375"/>
+                  <rect x="246" y="226" width="108" height="112" rx="38" fill="#0f8b8d"/>
+                  <path d="M282 228l18 26 18-26" fill="none" stroke="#0b6f71" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="314" y="270" width="24" height="20" rx="4" fill="#0b7375"/>
+                  <path d="M276 232c-8 26 0 52 22 56m26-56c8 26-4 50-22 56" fill="none" stroke="#143c66" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="300" cy="292" r="7" fill="#c9d5e3" stroke="#143c66" stroke-width="3"/>
+                </g>
+                <g class="ch-fit ch-fit--2">
+                  <path d="M250 248L240 306" stroke="#8a8f96" stroke-width="28" stroke-linecap="round"/>
+                  <path class="ch-wave" d="M350 248L380 214" stroke="#8a8f96" stroke-width="28" stroke-linecap="round"/>
+                  <rect x="270" y="318" width="26" height="70" rx="12" fill="#3f6fa8"/><rect x="304" y="318" width="26" height="70" rx="12" fill="#3f6fa8"/>
+                  <rect x="246" y="226" width="108" height="112" rx="38" fill="#8a8f96"/>
+                  <path d="M256 236h30l14 22 14-22h30v86q0 14-14 14h-60q-14 0-14-14z" fill="#f47a2a"/>
+                  <rect x="252" y="290" width="96" height="9" fill="#f5f0e6"/><rect x="252" y="306" width="96" height="9" fill="#f5f0e6"/>
+                </g>
+                <g class="ch-fit ch-fit--3">
+                  <path d="M250 248L240 306" stroke="#4b3fd8" stroke-width="28" stroke-linecap="round"/>
+                  <path class="ch-wave" d="M350 248L380 214" stroke="#4b3fd8" stroke-width="28" stroke-linecap="round"/>
+                  <rect x="270" y="318" width="26" height="70" rx="12" fill="#1d2440"/><rect x="304" y="318" width="26" height="70" rx="12" fill="#1d2440"/>
+                  <rect x="246" y="226" width="108" height="112" rx="38" fill="#4b3fd8"/>
+                  <path d="M262 232q38 26 76 0" fill="none" stroke="#3a2fb8" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M288 250v26M312 250v26" stroke="#e8e6ff" stroke-width="3" stroke-linecap="round"/>
+                  <rect x="270" y="294" width="60" height="26" rx="10" fill="#3a2fb8"/>
+                  <path d="M262 214q38 34 76 0" fill="none" stroke="#2fd3e6" stroke-width="7" stroke-linecap="round"/>
+                  <circle cx="260" cy="214" r="11" fill="#2fd3e6"/><circle cx="340" cy="214" r="11" fill="#2fd3e6"/>
+                </g>
+                <g class="ch-fit ch-fit--4">
+                  <path d="M250 248L240 306" stroke="#1c2a3a" stroke-width="28" stroke-linecap="round"/>
+                  <path class="ch-wave" d="M350 248L380 214" stroke="#1c2a3a" stroke-width="28" stroke-linecap="round"/>
+                  <rect x="270" y="318" width="26" height="70" rx="12" fill="#1c2a3a"/><rect x="304" y="318" width="26" height="70" rx="12" fill="#1c2a3a"/>
+                  <rect x="246" y="226" width="108" height="112" rx="38" fill="#1c2a3a"/>
+                  <path d="M284 228l16 30 16-30z" fill="#f7f4ee"/>
+                  <path d="M296 240h8l4 50-8 10-8-10z" fill="#b8924a"/>
+                  <path d="M282 228l18 40-30-12zM318 228l-18 40 30-12z" fill="#2b3d52"/>
+                  <circle cx="300" cy="306" r="3.5" fill="#b8924a"/><circle cx="300" cy="322" r="3.5" fill="#b8924a"/>
+                </g>
+              <!-- the head -->
+              <g class="ch-head">
+                <circle cx="236" cy="168" r="13" fill="#e3a97f"/><circle cx="364" cy="168" r="13" fill="#e3a97f"/>
+                <circle cx="300" cy="160" r="66" fill="#f2c4a0"/>
+                <path d="M236 150c0-48 32-72 68-72c40 0 64 28 62 70c-14-22-40-34-66-30c-24 4-40 16-64 32z" fill="#3b2a20"/>
+                <g class="ch-eyes">
+                  <ellipse cx="276" cy="166" rx="15" ry="18" fill="#fff"/><ellipse cx="324" cy="166" rx="15" ry="18" fill="#fff"/>
+                  <circle cx="279" cy="170" r="8" fill="#143c66"/><circle cx="327" cy="170" r="8" fill="#143c66"/>
+                  <circle cx="282" cy="166" r="3" fill="#fff"/><circle cx="330" cy="166" r="3" fill="#fff"/>
+                </g>
+                <circle cx="256" cy="196" r="9" fill="#f0a08a" opacity=".6"/><circle cx="344" cy="196" r="9" fill="#f0a08a" opacity=".6"/>
+                <path d="M284 198q16 16 32 0" fill="#7a2d2d" stroke="#5b1f1f" stroke-width="2" stroke-linejoin="round"/>
+                <g class="ch-fit ch-fit--2">
+                  <path d="M232 132q0-56 68-56t68 56z" fill="#f6c21b"/>
+                  <rect x="222" y="126" width="156" height="14" rx="7" fill="#e3ad0c"/>
+                  <rect x="294" y="80" width="12" height="50" rx="6" fill="#e3ad0c"/>
+                </g>
+              </g>
+              <!-- the hang tag, on a string from the hem -->
+              <path d="M346 300c22 4 34 14 40 28" fill="none" stroke="#143c66" stroke-width="2" stroke-linecap="round"/>
+              <g class="ch-tag" transform="translate(388 328)">
+                <path d="M-78 8h156v52q0 6-6 6h-144q-6 0-6-6z" fill="#fff" stroke="#143c66" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M-78 8l14-12h128l14 12z" fill="#fff" stroke="#143c66" stroke-width="2.5" stroke-linejoin="round"/>
+                <circle cx="0" cy="0" r="4" fill="none" stroke="#143c66" stroke-width="2"/>
+                <text x="0" y="24" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5" font-weight="700" fill="#7d8ea1">Designed for</text>
+                  <text class="ch-fit ch-fit--1" x="0" y="40" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#143c66">a healthcare company</text>
+                  <text class="ch-fit ch-fit--2" x="0" y="40" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#143c66">a contractor</text>
+                  <text class="ch-fit ch-fit--3" x="0" y="40" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#143c66">a tech company</text>
+                  <text class="ch-fit ch-fit--4" x="0" y="40" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#143c66">a law firm</text>
+                <rect x="-78" y="52" width="156" height="6" fill="#80c34a"/>
+              </g>
             </g>
 
-            <!-- the string -->
-            <path d="M300 -10C296 30 310 60 300 96" fill="none" stroke="#143c66" stroke-width="2" stroke-linecap="round"/>
-
-            <g class="tg-swing">
-              <g filter="url(#tg-shadow)">
-                <path d="M224 68H376L432 112V378Q432 390 420 390H180Q168 390 168 378V112Z" fill="#fff"/>
-              </g>
-              <circle cx="300" cy="96" r="11" fill="#eef2f7" stroke="#c9d5e3" stroke-width="2"/>
-              <circle cx="300" cy="96" r="5" fill="#f4f7fb"/>
-              <path d="M300 96C306 84 300 70 296 62" fill="none" stroke="#143c66" stroke-width="2" stroke-linecap="round"/>
-              <text x="300" y="146" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="600" fill="#7d8ea1">Designed for</text>
-              <g clip-path="url(#tg-clip)">
-              <g class="tg-state tg-state--1">
-                <text x="300" y="178" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="21" font-weight="800" fill="#143c66">a healthcare company</text>
-                <text x="300" y="268" text-anchor="middle" font-family="'Trebuchet MS', 'Segoe UI', sans-serif" font-size="86" font-weight="600" fill="#0f8b8d">Aa</text>
-                <circle cx="262" cy="306" r="13" fill="#0f8b8d"/><circle cx="300" cy="306" r="13" fill="#9fd8e0"/><circle cx="338" cy="306" r="13" fill="#e3f4f2" stroke="#dfe6ef" stroke-width="1"/>
-                <rect x="168" y="372" width="264" height="10" fill="#0f8b8d"/>
-              </g>
-              <g class="tg-state tg-state--2">
-                <text x="300" y="178" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="21" font-weight="800" fill="#143c66">a contractor</text>
-                <text x="300" y="268" text-anchor="middle" font-family="Impact, 'Arial Narrow', 'Helvetica Neue', sans-serif" font-size="86" font-weight="400" fill="#e8692c">Aa</text>
-                <circle cx="262" cy="306" r="13" fill="#e8692c"/><circle cx="300" cy="306" r="13" fill="#2b2b2b"/><circle cx="338" cy="306" r="13" fill="#cfc9bf" stroke="#dfe6ef" stroke-width="1"/>
-                <rect x="168" y="372" width="264" height="10" fill="#e8692c"/>
-              </g>
-              <g class="tg-state tg-state--3">
-                <text x="300" y="178" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="21" font-weight="800" fill="#143c66">a tech company</text>
-                <text x="300" y="268" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="86" font-weight="700" fill="#4b3fd8">Aa</text>
-                <circle cx="262" cy="306" r="13" fill="#4b3fd8"/><circle cx="300" cy="306" r="13" fill="#2fd3e6"/><circle cx="338" cy="306" r="13" fill="#121a33" stroke="#dfe6ef" stroke-width="1"/>
-                <rect x="168" y="372" width="264" height="10" fill="#4b3fd8"/>
-              </g>
-              <g class="tg-state tg-state--4">
-                <text x="300" y="178" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="21" font-weight="800" fill="#143c66">a law firm</text>
-                <text x="300" y="268" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="86" font-weight="400" fill="#1c2a3a">Aa</text>
-                <circle cx="262" cy="306" r="13" fill="#1c2a3a"/><circle cx="300" cy="306" r="13" fill="#b8924a"/><circle cx="338" cy="306" r="13" fill="#efe8da" stroke="#dfe6ef" stroke-width="1"/>
-                <rect x="168" y="372" width="264" height="10" fill="#b8924a"/>
-              </g>
-              </g>
-              <line x1="178" y1="336" x2="422" y2="336" stroke="#c9d5e3" stroke-width="1.5" stroke-dasharray="3 5"/>
-              <circle cx="224" cy="354" r="9" fill="#80c34a"/>
-              <path d="M219.5 354l3 3 6-6.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <text x="240" y="359" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" fill="#143c66">Try it before you buy it</text>
+            <!-- the puff each change lands with -->
+            <g class="ch-puff" fill="#80c34a">
+              <circle cx="214" cy="236" r="9"/><circle cx="388" cy="252" r="7" fill="#1266b5"/><circle cx="222" cy="330" r="6" fill="#1266b5"/><circle cx="392" cy="150" r="8"/>
+              <path d="M420 92l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/>
             </g>
           </svg>
         </figure>
