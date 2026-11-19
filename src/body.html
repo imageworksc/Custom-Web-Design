@@ -286,13 +286,14 @@
             <a class="btn btn--outline" href="https://www.imageworkscreative.com/lets-grow-your-brand">Book a Call First</a>
           </div>
         </div>
-        <!-- A fitting room. A character tries on outfit after outfit, scrubs,
-             a hi-vis vest and hard hat, a hoodie, a suit, and the hang tag on
+        <!-- A fitting room. A cat tries on outfit after outfit, scrubs and a
+             head mirror, a hi-vis vest and hard hat, a hoodie and headphones,
+             a suit and gold glasses, and the hang tag on
              each says who it was designed for: a healthcare company, a
              contractor, a tech company, a law firm. Every change lands with a
              little hop and a puff, the way you would try a design on before
              you buy it. -->
-        <figure class="offer-art" role="img" aria-label="A cartoon character in a fitting room trying on outfits; the hang tag on each reads Designed for a healthcare company, a contractor, a tech company and a law firm">
+        <figure class="offer-art" role="img" aria-label="A cartoon cat in a fitting room trying on outfits; the hang tag on each reads Designed for a healthcare company, a contractor, a tech company and a law firm">
           <svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <!-- the fitting room: a rail, a curtain pulled back, a mirror -->
             <rect x="40" y="38" width="530" height="8" rx="4" fill="#143c66"/>
@@ -310,11 +311,13 @@
 
             <!-- the character -->
             <g class="ch-hop">
-              <!-- shoes -->
-              <rect x="262" y="378" width="38" height="18" rx="9" fill="#143c66"/><rect x="300" y="378" width="38" height="18" rx="9" fill="#143c66"/>
+              <!-- the tail, behind everything -->
+              <path class="ch-tail" d="M262 360c-40 0-56-30-48-62c4-16 18-22 26-14" fill="none" stroke="#f2a65a" stroke-width="16" stroke-linecap="round"/>
+              <!-- paws -->
+              <rect x="262" y="378" width="38" height="18" rx="9" fill="#f2a65a"/><rect x="300" y="378" width="38" height="18" rx="9" fill="#f2a65a"/>
               <!-- hands; the sleeves come with each outfit -->
-              <circle cx="240" cy="314" r="15" fill="#f2c4a0"/>
-              <circle class="ch-wave" cx="384" cy="206" r="15" fill="#f2c4a0"/>
+              <circle cx="240" cy="314" r="15" fill="#f2a65a"/>
+              <circle class="ch-wave" cx="384" cy="206" r="15" fill="#f2a65a"/>
               <!-- the outfit, swapped -->
                 <g class="ch-fit ch-fit--1">
                   <path d="M250 248L240 306" stroke="#0f8b8d" stroke-width="28" stroke-linecap="round"/>
@@ -342,8 +345,6 @@
                   <path d="M262 232q38 26 76 0" fill="none" stroke="#3a2fb8" stroke-width="10" stroke-linecap="round"/>
                   <path d="M288 250v26M312 250v26" stroke="#e8e6ff" stroke-width="3" stroke-linecap="round"/>
                   <rect x="270" y="294" width="60" height="26" rx="10" fill="#3a2fb8"/>
-                  <path d="M262 214q38 34 76 0" fill="none" stroke="#2fd3e6" stroke-width="7" stroke-linecap="round"/>
-                  <circle cx="260" cy="214" r="11" fill="#2fd3e6"/><circle cx="340" cy="214" r="11" fill="#2fd3e6"/>
                 </g>
                 <g class="ch-fit ch-fit--4">
                   <path d="M250 248L240 306" stroke="#1c2a3a" stroke-width="28" stroke-linecap="round"/>
@@ -357,20 +358,37 @@
                 </g>
               <!-- the head -->
               <g class="ch-head">
-                <circle cx="236" cy="168" r="13" fill="#e3a97f"/><circle cx="364" cy="168" r="13" fill="#e3a97f"/>
-                <circle cx="300" cy="160" r="66" fill="#f2c4a0"/>
-                <path d="M236 150c0-48 32-72 68-72c40 0 64 28 62 70c-14-22-40-34-66-30c-24 4-40 16-64 32z" fill="#3b2a20"/>
+                <path d="M244 132L248 66L294 100z" fill="#d9863b"/><path d="M356 132L352 66L306 100z" fill="#d9863b"/>
+                <path d="M256 118L258 84L282 102z" fill="#f4b6b0"/><path d="M344 118L342 84L318 102z" fill="#f4b6b0"/>
+                <circle cx="300" cy="160" r="66" fill="#f2a65a"/>
+                <path d="M290 100v16M300 97v20M310 100v16" stroke="#d9863b" stroke-width="5" stroke-linecap="round"/>
+                <path d="M234 168h14M233 180l16-4M352 168h14M351 176l16 4" stroke="#d9863b" stroke-width="5" stroke-linecap="round"/>
+                <ellipse cx="300" cy="196" rx="34" ry="22" fill="#fff4e8"/>
                 <g class="ch-eyes">
                   <ellipse cx="276" cy="166" rx="15" ry="18" fill="#fff"/><ellipse cx="324" cy="166" rx="15" ry="18" fill="#fff"/>
-                  <circle cx="279" cy="170" r="8" fill="#143c66"/><circle cx="327" cy="170" r="8" fill="#143c66"/>
-                  <circle cx="282" cy="166" r="3" fill="#fff"/><circle cx="330" cy="166" r="3" fill="#fff"/>
+                  <ellipse cx="279" cy="170" rx="6" ry="9" fill="#143c66"/><ellipse cx="327" cy="170" rx="6" ry="9" fill="#143c66"/>
+                  <circle cx="281" cy="165" r="3" fill="#fff"/><circle cx="329" cy="165" r="3" fill="#fff"/>
                 </g>
-                <circle cx="256" cy="196" r="9" fill="#f0a08a" opacity=".6"/><circle cx="344" cy="196" r="9" fill="#f0a08a" opacity=".6"/>
-                <path d="M284 198q16 16 32 0" fill="#7a2d2d" stroke="#5b1f1f" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="252" cy="194" r="8" fill="#f0a08a" opacity=".55"/><circle cx="348" cy="194" r="8" fill="#f0a08a" opacity=".55"/>
+                <path d="M294 186h12l-6 7z" fill="#e8778a" stroke="#e8778a" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M300 193v4q-5 7-11 2M300 197q5 7 11 2" fill="none" stroke="#143c66" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M262 192l-30-4M262 200l-28 6M338 192l30-4M338 200l28 6" stroke="#143c66" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+                <g class="ch-fit ch-fit--1">
+                  <path d="M238 128q62-24 124 0" fill="none" stroke="#143c66" stroke-width="5" stroke-linecap="round"/>
+                  <circle cx="300" cy="116" r="15" fill="#e8eef5" stroke="#143c66" stroke-width="3.5"/><circle cx="300" cy="116" r="5" fill="#143c66"/>
+                </g>
                 <g class="ch-fit ch-fit--2">
-                  <path d="M232 132q0-56 68-56t68 56z" fill="#f6c21b"/>
-                  <rect x="222" y="126" width="156" height="14" rx="7" fill="#e3ad0c"/>
-                  <rect x="294" y="80" width="12" height="50" rx="6" fill="#e3ad0c"/>
+                  <path d="M258 110q0-46 42-46t42 46z" fill="#f6c21b"/>
+                  <rect x="246" y="104" width="108" height="13" rx="6.5" fill="#e3ad0c"/>
+                  <rect x="295" y="66" width="10" height="42" rx="5" fill="#e3ad0c"/>
+                </g>
+                <g class="ch-fit ch-fit--3">
+                  <path d="M236 160q0-82 64-82t64 82" fill="none" stroke="#1d2440" stroke-width="9" stroke-linecap="round"/>
+                  <rect x="222" y="146" width="24" height="40" rx="11" fill="#2fd3e6"/><rect x="354" y="146" width="24" height="40" rx="11" fill="#2fd3e6"/>
+                </g>
+                <g class="ch-fit ch-fit--4">
+                  <circle cx="276" cy="166" r="21" fill="#fff" fill-opacity=".15" stroke="#b8924a" stroke-width="4"/><circle cx="324" cy="166" r="21" fill="#fff" fill-opacity=".15" stroke="#b8924a" stroke-width="4"/>
+                  <path d="M297 164q3-4 6 0M255 160l-17-6M345 160l17-6" fill="none" stroke="#b8924a" stroke-width="4" stroke-linecap="round"/>
                 </g>
               </g>
               <!-- the hang tag, on a string from the hem -->

@@ -1006,9 +1006,9 @@ a { color: inherit; }
 /* held to the band's slim height; the drawing scales inside the box */
 .offer-art svg { max-inline-size: 600px; max-block-size: 380px; }
 
-/* The character: one outfit at a time, a new one every three seconds. Each
+/* The cat: one outfit at a time, a new one every three seconds. Each
    change lands with a squash, a hop and a puff; between changes the
-   character blinks, waves and the tag swings. Without motion it stands still
+   cat blinks, waves, swishes its tail and the tag swings. Without motion it stands still
    in the first outfit. */
 .ch-fit { opacity: 0; }
 .ch-fit--1 { opacity: 1; }
@@ -1016,6 +1016,7 @@ a { color: inherit; }
 .ch-hop  { transform-origin: 300px 396px; }
 .ch-wave { transform-origin: 350px 248px; }
 .ch-eyes { transform-origin: 300px 166px; }
+.ch-tail { transform-box: view-box; transform-origin: 262px 360px; }
 .ch-puff { transform-origin: 300px 230px; opacity: 0; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1029,6 +1030,7 @@ a { color: inherit; }
   .ch-wave { animation: ch-wave 1.5s ease-in-out infinite alternate; }
   .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
   .ch-tag  { animation: ch-tag 3s ease-in-out infinite; }
+  .ch-tail { animation: ch-tail 2.2s ease-in-out infinite alternate; }
   .offer-art:hover * { animation-play-state: paused; }
 }
 /* shown for its quarter of the loop, swapped in an instant (the puff covers it) */
@@ -1045,6 +1047,7 @@ a { color: inherit; }
   6%   { opacity: 1; transform: scale(1); }
   22%, 100% { opacity: 0; transform: scale(1.25); }
 }
+@keyframes ch-tail { from { transform: rotate(-8deg); } to { transform: rotate(10deg); } }
 @keyframes ch-wave { from { transform: rotate(-6deg); } to { transform: rotate(10deg); } }
 @keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
 @keyframes ch-tag {
