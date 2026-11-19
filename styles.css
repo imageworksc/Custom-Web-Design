@@ -1023,10 +1023,10 @@ a { color: inherit; }
 .ch-fit--1 { opacity: 1; }
 .ch-hop, .ch-puff { transform-box: view-box; }
 .ch-head, .ch-eyes { transform-box: fill-box; }
-.ch-hop  { transform-origin: 292px 398px; }
+.ch-hop  { transform-origin: 258px 398px; }
 .ch-head { transform-origin: 50% 100%; }
 .ch-eyes { transform-origin: center; }
-.ch-puff { transform-origin: 292px 230px; opacity: 0; }
+.ch-puff { transform-origin: 258px 230px; opacity: 0; }
 
 @media (prefers-reduced-motion: no-preference) {
   .ch-fit { animation: ch-fit 12s steps(1, end) infinite; opacity: 0; }
