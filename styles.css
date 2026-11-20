@@ -1030,7 +1030,7 @@ a { color: inherit; }
 .ch-puff { transform-origin: 258px 230px; opacity: 0; }
 .ch-orbit { transform-box: view-box; transform-origin: 258px 172px; }
 .ch-screen { transform-box: view-box; transform-origin: 0 0; }
-.ch-screen__flash { opacity: 0; }
+.ch-screen__wipe { transform: translateY(-120px); }
 .ch-spark, .ch-float { transform-box: fill-box; transform-origin: center; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1043,7 +1043,8 @@ a { color: inherit; }
   .ch-head { animation: ch-nod 1.5s ease-in-out infinite alternate; }
   .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
   .ch-screen { animation: ch-sway 6s ease-in-out infinite alternate; }
-  .ch-screen__flash { animation: ch-channel 3s linear infinite; }
+  .ch-screen__wipe { animation: ch-wipe 3s infinite; }
+  .ch-screen__page { animation: ch-page 3s infinite; }
   .ch-wash--g { animation: ch-drift-g 19s ease-in-out infinite alternate; }
   .ch-wash--b { animation: ch-drift-b 23s ease-in-out infinite alternate; }
   .ch-orbit { animation: ch-orbit 16s linear infinite; }
@@ -1073,13 +1074,20 @@ a { color: inherit; }
 @keyframes ch-nod { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
 @keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
 /* on its cables, from the ceiling */
-@keyframes ch-sway { from { transform: translate(488px, 0) rotate(-1.4deg); } to { transform: translate(488px, 0) rotate(1.4deg); } }
-/* a channel switch: the gradient covers the glass just as the characters
-   swap, and clears to show the new page */
-@keyframes ch-channel {
-  0%       { opacity: 1; }
-  12%, 94% { opacity: 0; }
-  100%     { opacity: 1; }
+@keyframes ch-sway { from { transform: translate(500px, 0) rotate(-1.4deg); } to { transform: translate(500px, 0) rotate(1.4deg); } }
+/* a channel switch: the band drops over the glass just before the
+   characters swap, holds while they do, and carries on down off it */
+@keyframes ch-wipe {
+  0%       { transform: translateY(0); animation-timing-function: cubic-bezier(.6, 0, .4, 1); }
+  4%       { transform: translateY(0); animation-timing-function: cubic-bezier(.5, 0, .2, 1); }
+  16%      { transform: translateY(120px); animation-timing-function: steps(1, end); }
+  17%, 91% { transform: translateY(-120px); animation-timing-function: cubic-bezier(.5, 0, .2, 1); }
+  100%     { transform: translateY(0); }
+}
+/* and the new page rises into place as the band clears it */
+@keyframes ch-page {
+  0%, 8%   { opacity: 0; transform: translateY(8px); }
+  22%, 100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes ch-drift-g { from { transform: translate(0, 0); } to { transform: translate(40px, 34px); } }
 @keyframes ch-drift-b { from { transform: translate(0, 0); } to { transform: translate(-46px, 30px); } }
