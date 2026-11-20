@@ -149,8 +149,6 @@
           mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 85%);
   pointer-events: none;
 }
-/* the screen lifts off the wall like the page's cards */
-.ch-screen__body { filter: drop-shadow(0 1px 2px rgba(20, 40, 80, .10)) drop-shadow(0 10px 18px rgba(20, 40, 80, .14)); }
 .offer-art svg { position: relative; inline-size: 100%; block-size: auto; overflow: visible; }
 
 /* held to the band's slim height; the drawing scales inside the box */
@@ -217,9 +215,9 @@
 /* The characters themselves: the mascot in its five outfits, and moving
    the way it does: a bob, shoes that step, hair that sways, a blink, a raised
    eyebrow, the gesturing hand and the prop in the other arm. */
-.mc-bob, .mc-shoeL, .mc-shoeR, .mc-hair, .mc-lid, .mc-brow, .mc-armR, .mc-armL, .mc-shadow, .mc-tail, .mc-pet { transform-box: fill-box; }
+.mc-bob, .mc-shoeL, .mc-shoeR, .mc-hair, .mc-lid, .mc-brow, .mc-armR, .mc-armL, .mc-shadow, .mc-ear, .mc-pet { transform-box: fill-box; }
 .mc-shadow { transform-origin: center; }
-.mc-tail { transform-origin: 0% 100%; }
+.mc-ear { transform-origin: 50% 100%; }
 .mc-pet { transform-origin: 50% 100%; }
 .mc-hair { transform-origin: 50% 100%; }
 .mc-armR { transform-origin: 0% 70%; }
@@ -234,7 +232,8 @@
   .mc-armR  { animation: mc-wave 4.6s ease-in-out infinite; }
   .mc-armL  { animation: mc-prop 2.4s ease-in-out infinite; }
   .mc-shadow { animation: mc-shadow 2.4s ease-in-out infinite; }
-  .mc-tail  { animation: mc-wag .45s ease-in-out infinite; }
+  .mc-ear   { animation: mc-ear 2.6s ease-in-out infinite; }
+  .mc-ear--r { animation-delay: -.15s; }
   .mc-pet   { animation: mc-pet 1.2s ease-in-out infinite; }
 }
 @keyframes mc-bob   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
@@ -242,7 +241,7 @@
 @keyframes mc-hair  { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(2deg); } }
 @keyframes mc-blink { 0%, 91%, 100% { transform: translateY(0); } 94%, 96% { transform: translateY(46px); } }
 @keyframes mc-shadow { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.88); } }
-@keyframes mc-wag   { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(16deg); } }
+@keyframes mc-ear   { 0%, 78%, 100% { transform: rotate(0); } 84% { transform: rotate(-22deg); } 90% { transform: rotate(14deg); } }
 @keyframes mc-pet   { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.03); } }
 @keyframes mc-brow  { 0%, 40%, 70%, 100% { transform: translateY(0) rotate(0); } 48%, 62% { transform: translateY(-9px) rotate(-4deg); } }
 @keyframes mc-wave  { 0%, 38%, 72%, 100% { transform: rotate(0); } 44%, 56% { transform: rotate(-8deg); } 50%, 62% { transform: rotate(2deg); } }
