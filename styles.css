@@ -1073,6 +1073,30 @@ a { color: inherit; }
 @keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
 /* on its cables, from the ceiling */
 @keyframes ch-sway { from { transform: translate(500px, 0) rotate(-1.4deg); } to { transform: translate(500px, 0) rotate(1.4deg); } }
+/* The characters themselves: drawn the way the Swoop mascot is, and moving
+   the way it does: a bob, shoes that step, hair that sways, a blink, a raised
+   eyebrow, the gesturing hand and the prop in the other arm. */
+.mc-bob, .mc-shoeL, .mc-shoeR, .mc-hair, .mc-lid, .mc-brow, .mc-armR, .mc-armL { transform-box: fill-box; }
+.mc-hair { transform-origin: 50% 100%; }
+.mc-armR { transform-origin: 0% 70%; }
+.mc-armL { transform-origin: 100% 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .mc-bob   { animation: mc-bob 2.4s ease-in-out infinite; }
+  .mc-shoeL { animation: mc-shoe 2.4s ease-in-out infinite; }
+  .mc-shoeR { animation: mc-shoe 2.4s ease-in-out -1.2s infinite; }
+  .mc-hair  { animation: mc-hair 2.4s ease-in-out infinite; }
+  .mc-lid   { animation: mc-blink 4.6s linear infinite; }
+  .mc-brow  { animation: mc-brow 4.6s ease-in-out infinite; }
+  .mc-armR  { animation: mc-wave 4.6s ease-in-out infinite; }
+  .mc-armL  { animation: mc-prop 2.4s ease-in-out infinite; }
+}
+@keyframes mc-bob   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+@keyframes mc-shoe  { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes mc-hair  { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(2deg); } }
+@keyframes mc-blink { 0%, 91%, 100% { transform: translateY(0); } 94%, 96% { transform: translateY(72px); } }
+@keyframes mc-brow  { 0%, 40%, 70%, 100% { transform: translateY(0) rotate(0); } 48%, 62% { transform: translateY(-9px) rotate(-4deg); } }
+@keyframes mc-wave  { 0%, 38%, 72%, 100% { transform: rotate(0); } 44%, 56% { transform: rotate(-8deg); } 50%, 62% { transform: rotate(2deg); } }
+@keyframes mc-prop  { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-2deg); } }
 /* the page changes with a quick, quiet fade around the swap, so it can be
    read for nearly all of its three seconds */
 @keyframes ch-page {
