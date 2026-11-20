@@ -158,7 +158,7 @@
 
 /* The cast: one character at a time, a new one every three seconds. Each
    change lands with a squash, a hop and a puff; between changes they blink,
-   nod and the tag they hold up swings. Without motion they stand still in
+   nod and the tag they hold up sways in their hand. Without motion they stand still in
    the first outfit. */
 .ch-fit { opacity: 0; }
 .ch-fit--1 { opacity: 1; }
@@ -179,6 +179,7 @@
   .ch-head { animation: ch-nod 1.5s ease-in-out infinite alternate; }
   .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
   .ch-tag  { animation: ch-tag 3s ease-in-out infinite; }
+  .ch-tagpos { animation: ch-tagpos 12s steps(1, end) infinite; }
   .offer-art:hover * { animation-play-state: paused; }
 }
 /* shown for its quarter of the loop, swapped in an instant (the puff covers it) */
@@ -197,9 +198,17 @@
 }
 @keyframes ch-nod { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
 @keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
+/* the tag sways from the point the hand pinches it */
 @keyframes ch-tag {
-  0%, 100% { transform: translate(466px, 174px) rotate(-4deg); }
-  50%      { transform: translate(466px, 174px) rotate(4deg); }
+  0%, 100% { transform: rotate(-7deg) translate(58px, -66px); }
+  50%      { transform: rotate(-2deg) translate(58px, -66px); }
+}
+/* and moves to each new character's hand as they swap in */
+@keyframes ch-tagpos {
+  0%        { transform: translate(354.4px, 185.7px); }
+  25%       { transform: translate(360px, 183.5px); }
+  50%       { transform: translate(386.4px, 198.9px); }
+  75%, 100% { transform: translate(354.5px, 198.5px); }
 }
 
 @media (min-width: 1101px) {

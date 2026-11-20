@@ -107,7 +107,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=6f52c5cc">
+<link rel="stylesheet" href="styles.css?v=b669d818">
 <script src="app.js?v=8037369b"></script>
 </head>
 <body>
@@ -413,6 +413,10 @@
               <linearGradient id="ch-arch" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#dbe7f5"/><stop offset="1" stop-color="#eef4fa"/>
               </linearGradient>
+              <clipPath id="ch-hand1"><path d="M331.2 173.1H369.6V205.1L359.6 247.1H309.2Z"/></clipPath>
+              <clipPath id="ch-hand2"><path d="M334.9 168.3H377.7V204.3L367.7 246.3H312.9Z"/></clipPath>
+              <clipPath id="ch-hand3"><path d="M357.7 183.3H407.5V220.8L397.5 262.8H335.7Z"/></clipPath>
+              <clipPath id="ch-hand4"><path d="M330.9 184.1H370.4V219.0L360.4 261.0H308.9Z"/></clipPath>
             </defs>
             <path d="M126 399V172A132 132 0 0 1 390 172V399Z" fill="url(#ch-arch)"/>
             <path d="M141 399V174A117 117 0 0 1 375 174V399" fill="none" stroke="#fff" stroke-width="3" opacity=".8"/>
@@ -428,25 +432,23 @@
                 <!-- healthcare: a doctor with a big afro, a white coat over teal scrubs and a stethoscope -->
                 <g class="ch-fit ch-fit--1">
                   <image href="images/tbyb-healthcare.webp" x="148.7" y="68" width="219.3" height="330"/>
-                  <path d="M354.1 184.2Q410.0 164.0 466 180" fill="none" stroke="#143c66" stroke-width="2"/>
                 </g>
                 <!-- a contractor: yellow hard hat, ginger beard, navy overalls, a folding ruler, a thumbs-up -->
                 <g class="ch-fit ch-fit--2">
                   <image href="images/tbyb-contractor.webp" x="168.2" y="68" width="208.3" height="330"/>
-                  <path d="M361.8 179.8Q413.9 163.8 466 180" fill="none" stroke="#143c66" stroke-width="2"/>
                 </g>
                 <!-- a tech company: a capybara in round glasses and a navy code hoodie, green headphones, a laptop -->
                 <g class="ch-fit ch-fit--3">
                   <image href="images/tbyb-tech.webp" x="158.3" y="68" width="248.6" height="330"/>
-                  <path d="M389.3 194.5Q427.6 164.0 466 180" fill="none" stroke="#143c66" stroke-width="2"/>
                 </g>
                 <!-- a law firm: a silver bob, a navy suit, a scales pin and a green folder -->
                 <g class="ch-fit ch-fit--4">
                   <image href="images/tbyb-law-firm.webp" x="174.8" y="68" width="194.0" height="330"/>
-                  <path d="M355.2 195.2Q410.6 164.0 466 180" fill="none" stroke="#143c66" stroke-width="2"/>
                 </g>
-              <!-- the hang tag; each character brings its own string -->
-              <g class="ch-tag" transform="translate(466 174)">
+              <!-- the hang tag, pinched at its left edge by whoever is wearing it; it
+                   moves to each one's hand and sways from there -->
+              <g class="ch-tagpos" transform="translate(354.4 185.7)">
+              <g class="ch-tag" transform="rotate(-5) translate(58 -66)">
                 <path d="M-64 12L-46 -6H46L64 12V194q0 2-2 2H-62q-2 0-2-2z" fill="#fff" stroke="#e3eaf3" stroke-width="1.5"/>
                 <path d="M-64 12L-46 -6H46L64 12V46H-64z" fill="#143c66"/>
                 <circle cx="0" cy="8" r="5.5" fill="#eaf1f9" stroke="#80c34a" stroke-width="2.5"/>
@@ -463,6 +465,12 @@
                   <g class="ch-fit ch-fit--3"><text x="-50" y="176" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="36" font-weight="700" fill="#143c66">Aa</text><rect x="10" y="142" width="20" height="20" rx="2" fill="#6d4aff" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="142" width="20" height="20" rx="2" fill="#2fd3e6" stroke="#d5e0ec" stroke-width="1"/><rect x="10" y="166" width="20" height="20" rx="2" fill="#23233a" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="166" width="20" height="20" rx="2" fill="#f4f6fb" stroke="#d5e0ec" stroke-width="1"/></g>
                   <g class="ch-fit ch-fit--4"><text x="-50" y="176" font-family="Georgia, &apos;Times New Roman&apos;, serif" font-size="36" font-weight="700" fill="#143c66">Aa</text><rect x="10" y="142" width="20" height="20" rx="2" fill="#1e2c44" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="142" width="20" height="20" rx="2" fill="#9b2335" stroke="#d5e0ec" stroke-width="1"/><rect x="10" y="166" width="20" height="20" rx="2" fill="#c9a24a" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="166" width="20" height="20" rx="2" fill="#f7f4ee" stroke="#d5e0ec" stroke-width="1"/></g>
               </g>
+              </g>
+              <!-- the hand again, on top, so the fingers close over the tag -->
+              <g class="ch-fit ch-fit--1"><image href="images/tbyb-healthcare.webp" x="148.7" y="68" width="219.3" height="330" clip-path="url(#ch-hand1)"/></g>
+              <g class="ch-fit ch-fit--2"><image href="images/tbyb-contractor.webp" x="168.2" y="68" width="208.3" height="330" clip-path="url(#ch-hand2)"/></g>
+              <g class="ch-fit ch-fit--3"><image href="images/tbyb-tech.webp" x="158.3" y="68" width="248.6" height="330" clip-path="url(#ch-hand3)"/></g>
+              <g class="ch-fit ch-fit--4"><image href="images/tbyb-law-firm.webp" x="174.8" y="68" width="194.0" height="330" clip-path="url(#ch-hand4)"/></g>
             </g>
 
             <g class="ch-puff" fill="#80c34a">
