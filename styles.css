@@ -1033,11 +1033,12 @@ a { color: inherit; }
 .ch-spark, .ch-float { transform-box: fill-box; transform-origin: center; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .ch-fit { animation: ch-fit 12s steps(1, end) infinite; opacity: 0; }
+  .ch-fit { animation: ch-fit 15s steps(1, end) infinite; opacity: 0; }
   .ch-fit--2 { animation-delay: 3s; }
   .ch-fit--3 { animation-delay: 6s; }
   .ch-fit--4 { animation-delay: 9s; }
-  .ch-hop  { animation: ch-hop 3s cubic-bezier(.3, .7, .4, 1) infinite; }
+  .ch-fit--5 { animation-delay: 12s; }
+  .ch-hop  { animation: ch-hop 3s ease-out infinite; }
   .ch-puff { animation: ch-puff 3s ease-out infinite; }
   .ch-head { animation: ch-nod 1.5s ease-in-out infinite alternate; }
   .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
@@ -1056,13 +1057,12 @@ a { color: inherit; }
   .offer-art:hover * { animation-play-state: paused; }
 }
 /* shown for its quarter of the loop, swapped in an instant (the puff covers it) */
-@keyframes ch-fit { 0% { opacity: 1; } 25%, 100% { opacity: 0; } }
+@keyframes ch-fit { 0% { opacity: 1; } 20%, 100% { opacity: 0; } }
 @keyframes ch-hop {
-  0%   { transform: translateY(0) scale(1, 1); }
-  5%   { transform: translateY(0) scale(1.06, .9); }
-  14%  { transform: translateY(-22px) scale(.96, 1.05); }
-  24%  { transform: translateY(0) scale(1.04, .95); }
-  32%, 100% { transform: translateY(0) scale(1, 1); }
+  0%       { transform: scale(.9, 1.1); }
+  7%       { transform: scale(1.06, .95); }
+  14%, 94% { transform: scale(1, 1); }
+  100%     { transform: scale(.9, 1.1); }
 }
 @keyframes ch-puff {
   0%   { opacity: 0; transform: scale(.6); }
@@ -1073,10 +1073,13 @@ a { color: inherit; }
 @keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
 /* on its cables, from the ceiling */
 @keyframes ch-sway { from { transform: translate(500px, 0) rotate(-1.4deg); } to { transform: translate(500px, 0) rotate(1.4deg); } }
-/* The characters themselves: drawn the way the Swoop mascot is, and moving
+/* The characters themselves: the mascot in its five outfits, and moving
    the way it does: a bob, shoes that step, hair that sways, a blink, a raised
    eyebrow, the gesturing hand and the prop in the other arm. */
-.mc-bob, .mc-shoeL, .mc-shoeR, .mc-hair, .mc-lid, .mc-brow, .mc-armR, .mc-armL { transform-box: fill-box; }
+.mc-bob, .mc-shoeL, .mc-shoeR, .mc-hair, .mc-lid, .mc-brow, .mc-armR, .mc-armL, .mc-shadow, .mc-tail, .mc-pet { transform-box: fill-box; }
+.mc-shadow { transform-origin: center; }
+.mc-tail { transform-origin: 0% 100%; }
+.mc-pet { transform-origin: 50% 100%; }
 .mc-hair { transform-origin: 50% 100%; }
 .mc-armR { transform-origin: 0% 70%; }
 .mc-armL { transform-origin: 100% 50%; }
@@ -1089,11 +1092,17 @@ a { color: inherit; }
   .mc-brow  { animation: mc-brow 4.6s ease-in-out infinite; }
   .mc-armR  { animation: mc-wave 4.6s ease-in-out infinite; }
   .mc-armL  { animation: mc-prop 2.4s ease-in-out infinite; }
+  .mc-shadow { animation: mc-shadow 2.4s ease-in-out infinite; }
+  .mc-tail  { animation: mc-wag .45s ease-in-out infinite; }
+  .mc-pet   { animation: mc-pet 1.2s ease-in-out infinite; }
 }
 @keyframes mc-bob   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
 @keyframes mc-shoe  { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @keyframes mc-hair  { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(2deg); } }
-@keyframes mc-blink { 0%, 91%, 100% { transform: translateY(0); } 94%, 96% { transform: translateY(72px); } }
+@keyframes mc-blink { 0%, 91%, 100% { transform: translateY(0); } 94%, 96% { transform: translateY(46px); } }
+@keyframes mc-shadow { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.88); } }
+@keyframes mc-wag   { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(16deg); } }
+@keyframes mc-pet   { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.03); } }
 @keyframes mc-brow  { 0%, 40%, 70%, 100% { transform: translateY(0) rotate(0); } 48%, 62% { transform: translateY(-9px) rotate(-4deg); } }
 @keyframes mc-wave  { 0%, 38%, 72%, 100% { transform: rotate(0); } 44%, 56% { transform: rotate(-8deg); } 50%, 62% { transform: rotate(2deg); } }
 @keyframes mc-prop  { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-2deg); } }
