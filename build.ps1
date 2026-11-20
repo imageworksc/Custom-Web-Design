@@ -59,7 +59,10 @@ foreach ($token in $assets.Keys) {
 
 # --- the markup -----------------------------------------------------------
 # The images the markup points at, handled the way the font is: a relative
-# path in index.html, a data URI in the single-file preview.
+# path in index.html, a data URI in the single-file preview. The path carries
+# a hash of the file for the same reason the stylesheet link does: Pages
+# caches images for ten minutes, and a redrawn character would otherwise
+# show its old self to anyone who had just been on the page.
 $bodyAssets = [ordered]@{
     '__ASSET_TBYB_HEALTH__' = @{ Path = 'images/tbyb-healthcare.webp'; Mime = 'image/webp' }
     '__ASSET_TBYB_CONTRACT__' = @{ Path = 'images/tbyb-contractor.webp'; Mime = 'image/webp' }
@@ -72,7 +75,9 @@ $bodyLinked = $body
 $bodyInline = $body
 foreach ($token in $bodyAssets.Keys) {
     $asset = $bodyAssets[$token]
-    $bodyLinked = $bodyLinked.Replace($token, $asset.Path)
+    $hash = [Security.Cryptography.SHA1]::Create().ComputeHash([IO.File]::ReadAllBytes((Join-Path $rootDir $asset.Path)))
+    $imgStamp = (($hash | ForEach-Object { $_.ToString('x2') }) -join '').Substring(0, 8)
+    $bodyLinked = $bodyLinked.Replace($token, "$($asset.Path)?v=$imgStamp")
     $bodyInline = $bodyInline.Replace($token, "data:$($asset.Mime);base64,$(Read-B64 $asset.Path)")
 }
 

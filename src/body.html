@@ -289,10 +289,10 @@
         <!-- A fitting room. A new character steps out for each business, a
              doctor in a white coat, a contractor in overalls and a hard hat,
              a capybara in a hoodie and headphones, a lawyer in a suit, each
-             holding up the hang tag that says who it was designed for, with the palette and the typeface
+             beside a floor sign that says who it was designed for, with the palette and the typeface
              picked for that business. Every change lands with a hop and a
              puff. -->
-        <figure class="offer-art" role="img" aria-label="Cartoon characters stepping into a fitting room alcove one after another, a doctor, a contractor, a capybara and a lawyer, each holding up a hang tag that reads Designed for a healthcare company, a contractor, a tech company and a law firm, each with its own colour palette and typeface">
+        <figure class="offer-art" role="img" aria-label="Cartoon characters stepping into a fitting room alcove one after another, a doctor, a contractor, a capybara and a lawyer, each beside a floor sign that reads Designed for a healthcare company, a contractor, a tech company and a law firm, each with its own colour palette and typeface">
           <svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" font-family="Plus Jakarta Sans, sans-serif">
             <!-- the fitting room: an arched alcove in the page's blue tints, a
                  green arc along one shoulder of it, and the floor line -->
@@ -300,15 +300,34 @@
               <linearGradient id="ch-arch" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#dbe7f5"/><stop offset="1" stop-color="#eef4fa"/>
               </linearGradient>
-              <clipPath id="ch-hand1"><path d="M331.2 173.1H369.6V205.1L359.6 247.1H309.2Z"/></clipPath>
-              <clipPath id="ch-hand2"><path d="M334.9 168.3H377.7V204.3L367.7 246.3H312.9Z"/></clipPath>
-              <clipPath id="ch-hand3"><path d="M357.7 183.3H407.5V220.8L397.5 262.8H335.7Z"/></clipPath>
-              <clipPath id="ch-hand4"><path d="M330.9 184.1H370.4V219.0L360.4 261.0H308.9Z"/></clipPath>
+              <radialGradient id="ch-wg"><stop offset="0" stop-color="#80c34a" stop-opacity=".30"/><stop offset="1" stop-color="#80c34a" stop-opacity="0"/></radialGradient>
+              <radialGradient id="ch-wb"><stop offset="0" stop-color="#1266b5" stop-opacity=".22"/><stop offset="1" stop-color="#1266b5" stop-opacity="0"/></radialGradient>
+              <linearGradient id="ch-spec" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#1266b5"/><stop offset=".5" stop-color="#14a3a3"/><stop offset="1" stop-color="#80c34a"/>
+              </linearGradient>
+              <linearGradient id="ch-shine" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+              </linearGradient>
+              <clipPath id="ch-archclip"><path d="M126 399V172A132 132 0 0 1 390 172V399Z"/></clipPath>
             </defs>
+            <!-- the page's washes, drifting: green top left, brand blue top right -->
+            <circle class="ch-wash ch-wash--g" cx="110" cy="90" r="210" fill="url(#ch-wg)"/>
+            <circle class="ch-wash ch-wash--b" cx="510" cy="80" r="220" fill="url(#ch-wb)"/>
+            <!-- an orbit round the alcove, the evolution diagram's ring and dot;
+                 the alcove is drawn over its lower half, so the dot slips behind it -->
+            <circle cx="258" cy="172" r="152" fill="none" stroke="#1266b5" stroke-opacity=".22" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round"/>
+            <g class="ch-orbit"><circle cx="258" cy="20" r="6" fill="#80c34a" stroke="#fff" stroke-width="2.5"/></g>
             <path d="M126 399V172A132 132 0 0 1 390 172V399Z" fill="url(#ch-arch)"/>
             <path d="M141 399V174A117 117 0 0 1 375 174V399" fill="none" stroke="#fff" stroke-width="3" opacity=".8"/>
-            <path d="M343 71A132 132 0 0 1 390 172" fill="none" stroke="#80c34a" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="112" cy="104" r="5" fill="#80c34a"/><circle cx="104" cy="292" r="4" fill="#1266b5" fill-opacity=".45"/>
+            <g clip-path="url(#ch-archclip)"><rect class="ch-shine" x="-200" y="40" width="90" height="360" fill="url(#ch-shine)" transform="skewX(-14)"/></g>
+            <path d="M258 40A132 132 0 0 1 390 172" fill="none" stroke="url(#ch-spec)" stroke-width="5" stroke-linecap="round"/>
+            <!-- sparkles and floating dots in the brand colours -->
+            <circle class="ch-float" cx="104" cy="112" r="5" fill="#80c34a"/>
+            <circle class="ch-float ch-float--2" cx="98" cy="292" r="4" fill="#1266b5" fill-opacity=".45"/>
+            <circle class="ch-float ch-float--3" cx="560" cy="120" r="3.5" fill="#14a3a3" fill-opacity=".6"/>
+            <path class="ch-spark" d="M78 200l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#1266b5" fill-opacity=".5"/>
+            <path class="ch-spark ch-spark--2" d="M576 300l2.5 6.5 6.5 2.5-6.5 2.5-2.5 6.5-2.5-6.5-6.5-2.5 6.5-2.5z" fill="#80c34a"/>
+            <path class="ch-spark ch-spark--3" d="M180 30l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#14a3a3" fill-opacity=".7"/>
             <path d="M40 399H560" stroke="#d5e0ec" stroke-width="2"/>
             <ellipse class="ch-fit ch-fit--1" cx="258" cy="397" rx="48" ry="8" fill="#143c66" fill-opacity=".14"/>
             <ellipse class="ch-fit ch-fit--2" cx="258" cy="397" rx="53" ry="8" fill="#143c66" fill-opacity=".14"/>
@@ -332,32 +351,32 @@
                 <g class="ch-fit ch-fit--4">
                   <image href="__ASSET_TBYB_LAW__" x="174.8" y="68" width="194.0" height="330"/>
                 </g>
-              <!-- the hang tag, pinched at its left edge by whoever is wearing it; it
-                   moves to each one's hand and sways from there -->
-              <g class="ch-tagpos" transform="translate(354.4 185.7)">
-              <g class="ch-tag" transform="rotate(-5) translate(58 -66)">
-                <path d="M-64 12L-46 -6H46L64 12V194q0 2-2 2H-62q-2 0-2-2z" fill="#fff" stroke="#e3eaf3" stroke-width="1.5"/>
-                <path d="M-64 12L-46 -6H46L64 12V46H-64z" fill="#143c66"/>
-                <circle cx="0" cy="8" r="5.5" fill="#eaf1f9" stroke="#80c34a" stroke-width="2.5"/>
-                <text x="0" y="36" text-anchor="middle" font-size="8.5" font-weight="800" letter-spacing="1.4" fill="#fff">TRY BEFORE YOU BUY</text>
-                <text x="0" y="66" text-anchor="middle" font-size="11" font-weight="600" fill="#5a6b82">Designed for</text>
+            </g>
+
+            <!-- the floor sign: an A-board in the brand navy beside the alcove. It
+                 spins to its next face each time a new character steps in. -->
+            <g class="ch-sign" transform="translate(482 0)">
+              <ellipse cx="0" cy="398" rx="72" ry="6" fill="#143c66" fill-opacity=".12"/>
+              <path d="M-56 356L-66 398M56 356L66 398" stroke="#0f2f52" stroke-width="7" stroke-linecap="round"/>
+              <g class="ch-sign__face">
+                <path d="M-16 152v-7q0-5 5-5h22q5 0 5 5v7" fill="none" stroke="#143c66" stroke-width="5"/>
+                <rect x="-68" y="150" width="136" height="216" rx="8" fill="#143c66"/>
+                <text x="0" y="171" text-anchor="middle" font-size="8.5" font-weight="800" letter-spacing="1.4" fill="#fff">TRY BEFORE YOU BUY</text>
+                <rect x="-61" y="181" width="122" height="178" rx="4" fill="#fff"/>
+                <g transform="translate(0 140)">
+                  <text x="0" y="66" text-anchor="middle" font-size="11" font-weight="600" fill="#5a6b82">Designed for</text>
                   <text class="ch-fit ch-fit--1" text-anchor="middle" font-size="16" font-weight="800" fill="#143c66"><tspan x="0" y="88">a healthcare</tspan><tspan x="0" y="108">company</tspan></text>
                   <text class="ch-fit ch-fit--2" text-anchor="middle" font-size="16" font-weight="800" fill="#143c66"><tspan x="0" y="98">a contractor</tspan></text>
                   <text class="ch-fit ch-fit--3" text-anchor="middle" font-size="16" font-weight="800" fill="#143c66"><tspan x="0" y="88">a tech</tspan><tspan x="0" y="108">company</tspan></text>
                   <text class="ch-fit ch-fit--4" text-anchor="middle" font-size="16" font-weight="800" fill="#143c66"><tspan x="0" y="98">a law firm</tspan></text>
-                <path d="M-50 128H50" stroke="#e3eaf3" stroke-width="1.5"/>
-                <rect x="-64" y="190" width="128" height="6" fill="#80c34a"/>
+                  <path d="M-50 128H50" stroke="#e3eaf3" stroke-width="1.5"/>
                   <g class="ch-fit ch-fit--1"><text x="-50" y="176" font-family="&apos;Arial Rounded MT Bold&apos;, &apos;Nunito&apos;, ui-rounded, sans-serif" font-size="36" font-weight="700" fill="#143c66">Aa</text><rect x="10" y="142" width="20" height="20" rx="2" fill="#14a3a3" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="142" width="20" height="20" rx="2" fill="#e9f6f6" stroke="#d5e0ec" stroke-width="1"/><rect x="10" y="166" width="20" height="20" rx="2" fill="#ff8a7a" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="166" width="20" height="20" rx="2" fill="#143c66" stroke="#d5e0ec" stroke-width="1"/></g>
                   <g class="ch-fit ch-fit--2"><text x="-50" y="176" font-family="&apos;Arial Black&apos;, Impact, &apos;Helvetica Neue&apos;, sans-serif" font-size="36" font-weight="900" fill="#143c66">Aa</text><rect x="10" y="142" width="20" height="20" rx="2" fill="#ff7a1a" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="142" width="20" height="20" rx="2" fill="#ffc21a" stroke="#d5e0ec" stroke-width="1"/><rect x="10" y="166" width="20" height="20" rx="2" fill="#6f95c6" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="166" width="20" height="20" rx="2" fill="#2e2e38" stroke="#d5e0ec" stroke-width="1"/></g>
                   <g class="ch-fit ch-fit--3"><text x="-50" y="176" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="36" font-weight="700" fill="#143c66">Aa</text><rect x="10" y="142" width="20" height="20" rx="2" fill="#6d4aff" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="142" width="20" height="20" rx="2" fill="#2fd3e6" stroke="#d5e0ec" stroke-width="1"/><rect x="10" y="166" width="20" height="20" rx="2" fill="#23233a" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="166" width="20" height="20" rx="2" fill="#f4f6fb" stroke="#d5e0ec" stroke-width="1"/></g>
                   <g class="ch-fit ch-fit--4"><text x="-50" y="176" font-family="Georgia, &apos;Times New Roman&apos;, serif" font-size="36" font-weight="700" fill="#143c66">Aa</text><rect x="10" y="142" width="20" height="20" rx="2" fill="#1e2c44" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="142" width="20" height="20" rx="2" fill="#9b2335" stroke="#d5e0ec" stroke-width="1"/><rect x="10" y="166" width="20" height="20" rx="2" fill="#c9a24a" stroke="#d5e0ec" stroke-width="1"/><rect x="34" y="166" width="20" height="20" rx="2" fill="#f7f4ee" stroke="#d5e0ec" stroke-width="1"/></g>
+                </g>
+                <rect x="-61" y="351" width="122" height="8" fill="#80c34a"/>
               </g>
-              </g>
-              <!-- the hand again, on top, so the fingers close over the tag -->
-              <g class="ch-fit ch-fit--1"><image href="__ASSET_TBYB_HEALTH__" x="148.7" y="68" width="219.3" height="330" clip-path="url(#ch-hand1)"/></g>
-              <g class="ch-fit ch-fit--2"><image href="__ASSET_TBYB_CONTRACT__" x="168.2" y="68" width="208.3" height="330" clip-path="url(#ch-hand2)"/></g>
-              <g class="ch-fit ch-fit--3"><image href="__ASSET_TBYB_TECH__" x="158.3" y="68" width="248.6" height="330" clip-path="url(#ch-hand3)"/></g>
-              <g class="ch-fit ch-fit--4"><image href="__ASSET_TBYB_LAW__" x="174.8" y="68" width="194.0" height="330" clip-path="url(#ch-hand4)"/></g>
             </g>
 
             <g class="ch-puff" fill="#80c34a">

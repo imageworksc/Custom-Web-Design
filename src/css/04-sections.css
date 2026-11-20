@@ -149,8 +149,8 @@
           mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 85%);
   pointer-events: none;
 }
-/* the tag lifts off the ground like the page's cards */
-.ch-tag { filter: drop-shadow(0 1px 2px rgba(20, 40, 80, .08)) drop-shadow(0 10px 18px rgba(20, 40, 80, .12)); }
+/* the sign's face lifts off the ground like the page's cards */
+.ch-sign__face { filter: drop-shadow(0 1px 2px rgba(20, 40, 80, .10)) drop-shadow(0 10px 18px rgba(20, 40, 80, .14)); }
 .offer-art svg { position: relative; inline-size: 100%; block-size: auto; overflow: visible; }
 
 /* held to the band's slim height; the drawing scales inside the box */
@@ -158,8 +158,9 @@
 
 /* The cast: one character at a time, a new one every three seconds. Each
    change lands with a squash, a hop and a puff; between changes they blink,
-   nod and the tag they hold up sways in their hand. Without motion they stand still in
-   the first outfit. */
+   nod, and the floor sign beside them spins round to its next face. Behind
+   them the page's washes drift, a dot orbits the alcove, light crosses it and
+   sparkles twinkle. Without motion they stand still in the first outfit. */
 .ch-fit { opacity: 0; }
 .ch-fit--1 { opacity: 1; }
 .ch-hop, .ch-puff { transform-box: view-box; }
@@ -168,6 +169,8 @@
 .ch-head { transform-origin: 50% 100%; }
 .ch-eyes { transform-origin: center; }
 .ch-puff { transform-origin: 258px 230px; opacity: 0; }
+.ch-orbit { transform-box: view-box; transform-origin: 258px 172px; }
+.ch-sign__face, .ch-spark, .ch-float { transform-box: fill-box; transform-origin: center; }
 
 @media (prefers-reduced-motion: no-preference) {
   .ch-fit { animation: ch-fit 12s steps(1, end) infinite; opacity: 0; }
@@ -178,8 +181,17 @@
   .ch-puff { animation: ch-puff 3s ease-out infinite; }
   .ch-head { animation: ch-nod 1.5s ease-in-out infinite alternate; }
   .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
-  .ch-tag  { animation: ch-tag 3s ease-in-out infinite; }
-  .ch-tagpos { animation: ch-tagpos 12s steps(1, end) infinite; }
+  .ch-sign__face { animation: ch-flip 3s cubic-bezier(.45, 0, .55, 1) infinite; }
+  .ch-wash--g { animation: ch-drift-g 19s ease-in-out infinite alternate; }
+  .ch-wash--b { animation: ch-drift-b 23s ease-in-out infinite alternate; }
+  .ch-orbit { animation: ch-orbit 16s linear infinite; }
+  .ch-shine { animation: ch-shine 9s cubic-bezier(.45, 0, .55, 1) infinite; }
+  .ch-spark { animation: ch-twinkle 2.6s ease-in-out infinite; }
+  .ch-spark--2 { animation-delay: .9s; }
+  .ch-spark--3 { animation-delay: 1.7s; }
+  .ch-float { animation: ch-float 4.5s ease-in-out infinite alternate; }
+  .ch-float--2 { animation-delay: -1.5s; animation-duration: 5.5s; }
+  .ch-float--3 { animation-delay: -3s; animation-duration: 3.8s; }
   .offer-art:hover * { animation-play-state: paused; }
 }
 /* shown for its quarter of the loop, swapped in an instant (the puff covers it) */
@@ -198,18 +210,26 @@
 }
 @keyframes ch-nod { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
 @keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
-/* the tag sways from the point the hand pinches it */
-@keyframes ch-tag {
-  0%, 100% { transform: rotate(-7deg) translate(58px, -66px); }
-  50%      { transform: rotate(-2deg) translate(58px, -66px); }
+/* edge-on at the moment the characters swap, so the new face is already
+   there as it turns back round */
+@keyframes ch-flip {
+  0%        { transform: scaleX(.03); }
+  9%, 91%   { transform: scaleX(1); }
+  100%      { transform: scaleX(.03); }
 }
-/* and moves to each new character's hand as they swap in */
-@keyframes ch-tagpos {
-  0%        { transform: translate(354.4px, 185.7px); }
-  25%       { transform: translate(360px, 183.5px); }
-  50%       { transform: translate(386.4px, 198.9px); }
-  75%, 100% { transform: translate(354.5px, 198.5px); }
+@keyframes ch-drift-g { from { transform: translate(0, 0); } to { transform: translate(40px, 34px); } }
+@keyframes ch-drift-b { from { transform: translate(0, 0); } to { transform: translate(-46px, 30px); } }
+@keyframes ch-orbit { to { transform: rotate(360deg); } }
+/* light crosses the alcove, then rests a while before the next pass */
+@keyframes ch-shine {
+  0%        { transform: skewX(-14deg) translateX(0); }
+  45%, 100% { transform: skewX(-14deg) translateX(720px); }
 }
+@keyframes ch-twinkle {
+  0%, 100% { transform: scale(.5) rotate(0deg); opacity: .3; }
+  50%      { transform: scale(1.15) rotate(45deg); opacity: 1; }
+}
+@keyframes ch-float { from { transform: translateY(-6px); } to { transform: translateY(6px); } }
 
 @media (min-width: 1101px) {
   .offer .btn-row { flex-wrap: nowrap; }
