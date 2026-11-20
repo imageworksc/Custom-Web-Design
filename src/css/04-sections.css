@@ -149,8 +149,8 @@
           mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 85%);
   pointer-events: none;
 }
-/* the sign's face lifts off the ground like the page's cards */
-.ch-sign__face { filter: drop-shadow(0 1px 2px rgba(20, 40, 80, .10)) drop-shadow(0 10px 18px rgba(20, 40, 80, .14)); }
+/* the screen lifts off the wall like the page's cards */
+.ch-screen__body { filter: drop-shadow(0 1px 2px rgba(20, 40, 80, .10)) drop-shadow(0 10px 18px rgba(20, 40, 80, .14)); }
 .offer-art svg { position: relative; inline-size: 100%; block-size: auto; overflow: visible; }
 
 /* held to the band's slim height; the drawing scales inside the box */
@@ -158,7 +158,7 @@
 
 /* The cast: one character at a time, a new one every three seconds. Each
    change lands with a squash, a hop and a puff; between changes they blink,
-   nod, and the floor sign beside them spins round to its next face. Behind
+   nod, and the screen hung beside them switches to their page. Behind
    them the page's washes drift, a dot orbits the alcove, light crosses it and
    sparkles twinkle. Without motion they stand still in the first outfit. */
 .ch-fit { opacity: 0; }
@@ -170,7 +170,9 @@
 .ch-eyes { transform-origin: center; }
 .ch-puff { transform-origin: 258px 230px; opacity: 0; }
 .ch-orbit { transform-box: view-box; transform-origin: 258px 172px; }
-.ch-sign__face, .ch-spark, .ch-float { transform-box: fill-box; transform-origin: center; }
+.ch-screen { transform-box: view-box; transform-origin: 0 0; }
+.ch-screen__flash { opacity: 0; }
+.ch-spark, .ch-float { transform-box: fill-box; transform-origin: center; }
 
 @media (prefers-reduced-motion: no-preference) {
   .ch-fit { animation: ch-fit 12s steps(1, end) infinite; opacity: 0; }
@@ -181,7 +183,8 @@
   .ch-puff { animation: ch-puff 3s ease-out infinite; }
   .ch-head { animation: ch-nod 1.5s ease-in-out infinite alternate; }
   .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
-  .ch-sign__face { animation: ch-flip 3s cubic-bezier(.45, 0, .55, 1) infinite; }
+  .ch-screen { animation: ch-sway 6s ease-in-out infinite alternate; }
+  .ch-screen__flash { animation: ch-channel 3s linear infinite; }
   .ch-wash--g { animation: ch-drift-g 19s ease-in-out infinite alternate; }
   .ch-wash--b { animation: ch-drift-b 23s ease-in-out infinite alternate; }
   .ch-orbit { animation: ch-orbit 16s linear infinite; }
@@ -210,12 +213,14 @@
 }
 @keyframes ch-nod { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
 @keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
-/* edge-on at the moment the characters swap, so the new face is already
-   there as it turns back round */
-@keyframes ch-flip {
-  0%        { transform: scaleX(.03); }
-  9%, 91%   { transform: scaleX(1); }
-  100%      { transform: scaleX(.03); }
+/* on its cables, from the ceiling */
+@keyframes ch-sway { from { transform: translate(488px, 0) rotate(-1.4deg); } to { transform: translate(488px, 0) rotate(1.4deg); } }
+/* a channel switch: the gradient covers the glass just as the characters
+   swap, and clears to show the new page */
+@keyframes ch-channel {
+  0%       { opacity: 1; }
+  12%, 94% { opacity: 0; }
+  100%     { opacity: 1; }
 }
 @keyframes ch-drift-g { from { transform: translate(0, 0); } to { transform: translate(40px, 34px); } }
 @keyframes ch-drift-b { from { transform: translate(0, 0); } to { transform: translate(-46px, 30px); } }
