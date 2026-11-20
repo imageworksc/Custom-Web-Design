@@ -979,8 +979,9 @@ a { color: inherit; }
 .offer .lead em { font-style: normal; color: var(--green-ink); }
 .offer .btn-row { margin-top: 6px; }
 
-/* The right half: a flat light ground with a field of round dots, drawn in
-   the same flat, rounded manner as the characters standing in it. */
+/* The right half: the hero's ground, its three washes (green top left,
+   brand blue top right, sky low and widest) over its hairline grid, so the
+   fitting room reads as part of the same page. */
 .offer-art {
   position: relative;
   display: grid;
@@ -989,14 +990,20 @@ a { color: inherit; }
   padding: clamp(16px, 2vw, 24px);
   overflow: hidden;
   border-left: 1px solid var(--border);
-  background: #f3f7fc;
+  background:
+    radial-gradient(55% 60% at 8% 6%, rgba(128, 195, 74, .24), rgba(128, 195, 74, 0) 100%),
+    radial-gradient(55% 60% at 94% 4%, rgba(18, 102, 181, .21), rgba(18, 102, 181, 0) 100%),
+    radial-gradient(85% 55% at 50% 104%, rgba(46, 140, 214, .21), rgba(46, 140, 214, 0) 100%),
+    var(--white);
 }
 .offer-art::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(18, 102, 181, .13) 1.8px, transparent 2.2px);
-  background-size: 22px 22px;
+  background-image:
+    linear-gradient(to right, rgba(20, 60, 102, .055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 60, 102, .055) 1px, transparent 1px);
+  background-size: 32px 32px;
   -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 85%);
           mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 85%);
   pointer-events: none;
@@ -1009,7 +1016,8 @@ a { color: inherit; }
 /* The cast: one character at a time, a new one every three seconds. Each
    change lands with a squash, a hop and a puff; between changes they blink,
    nod, and the screen hung beside them switches to their page. Behind
-   them flat blobs drift, a dot orbits the alcove and sparkles twinkle. Without motion they stand still in the first outfit. */
+   them the page's washes drift, a dot orbits the alcove, light crosses it and
+   sparkles twinkle. Without motion they stand still in the first outfit. */
 .ch-fit { opacity: 0; }
 .ch-fit--1 { opacity: 1; }
 .ch-hop, .ch-puff { transform-box: view-box; }
@@ -1037,9 +1045,11 @@ a { color: inherit; }
   .ch-wash--g { animation: ch-drift-g 19s ease-in-out infinite alternate; }
   .ch-wash--b { animation: ch-drift-b 23s ease-in-out infinite alternate; }
   .ch-orbit { animation: ch-orbit 16s linear infinite; }
+  .ch-shine { animation: ch-shine 9s cubic-bezier(.45, 0, .55, 1) infinite; }
   .ch-spark { animation: ch-twinkle 2.6s ease-in-out infinite; }
   .ch-spark--2 { animation-delay: .9s; }
   .ch-spark--3 { animation-delay: 1.7s; }
+  .ch-spark--4 { animation-delay: 1.2s; }
   .ch-float { animation: ch-float 4.5s ease-in-out infinite alternate; }
   .ch-float--2 { animation-delay: -1.5s; animation-duration: 5.5s; }
   .ch-float--3 { animation-delay: -3s; animation-duration: 3.8s; }
@@ -1106,6 +1116,11 @@ a { color: inherit; }
 @keyframes ch-drift-g { from { transform: translate(0, 0); } to { transform: translate(40px, 34px); } }
 @keyframes ch-drift-b { from { transform: translate(0, 0); } to { transform: translate(-46px, 30px); } }
 @keyframes ch-orbit { to { transform: rotate(360deg); } }
+/* light crosses the alcove, then rests a while before the next pass */
+@keyframes ch-shine {
+  0%        { transform: skewX(-14deg) translateX(0); }
+  45%, 100% { transform: skewX(-14deg) translateX(720px); }
+}
 @keyframes ch-twinkle {
   0%, 100% { transform: scale(.5) rotate(0deg); opacity: .3; }
   50%      { transform: scale(1.15) rotate(45deg); opacity: 1; }
