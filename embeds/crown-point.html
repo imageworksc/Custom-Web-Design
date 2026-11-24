@@ -177,7 +177,7 @@ const bar = document.querySelector('.sh__bar'); const top = bar ? bar.offsetHeig
 const stage = innerHeight - top;
 const vw = document.documentElement.clientWidth;
 const shell = document.querySelector('.hz .wrap').clientWidth - 2 * parseFloat(getComputedStyle(document.querySelector('.hz .wrap')).paddingLeft);
-const endW = vw, endH = Math.min(vw / RATIO, stage);   /* edge to edge; trims a little when the screen is shorter than 3:2 */
+const endW = vw, endH = stage;  /* played in a portrait window: the photo fills the stage, as it does on a landscape screen */   /* edge to edge; trims a little when the screen is shorter than 3:2 */
 const startW = Math.min(shell, endW), startH = Math.min(endH, Math.max(startW / 2.4, stage * .55));
 const run = 0;   /* no dead pin: the photo is whole the moment it reaches the header, then scrolls on */
 g = { top, stage, startW, startH, endW, endH, run, start: 0 };
