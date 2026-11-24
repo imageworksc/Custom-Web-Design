@@ -1572,9 +1572,9 @@ a { color: inherit; }
 .final { text-align: center; }
 .final .stack { align-items: center; }
 .final .sec-title { max-width: none; }
-/* the line the credibility band used to carry, set small under the calls */
+/* the line the credibility band used to carry, set small under the heading */
 .final-note {
-  margin-top: 10px;
+  margin-top: -6px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: .02em;
