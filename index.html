@@ -635,7 +635,9 @@
           <a class="btn btn--outline" href="https://www.imageworkscreative.com/lets-grow-your-brand">Talk With Our Team</a>
         </div>
       </div>
-      <!-- Launch is version one, drawn as a release chart: a panel with the
+      <!-- Launch is version one, drawn as a release chart (each version keeps
+           the earlier changes in a softer green and lights its own; the step
+           line has rounded corners): a panel with the
            data that decides each move as its legend, then a step chart rising
            from launch, one step a month, each step carrying the same small
            site with the part that changed lit (the homepage hero, a subpage,
@@ -656,8 +658,8 @@
             <path d="M0 52H560" stroke="#e8eef5"/>
             <!-- the chart -->
             <path d="M40 110H540" stroke="#e8eef5" stroke-dasharray="3 5"/><path d="M40 170H540" stroke="#e8eef5" stroke-dasharray="3 5"/><path d="M40 230H540" stroke="#e8eef5" stroke-dasharray="3 5"/><path d="M40 290H540" stroke="#e8eef5" stroke-dasharray="3 5"/>
-            <path d="M40 300H130V262H230V224H330V186H430V148H540V330H40Z" fill="url(#ev-area)"/>
-            <path class="ev-grow" d="M40 300H130V262H230V224H330V186H430V148H540" fill="none" stroke="#143c66" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M40 300L116 300Q130 300 130 286L130 276Q130 262 144 262L216 262Q230 262 230 248L230 238Q230 224 244 224L316 224Q330 224 330 210L330 200Q330 186 344 186L416 186Q430 186 430 172L430 162Q430 148 444 148L540 148V330H40Z" fill="url(#ev-area)"/>
+            <path class="ev-grow" d="M40 300L116 300Q130 300 130 286L130 276Q130 262 144 262L216 262Q230 262 230 248L230 238Q230 224 244 224L316 224Q330 224 330 210L330 200Q330 186 344 186L416 186Q430 186 430 172L430 162Q430 148 444 148L540 148" fill="none" stroke="#143c66" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M40 330H540" stroke="#cfdbe8" stroke-width="1.5"/>
             <!-- launch -->
             <circle cx="40" cy="300" r="5" fill="#143c66"/>
@@ -678,7 +680,7 @@
                   <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.1</text></g>
                 </g>
               </g>
-              <circle cx="130" cy="262" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <circle cx="133.5" cy="265.5" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
               <text class="ev-m" x="180" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 1</text>
               <text class="ev-l" x="180" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="180" y="370">Refine the</tspan><tspan x="180" y="386">homepage</tspan></text>
             </g>
@@ -692,11 +694,12 @@
                   <rect x="7" y="14" width="14" height="3.5" rx="1.5" fill="#c9d6e6"/><rect x="46" y="14" width="25" height="3.5" rx="1.5" fill="#dbe4ef"/>
                   <rect x="7" y="22" width="64" height="17" rx="2" fill="#e5ecf4"/>
                   <rect x="7" y="43" width="30" height="13" rx="2" fill="#eef2f7"/><rect x="41" y="43" width="30" height="13" rx="2" fill="#eef2f7"/>
-                  <rect class="ev-hl" x="7" y="43" width="64" height="13" rx="2" fill="#80c34a"/>
+                  <rect x="7" y="22" width="64" height="17" rx="2" fill="#bfe0a3"/>
+                  <rect class="ev-hl" x="7" y="43" width="30" height="13" rx="2" fill="#80c34a"/>
                   <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.2</text></g>
                 </g>
               </g>
-              <circle cx="230" cy="224" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <circle cx="233.5" cy="227.5" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
               <text class="ev-m" x="280" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 2</text>
               <text class="ev-l" x="280" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="280" y="370">Rework a</tspan><tspan x="280" y="386">subpage</tspan></text>
             </g>
@@ -710,11 +713,13 @@
                   <rect x="7" y="14" width="14" height="3.5" rx="1.5" fill="#c9d6e6"/><rect x="46" y="14" width="25" height="3.5" rx="1.5" fill="#dbe4ef"/>
                   <rect x="7" y="22" width="64" height="17" rx="2" fill="#e5ecf4"/>
                   <rect x="7" y="43" width="30" height="13" rx="2" fill="#eef2f7"/><rect x="41" y="43" width="30" height="13" rx="2" fill="#eef2f7"/>
+                  <rect x="7" y="22" width="64" height="17" rx="2" fill="#bfe0a3"/>
+                  <rect x="7" y="43" width="30" height="13" rx="2" fill="#bfe0a3"/>
                   <g class="ev-hl"><rect x="41" y="43" width="30" height="13" rx="2" fill="#80c34a"/><path d="M56 46.5v6M53 49.5h6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g>
                   <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.3</text></g>
                 </g>
               </g>
-              <circle cx="330" cy="186" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <circle cx="333.5" cy="189.5" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
               <text class="ev-m" x="380" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 3</text>
               <text class="ev-l" x="380" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="380" y="370">Add a new</tspan><tspan x="380" y="386">page</tspan></text>
             </g>
@@ -728,11 +733,14 @@
                   <rect x="7" y="14" width="14" height="3.5" rx="1.5" fill="#c9d6e6"/><rect x="46" y="14" width="25" height="3.5" rx="1.5" fill="#dbe4ef"/>
                   <rect x="7" y="22" width="64" height="17" rx="2" fill="#e5ecf4"/>
                   <rect x="7" y="43" width="30" height="13" rx="2" fill="#eef2f7"/><rect x="41" y="43" width="30" height="13" rx="2" fill="#eef2f7"/>
+                  <rect x="7" y="22" width="64" height="17" rx="2" fill="#bfe0a3"/>
+                  <rect x="7" y="43" width="30" height="13" rx="2" fill="#bfe0a3"/>
+                  <g><rect x="41" y="43" width="30" height="13" rx="2" fill="#bfe0a3"/><path d="M56 46.5v6M53 49.5h6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g>
                   <rect class="ev-hl" x="4" y="11.5" width="70" height="8.5" rx="3" fill="#80c34a"/>
                   <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.4</text></g>
                 </g>
               </g>
-              <circle cx="430" cy="148" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <circle cx="433.5" cy="151.5" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
               <text class="ev-m" x="480" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 4</text>
               <text class="ev-l" x="480" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="480" y="370">Rethink the</tspan><tspan x="480" y="386">menu</tspan></text>
             </g>
