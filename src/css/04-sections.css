@@ -33,6 +33,9 @@
   transition: gap .25s var(--ease), color .25s var(--ease);
 }
 .cta-aside a:hover { gap: 12px; color: var(--navy); }
+/* on the deep band the link takes the bright green, the dark ink would sink */
+.band--deep .cta-aside a { color: var(--green); }
+.band--deep .cta-aside a:hover { color: #fff; }
 
 /* --------------------------------------------------------------------------
    DIRECTION IS THE DIFFERENCE — three names for one loop
