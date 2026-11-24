@@ -1374,7 +1374,13 @@ a { color: inherit; }
   .ev-step--2 .ev-card, .ev-step--2 .ev-hl { animation-delay: 2s; }
   .ev-step--3 .ev-card, .ev-step--3 .ev-hl { animation-delay: 4s; }
   .ev-step--4 .ev-card, .ev-step--4 .ev-hl { animation-delay: 6s; }
-  .evo:hover .ev-card, .evo:hover .ev-hl { animation-play-state: paused; }
+  /* the versions arrive in turn: each comes up to full as its month comes
+     round, all four hold together, then the round starts again */
+  .ev-step > g { animation: ev-in-1 8s var(--ease) infinite; }
+  .ev-step--2 > g { animation-name: ev-in-2; }
+  .ev-step--3 > g { animation-name: ev-in-3; }
+  .ev-step--4 > g { animation-name: ev-in-4; }
+  .evo:hover .ev-card, .evo:hover .ev-hl, .evo:hover .ev-step > g { animation-play-state: paused; }
 
   [data-anim="on"] .evo .ev-grow { stroke-dasharray: 700; stroke-dashoffset: 700; }
   [data-anim="on"] .evo.is-revealed .ev-grow { animation: ev-draw 1.6s var(--ease) .2s forwards; }
@@ -1389,6 +1395,10 @@ a { color: inherit; }
   6%, 19%       { opacity: 1; }
 }
 @keyframes ev-draw { to { stroke-dashoffset: 0; } }
+@keyframes ev-in-1 { 0% { opacity: .18; } 8%, 94% { opacity: 1; } 100% { opacity: .18; } }
+@keyframes ev-in-2 { 0%, 25% { opacity: .18; } 33%, 94% { opacity: 1; } 100% { opacity: .18; } }
+@keyframes ev-in-3 { 0%, 50% { opacity: .18; } 58%, 94% { opacity: 1; } 100% { opacity: .18; } }
+@keyframes ev-in-4 { 0%, 75% { opacity: .18; } 83%, 94% { opacity: 1; } 100% { opacity: .18; } }
 
 @media (max-width: 900px) {
   .evolve-split { grid-template-columns: minmax(0, 1fr); }
