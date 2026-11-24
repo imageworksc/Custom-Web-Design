@@ -681,6 +681,7 @@
 @media (max-width: 600px) {
   .evo .ev-l { font-size: 15px; }
   .evo .ev-m { font-size: 12.5px; }
+  .evo .ev-d { font-size: 19px; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
