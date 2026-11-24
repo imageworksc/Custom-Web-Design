@@ -63,8 +63,11 @@ foreach ($token in $assets.Keys) {
 # a hash of the file for the same reason the stylesheet link does: Pages
 # caches images for ten minutes, and a redrawn character would otherwise
 # show its old self to anyone who had just been on the page.
-# None at the moment: the fitting-room characters are drawn in the markup.
-$bodyAssets = [ordered]@{}
+# The fitting-room characters are drawn in the markup; the hero's client
+# homepage is the one image.
+$bodyAssets = [ordered]@{
+    '__ASSET_HERO_SITE__' = @{ Path = 'images/montage-crown-point.webp'; Mime = 'image/webp' }
+}
     '__ASSET_TBYB_CONTRACT__' = @{ Path = 'images/tbyb-contractor.webp'; Mime = 'image/webp' }
     '__ASSET_TBYB_TECH__' = @{ Path = 'images/tbyb-tech.webp'; Mime = 'image/webp' }
     '__ASSET_TBYB_LAW__' = @{ Path = 'images/tbyb-law-firm.webp'; Mime = 'image/webp' }
