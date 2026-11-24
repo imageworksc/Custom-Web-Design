@@ -1340,15 +1340,16 @@ a { color: inherit; }
   min-width: 0;
 }
 
-/* The drawing: launch is version one. The same small site climbs a step a
-   month, each version lighting the part that changed, over a growth line
-   that rises from launch. One month at a time lifts and lights, on an eight
-   second round; the line draws itself in the first time it is seen. */
+/* The drawing: launch is version one, as a release chart. A white panel
+   with the data as its legend, a step chart rising a step a month, the same
+   small site on each step with its change lit. One month at a time takes the
+   highlight on an eight-second round: its column tints, its site lifts, its
+   change brightens. The step line draws itself in the first time it is seen. */
 .evo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
   width: 100%;
   margin: 0;
 }
@@ -1359,32 +1360,38 @@ a { color: inherit; }
   color: var(--green-ink);
 }
 .ev-card { transform-box: fill-box; transform-origin: 50% 100%; }
-.ev-hl { opacity: .55; }
+.ev-hl { opacity: .5; }
+.ev-col { opacity: 0; }
 /* on a phone the drawing is about 60% size, so its words are set larger */
 @media (max-width: 600px) {
-  .evo .ev-l { font-size: 17px; }
-  .evo .ev-m { font-size: 13.5px; }
+  .evo .ev-l { font-size: 15px; }
+  .evo .ev-m { font-size: 12.5px; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .ev-card { animation: ev-lift 8s var(--ease) infinite; }
   .ev-hl { animation: ev-light 8s var(--ease) infinite; }
-  .ev-step--2 .ev-card, .ev-step--2 .ev-hl { animation-delay: 2s; }
-  .ev-step--3 .ev-card, .ev-step--3 .ev-hl { animation-delay: 4s; }
-  .ev-step--4 .ev-card, .ev-step--4 .ev-hl { animation-delay: 6s; }
-  .evo:hover .ev-card, .evo:hover .ev-hl { animation-play-state: paused; }
+  .ev-col { animation: ev-col 8s var(--ease) infinite; }
+  .ev-step--2 .ev-card, .ev-step--2 .ev-hl, .ev-step--2 .ev-col { animation-delay: 2s; }
+  .ev-step--3 .ev-card, .ev-step--3 .ev-hl, .ev-step--3 .ev-col { animation-delay: 4s; }
+  .ev-step--4 .ev-card, .ev-step--4 .ev-hl, .ev-step--4 .ev-col { animation-delay: 6s; }
+  .evo:hover .ev-card, .evo:hover .ev-hl, .evo:hover .ev-col { animation-play-state: paused; }
 
-  [data-anim="on"] .evo .ev-grow { stroke-dasharray: 640; stroke-dashoffset: 640; }
+  [data-anim="on"] .evo .ev-grow { stroke-dasharray: 700; stroke-dashoffset: 700; }
   [data-anim="on"] .evo.is-revealed .ev-grow { animation: ev-draw 1.6s var(--ease) .2s forwards; }
 }
-/* a month's quarter of the round: it lifts and its change lights up */
+/* a month's quarter of the round */
 @keyframes ev-lift {
   0%, 25%, 100% { transform: translateY(0); }
-  6%, 19%       { transform: translateY(-8px); }
+  6%, 19%       { transform: translateY(-6px); }
 }
 @keyframes ev-light {
-  0%, 25%, 100% { opacity: .55; }
+  0%, 25%, 100% { opacity: .5; }
   6%, 19%       { opacity: 1; }
+}
+@keyframes ev-col {
+  0%, 25%, 100% { opacity: 0; }
+  6%, 19%       { opacity: .08; }
 }
 @keyframes ev-draw { to { stroke-dashoffset: 0; } }
 

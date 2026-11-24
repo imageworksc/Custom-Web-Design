@@ -520,91 +520,108 @@
           <a class="btn btn--outline" href="https://www.imageworkscreative.com/lets-grow-your-brand">Talk With Our Team</a>
         </div>
       </div>
-      <!-- Launch is version one: a staircase of the same small site, a step a
-           month, each version lighting the one part that changed (the
-           homepage hero, a subpage, a new page, the menu), over a growth line
-           that climbs from launch. The data that picks each move sits on top.
-           One month lights at a time, round and round. -->
+      <!-- Launch is version one, drawn as a release chart: a panel with the
+           data that decides each move as its legend, then a step chart rising
+           from launch, one step a month, each step carrying the same small
+           site with the part that changed lit (the homepage hero, a subpage,
+           a new page, the menu) and its version. The moves are named on the
+           axis, under their columns. One month at a time takes the highlight. -->
       <figure class="evo reveal">
-        <svg viewBox="0 0 560 424" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Launch is version one: guided by analytics, heatmaps, search and visitor behavior, every month brings a new version. Month 1, refine the homepage; month 2, rework a subpage; month 3, add a new page; month 4, rethink the menu">
+        <svg viewBox="0 0 560 404" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Launch is version one: guided by analytics, heatmaps, search and visitor behavior, every month brings a new version. Month 1, refine the homepage; month 2, rework a subpage; month 3, add a new page; month 4, rethink the menu">
           <defs>
-            <filter id="ev-shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#143c66" flood-opacity=".14"/></filter>
-            <linearGradient id="ev-grow" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1266b5" stop-opacity=".25"/><stop offset="1" stop-color="#80c34a"/></linearGradient>
-            <marker id="ev-ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#80c34a"/></marker>
+            <filter id="ev-shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#143c66" flood-opacity=".14"/></filter>
+            <filter id="ev-panel" x="-10%" y="-10%" width="120%" height="125%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#143c66" flood-opacity=".12"/></filter>
+            <linearGradient id="ev-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#80c34a" stop-opacity=".22"/><stop offset="1" stop-color="#80c34a" stop-opacity="0"/></linearGradient>
           </defs>
           <g font-family="Plus Jakarta Sans, sans-serif">
-            <!-- what decides each move -->
-            <text x="12" y="32" font-size="15" font-weight="800" fill="#143c66">Data decides</text>
-            <g class="ev-chip"><rect x="124" y="14" width="72" height="26" rx="13" fill="#eaf2fb"/><text x="160.0" y="31.5" text-anchor="middle" font-size="12" font-weight="700" fill="#1266b5">Analytics</text></g><g class="ev-chip"><rect x="204" y="14" width="74" height="26" rx="13" fill="#eaf2fb"/><text x="241.0" y="31.5" text-anchor="middle" font-size="12" font-weight="700" fill="#1266b5">Heatmaps</text></g><g class="ev-chip"><rect x="286" y="14" width="58" height="26" rx="13" fill="#eaf2fb"/><text x="315.0" y="31.5" text-anchor="middle" font-size="12" font-weight="700" fill="#1266b5">Search</text></g><g class="ev-chip"><rect x="352" y="14" width="72" height="26" rx="13" fill="#eaf2fb"/><text x="388.0" y="31.5" text-anchor="middle" font-size="12" font-weight="700" fill="#1266b5">Behavior</text></g>
-            <!-- growth, from launch up past the last version -->
-            <path class="ev-grow" d="M30 382C120 376 190 330 270 276S440 160 552 64" fill="none" stroke="url(#ev-grow)" stroke-width="5" stroke-linecap="round" marker-end="url(#ev-ah)"/>
-            <!-- launch: where the line starts -->
-            <circle cx="30" cy="382" r="8" fill="#143c66" stroke="#fff" stroke-width="3"/>
-            <g transform="translate(0 396)"><rect width="100" height="24" rx="12" fill="#143c66"/><text x="50" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">Launch · v1.0</text></g>
+            <rect width="560" height="404" rx="14" fill="#fff" stroke="#e1e9f2" filter="url(#ev-panel)"/>
+            <!-- header: what decides each move, as the chart's legend -->
+            <text x="24" y="33" font-size="13.5" font-weight="800" fill="#143c66">Data decides</text>
+            <rect x="280" y="17" width="62" height="22" rx="11" fill="#eaf2fb"/><text x="311.0" y="31.6" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1266b5">Analytics</text><rect x="348" y="17" width="64" height="22" rx="11" fill="#eaf2fb"/><text x="380.0" y="31.6" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1266b5">Heatmaps</text><rect x="418" y="17" width="50" height="22" rx="11" fill="#eaf2fb"/><text x="443.0" y="31.6" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1266b5">Search</text><rect x="474" y="17" width="62" height="22" rx="11" fill="#eaf2fb"/><text x="505.0" y="31.6" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1266b5">Behavior</text>
+            <path d="M0 52H560" stroke="#e8eef5"/>
+            <!-- the chart -->
+            <path d="M40 110H540" stroke="#e8eef5" stroke-dasharray="3 5"/><path d="M40 170H540" stroke="#e8eef5" stroke-dasharray="3 5"/><path d="M40 230H540" stroke="#e8eef5" stroke-dasharray="3 5"/><path d="M40 290H540" stroke="#e8eef5" stroke-dasharray="3 5"/>
+            <path d="M40 300H130V262H230V224H330V186H430V148H540V330H40Z" fill="url(#ev-area)"/>
+            <path class="ev-grow" d="M40 300H130V262H230V224H330V186H430V148H540" fill="none" stroke="#143c66" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M40 330H540" stroke="#cfdbe8" stroke-width="1.5"/>
+            <!-- launch -->
+            <circle cx="40" cy="300" r="5" fill="#143c66"/>
+            <g transform="translate(80 282)"><rect x="-26" y="-11" width="52" height="22" rx="11" fill="#143c66"/><text y="4" text-anchor="middle" font-size="10.5" font-weight="800" fill="#fff">v1.0</text></g>
+            <text class="ev-m" x="80" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#6b7a90" letter-spacing=".04em">LAUNCH</text>
+            <text class="ev-l" x="80" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="80" y="370">Version</tspan><tspan x="80" y="386">one</tspan></text>
             <g class="ev-step ev-step--1">
-              <g transform="translate(84 232) scale(.9)">
+              <rect class="ev-col" x="132" y="64" width="96" height="266" rx="8" fill="#80c34a"/>
+              <g transform="translate(141 188)">
                 <g class="ev-card">
-                  <rect width="118" height="96" rx="8" fill="#fff" stroke="#d8e2ee" filter="url(#ev-shadow)"/>
-                  <path d="M0 8a8 8 0 018-8h102a8 8 0 018 8v6H0z" fill="#eef2f7"/>
-                  <circle cx="9" cy="7" r="2" fill="#c6d2e0"/><circle cx="15.5" cy="7" r="2" fill="#c6d2e0"/><circle cx="22" cy="7" r="2" fill="#c6d2e0"/>
-                  <rect x="10" y="21" width="22" height="5" rx="2" fill="#c9d6e6"/><rect x="70" y="21" width="38" height="5" rx="2" fill="#dbe4ef"/>
-                  <rect x="10" y="32" width="98" height="26" rx="3" fill="#e3eaf3"/>
-                  <rect x="10" y="64" width="46" height="22" rx="3" fill="#eef2f7"/><rect x="62" y="64" width="46" height="22" rx="3" fill="#eef2f7"/>
-                  <rect class="ev-hl" x="10" y="32" width="98" height="26" rx="3" fill="#80c34a"/><path class="ev-hl" d="M92 39l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff"/>
-                  <g transform="translate(106 -6)"><rect x="-19" y="-10" width="38" height="20" rx="10" fill="#143c66"/><text y="4.5" text-anchor="middle" font-size="11.5" font-weight="800" fill="#fff">v1.1</text></g>
+                  <rect width="78" height="62" rx="6" fill="#fff" stroke="#d6e0ec" filter="url(#ev-shadow)"/>
+                  <path d="M0 6a6 6 0 016-6h66a6 6 0 016 6v4H0z" fill="#eef2f7"/>
+                  <circle cx="6" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="10.5" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="15" cy="5" r="1.5" fill="#c6d2e0"/>
+                  <rect x="7" y="14" width="14" height="3.5" rx="1.5" fill="#c9d6e6"/><rect x="46" y="14" width="25" height="3.5" rx="1.5" fill="#dbe4ef"/>
+                  <rect x="7" y="22" width="64" height="17" rx="2" fill="#e5ecf4"/>
+                  <rect x="7" y="43" width="30" height="13" rx="2" fill="#eef2f7"/><rect x="41" y="43" width="30" height="13" rx="2" fill="#eef2f7"/>
+                  <rect class="ev-hl" x="7" y="22" width="64" height="17" rx="2" fill="#80c34a"/>
+                  <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.1</text></g>
                 </g>
               </g>
-              <text class="ev-m" x="84" y="338" font-size="11.5" font-weight="800" fill="#5c9a2e" letter-spacing=".02em" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round">Month 1</text>
-              <text class="ev-l" x="84" font-size="14" font-weight="700" fill="#143c66" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round"><tspan x="84" y="356">Refine the</tspan><tspan x="84" y="373">homepage</tspan></text>
+              <circle cx="130" cy="262" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <text class="ev-m" x="180" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 1</text>
+              <text class="ev-l" x="180" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="180" y="370">Refine the</tspan><tspan x="180" y="386">homepage</tspan></text>
             </g>
             <g class="ev-step ev-step--2">
-              <g transform="translate(200 188) scale(.9)">
+              <rect class="ev-col" x="232" y="64" width="96" height="266" rx="8" fill="#80c34a"/>
+              <g transform="translate(241 150)">
                 <g class="ev-card">
-                  <rect width="118" height="96" rx="8" fill="#fff" stroke="#d8e2ee" filter="url(#ev-shadow)"/>
-                  <path d="M0 8a8 8 0 018-8h102a8 8 0 018 8v6H0z" fill="#eef2f7"/>
-                  <circle cx="9" cy="7" r="2" fill="#c6d2e0"/><circle cx="15.5" cy="7" r="2" fill="#c6d2e0"/><circle cx="22" cy="7" r="2" fill="#c6d2e0"/>
-                  <rect x="10" y="21" width="22" height="5" rx="2" fill="#c9d6e6"/><rect x="70" y="21" width="38" height="5" rx="2" fill="#dbe4ef"/>
-                  <rect x="10" y="32" width="98" height="26" rx="3" fill="#e3eaf3"/>
-                  <rect x="10" y="64" width="46" height="22" rx="3" fill="#eef2f7"/><rect x="62" y="64" width="46" height="22" rx="3" fill="#eef2f7"/>
-                  <g class="ev-hl"><rect x="10" y="64" width="98" height="22" rx="3" fill="#80c34a"/><rect x="16" y="70" width="40" height="4" rx="2" fill="#fff" opacity=".85"/><rect x="16" y="78" width="28" height="4" rx="2" fill="#fff" opacity=".7"/></g>
-                  <g transform="translate(106 -6)"><rect x="-19" y="-10" width="38" height="20" rx="10" fill="#143c66"/><text y="4.5" text-anchor="middle" font-size="11.5" font-weight="800" fill="#fff">v1.2</text></g>
+                  <rect width="78" height="62" rx="6" fill="#fff" stroke="#d6e0ec" filter="url(#ev-shadow)"/>
+                  <path d="M0 6a6 6 0 016-6h66a6 6 0 016 6v4H0z" fill="#eef2f7"/>
+                  <circle cx="6" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="10.5" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="15" cy="5" r="1.5" fill="#c6d2e0"/>
+                  <rect x="7" y="14" width="14" height="3.5" rx="1.5" fill="#c9d6e6"/><rect x="46" y="14" width="25" height="3.5" rx="1.5" fill="#dbe4ef"/>
+                  <rect x="7" y="22" width="64" height="17" rx="2" fill="#e5ecf4"/>
+                  <rect x="7" y="43" width="30" height="13" rx="2" fill="#eef2f7"/><rect x="41" y="43" width="30" height="13" rx="2" fill="#eef2f7"/>
+                  <rect class="ev-hl" x="7" y="43" width="64" height="13" rx="2" fill="#80c34a"/>
+                  <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.2</text></g>
                 </g>
               </g>
-              <text class="ev-m" x="200" y="294" font-size="11.5" font-weight="800" fill="#5c9a2e" letter-spacing=".02em" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round">Month 2</text>
-              <text class="ev-l" x="200" font-size="14" font-weight="700" fill="#143c66" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round"><tspan x="200" y="312">Rework a</tspan><tspan x="200" y="329">subpage</tspan></text>
+              <circle cx="230" cy="224" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <text class="ev-m" x="280" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 2</text>
+              <text class="ev-l" x="280" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="280" y="370">Rework a</tspan><tspan x="280" y="386">subpage</tspan></text>
             </g>
             <g class="ev-step ev-step--3">
-              <g transform="translate(316 144) scale(.9)">
+              <rect class="ev-col" x="332" y="64" width="96" height="266" rx="8" fill="#80c34a"/>
+              <g transform="translate(341 112)">
                 <g class="ev-card">
-                  <rect width="118" height="96" rx="8" fill="#fff" stroke="#d8e2ee" filter="url(#ev-shadow)"/>
-                  <path d="M0 8a8 8 0 018-8h102a8 8 0 018 8v6H0z" fill="#eef2f7"/>
-                  <circle cx="9" cy="7" r="2" fill="#c6d2e0"/><circle cx="15.5" cy="7" r="2" fill="#c6d2e0"/><circle cx="22" cy="7" r="2" fill="#c6d2e0"/>
-                  <rect x="10" y="21" width="22" height="5" rx="2" fill="#c9d6e6"/><rect x="70" y="21" width="38" height="5" rx="2" fill="#dbe4ef"/>
-                  <rect x="10" y="32" width="98" height="26" rx="3" fill="#e3eaf3"/>
-                  <rect x="10" y="64" width="46" height="22" rx="3" fill="#eef2f7"/><rect x="62" y="64" width="46" height="22" rx="3" fill="#eef2f7"/>
-                  <g class="ev-hl"><rect x="62" y="64" width="46" height="22" rx="3" fill="#80c34a"/><path d="M85 70v10M80 75h10" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></g>
-                  <g transform="translate(106 -6)"><rect x="-19" y="-10" width="38" height="20" rx="10" fill="#143c66"/><text y="4.5" text-anchor="middle" font-size="11.5" font-weight="800" fill="#fff">v1.3</text></g>
+                  <rect width="78" height="62" rx="6" fill="#fff" stroke="#d6e0ec" filter="url(#ev-shadow)"/>
+                  <path d="M0 6a6 6 0 016-6h66a6 6 0 016 6v4H0z" fill="#eef2f7"/>
+                  <circle cx="6" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="10.5" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="15" cy="5" r="1.5" fill="#c6d2e0"/>
+                  <rect x="7" y="14" width="14" height="3.5" rx="1.5" fill="#c9d6e6"/><rect x="46" y="14" width="25" height="3.5" rx="1.5" fill="#dbe4ef"/>
+                  <rect x="7" y="22" width="64" height="17" rx="2" fill="#e5ecf4"/>
+                  <rect x="7" y="43" width="30" height="13" rx="2" fill="#eef2f7"/><rect x="41" y="43" width="30" height="13" rx="2" fill="#eef2f7"/>
+                  <g class="ev-hl"><rect x="41" y="43" width="30" height="13" rx="2" fill="#80c34a"/><path d="M56 46.5v6M53 49.5h6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g>
+                  <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.3</text></g>
                 </g>
               </g>
-              <text class="ev-m" x="316" y="250" font-size="11.5" font-weight="800" fill="#5c9a2e" letter-spacing=".02em" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round">Month 3</text>
-              <text class="ev-l" x="316" font-size="14" font-weight="700" fill="#143c66" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round"><tspan x="316" y="268">Add a new</tspan><tspan x="316" y="285">page</tspan></text>
+              <circle cx="330" cy="186" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <text class="ev-m" x="380" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 3</text>
+              <text class="ev-l" x="380" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="380" y="370">Add a new</tspan><tspan x="380" y="386">page</tspan></text>
             </g>
             <g class="ev-step ev-step--4">
-              <g transform="translate(432 100) scale(.9)">
+              <rect class="ev-col" x="432" y="64" width="96" height="266" rx="8" fill="#80c34a"/>
+              <g transform="translate(441 74)">
                 <g class="ev-card">
-                  <rect width="118" height="96" rx="8" fill="#fff" stroke="#d8e2ee" filter="url(#ev-shadow)"/>
-                  <path d="M0 8a8 8 0 018-8h102a8 8 0 018 8v6H0z" fill="#eef2f7"/>
-                  <circle cx="9" cy="7" r="2" fill="#c6d2e0"/><circle cx="15.5" cy="7" r="2" fill="#c6d2e0"/><circle cx="22" cy="7" r="2" fill="#c6d2e0"/>
-                  <rect x="10" y="21" width="22" height="5" rx="2" fill="#c9d6e6"/><rect x="70" y="21" width="38" height="5" rx="2" fill="#dbe4ef"/>
-                  <rect x="10" y="32" width="98" height="26" rx="3" fill="#e3eaf3"/>
-                  <rect x="10" y="64" width="46" height="22" rx="3" fill="#eef2f7"/><rect x="62" y="64" width="46" height="22" rx="3" fill="#eef2f7"/>
-                  <g class="ev-hl"><rect x="6" y="17" width="106" height="13" rx="4" fill="#80c34a"/><rect x="12" y="21" width="20" height="5" rx="2" fill="#fff"/><rect x="62" y="21" width="12" height="5" rx="2" fill="#fff" opacity=".85"/><rect x="78" y="21" width="12" height="5" rx="2" fill="#fff" opacity=".85"/><rect x="94" y="21" width="12" height="5" rx="2" fill="#fff" opacity=".85"/></g>
-                  <g transform="translate(106 -6)"><rect x="-19" y="-10" width="38" height="20" rx="10" fill="#143c66"/><text y="4.5" text-anchor="middle" font-size="11.5" font-weight="800" fill="#fff">v1.4</text></g>
+                  <rect width="78" height="62" rx="6" fill="#fff" stroke="#d6e0ec" filter="url(#ev-shadow)"/>
+                  <path d="M0 6a6 6 0 016-6h66a6 6 0 016 6v4H0z" fill="#eef2f7"/>
+                  <circle cx="6" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="10.5" cy="5" r="1.5" fill="#c6d2e0"/><circle cx="15" cy="5" r="1.5" fill="#c6d2e0"/>
+                  <rect x="7" y="14" width="14" height="3.5" rx="1.5" fill="#c9d6e6"/><rect x="46" y="14" width="25" height="3.5" rx="1.5" fill="#dbe4ef"/>
+                  <rect x="7" y="22" width="64" height="17" rx="2" fill="#e5ecf4"/>
+                  <rect x="7" y="43" width="30" height="13" rx="2" fill="#eef2f7"/><rect x="41" y="43" width="30" height="13" rx="2" fill="#eef2f7"/>
+                  <rect class="ev-hl" x="4" y="11.5" width="70" height="8.5" rx="3" fill="#80c34a"/>
+                  <g transform="translate(70 -2)"><rect x="-15" y="-8" width="30" height="16" rx="8" fill="#143c66"/><text y="3.6" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">v1.4</text></g>
                 </g>
               </g>
-              <text class="ev-m" x="432" y="206" font-size="11.5" font-weight="800" fill="#5c9a2e" letter-spacing=".02em" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round">Month 4</text>
-              <text class="ev-l" x="432" font-size="14" font-weight="700" fill="#143c66" paint-order="stroke" stroke="#fff" stroke-width="6" stroke-linejoin="round"><tspan x="432" y="224">Rethink the</tspan><tspan x="432" y="241">menu</tspan></text>
+              <circle cx="430" cy="148" r="4.5" fill="#fff" stroke="#143c66" stroke-width="2.5"/>
+              <text class="ev-m" x="480" y="352" text-anchor="middle" font-size="11" font-weight="800" fill="#5c9a2e" letter-spacing=".04em">MONTH 4</text>
+              <text class="ev-l" x="480" text-anchor="middle" font-size="12.5" font-weight="700" fill="#143c66"><tspan x="480" y="370">Rethink the</tspan><tspan x="480" y="386">menu</tspan></text>
             </g>
+            <circle cx="540" cy="148" r="6" fill="#80c34a" stroke="#fff" stroke-width="2.5"/>
           </g>
         </svg>
         <figcaption>Every month, one focused improvement.</figcaption>
