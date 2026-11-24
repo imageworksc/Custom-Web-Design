@@ -72,15 +72,18 @@
         <p class="hero-note">Since 1997 · Award-Winning Design · Website + Marketing</p>
       </div>
 
-      <!-- The work itself: a real client homepage in a browser window, running
-           down from its hero through every band and back, so the depth of a
-           custom build shows. Titled the way the portfolio titles its work:
+      <!-- The work itself: a real client homepage in a browser window. The
+           built site plays inside it, scrolling itself down slowly enough that
+           its own scroll effects (the hero zoom, the reveals) show; a capture
+           of the whole page stands under it until it loads, and for anyone
+           who has asked for less motion. Titled the way the portfolio titles its work:
            what it is first, whose it is under it. -->
       <figure class="showcase">
         <div class="showcase-frame">
           <div class="showcase-bar" aria-hidden="true"><i></i><i></i><i></i><span>crownpointconstruction.com</span></div>
           <div class="showcase-view">
             <img class="showcase-page" src="__ASSET_HERO_SITE__" width="720" height="4271" alt="The Crown Point Construction homepage, from its hero down through its services, project gallery, reviews and contact form">
+            <iframe class="showcase-live" src="embeds/crown-point.html" title="The Crown Point Construction homepage, playing" tabindex="-1" aria-hidden="true"></iframe>
           </div>
         </div>
         <figcaption class="showcase-cap">
@@ -576,13 +579,6 @@
     </div>
   </section>
 
-  <!-- 9 · CREDIBILITY ------------------------------------------------------- -->
-  <section class="band band--deep band--slim" aria-labelledby="credibility-title">
-    <div class="wrap">
-      <h2 class="sec-title credline reveal" id="credibility-title">Building Better Websites &amp; Brands <em>Since 1997</em></h2>
-    </div>
-  </section>
-
   <!-- 10 · FAQ --------------------------------------------------------------- -->
   <section class="band band--tint-b" id="faqs" aria-labelledby="faq-title">
     <div class="sec-head reveal">
@@ -664,6 +660,7 @@
         <a class="btn btn--ghost" href="https://www.imageworkscreative.com/lets-grow-your-brand">Contact Us</a>
         <a class="btn btn--ghost" href="#tbyb">Try Before You Buy</a>
       </div>
+      <p class="final-note">Building Better Websites &amp; Brands Since 1997</p>
     </div>
   </section>
 

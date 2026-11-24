@@ -212,11 +212,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   THE WORK — a real client homepage, running down and back
-   The page is a 720 x 4271 capture in a 4:5 window, so the run is the part of
-   it that doesn't fit: 1 - (5/4) / (4271/720) = 78.9% of its own height. It
-   rests at the top, travels down, rests on the footer and comes back, slowly
-   enough to read as a scroll rather than a slide.
+   THE WORK — a real client homepage, playing
+   The built site is loaded at a desktop size (1280 x 1600, the window's 4:5)
+   and scaled down to the window, so it lays out as it would on a desktop and
+   its scroll effects run as they were built. app.js scrolls it and sets the
+   scale. Under it sits a capture of the whole page, seen until the site has
+   loaded.
    -------------------------------------------------------------------------- */
 .showcase {
   display: flex;
@@ -258,6 +259,22 @@
 }
 .showcase-view { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
 .showcase-page { display: block; inline-size: 100%; block-size: auto; max-width: none; }
+.showcase-live {
+  position: absolute;
+  top: 0;
+  left: 0;
+  inline-size: 1280px;
+  block-size: 1600px;
+  max-width: none;
+  border: 0;
+  background: #fff;
+  transform-origin: 0 0;
+  transform: scale(var(--showcase-scale, .34));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s var(--ease);
+}
+.showcase.is-live .showcase-live { opacity: 1; }
 
 .showcase-cap {
   display: flex;
@@ -281,18 +298,9 @@
 }
 .showcase-cap a:hover { gap: 12px; color: var(--navy); }
 
-@media (prefers-reduced-motion: no-preference) {
-  .showcase-page { animation: showcase-run 44s ease-in-out infinite; }
-  .showcase-frame:hover .showcase-page { animation-play-state: paused; }
-}
-/* without the run, the window scrolls by hand instead */
+/* Without the drift, the visitor scrolls the site by hand. */
 @media (prefers-reduced-motion: reduce) {
-  .showcase-view { overflow-y: auto; }
-}
-@keyframes showcase-run {
-  0%, 6%    { transform: translateY(0); }
-  46%, 54%  { transform: translateY(-78.9%); }
-  94%, 100% { transform: translateY(0); }
+  .showcase-live { pointer-events: auto; }
 }
 
 @media (max-width: 900px) {

@@ -761,15 +761,6 @@
 }
 
 /* --------------------------------------------------------------------------
-   CREDIBILITY — one line on the deep band
-   -------------------------------------------------------------------------- */
-.credline {
-  max-width: none;
-  margin-inline: auto;
-  text-align: center;
-}
-
-/* --------------------------------------------------------------------------
    SECTION HEAD — centred, as the home sets its own
    -------------------------------------------------------------------------- */
 .sec-head {
@@ -897,6 +888,14 @@
 .final { text-align: center; }
 .final .stack { align-items: center; }
 .final .sec-title { max-width: none; }
+/* the line the credibility band used to carry, set small under the calls */
+.final-note {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: rgba(226, 238, 252, .72);
+}
 
 /* --------------------------------------------------------------------------
    REVEAL

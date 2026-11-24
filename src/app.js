@@ -103,9 +103,70 @@
     }
   }
 
+  /* ------------------------------------------------------------------
+     The hero's client site. The built page plays in a frame at desktop
+     size, scaled to the window. While the hero is on screen it scrolls
+     itself down, slowly enough for its own scroll effects to play, rests
+     at the foot, and starts again from the top. Pointing at it holds it.
+     The frame's page is served from this site, so it can be scrolled from
+     here; if it can't be read, the capture under it simply stays.
+     ------------------------------------------------------------------ */
+  function setupShowcase() {
+    const fig = document.querySelector('.showcase');
+    const frame = fig?.querySelector('.showcase-live');
+    if (!frame) return;
+    const view = fig.querySelector('.showcase-view');
+    const SITE_WIDTH = 1280;
+    const SPEED = 0.14;  // px of the site per ms: 140 a second at its own size
+
+    const fit = () => view.style.setProperty('--showcase-scale', (view.clientWidth / SITE_WIDTH).toFixed(4));
+    fit();
+    window.addEventListener('resize', fit, { passive: true });
+
+    const readable = () => {
+      try { return frame.contentWindow.document.documentElement ? frame.contentWindow : null; } catch { return null; }
+    };
+    const show = () => { if (readable()) fig.classList.add('is-live'); };
+    frame.addEventListener('load', show);
+    if (readable()?.document.readyState === 'complete' && frame.contentWindow.location.href !== 'about:blank') show();
+
+    if (reduced.matches || !('IntersectionObserver' in window)) return;
+
+    let onScreen = false;
+    let held = false;
+    let restUntil = performance.now() + 2500;  // a moment on its hero first
+    let last = 0;
+    let pos = 0;
+    new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; }, { threshold: 0.2 }).observe(fig);
+    fig.addEventListener('mouseenter', () => { held = true; });
+    fig.addEventListener('mouseleave', () => { held = false; });
+
+    const tick = (now) => {
+      requestAnimationFrame(tick);
+      const dt = last ? Math.min(now - last, 50) : 0;
+      last = now;
+      if (!onScreen || held || now < restUntil || !fig.classList.contains('is-live')) return;
+      const win = readable();
+      if (!win) return;
+      const end = win.document.documentElement.scrollHeight - win.innerHeight;
+      if (end <= 0) return;
+      if (pos >= end - 1) {
+        restUntil = now + 3200;
+        window.setTimeout(() => { pos = 0; win.scrollTo({ top: 0, behavior: 'instant' }); }, 2600);
+        return;
+      }
+      // instant, and kept as a running total: the site asks for smooth
+      // scrolling, and a step under a pixel would otherwise be rounded away
+      pos = Math.min(pos + SPEED * dt, end);
+      win.scrollTo({ top: pos, behavior: 'instant' });
+    };
+    requestAnimationFrame(tick);
+  }
+
   function init() {
     setupReveals();
     setupAccordions();
+    setupShowcase();
   }
 
   if (document.readyState === 'loading') {
