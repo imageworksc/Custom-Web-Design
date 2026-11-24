@@ -1351,7 +1351,7 @@ a { color: inherit; }
   width: 100%;
   margin: 0;
 }
-.evocycle svg { inline-size: 100%; max-inline-size: 660px; block-size: auto; overflow: visible; }
+.evocycle svg { inline-size: 100%; max-inline-size: 470px; block-size: auto; overflow: visible; }
 .evocycle figcaption {
   font-size: 15px;
   font-weight: 800;
