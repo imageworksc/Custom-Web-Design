@@ -717,6 +717,8 @@ a { color: inherit; }
   transition: gap .25s var(--ease), color .25s var(--ease);
 }
 .cta-aside a:hover { gap: 12px; color: var(--navy); }
+/* the V2's subtitle on the deep band: the bright green, not the muted line */
+.band--deep .asset-sub { color: var(--green); }
 /* on the deep band the link takes the bright green, the dark ink would sink */
 .band--deep .cta-aside a { color: var(--green); }
 .band--deep .cta-aside a:hover { color: #fff; }
@@ -976,68 +978,6 @@ a { color: inherit; }
   }
 }
 
-/* --------------------------------------------------------------------------
-   THE ANSWER CARD — Why Your Website Design Is So Important
-   The .lb-answer block from the SEO blogging page, value for value:
-   https://imageworksc.github.io/seo-blogging/  →  assets/page.css
-   2px green rule, 10px corner, 32/26 padding, 1020px measure, 18px at 1.65,
-   and the emphasis painted as a 3px green band under navy bold rather than as
-   an underline. Where the source writes "Answer:" in bold at the head of the
-   text, this writes the short sentence that used to sit above the card.
-   -------------------------------------------------------------------------- */
-.answer {
-  width: 100%;
-  max-width: 1020px;
-  margin-top: 6px;
-  padding: 32px 26px;
-  border: 2px solid var(--green);
-  border-radius: 10px;
-  /* Transparent rather than the band's colour written out again: the card then
-     takes whatever ground it is put on, and the two cannot drift apart. */
-  background: transparent;
-}
-.answer p {
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--muted);
-  /* The source is explicit about this: no balancing. Evening the lines out
-     shortens all of them, which inside a bordered box reads as the box standing
-     off its own text — the gap lands on the right of every line, not just the
-     last. The page sets text-wrap: pretty on every p, so it is turned off here
-     and each line fills the measure. `wrap`, not `normal` — normal is not one
-     of the keywords and the declaration is simply dropped. */
-  text-wrap: wrap;
-}
-.answer p + p { margin-top: 16px; }
-
-/* Navy bold on a 3px green rule, painted as a background rather than an
-   underline so it sits tight under the type and wraps across lines. */
-.phrase {
-  font-weight: 700;
-  color: var(--navy);
-  background-image: linear-gradient(var(--green), var(--green));
-  background-size: 100% 3px;
-  background-position: 0 calc(100% - 1px);
-  background-repeat: no-repeat;
-  padding-bottom: 3px;
-}
-
-/* The rule draws itself in the first time the card is read — the same gesture
-   the cards further down use on their top edge, here carried by the type. */
-@media (prefers-reduced-motion: no-preference) {
-  [data-anim="on"] .answer .phrase { background-size: 0 3px; }
-  [data-anim="on"] .answer.is-revealed .phrase {
-    animation: phrase-in .5s var(--ease) forwards;
-  }
-  [data-anim="on"] .answer.is-revealed .phrase { animation-delay: .35s; }
-}
-@keyframes phrase-in {
-  to { background-size: 100% 3px; }
-}
-
-@media (max-width: 700px) {
-  .answer { padding: 24px 22px; }
-}
 /* --------------------------------------------------------------------------
    AI, TEMPLATE, OR CUSTOM-BUILT
    -------------------------------------------------------------------------- */
