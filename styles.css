@@ -1070,12 +1070,18 @@ a { color: inherit; }
 .tag-neutral { background: var(--grey-soft); color: var(--grey-ink); }
 .tag-green { background: var(--tint-green); color: var(--green-ink); }
 
-/* The recommended row holds the green: tinted, so the eye lands where the
-   argument does. */
-.cms-row--best { background: #f3faec; }
+/* The recommended row is the solid one: the brand's navy under white type,
+   so the eye lands where the argument does. Its icon and tag keep the green. */
+.cms-row--best { --best: #143c66; --best-hover: #1a4a7c; background: var(--best); }
+.cms-row--best:hover { background: var(--best-hover); }
+.cms-row--best .cms-name h3 { color: #fff; }
+.cms-row--best .cms-sub { color: rgba(226, 238, 252, .78); }
+.cms-row--best .cms-text p { color: rgba(226, 238, 252, .86); }
+.cms-row--best .cms-text strong,
+.cms-row--best .cms-text .cms-punch { color: #fff; }
 .cms-row--best .cms-icon { background: var(--green); color: #143c1f; }
+.cms-row--best:hover .cms-icon { background: #fff; color: var(--navy); }
 .cms-row--best .compare-tag { background: var(--green); color: #14300a; }
-.cms-row--best:hover { background: #eaf5df; }
 
 /* The rows arrive one after the other. */
 @media (prefers-reduced-motion: no-preference) {
