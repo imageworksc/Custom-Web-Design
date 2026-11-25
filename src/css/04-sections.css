@@ -165,10 +165,10 @@
    touch" and taps the hero, the headline and a block, each filling in; then
    the finished page appears, ticked, holds, and the round starts over.
    Without motion everything simply shows. */
-.tb-page, .tb-tick, .tb-rays, .tb-r, .tb-final { transform-box: fill-box; transform-origin: center; }
+.tb-page, .tb-tick, .tb-rays, .tb-r, .tb-final, .tb-a4, .tb-pop, .tb-burst, .tb-disc, .tb-spark { transform-box: fill-box; transform-origin: center; }
 .tb-press { transform-box: fill-box; transform-origin: 30% 10%; }
 .tb-cursor { transform: translate(104px, 150px); }
-.tb-r, .tb-scan, .tb-who--hu { opacity: 0; }
+.tb-r, .tb-scan, .tb-who--hu, .tb-glow, .tb-burst, .tb-aiglow, .tb-spark { opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .tb-a1 { animation: tb-a1 8s var(--ease) infinite; }
   .tb-a2 { animation: tb-a2 8s var(--ease) infinite; }
@@ -190,13 +190,27 @@
   .tb-page { animation: tb-float 6s ease-in-out infinite; }
   .tb-tick { animation: tb-tick 8s var(--ease) infinite; }
   .tb-rays { animation: tb-rays 8s var(--ease) infinite; }
+  .tb-aiglow { animation: tb-aiglow 8s var(--ease) infinite; }
+  .tb-glow { animation: tb-glow 8s var(--ease) infinite; }
+  .tb-burst { animation: tb-burstk 8s ease-out infinite; }
+  .tb-pop { animation: tb-pop 8s var(--ease) infinite; }
+  .tb-disc { animation: tb-disc 8s var(--ease) infinite; }
+  .tb-spark { animation: tb-spark 8s var(--ease) infinite; }
+  .tb-spark--2 { animation-delay: .15s; }
+  .tb-spark--3 { animation-delay: .3s; }
   .offer-art:hover * { animation-play-state: paused; }
 }
 /* 1 · AI drafts: three pages, then the wireframe; all clear at the end */
 @keyframes tb-a1 { 0% { opacity: 0; transform: translateY(10px); } 6%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes tb-a2 { 0%, 5% { opacity: 0; transform: translateY(10px); } 11%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes tb-a3 { 0%, 10% { opacity: 0; transform: translateY(10px); } 16%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-@keyframes tb-a4 { 0%, 16% { opacity: 0; transform: translateY(10px); } 23%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+/* the wireframe arrives, is worked on, then grows off toward the finished page as it becomes it */
+@keyframes tb-a4 {
+  0%, 16%   { opacity: 0; transform: translateY(10px); }
+  23%, 60%  { opacity: 1; transform: none; }
+  66%, 100% { opacity: 0; transform: translate(70px, 0) scale(1.25); }
+}
+@keyframes tb-aiglow { 0% { opacity: 0; } 8%, 32% { opacity: 1; } 42%, 100% { opacity: 0; } }
 @keyframes tb-scan {
   0%, 20%   { opacity: 0; transform: translateY(0); }
   22%       { opacity: .8; transform: translateY(4px); }
@@ -225,11 +239,33 @@
 @keyframes tb-r1 { 0%, 40.5% { opacity: 0; transform: scale(.3); } 41% { opacity: 1; transform: scale(.4); } 48%, 100% { opacity: 0; transform: scale(1.6); } }
 @keyframes tb-r2 { 0%, 48% { opacity: 0; transform: scale(.3); } 48.5% { opacity: 1; transform: scale(.4); } 55%, 100% { opacity: 0; transform: scale(1.6); } }
 @keyframes tb-r3 { 0%, 55% { opacity: 0; transform: scale(.3); } 55.5% { opacity: 1; transform: scale(.4); } 62%, 100% { opacity: 0; transform: scale(1.6); } }
-/* 3 · ready: the finished page appears, ticked, and holds */
+/* while the hand works the wireframe glows, jumps at each tap, and the
+   first tap sends a ring out */
+@keyframes tb-glow { 0%, 36% { opacity: 0; } 41%, 58% { opacity: .9; } 63%, 100% { opacity: 0; } }
+@keyframes tb-burstk { 0%, 40.5% { opacity: 0; transform: scale(.3); } 41.5% { opacity: 1; transform: scale(.4); } 52%, 100% { opacity: 0; transform: scale(1.5); } }
+@keyframes tb-pop {
+  0%, 40%, 43%, 47.5%, 50.5%, 54.5%, 57.5%, 100% { transform: scale(1); }
+  41.2%, 48.7%, 55.7%                           { transform: scale(1.06); }
+}
+/* 3 · ready: the wireframe grows into the finished page, ticked; the disc
+   behind it lights and sparkles burst */
 @keyframes tb-final {
-  0%, 60%   { opacity: 0; transform: scale(.94) translateY(8px); }
-  67%, 93%  { opacity: 1; transform: none; }
+  0%, 59%   { opacity: 0; transform: translate(-198px, -12px) scale(.56); }
+  61%       { opacity: .7; }
+  68%, 93%  { opacity: 1; transform: none; }
   100%      { opacity: 0; }
+}
+@keyframes tb-disc {
+  0%, 60%   { transform: scale(.88); opacity: .55; }
+  69%       { transform: scale(1.06); opacity: 1; }
+  76%, 93%  { transform: scale(1); opacity: 1; }
+  100%      { transform: scale(.88); opacity: .55; }
+}
+@keyframes tb-spark {
+  0%, 67%   { opacity: 0; transform: scale(0) rotate(-40deg); }
+  72%       { opacity: 1; transform: scale(1.15) rotate(10deg); }
+  78%, 90%  { opacity: 1; transform: scale(1) rotate(0); }
+  96%, 100% { opacity: 0; transform: scale(0); }
 }
 @keyframes tb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes tb-tick {
