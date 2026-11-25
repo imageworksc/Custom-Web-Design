@@ -811,7 +811,7 @@ a { color: inherit; }
 
 /* The right half: the hero's ground, its three washes (green top left,
    brand blue top right, sky low and widest) over its hairline grid, so the
-   fitting room reads as part of the same page. */
+   drawing reads as part of the same page. */
 .offer-art {
   position: relative;
   display: grid;
@@ -843,119 +843,38 @@ a { color: inherit; }
 /* held to the band's slim height; the drawing scales inside the box */
 .offer-art svg { max-inline-size: 600px; max-block-size: 380px; }
 
-/* The cast: one character at a time, a new one every three seconds. Each
-   change lands with a squash, a hop and a puff; between changes they blink,
-   nod, and the screen hung beside them switches to their page. Behind
-   them the page's washes drift, a dot orbits the alcove, light crosses it and
-   sparkles twinkle. Without motion they stand still in the first outfit. */
-.ch-fit { opacity: 0; }
-.ch-fit--1 { opacity: 1; }
-.ch-hop, .ch-puff { transform-box: view-box; }
-.ch-head, .ch-eyes { transform-box: fill-box; }
-.ch-hop  { transform-origin: 258px 398px; }
-.ch-head { transform-origin: 50% 100%; }
-.ch-eyes { transform-origin: center; }
-.ch-puff { transform-origin: 258px 230px; opacity: 0; }
-.ch-orbit { transform-box: view-box; transform-origin: 258px 172px; }
-.ch-screen { transform-box: view-box; transform-origin: 0 0; }
-.ch-spark, .ch-float { transform-box: fill-box; transform-origin: center; }
-
+/* Generic pages to wireframe to a finished custom homepage. The arrow draws
+   itself along and starts again, the hand moves over the wireframe, the
+   finished page floats and its tick pulses. Still without motion. */
+.tb-page, .tb-tick, .tb-cursor, .tb-rays { transform-box: fill-box; transform-origin: center; }
 @media (prefers-reduced-motion: no-preference) {
-  .ch-fit { animation: ch-fit 15s steps(1, end) infinite; opacity: 0; }
-  .ch-fit--2 { animation-delay: 3s; }
-  .ch-fit--3 { animation-delay: 6s; }
-  .ch-fit--4 { animation-delay: 9s; }
-  .ch-fit--5 { animation-delay: 12s; }
-  .ch-hop  { animation: ch-hop 3s ease-out infinite; }
-  .ch-puff { animation: ch-puff 3s ease-out infinite; }
-  .ch-head { animation: ch-nod 1.5s ease-in-out infinite alternate; }
-  .ch-eyes { animation: ch-blink 4s ease-in-out infinite; }
-  .ch-screen { animation: ch-sway 6s ease-in-out infinite alternate; }
-  .ch-screen__page { animation: ch-page 3s ease-in-out infinite; }
-  .ch-wash--g { animation: ch-drift-g 19s ease-in-out infinite alternate; }
-  .ch-wash--b { animation: ch-drift-b 23s ease-in-out infinite alternate; }
-  .ch-orbit { animation: ch-orbit 16s linear infinite; }
-  .ch-shine { animation: ch-shine 9s cubic-bezier(.45, 0, .55, 1) infinite; }
-  .ch-spark { animation: ch-twinkle 2.6s ease-in-out infinite; }
-  .ch-spark--2 { animation-delay: .9s; }
-  .ch-spark--3 { animation-delay: 1.7s; }
-  .ch-spark--4 { animation-delay: 1.2s; }
-  .ch-float { animation: ch-float 4.5s ease-in-out infinite alternate; }
-  .ch-float--2 { animation-delay: -1.5s; animation-duration: 5.5s; }
-  .ch-float--3 { animation-delay: -3s; animation-duration: 3.8s; }
+  .tb-arrow { stroke-dasharray: 260; animation: tb-draw 5s var(--ease) infinite; }
+  .tb-cursor { animation: tb-hand 5s ease-in-out infinite; }
+  .tb-page { animation: tb-float 6s ease-in-out infinite; }
+  .tb-tick { animation: tb-tick 5s var(--ease) infinite; }
+  .tb-rays { animation: tb-rays 5s var(--ease) infinite; }
   .offer-art:hover * { animation-play-state: paused; }
 }
-/* shown for its quarter of the loop, swapped in an instant (the puff covers it) */
-@keyframes ch-fit { 0% { opacity: 1; } 20%, 100% { opacity: 0; } }
-@keyframes ch-hop {
-  0%       { transform: scale(.9, 1.1); }
-  7%       { transform: scale(1.06, .95); }
-  14%, 94% { transform: scale(1, 1); }
-  100%     { transform: scale(.9, 1.1); }
+@keyframes tb-draw {
+  0%       { stroke-dashoffset: 260; }
+  45%, 90% { stroke-dashoffset: 0; }
+  100%     { stroke-dashoffset: -260; }
 }
-@keyframes ch-puff {
-  0%   { opacity: 0; transform: scale(.6); }
-  6%   { opacity: 1; transform: scale(1); }
-  22%, 100% { opacity: 0; transform: scale(1.25); }
+@keyframes tb-hand {
+  0%, 100% { transform: translate(0, 0); }
+  30%      { transform: translate(-30px, 34px); }
+  60%      { transform: translate(14px, 62px); }
 }
-@keyframes ch-nod { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
-@keyframes ch-blink { 0%, 44%, 50%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.1); } }
-/* on its cables, from the ceiling */
-@keyframes ch-sway { from { transform: translate(500px, 0) rotate(-1.4deg); } to { transform: translate(500px, 0) rotate(1.4deg); } }
-/* The characters themselves: the mascot in its five outfits, and moving
-   the way it does: a bob, shoes that step, hair that sways, a blink, a raised
-   eyebrow, the gesturing hand and the prop in the other arm. */
-.mc-bob, .mc-shoeL, .mc-shoeR, .mc-hair, .mc-lid, .mc-brow, .mc-armR, .mc-armL, .mc-shadow, .mc-ear, .mc-pet { transform-box: fill-box; }
-.mc-shadow { transform-origin: center; }
-.mc-ear { transform-origin: 50% 100%; }
-.mc-pet { transform-origin: 50% 100%; }
-.mc-hair { transform-origin: 50% 100%; }
-.mc-armR { transform-origin: 0% 70%; }
-.mc-armL { transform-origin: 100% 50%; }
-@media (prefers-reduced-motion: no-preference) {
-  .mc-bob   { animation: mc-bob 2.4s ease-in-out infinite; }
-  .mc-shoeL { animation: mc-shoe 2.4s ease-in-out infinite; }
-  .mc-shoeR { animation: mc-shoe 2.4s ease-in-out -1.2s infinite; }
-  .mc-hair  { animation: mc-hair 2.4s ease-in-out infinite; }
-  .mc-lid   { animation: mc-blink 4.6s linear infinite; }
-  .mc-brow  { animation: mc-brow 4.6s ease-in-out infinite; }
-  .mc-armR  { animation: mc-wave 4.6s ease-in-out infinite; }
-  .mc-armL  { animation: mc-prop 2.4s ease-in-out infinite; }
-  .mc-shadow { animation: mc-shadow 2.4s ease-in-out infinite; }
-  .mc-ear   { animation: mc-ear 2.6s ease-in-out infinite; }
-  .mc-ear--r { animation-delay: -.15s; }
-  .mc-pet   { animation: mc-pet 1.2s ease-in-out infinite; }
+@keyframes tb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes tb-tick {
+  0%, 40%, 100% { transform: scale(1); }
+  48%           { transform: scale(1.18); }
+  56%           { transform: scale(1); }
 }
-@keyframes mc-bob   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
-@keyframes mc-shoe  { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-@keyframes mc-hair  { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(2deg); } }
-@keyframes mc-blink { 0%, 91%, 100% { transform: translateY(0); } 94%, 96% { transform: translateY(46px); } }
-@keyframes mc-shadow { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.88); } }
-@keyframes mc-ear   { 0%, 78%, 100% { transform: rotate(0); } 84% { transform: rotate(-22deg); } 90% { transform: rotate(14deg); } }
-@keyframes mc-pet   { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.03); } }
-@keyframes mc-brow  { 0%, 40%, 70%, 100% { transform: translateY(0) rotate(0); } 48%, 62% { transform: translateY(-9px) rotate(-4deg); } }
-@keyframes mc-wave  { 0%, 38%, 72%, 100% { transform: rotate(0); } 44%, 56% { transform: rotate(-8deg); } 50%, 62% { transform: rotate(2deg); } }
-@keyframes mc-prop  { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-2deg); } }
-/* the page changes with a quick, quiet fade around the swap, so it can be
-   read for nearly all of its three seconds */
-@keyframes ch-page {
-  0%       { opacity: .15; }
-  7%, 95%  { opacity: 1; }
-  100%     { opacity: .15; }
+@keyframes tb-rays {
+  0%, 40%, 100% { opacity: 0; transform: scale(.7); }
+  50%, 70%      { opacity: 1; transform: scale(1); }
 }
-@keyframes ch-drift-g { from { transform: translate(0, 0); } to { transform: translate(40px, 34px); } }
-@keyframes ch-drift-b { from { transform: translate(0, 0); } to { transform: translate(-46px, 30px); } }
-@keyframes ch-orbit { to { transform: rotate(360deg); } }
-/* light crosses the alcove, then rests a while before the next pass */
-@keyframes ch-shine {
-  0%        { transform: skewX(-14deg) translateX(0); }
-  45%, 100% { transform: skewX(-14deg) translateX(720px); }
-}
-@keyframes ch-twinkle {
-  0%, 100% { transform: scale(.5) rotate(0deg); opacity: .3; }
-  50%      { transform: scale(1.15) rotate(45deg); opacity: 1; }
-}
-@keyframes ch-float { from { transform: translateY(-6px); } to { transform: translateY(6px); } }
 
 @media (min-width: 1101px) {
   .offer .btn-row { flex-wrap: nowrap; }
