@@ -792,7 +792,7 @@ a { color: inherit; }
 .offer {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  min-block-size: clamp(320px, 27vw, 400px);
+  min-block-size: clamp(260px, 22vw, 320px);
 }
 .offer-copy {
   display: flex;
@@ -841,15 +841,26 @@ a { color: inherit; }
 .offer-art svg { position: relative; inline-size: 100%; block-size: auto; overflow: visible; }
 
 /* held to the band's slim height; the drawing scales inside the box */
-.offer-art svg { max-inline-size: 600px; max-block-size: 380px; }
+.offer-art svg { max-inline-size: 560px; max-block-size: 300px; }
 
 /* Generic pages to wireframe to a finished custom homepage. The arrow draws
-   itself along and starts again, the hand moves over the wireframe, the
+   itself along and starts again, the hand clicks the wireframe into shape, the
    finished page floats and its tick pulses. Still without motion. */
-.tb-page, .tb-tick, .tb-cursor, .tb-rays { transform-box: fill-box; transform-origin: center; }
+.tb-page, .tb-tick, .tb-rays, .tb-r { transform-box: fill-box; transform-origin: center; }
+.tb-press { transform-box: fill-box; transform-origin: 0 0; }
+.tb-cursor { transform: translate(70px, 46px); }
+.tb-r { opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .tb-arrow { stroke-dasharray: 260; animation: tb-draw 5s var(--ease) infinite; }
-  .tb-cursor { animation: tb-hand 5s ease-in-out infinite; }
+  .tb-cursor { animation: tb-hand 6s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .tb-press { animation: tb-press 6s infinite; }
+  .tb-f { opacity: 0; }
+  .tb-f1 { animation: tb-f1 6s infinite; }
+  .tb-f2 { animation: tb-f2 6s infinite; }
+  .tb-f3 { animation: tb-f3 6s infinite; }
+  .tb-r1 { animation: tb-r1 6s ease-out infinite; }
+  .tb-r2 { animation: tb-r2 6s ease-out infinite; }
+  .tb-r3 { animation: tb-r3 6s ease-out infinite; }
   .tb-page { animation: tb-float 6s ease-in-out infinite; }
   .tb-tick { animation: tb-tick 5s var(--ease) infinite; }
   .tb-rays { animation: tb-rays 5s var(--ease) infinite; }
@@ -860,10 +871,25 @@ a { color: inherit; }
   45%, 90% { stroke-dashoffset: 0; }
   100%     { stroke-dashoffset: -260; }
 }
+/* the hand: in from below, to the hero, the headline, a block, and away */
 @keyframes tb-hand {
-  0%, 100% { transform: translate(0, 0); }
-  30%      { transform: translate(-30px, 34px); }
-  60%      { transform: translate(14px, 62px); }
+  0%        { transform: translate(104px, 156px); }
+  12%, 18%  { transform: translate(62px, 50px); }
+  33%, 40%  { transform: translate(47px, 86px); }
+  55%, 62%  { transform: translate(26px, 124px); }
+  80%, 100% { transform: translate(104px, 156px); }
+}
+@keyframes tb-press {
+  0%, 13%, 17%, 35%, 39%, 57%, 61%, 100% { transform: scale(1); }
+  15%, 37%, 59%                          { transform: scale(.8); }
+}
+/* each part fills in as it is clicked, and all clear before the next round */
+@keyframes tb-f1 { 0%, 15% { opacity: 0; } 20%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+@keyframes tb-f2 { 0%, 37% { opacity: 0; } 42%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+@keyframes tb-f3 { 0%, 59% { opacity: 0; } 64%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+@keyframes tb-r1 { 0%, 15% { opacity: 0; transform: scale(.3); } 16% { opacity: 1; transform: scale(.4); } 26%, 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes tb-r2 { 0%, 37% { opacity: 0; transform: scale(.3); } 38% { opacity: 1; transform: scale(.4); } 48%, 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes tb-r3 { 0%, 59% { opacity: 0; transform: scale(.3); } 60% { opacity: 1; transform: scale(.4); } 70%, 100% { opacity: 0; transform: scale(1.6); } }
 }
 @keyframes tb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @keyframes tb-tick {

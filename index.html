@@ -109,7 +109,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=f45204c2">
+<link rel="stylesheet" href="styles.css?v=458d38be">
 <script src="app.js?v=b11fe388"></script>
 </head>
 <body>
@@ -398,11 +398,12 @@
         </div>
         <!-- Try before you buy, as the work moves: the generic pages and
              templates on the left, the wireframe being worked on in the
-             middle, and the finished custom homepage on the right, ticked,
+             middle (a hand clicks its hero, headline and a block, and each fills
+             in), and the finished custom homepage on the right, ticked,
              with an arrow carrying one into the next. Drawn in the brand's
              navy, blue and green. -->
         <figure class="offer-art" role="img" aria-label="Generic template pages turn into a wireframe, then into a finished custom-designed homepage with a green check">
-          <svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" font-family="Plus Jakarta Sans, sans-serif">
+          <svg viewBox="10 22 590 336" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" font-family="Plus Jakarta Sans, sans-serif">
             <defs>
               <filter id="tb-soft" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#143c66" flood-opacity=".1"/></filter>
               <filter id="tb-lift" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#143c66" flood-opacity=".18"/></filter>
@@ -412,11 +413,9 @@
               <marker id="tb-head" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto" markerUnits="strokeWidth"><path d="M1 1.5L7 5L1 8.5" fill="none" stroke="#80c34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker>
               <clipPath id="tb-heroclip"><path d="M0 18H220V112H0z"/></clipPath>
             </defs>
-            <!-- the ground: a soft green disc behind the finished page, a dotted orbit, the swoosh along the foot -->
+            <!-- the ground: a soft green disc behind the finished page and a dotted orbit -->
             <circle cx="452" cy="200" r="150" fill="#eef6e6"/>
             <circle cx="452" cy="200" r="176" fill="none" stroke="#cfe3bd" stroke-width="1.4" stroke-dasharray="1 7" stroke-linecap="round"/>
-            <path d="M-200 396C40 372 200 398 380 372S600 322 800 300" fill="none" stroke="#1266b5" stroke-opacity=".18" stroke-width="2" stroke-linecap="round"/>
-            <path d="M-200 384C40 356 220 386 400 358S610 306 800 284" fill="none" stroke="#80c34a" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round"/>
 
             <!-- before: the generic pages, stacked -->
             <g transform="translate(26 136) rotate(-6)" opacity="0.55">
@@ -452,8 +451,17 @@
               <path d="M10 26l104 48M114 26L10 74" stroke="#dbe4ef"/>
               <rect x="10" y="84" width="74" height="5" rx="2" fill="#d4dde8"/><rect x="10" y="94" width="96" height="4" rx="2" fill="#e3e9f1"/>
               <rect x="10" y="108" width="32" height="32" rx="3" fill="none" stroke="#c3d1e1" stroke-dasharray="3 3"/><rect x="46" y="108" width="32" height="32" rx="3" fill="none" stroke="#c3d1e1" stroke-dasharray="3 3"/><rect x="82" y="108" width="32" height="32" rx="3" fill="none" stroke="#c3d1e1" stroke-dasharray="3 3"/>
-              <g class="tb-cursor" transform="translate(70 46)">
-                <path d="M0 0v18l5-4.6 3.4 7.6 3.4-1.5-3.4-7.4 6.6-.4z" fill="#fff" stroke="#143c66" stroke-width="1.6" stroke-linejoin="round"/>
+              <!-- what each click puts in: the hero, the headline, a block -->
+              <rect class="tb-f tb-f1" x="10" y="26" width="104" height="48" rx="3" fill="url(#tb-hero)"/>
+              <rect class="tb-f tb-f2" x="10" y="84" width="74" height="5" rx="2" fill="#143c66"/>
+              <rect class="tb-f tb-f3" x="10" y="108" width="32" height="32" rx="3" fill="#80c34a"/>
+              <circle class="tb-r tb-r1" cx="62" cy="50" r="12" fill="none" stroke="#80c34a" stroke-width="2"/>
+              <circle class="tb-r tb-r2" cx="47" cy="86" r="12" fill="none" stroke="#80c34a" stroke-width="2"/>
+              <circle class="tb-r tb-r3" cx="26" cy="124" r="12" fill="none" stroke="#80c34a" stroke-width="2"/>
+              <g class="tb-cursor">
+                <g class="tb-press">
+                  <path d="M0 0v18l5-4.6 3.4 7.6 3.4-1.5-3.4-7.4 6.6-.4z" fill="#fff" stroke="#143c66" stroke-width="1.6" stroke-linejoin="round"/>
+                </g>
               </g>
             </g>
 
