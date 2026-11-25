@@ -843,63 +843,87 @@ a { color: inherit; }
 /* held to the band's slim height; the drawing scales inside the box */
 .offer-art svg { max-inline-size: 560px; max-block-size: 300px; }
 
-/* Generic pages to wireframe to a finished custom homepage. The arrow draws
-   itself along and starts again, the hand clicks the wireframe into shape, the
-   finished page floats and its tick pulses. Still without motion. */
-.tb-page, .tb-tick, .tb-rays, .tb-r { transform-box: fill-box; transform-origin: center; }
-.tb-press { transform-box: fill-box; transform-origin: 0 0; }
-.tb-cursor { transform: translate(70px, 46px); }
-.tb-r { opacity: 0; }
+/* AI drafts, a person finishes. On an eight-second round: the generic pages
+   and the wireframe arrive one after another under an "AI draft" label, a
+   scan passing over the wireframe; then a hand comes in under "Human
+   touch" and taps the hero, the headline and a block, each filling in; then
+   the finished page appears, ticked, holds, and the round starts over.
+   Without motion everything simply shows. */
+.tb-page, .tb-tick, .tb-rays, .tb-r, .tb-final { transform-box: fill-box; transform-origin: center; }
+.tb-press { transform-box: fill-box; transform-origin: 30% 10%; }
+.tb-cursor { transform: translate(104px, 150px); }
+.tb-r, .tb-scan, .tb-who--hu { opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .tb-arrow { stroke-dasharray: 260; animation: tb-draw 5s var(--ease) infinite; }
-  .tb-cursor { animation: tb-hand 6s cubic-bezier(.45, 0, .25, 1) infinite; }
-  .tb-press { animation: tb-press 6s infinite; }
+  .tb-a1 { animation: tb-a1 8s var(--ease) infinite; }
+  .tb-a2 { animation: tb-a2 8s var(--ease) infinite; }
+  .tb-a3 { animation: tb-a3 8s var(--ease) infinite; }
+  .tb-a4 { animation: tb-a4 8s var(--ease) infinite; }
+  .tb-scan { animation: tb-scan 8s linear infinite; }
+  .tb-who--ai { animation: tb-ai 8s var(--ease) infinite; }
+  .tb-who--hu { animation: tb-hu 8s var(--ease) infinite; }
+  .tb-cursor { animation: tb-hand 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .tb-press { animation: tb-press 8s infinite; }
   .tb-f { opacity: 0; }
-  .tb-f1 { animation: tb-f1 6s infinite; }
-  .tb-f2 { animation: tb-f2 6s infinite; }
-  .tb-f3 { animation: tb-f3 6s infinite; }
-  .tb-r1 { animation: tb-r1 6s ease-out infinite; }
-  .tb-r2 { animation: tb-r2 6s ease-out infinite; }
-  .tb-r3 { animation: tb-r3 6s ease-out infinite; }
+  .tb-f1 { animation: tb-f1 8s infinite; }
+  .tb-f2 { animation: tb-f2 8s infinite; }
+  .tb-f3 { animation: tb-f3 8s infinite; }
+  .tb-r1 { animation: tb-r1 8s ease-out infinite; }
+  .tb-r2 { animation: tb-r2 8s ease-out infinite; }
+  .tb-r3 { animation: tb-r3 8s ease-out infinite; }
+  .tb-final { animation: tb-final 8s var(--ease) infinite; }
   .tb-page { animation: tb-float 6s ease-in-out infinite; }
-  .tb-tick { animation: tb-tick 5s var(--ease) infinite; }
-  .tb-rays { animation: tb-rays 5s var(--ease) infinite; }
+  .tb-tick { animation: tb-tick 8s var(--ease) infinite; }
+  .tb-rays { animation: tb-rays 8s var(--ease) infinite; }
   .offer-art:hover * { animation-play-state: paused; }
 }
-@keyframes tb-draw {
-  0%       { stroke-dashoffset: 260; }
-  45%, 90% { stroke-dashoffset: 0; }
-  100%     { stroke-dashoffset: -260; }
+/* 1 · AI drafts: three pages, then the wireframe; all clear at the end */
+@keyframes tb-a1 { 0% { opacity: 0; transform: translateY(10px); } 6%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes tb-a2 { 0%, 5% { opacity: 0; transform: translateY(10px); } 11%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes tb-a3 { 0%, 10% { opacity: 0; transform: translateY(10px); } 16%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes tb-a4 { 0%, 16% { opacity: 0; transform: translateY(10px); } 23%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes tb-scan {
+  0%, 20%   { opacity: 0; transform: translateY(0); }
+  22%       { opacity: .8; transform: translateY(4px); }
+  30%       { opacity: .8; transform: translateY(160px); }
+  31%, 100% { opacity: 0; transform: translateY(160px); }
 }
-/* the hand: in from below, to the hero, the headline, a block, and away */
+@keyframes tb-ai { 0%, 2% { opacity: 0; } 5%, 30% { opacity: 1; } 33%, 100% { opacity: 0; } }
+@keyframes tb-hu { 0%, 33% { opacity: 0; } 36%, 60% { opacity: 1; } 64%, 100% { opacity: 0; } }
+/* 2 · a person: the hand comes in and taps the hero, the headline, a block */
 @keyframes tb-hand {
-  0%        { transform: translate(104px, 156px); }
-  12%, 18%  { transform: translate(62px, 50px); }
-  33%, 40%  { transform: translate(47px, 86px); }
-  55%, 62%  { transform: translate(26px, 124px); }
-  80%, 100% { transform: translate(104px, 156px); }
+  0%, 32%   { transform: translate(120px, 170px); opacity: 0; }
+  36%       { opacity: 1; }
+  39%, 42%  { transform: translate(62px, 50px); }
+  47%, 49%  { transform: translate(47px, 86px); }
+  54%, 56%  { transform: translate(26px, 124px); }
+  62%       { transform: translate(120px, 170px); opacity: 1; }
+  65%, 100% { transform: translate(120px, 170px); opacity: 0; }
 }
 @keyframes tb-press {
-  0%, 13%, 17%, 35%, 39%, 57%, 61%, 100% { transform: scale(1); }
-  15%, 37%, 59%                          { transform: scale(.8); }
+  0%, 39.5%, 41.5%, 47%, 49%, 54%, 56%, 100% { transform: scale(1); }
+  40.5%, 48%, 55%                            { transform: scale(.82); }
 }
-/* each part fills in as it is clicked, and all clear before the next round */
-@keyframes tb-f1 { 0%, 15% { opacity: 0; } 20%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
-@keyframes tb-f2 { 0%, 37% { opacity: 0; } 42%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
-@keyframes tb-f3 { 0%, 59% { opacity: 0; } 64%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
-@keyframes tb-r1 { 0%, 15% { opacity: 0; transform: scale(.3); } 16% { opacity: 1; transform: scale(.4); } 26%, 100% { opacity: 0; transform: scale(1.6); } }
-@keyframes tb-r2 { 0%, 37% { opacity: 0; transform: scale(.3); } 38% { opacity: 1; transform: scale(.4); } 48%, 100% { opacity: 0; transform: scale(1.6); } }
-@keyframes tb-r3 { 0%, 59% { opacity: 0; transform: scale(.3); } 60% { opacity: 1; transform: scale(.4); } 70%, 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes tb-f1 { 0%, 40.5% { opacity: 0; } 44%, 93% { opacity: 1; } 99%, 100% { opacity: 0; } }
+@keyframes tb-f2 { 0%, 48% { opacity: 0; } 51%, 93% { opacity: 1; } 99%, 100% { opacity: 0; } }
+@keyframes tb-f3 { 0%, 55% { opacity: 0; } 58%, 93% { opacity: 1; } 99%, 100% { opacity: 0; } }
+@keyframes tb-r1 { 0%, 40.5% { opacity: 0; transform: scale(.3); } 41% { opacity: 1; transform: scale(.4); } 48%, 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes tb-r2 { 0%, 48% { opacity: 0; transform: scale(.3); } 48.5% { opacity: 1; transform: scale(.4); } 55%, 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes tb-r3 { 0%, 55% { opacity: 0; transform: scale(.3); } 55.5% { opacity: 1; transform: scale(.4); } 62%, 100% { opacity: 0; transform: scale(1.6); } }
+/* 3 · ready: the finished page appears, ticked, and holds */
+@keyframes tb-final {
+  0%, 60%   { opacity: 0; transform: scale(.94) translateY(8px); }
+  67%, 93%  { opacity: 1; transform: none; }
+  100%      { opacity: 0; }
 }
-@keyframes tb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes tb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes tb-tick {
-  0%, 40%, 100% { transform: scale(1); }
-  48%           { transform: scale(1.18); }
-  56%           { transform: scale(1); }
+  0%, 66%, 100% { transform: scale(1); }
+  70%           { transform: scale(1.2); }
+  74%           { transform: scale(1); }
 }
 @keyframes tb-rays {
-  0%, 40%, 100% { opacity: 0; transform: scale(.7); }
-  50%, 70%      { opacity: 1; transform: scale(1); }
+  0%, 67%, 100% { opacity: 0; transform: scale(.7); }
+  71%, 85%      { opacity: 1; transform: scale(1); }
 }
 
 @media (min-width: 1101px) {
